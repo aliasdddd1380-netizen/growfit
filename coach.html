@@ -1,0 +1,822 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="theme-color" content="#0f171f">
+<title>GrowFit</title>
+<link rel="icon" type="image/png" href="data:image/png;base64,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">
+<link rel="apple-touch-icon" href="data:image/png;base64,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">
+<link rel="manifest" href="manifest-coach.json">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-title" content="GrowFit">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<style>
+:root{--bg:#0f171f;--s1:#17222d;--s2:#1f2d3a;--s3:#2b3946;--line:#354a5d;--tx:#f4f7fa;--mut:#8fa2b4;--or:#ffffff;--or2:#cfe3f5;--ice:#6fb3e8;--amb:#ffb020;--ok:#4fd69c;--err:#ff6b6b}
+*{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+html,body{margin:0;background:var(--bg);color:var(--tx);font:15px/1.7 Vazirmatn,"Segoe UI",Tahoma,system-ui,sans-serif}
+body{padding-top:env(safe-area-inset-top)}
+#app{max-width:560px;margin:0 auto;padding-bottom:calc(96px + env(safe-area-inset-bottom))}
+h1,h2,h3,p{margin:0}
+h3{font-size:15px;margin-bottom:10px}
+.top{display:flex;align-items:center;gap:10px;padding:16px 16px 8px}
+.tt{flex:1;min-width:0}
+.tt h1{font-size:22px;font-weight:800;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.tt p{color:var(--mut);font-size:13px}
+.mk{display:flex;flex:none;width:40px;height:40px;align-items:center;justify-content:center}
+.ic{width:40px;height:40px;flex:none;border-radius:12px;border:1px solid var(--line);background:var(--s1);color:var(--tx);font-size:18px}
+.pad{padding:8px 16px}
+.card{background:var(--s1);border:1px solid var(--line);border-radius:16px;padding:14px;margin:0 0 12px}
+.card.tap{cursor:pointer}
+.card.tap:active{border-color:var(--or)}
+.rowb{display:flex;align-items:center;justify-content:space-between;gap:8px}
+.mut{color:var(--mut)}
+.sm{font-size:13px}
+.wrap{display:flex;flex-wrap:wrap;gap:8px;margin:8px 0}
+label{display:block;font-size:12.5px;color:var(--mut);margin:0 0 4px}
+.f{margin-bottom:10px}
+input,select,textarea{width:100%;background:var(--s2);border:1px solid var(--line);border-radius:10px;padding:10px;color:var(--tx);font:inherit;min-width:0}
+input:focus,select:focus,textarea:focus,button:focus-visible{outline:2px solid var(--or);outline-offset:1px}
+[data-n],.n{direction:ltr;text-align:center}
+textarea{resize:vertical}
+.g2{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.g3{display:grid;grid-template-columns:repeat(3,1fr);gap:10px}
+.g5{display:grid;grid-template-columns:repeat(5,1fr);gap:6px}
+.g5 input{padding:8px 4px;font-size:14px}
+.btn{display:block;width:100%;padding:13px;border-radius:12px;border:1px solid var(--line);background:var(--s2);color:var(--tx);font:inherit;font-weight:700;text-align:center;text-decoration:none;margin:0 0 10px;cursor:pointer}
+.btn.pri{background:var(--or);border-color:var(--or);color:var(--bg)}
+.btn.danger{color:var(--err)}
+.btn.sm{display:inline-block;width:auto;padding:7px 12px;font-size:13px;margin:0}
+.chip{display:inline-block;padding:2px 10px;border-radius:99px;background:var(--s3);font-size:12px;color:var(--mut)}
+.chip.or{background:rgba(255,255,255,.12);color:var(--or2)}
+.strip{display:flex;gap:8px;overflow-x:auto;padding:6px 16px 10px;scrollbar-width:none}
+.strip::-webkit-scrollbar{display:none}
+.tb{flex:none;padding:7px 14px;border-radius:99px;border:1px solid var(--line);background:var(--s1);color:var(--tx);font:inherit;font-size:14px}
+.tb.on{background:var(--or);border-color:var(--or);color:var(--bg);font-weight:700}
+.empty{padding:26px 14px;text-align:center;color:var(--mut)}
+.empty.sm{padding:12px}
+.bar{height:6px;background:var(--s3);border-radius:9px;overflow:hidden}
+.bar i{display:block;height:100%;background:var(--or)}
+.kv{display:flex;justify-content:space-between;padding:6px 0;border-bottom:1px solid var(--line)}
+.kv:last-of-type{border:0}
+.kv small{color:var(--mut);font-weight:400;margin-inline-start:4px}
+.macros{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-top:10px}
+.macros div{background:var(--s2);border-radius:12px;padding:8px;text-align:center;font-size:12.5px;color:var(--mut)}
+.macros b{display:block;font-size:17px;color:var(--or2)}
+.ex .name{font-weight:700;font-size:16px;background:transparent;border:0;border-bottom:1px solid var(--line);border-radius:0;padding:6px 0}
+.ex .acts{display:flex;gap:6px}
+.ex .acts button{width:34px;height:34px;border-radius:10px;border:1px solid var(--line);background:var(--s2);color:var(--tx)}
+.ex .acts .x{color:var(--err)}
+.srow{display:grid;grid-template-columns:minmax(34px,auto) 1fr 1fr 46px;gap:8px;align-items:center;margin-top:8px}
+.si{color:var(--mut);text-align:center}
+.shead{display:grid;grid-template-columns:minmax(34px,auto) 1fr 1fr 46px;gap:8px;font-size:12px;color:var(--mut);text-align:center;margin-top:10px}
+.ck{width:46px;height:46px;border-radius:50%;border:2px solid var(--line);background:transparent;color:transparent;font-size:22px;font-weight:800}
+.ck.on{background:var(--or);border-color:var(--or);color:var(--bg)}
+.rpe{display:grid;grid-template-columns:repeat(5,1fr);gap:8px;margin-bottom:10px}
+.rpe button{padding:11px 0;border-radius:12px;border:1px solid var(--line);background:var(--s2);color:var(--tx);font:inherit;font-weight:700}
+.rpe button.on{background:var(--or);border-color:var(--or);color:var(--bg)}
+.barnav{position:fixed;left:0;right:0;bottom:0;background:rgba(15,23,31,.96);border-top:1px solid var(--line);padding:6px 8px calc(6px + env(safe-area-inset-bottom));display:flex;gap:4px;max-width:560px;margin:0 auto}
+.barnav button{flex:1;padding:10px 0;border:0;background:transparent;color:var(--mut);font:inherit;font-size:13.5px;border-radius:10px;border-top:3px solid transparent}
+.barnav button.on{color:var(--or);border-top-color:var(--or);font-weight:700}
+.mrow{display:grid;grid-template-columns:84px 1fr 56px;gap:8px;align-items:center;font-size:13px;margin:7px 0}
+.mrow .nums{text-align:left;direction:ltr;color:var(--mut);font-size:12px}
+.tiles{display:grid;grid-template-columns:repeat(2,1fr);gap:10px;margin-bottom:12px}
+.tile{background:var(--s1);border:1px solid var(--line);border-radius:14px;padding:10px 12px}
+.tile b{display:block;font-size:19px}
+.tile span{font-size:12.5px;color:var(--mut)}
+.chart{width:100%;height:auto;display:block}
+.chart text{fill:#8fa2b4;font-size:9px}
+.scroll{overflow-x:auto}
+.heat{border-collapse:collapse;font-size:12px;width:100%}
+.heat th{font-weight:600;color:var(--mut);padding:4px 6px;text-align:center;white-space:nowrap}
+.heat td{padding:5px 6px;text-align:center;border:1px solid var(--s1);min-width:34px}
+.heat tr th:first-child{text-align:right;position:sticky;right:0;background:var(--s1)}
+.days{display:flex;gap:6px;margin-top:8px}
+.days div{flex:1;text-align:center;font-size:11px;color:var(--mut)}
+.days .bar{height:44px;display:flex;align-items:flex-end;margin-bottom:4px;border-radius:8px}
+.days .bar i{width:100%}
+.mealck{display:flex;gap:12px;align-items:center}
+.mealck .ck{flex:none;width:40px;height:40px;font-size:18px}
+.note{background:rgba(255,176,32,.1);border:1px solid rgba(255,176,32,.4);color:var(--amb);border-radius:12px;padding:10px 12px;font-size:13px;margin-bottom:12px}
+.hero{text-align:center;padding:44px 20px 10px}
+.hero svg{width:116px;height:116px}
+.hero h1{font-size:38px;margin-top:14px;letter-spacing:.5px}
+.hero p{color:var(--mut);margin:6px 0 26px}
+#timerpill{position:fixed;left:50%;transform:translateX(-50%);bottom:calc(76px + env(safe-area-inset-bottom));background:var(--s3);border:1px solid var(--or);color:var(--tx);border-radius:99px;padding:8px 8px 8px 18px;display:none;align-items:center;gap:12px;z-index:5;font-size:14px}
+#timerpill.show{display:flex}
+#timerpill.go{background:var(--or);color:var(--bg);font-weight:800}
+#timerpill button{border:0;border-radius:99px;padding:5px 12px;background:rgba(15,23,31,.35);color:inherit;font:inherit;font-size:12px}
+#toast{position:fixed;left:50%;top:calc(14px + env(safe-area-inset-top));transform:translate(-50%,-90px);background:var(--tx);color:var(--bg);border-radius:12px;padding:9px 18px;font-weight:700;font-size:14px;transition:transform .25s;z-index:9;max-width:90%;text-align:center}
+#toast.show{transform:translate(-50%,0)}
+.chip.sys{background:transparent;border:1px solid var(--sp,var(--ice));color:var(--sp,var(--ice))}
+.card.sk{border-right:3px solid var(--or)}
+.card.grp{border-right:3px solid var(--sp,var(--ice))}
+.sep{height:1px;background:var(--line);margin:14px 0}
+.si small{display:block;font-size:10px;line-height:1.2}
+.g5 label{font-size:11px;line-height:1.3;min-height:28px}
+.sg{display:flex;justify-content:space-between;align-items:center;gap:8px;background:var(--s2);border-radius:10px;padding:8px 10px;margin:6px 0;font-size:13px}
+.lnk{background:none;border:0;color:var(--or);font:inherit;font-size:13px;text-decoration:underline;padding:4px 6px}
+.fx{background:var(--s2);border:1px dashed var(--line);border-radius:12px;padding:10px 12px;margin:6px 0 10px}
+.fx p{margin:6px 0}
+@media (prefers-reduced-motion:reduce){#toast{transition:none}}
+</style>
+</head>
+<body>
+<div id="app"></div>
+<div id="timerpill"></div>
+<div id="toast"></div>
+<input type="file" id="file" accept=".json,.fitplan,application/json" hidden>
+<datalist id="lib"></datalist>
+<script>
+
+'use strict';
+/* ================= helpers ================= */
+const $=(s,e=document)=>e.querySelector(s);
+const FA='۰۱۲۳۴۵۶۷۸۹';
+const fa=n=>String(n==null?'':n).replace(/\d/g,d=>FA[d]);
+const en=s=>String(s==null?'':s).replace(/[۰-۹]/g,d=>FA.indexOf(d)).replace(/[٠-٩]/g,d=>d.charCodeAt(0)-1632).replace(/[٫,]/g,'.');
+const num=v=>{const x=parseFloat(en(v));return isNaN(x)?0:x};
+const esc=s=>String(s==null?'':s).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+const uid=()=>Math.random().toString(36).slice(2,8)+Date.now().toString(36).slice(-3);
+const r1=n=>Math.round(n*10)/10;
+const fnum=n=>fa(String(r1(n))).replace('.','٫');
+const pad=n=>String(n).padStart(2,'0');
+const iso=(d=new Date())=>d.getFullYear()+'-'+pad(d.getMonth()+1)+'-'+pad(d.getDate());
+const jdate=(s,o)=>new Intl.DateTimeFormat('fa-IR-u-ca-persian',o||{year:'numeric',month:'long',day:'numeric'}).format(new Date(s+'T12:00:00'));
+const addDays=(s,n)=>{const d=new Date(s+'T12:00:00');d.setDate(d.getDate()+n);return iso(d)};
+const clone=o=>JSON.parse(JSON.stringify(o));
+const firstNum=r=>num((String(en(r)).match(/\d+/)||[0])[0]);
+
+/* ================= data ================= */
+const MUSCLES=['سینه','پشت','شانه','جلوبازو','پشت‌بازو','ساعد','چهارسر','همسترینگ','سرینی','ساق','شکم','کمر','نزدیک‌کننده','کل بدن'];
+const LIB=[
+['پرس سینه هالتر','سینه','پشت‌بازو'],['پرس سینه دمبل','سینه','پشت‌بازو'],['پرس بالا سینه دمبل','سینه','شانه'],['فلای دمبل','سینه',''],['شنا','سینه','پشت‌بازو'],['دیپ پارالل','سینه','پشت‌بازو'],
+['لت پول‌داون','پشت','جلوبازو'],['بارفیکس','پشت','جلوبازو'],['پارویی هالتر','پشت','جلوبازو'],['پارویی دمبل تک‌دست','پشت','جلوبازو'],['پارویی سیم‌کش نشسته','پشت','جلوبازو'],
+['ددلیفت','همسترینگ','سرینی'],['ددلیفت رومانیایی','همسترینگ','سرینی'],
+['پرس سرشانه دمبل','شانه','پشت‌بازو'],['نشر جانب','شانه',''],['نشر خم','شانه','پشت'],['فیس‌پول','شانه','پشت'],
+['جلوبازو هالتر','جلوبازو',''],['جلوبازو چکشی','جلوبازو','ساعد'],['پشت‌بازو سیم‌کش','پشت‌بازو',''],['پشت‌بازو خوابیده','پشت‌بازو',''],
+['اسکوات هالتر','چهارسر','سرینی'],['اسکوات جلو','چهارسر','سرینی'],['اسکوات بلغاری','چهارسر','سرینی'],['لانج','چهارسر','سرینی'],['پرس پا','چهارسر','سرینی'],['جلوپا دستگاه','چهارسر',''],
+['پشت‌پا دستگاه','همسترینگ',''],['نوردیک کرل','همسترینگ',''],['هیپ‌تراست','سرینی','همسترینگ'],['پل سرینی','سرینی','همسترینگ'],
+['ساق ایستاده','ساق',''],['ساق نشسته','ساق',''],
+['پلانک','شکم',''],['کرانچ سیم‌کش','شکم',''],['بالا آوردن پا آویزان','شکم',''],['ددباگ','شکم',''],['هایپراکستنشن','کمر','سرینی'],
+['کلمشل','سرینی',''],['راه رفتن جانبی با کش','سرینی',''],['ادداکتور دستگاه','نزدیک‌کننده',''],['کپنهیگن پلانک','نزدیک‌کننده','شکم'],
+['TRX رو','پشت','جلوبازو'],['TRX شنا','سینه','پشت‌بازو'],['TRX اسکوات تک‌پا','چهارسر','سرینی'],['TRX فال‌اوت','شکم',''],
+['جامپ اسکوات','چهارسر','سرینی'],['پرش جعبه','چهارسر','سرینی'],['چابکی با مخروط','کل بدن',''],['شاتل‌ران','کل بدن',''],['کاردیو تداومی','کل بدن','']
+];
+const ANOM={
+'کایفوز (قوز پشتی)':[['فیس‌پول',3,'15'],['کشش قفسه سینه کنار چارچوب در',2,'30 ثانیه'],['اکستنشن ستون فقرات روی فوم‌رولر',2,'10'],['بالا بردن Y دمر',3,'12']],
+'لوردوز (گودی کمر)':[['کشش جلوی ران و خم‌کننده لگن',2,'30 ثانیه'],['ددباگ',3,'10'],['پل سرینی',3,'15'],['پلانک',3,'30 ثانیه']],
+'شانه گرد':[['باند پول‌آپارت',3,'15'],['اسلاید دیواری',3,'10'],['کشش قفسه سینه کنار چارچوب در',2,'30 ثانیه']],
+'سر به جلو':[['چین تاک',3,'10'],['کشش ذوزنقه فوقانی',2,'30 ثانیه'],['فیس‌پول',3,'15']],
+'زانوی ضربدری (والگوس)':[['کلمشل',3,'15'],['راه رفتن جانبی با کش',3,'12 قدم'],['پل سرینی',3,'15'],['اسکوات با کش دور زانو',3,'12']],
+'زانوی پرانتزی (واروس)':[['کشش نوار ایلیوتیبیال',2,'30 ثانیه'],['تقویت سرینی میانی',3,'15'],['تقویت نزدیک‌کننده ران',3,'12']],
+'پای صاف':[['تمرین پای کوتاه (Short Foot)',3,'10'],['بالا رفتن روی پنجه',3,'15'],['جمع کردن حوله با انگشتان پا',2,'15']],
+'چرخش قدامی لگن':[['کج‌کردن لگن به عقب',3,'12'],['کشش خم‌کننده لگن',2,'30 ثانیه'],['ددباگ',3,'10']],
+'اسکولیوز (کج‌پشتی)':[['پلانک جانبی',3,'20 ثانیه'],['برد داگ',3,'10'],['ارجاع به متخصص طبق نظر پزشک',1,'—']]
+};
+const ANOMN=Object.keys(ANOM);
+const GOALS={cut:'کاهش چربی',keep:'حفظ وزن',bulk:'افزایش حجم'};
+const ACTS=[['1','کم‌تحرک'],['2','سبک (۱ تا ۳ روز در هفته)'],['3','متوسط (۳ تا ۵ روز)'],['4','زیاد (۶ تا ۷ روز)']];
+
+const rnd=v=>Math.round(v*2)/2;
+const NUMF=['sets','weight','rest','dist','work','x','p','ir'];
+const LETTERS='ABCDEF'.split('');
+const GRPX=[['ir','استراحت بین حرکت‌های گروه (ث)',0]];
+const SYS={
+ st:{n:'ست عادی',g:0,d:{sets:3,reps:'8-12',tempo:'3-1-1-0',rest:90},h:'ست‌های معمولی با استراحت ثابت بین ست‌ها.'},
+ ss:{n:'سوپرست',g:2,d:{sets:3,reps:'10',tempo:'2-0-1-0',rest:90},x:GRPX,h:'دو حرکت پشت سر هم بدون استراحت (معمولاً عضلات مخالف). استراحت فقط بعد از حرکت آخر گروه.'},
+ ts:{n:'تری‌ست',g:3,d:{sets:3,reps:'12',tempo:'2-0-1-0',rest:120},x:GRPX,h:'سه حرکت پشت سر هم برای یک عضله یا گروه عضلانی.'},
+ gs:{n:'جاینت‌ست',g:4,d:{sets:3,reps:'12',tempo:'2-0-1-0',rest:150},x:GRPX,h:'چهار حرکت یا بیشتر پشت سر هم برای یک عضله.'},
+ pe:{n:'پیش‌خستگی',g:2,d:{sets:3,reps:'12',tempo:'2-0-1-0',rest:120},x:GRPX,h:'اول حرکت تک‌مفصلی، بلافاصله حرکت چندمفصلی برای همان عضله.'},
+ po:{n:'پس‌خستگی',g:2,d:{sets:3,reps:'10',tempo:'2-0-1-0',rest:120},x:GRPX,h:'اول حرکت چندمفصلی، بلافاصله حرکت تک‌مفصلی.'},
+ cir:{n:'سیرکوئیت (دایره‌ای)',g:5,d:{sets:3,reps:'12',tempo:'',rest:90},x:[['ir','استراحت بین ایستگاه‌ها (ث)',20]],h:'چند حرکت پشت سر هم به‌صورت دور؛ تعداد ست یعنی تعداد دورها.'},
+ ds:{n:'دراپ‌ست',g:0,d:{sets:3,reps:'تا ناتوانی',tempo:'2-0-1-0',rest:120},x:[['x','تعداد دراپ',2],['p','کاهش وزنه در هر دراپ (٪)',20]],h:'ست اصلی تا ناتوانی؛ بدون استراحت وزنه را کم کن و ادامه بده.'},
+ rp:{n:'ریست‌پاز',g:0,d:{sets:2,reps:'تا ناتوانی',tempo:'',rest:150},x:[['x','تعداد مینی‌ست',2],['ir','استراحت بین مینی‌ست‌ها (ث)',15]],h:'ست اصلی تا ناتوانی، چند ثانیه استراحت کوتاه، سپس مینی‌ست‌های اضافه با همان وزنه.'},
+ cl:{n:'کلاستر',g:0,d:{sets:3,reps:'3',tempo:'',rest:150},x:[['x','تعداد خوشه در هر ست',4],['ir','استراحت بین خوشه‌ها (ث)',20]],h:'هر ست به چند خوشه کوتاه با وزنه سنگین تقسیم می‌شود.'},
+ py:{n:'پیرامیدی (افزایشی)',g:0,d:{reps:'12-10-8-6',tempo:'',rest:120},x:[['p','افزایش وزنه در هر ست (٪)',10]],h:'تکرار هر ست را با خط تیره بنویس (مثلاً ۱۲-۱۰-۸-۶)؛ تعداد ست‌ها خودکار است و وزنه ست‌ها بالا می‌رود.'},
+ rpy:{n:'پیرامید معکوس',g:0,d:{reps:'6-8-10-12',tempo:'',rest:120},x:[['p','کاهش وزنه در هر ست (٪)',10]],h:'از سنگین‌ترین ست شروع می‌کنی؛ وزنه کم و تکرار بیشتر می‌شود. تکرارها را با خط تیره بنویس.'},
+ s21:{n:'سیستم ۲۱',g:0,d:{sets:3,reps:'7+7+7',tempo:'',rest:120},h:'هر ست ۷ تکرار نیمه پایین، ۷ تکرار نیمه بالا و ۷ تکرار کامل بدون استراحت.'},
+ gvt:{n:'GVT ۱۰×۱۰',g:0,d:{sets:10,reps:'10',tempo:'3-0-1-0',rest:60},h:'۱۰ ست ۱۰ تکرار با استراحت کوتاه و وزنه حدود ۶۰٪ حداکثر.'},
+ f55:{n:'۵×۵ قدرتی',g:0,d:{sets:5,reps:'5',tempo:'',rest:180},h:'پنج ست پنج تکرار با وزنه سنگین و استراحت طولانی.'},
+ fl:{n:'تا ناتوانی',g:0,d:{sets:2,reps:'تا ناتوانی',tempo:'2-0-1-0',rest:120},h:'ست تا نقطه‌ای که دیگر تکرار تمیز ممکن نیست.'},
+ ng:{n:'نگاتیو (فاز منفی)',g:0,d:{sets:3,reps:'6',tempo:'5-1-1-0',rest:120},h:'فاز پایین‌آوردن وزنه را آهسته و کنترل‌شده انجام بده.'}
+};
+Object.assign(SYS,{
+ hiit:{n:'اینتروال HIIT',k:'int',g:0,d:{sets:8,work:30,rest:30,inten:'RPE 8'},h:'چند دور کار و استراحت؛ هر دور را تیک بزن و فشار (RPE) را بنویس.'},
+ tab:{n:'تاباتا',k:'int',g:0,d:{sets:8,work:20,rest:10,inten:'RPE 9'},h:'معمولاً ۸ دور، ۲۰ ثانیه کار و ۱۰ ثانیه استراحت.'},
+ emom:{n:'EMOM (هر دقیقه)',k:'int',g:0,d:{sets:10,work:40,rest:20,inten:'RPE 7'},h:'در شروع هر دقیقه کار را شروع کن؛ کار و استراحت روی هم ۶۰ ثانیه می‌شود.'},
+ bw:{n:'ست عادی TRX',k:'bw',g:0,d:{sets:3,reps:'10-15',tempo:'2-0-2-0',rest:60},h:'سختی را با زاویه بدن و جای پاها تنظیم کن؛ سطح ۱ ساده تا ۵ سخت.'},
+ bss:{n:'سوپرست TRX',k:'bw',g:2,d:{sets:3,reps:'12',tempo:'2-0-2-0',rest:60},x:GRPX,h:'دو حرکت TRX پشت سر هم بدون استراحت.'},
+ bcir:{n:'سیرکوئیت TRX',k:'bw',g:5,d:{sets:3,reps:'12',tempo:'',rest:60},x:[['ir','استراحت بین ایستگاه‌ها (ث)',15]],h:'چند ایستگاه TRX پشت سر هم؛ تعداد ست یعنی تعداد دورها.'},
+ bpy:{n:'پیرامیدی TRX',k:'bw',g:0,d:{reps:'6-8-10-12',tempo:'',rest:60},h:'تکرار هر ست را با خط تیره بنویس؛ تعداد ست‌ها خودکار است.'},
+ hold:{n:'ایستا (مدت)',k:'time',g:0,d:{sets:3,reps:'30',rest:45},h:'نگه داشتن یک حالت ثابت؛ مدت هر ست به ثانیه.'},
+ fstr:{n:'قدرت (باشگاه)',k:'str',g:0,d:{sets:4,reps:'5',tempo:'',rest:150},h:'ست‌های سنگین کم‌تکرار برای قدرت پا و بالاتنه.'},
+ fplyo:{n:'پلایومتریک',k:'plyo',g:0,d:{sets:3,reps:'6',rest:90},h:'پرش‌ها و حرکات انفجاری؛ تعداد تماس با زمین و ارتفاع (در صورت نیاز) را بنویس.'},
+ fspd:{n:'سرعت (اسپرینت)',k:'dist',g:0,d:{sets:6,dist:20,inten:'۹۵٪',rest:90},h:'دویدن‌های کوتاه با شدت بالا و استراحت کامل؛ شاگرد زمان هر تکرار را ثبت می‌کند.'},
+ frsa:{n:'تکرار اسپرینت (RSA)',k:'dist',g:0,d:{sets:6,dist:30,inten:'حداکثر',rest:20},h:'اسپرینت‌های پشت سر هم با استراحت کوتاه برای توان تکرار سرعت.'},
+ fagi:{n:'چابکی و تغییر جهت',k:'time',g:0,d:{sets:4,reps:'10',rest:60},h:'درِیل‌های چابکی؛ نام درِیل را در نام حرکت بنویس و مدت هر تکرار را به ثانیه.'},
+ fint:{n:'اینتروال هوازی',k:'int',g:0,d:{sets:6,work:30,rest:30,inten:'۹۰٪ ضربان'},h:'دورهای کار و استراحت برای آمادگی هوازی.'},
+ fssg:{n:'بازی کوچک (SSG)',k:'game',g:0,d:{sets:4,work:4,rest:2,inten:'RPE 7'},h:'مثلاً ۴ در ۴؛ تعداد نوبت، مدت هر نوبت و استراحت بین نوبت‌ها به دقیقه.'},
+ ftec:{n:'تمرین فنی و تاکتیکی',k:'game',g:0,d:{sets:3,work:10,rest:2,inten:'RPE 5'},h:'پاس، پرس، ضربه ثابت و ... ؛ شرح تمرین را در یادداشت بنویس.'},
+ fpre:{n:'پیشگیری از آسیب',k:'str',g:0,d:{sets:3,reps:'8',tempo:'',rest:60},h:'حرکات اصلاحی و محافظتی مثل نوردیک کرل و کپنهیگن.'}
+});
+const FB=['fstr','fplyo','fspd','frsa','fagi','fint','fssg','ftec','fpre'];
+const SPORTS={
+ body:{n:'بدنسازی',c:'#6fb3e8',h:'تمرین‌نویسی بر پایه ست، تکرار، وزنه و سیستم‌های بدنسازی.',sys:['st','ss','ts','gs','pe','po','ds','rp','cl','py','rpy','s21','gvt','f55','fl','ng','cir']},
+ fit:{n:'فیتنس و تناسب‌اندام',c:'#b7a4ff',h:'ترکیب ست‌های وزنه‌ای، سیرکوئیت و اینتروال.',sys:['st','ss','cir','hiit','tab','emom']},
+ trx:{n:'TRX',c:'#4fd69c',h:'تمرین با وزن بدن؛ به‌جای وزنه، سطح دشواری ۱ تا ۵ می‌نویسی.',sys:['bw','bss','bcir','bpy','hold','tab','emom']},
+ foot:{n:'فوتبال',c:'#8be04e',h:'تمرین در بخش‌های قدرت، پلایومتریک، سرعت، چابکی، اینتروال و بازی کوچک.',sys:FB},
+ fsal:{n:'فوتسال',c:'#ffb020',h:'مثل فوتبال، با مسافت‌ها و بازی‌های کوچک متناسب با زمین فوتسال.',sys:FB,dov:{fspd:{dist:15},frsa:{dist:20},fint:{sets:12,work:15,rest:15},fssg:{sets:5,work:3,rest:1}}}
+};
+const MUSK=['str','bw','plyo','time'];
+const KIND={
+ str:{n:'قدرتی',f:[['sets','ست'],['reps','تکرار'],['tempo','تمپو'],['weight','وزنه (kg)'],['rest','استراحت (ث)']],cols:['وزنه (kg)','تکرار'],p0:'kg'},
+ bw:{n:'وزن بدن',f:[['sets','ست'],['reps','تکرار'],['tempo','تمپو'],['weight','سطح (۱ تا ۵)'],['rest','استراحت (ث)']],cols:['سطح (۱ تا ۵)','تکرار'],p0:'سطح'},
+ plyo:{n:'پلایومتریک',f:[['sets','ست'],['reps','تماس'],['weight','ارتفاع (cm)'],['rest','استراحت (ث)']],cols:['ارتفاع (cm)','تماس'],p0:'cm'},
+ time:{n:'زمان‌دار',f:[['sets','ست'],['reps','مدت (ث)'],['weight','وزنه یا سطح'],['rest','استراحت (ث)']],cols:['وزنه یا سطح','مدت (ث)'],p0:''},
+ dist:{n:'سرعت و مسافت',f:[['sets','تعداد تکرار'],['dist','مسافت (m)'],['inten','شدت'],['rest','استراحت (ث)']],cols:['زمان (ث)','مسافت (m)'],p0:'ثانیه'},
+ int:{n:'اینتروال',f:[['sets','تعداد دور'],['work','کار (ث)'],['rest','استراحت (ث)'],['inten','شدت']],cols:['شدت (RPE)','کار (ث)'],p0:'RPE'},
+ game:{n:'بازی و تمرین گروهی',f:[['sets','تعداد نوبت'],['work','مدت نوبت (دقیقه)'],['rest','استراحت (دقیقه)'],['inten','شدت']],cols:['شدت (RPE)','مدت (دقیقه)'],p0:'RPE'}
+};
+const kindOf=e=>e.k||(SYS[e.sys]||SYS.st).k||'str';
+LIB.push(
+['اسپرینت ۱۰ متر','کل بدن','','f'],['اسپرینت ۲۰ متر','کل بدن','','f'],['اسپرینت ۳۰ متر','کل بدن','','f'],['اسپرینت ۴۰ متر','کل بدن','','f'],['شاتل‌ران ۲۰ متر','کل بدن','','f'],['نردبان چابکی','کل بدن','','f'],['تغییر جهت ۴۵ درجه','کل بدن','','f'],['مخروط ۵-۱۰-۵','کل بدن','','f'],['پرش عمقی','چهارسر','سرینی','f'],['پرش طول ثابت','چهارسر','سرینی','f'],['لانج پرشی','چهارسر','سرینی','f'],['پرش تک‌پا','چهارسر','سرینی','f'],['بازی کوچک ۳ در ۳','کل بدن','','f'],['بازی کوچک ۴ در ۴','کل بدن','','f'],['بازی کوچک ۵ در ۵','کل بدن','','f'],['تمرین پاس و حرکت','کل بدن','','f'],['پرس و فشار روی توپ','کل بدن','','f'],['ضربه به دروازه','کل بدن','','f'],
+['TRX سه‌سر','پشت‌بازو','','t'],['TRX جلوبازو','جلوبازو','','t'],['TRX پل سرینی','سرینی','همسترینگ','t'],['TRX ددلیفت تک‌پا','همسترینگ','سرینی','t'],['TRX لانج','چهارسر','سرینی','t'],['TRX پلانک','شکم','','t'],['TRX کوهنورد','شکم','کل بدن','t'],['TRX پایک','شکم','شانه','t'],['TRX فلای سینه','سینه','شانه','t'],['TRX نشر جانب','شانه','','t'],
+['برپی','کل بدن','','c'],['طناب‌زنی','کل بدن','','c'],['کوهنورد','شکم','کل بدن','c'],['پرش ستاره‌ای','کل بدن','','c'],['اسکوات هوایی','چهارسر','سرینی','c']
+);
+const LIBTAGS={body:[],fit:['c','t'],trx:['t','c'],foot:['f'],fsal:['f']};
+const libFor=sk=>LIB.filter(l=>!l[3]||(LIBTAGS[sk]||[]).indexOf(l[3])>=0);
+/* ================= storage ================= *//* ================= storage ================= */
+const BUILD='full'; /* full = مربی و شاگرد | student = فقط شاگرد */
+const KEY=BUILD==='student'?'growfit_student_v2':'growfit_full_v2';
+const fresh=()=>({role:null,pin:null,clients:[],student:{cid:null,profile:null,plan:null,diet:null,corr:null,logs:{},weights:[],dietLog:{},start:null,trial:{}}});
+function load(){
+ try{const d=JSON.parse(localStorage.getItem(KEY));if(d&&d.student)return d}catch(e){}
+ try{const o=JSON.parse(localStorage.getItem('fitplan_v1'));if(o&&o.student){const f=fresh();if(BUILD==='student')f.student=o.student;else Object.assign(f,o);return f}}catch(e){}
+ return fresh();
+}
+let DB=load();
+DB.student.trial=DB.student.trial||{};
+if(BUILD==='student'){DB.role='student';DB.clients=[];DB.pin=null}else{DB.role=null}
+function save(){try{localStorage.setItem(KEY,JSON.stringify(DB))}catch(e){toast('ذخیره نشد؛ حافظه مرورگر پر یا بسته است')}}
+const UI={unlocked:false,fails:0,lockUntil:0,screen:null,cid:null,ctab:'profile',w:0,d:0,sTab:'train',date:iso(),aw:0,aex:''};
+const C=()=>DB.clients.find(c=>c.id===UI.cid);
+const S=()=>DB.student;
+function setPath(path,val){const k=path.split('.');let o=k[0]==='c'?C():S();for(let i=1;i<k.length-1;i++)o=o[k[i]];o[k[k.length-1]]=val;save()}
+function bnd(el){let v=el.value;if(el.dataset.n)v=v===''?'':num(v);setPath(el.dataset.p,v);if(el.dataset.r)render()}
+
+/* ================= calculations ================= */
+function metrics(p){
+ const w=num(p.weight),h=num(p.height),a=num(p.age);if(!w||!h||!a)return null;
+ const bmi=w/Math.pow(h/100,2);
+ const bmr=10*w+6.25*h-5*a+(p.sex==='f'?-161:5);
+ const tdee=bmr*({'1':1.2,'2':1.375,'3':1.55,'4':1.725}[p.activity]||1.375);
+ const kcal=tdee*(1+({cut:-0.2,keep:0,bulk:0.1}[p.goal]||0));
+ const pr=w*(p.goal==='cut'?2.2:1.8),f=kcal*0.25/9,c=Math.max(0,(kcal-pr*4-f*9)/4);
+ const whr=(num(p.waist)&&num(p.hip))?num(p.waist)/num(p.hip):null;
+ return{bmi,bmr,tdee,kcal,p:pr,f,c,whr};
+}
+const bmiCat=b=>b<18.5?'کم‌وزن':b<25?'نرمال':b<30?'اضافه‌وزن':'چاقی';
+const repsList=e=>(String(en(e.reps)).match(/\d+/g)||[]).map(Number);
+const isPy=e=>e.sys==='py'||e.sys==='rpy'||e.sys==='bpy';
+function nSets(e){return isPy(e)?(repsList(e).length||1):Math.max(1,num(e.sets)||1)}
+function slotsOf(e,W){
+ const o=[],push=(set,step,lab,cap,w,r,rest)=>o.push({set,step,lab,cap,w,r,rest});
+ const n=nSets(e),RS=num(e.rest),r0=firstNum(e.reps),sys=e.sys||'st';
+ const dw=f=>W?rnd(W*f):'';
+ const lb=(st,i,j)=>st>1?fa(i+1)+'.'+fa(j+1):fa(i+1);
+ if(sys==='py'||sys==='rpy'||sys==='bpy'){const arr=repsList(e),p=num(e.p)||10;(arr.length?arr:[8]).forEach((r,i)=>push(i,0,fa(i+1),'',sys==='bpy'?'':dw(Math.pow(1+p/100,sys==='py'?i:-i)),r,RS));return o}
+ if(sys==='s21'){for(let i=0;i<n;i++)['پایین','بالا','کامل'].forEach((c,j)=>push(i,j,lb(3,i,j),c,dw(1),7,j<2?0:RS));return o}
+ if(sys==='ds'){const st=1+(num(e.x)||2),p=num(e.p)||20;for(let i=0;i<n;i++)for(let j=0;j<st;j++)push(i,j,lb(st,i,j),j?'دراپ':'',dw(Math.pow(1-p/100,j)),r0,j<st-1?0:RS);return o}
+ if(sys==='rp'){const st=1+(num(e.x)||2),ir=num(e.ir)||15;for(let i=0;i<n;i++)for(let j=0;j<st;j++)push(i,j,lb(st,i,j),j?'مینی‌ست':'',dw(1),j?'':r0,j<st-1?ir:RS);return o}
+ if(sys==='cl'){const st=num(e.x)||4,ir=num(e.ir)||20;for(let i=0;i<n;i++)for(let j=0;j<st;j++)push(i,j,lb(st,i,j),'خوشه',dw(1),r0,j<st-1?ir:RS);return o}
+ const k=kindOf(e),RS2=k==='game'?num(e.rest)*60:RS;
+ const w0=k==='str'?(W||''):(MUSK.indexOf(k)>=0?(num(e.weight)||''):'');
+ const r=k==='dist'?num(e.dist):(k==='int'||k==='game')?num(e.work):r0;
+ for(let i=0;i<n;i++)push(i,0,fa(i+1),'',w0,r,RS2);
+ return o;
+}
+function doneSetCount(e,arr){const seen={};slotsOf(e,0).forEach((z,i)=>{if(arr&&arr[i]&&arr[i].d)seen[z.set]=1});return Object.keys(seen).length}
+function dayBlocks(day){const seen={},out=[];day.ex.forEach(e=>{if(e.g){if(seen[e.g])return;seen[e.g]=1;out.push(day.ex.filter(x=>x.g===e.g))}else out.push([e])});return out}
+const e1rm=(w,r)=>w*(1+Math.min(r,12)/30);
+function repsT(e){const t=repsList(e);return t.length?Math.round(t.reduce((a,b)=>a+b,0)/t.length):10}
+function sugg(e,wi){
+ const s=S(),p=s.plan;if(!p||!e.name||kindOf(e)!=='str')return null;
+ let tb=null,lb=null;const tr=(s.trial||{})[e.name];
+ if(tr&&num(tr.w)>0&&num(tr.r)>0)tb={E:e1rm(num(tr.w),num(tr.r)),wb:num(tr.wk),date:tr.date||'',src:'trial',bw:num(tr.w),br:Math.min(num(tr.r),12)};
+ for(let w=0;w<wi&&w<p.weeks.length;w++){
+  let top=null;
+  p.weeks[w].forEach((day,di)=>{const L=s.logs[w+'-'+di];if(!L)return;day.ex.forEach(x=>{if(x.name!==e.name||kindOf(x)!=='str')return;(L.sets[x.id]||[]).forEach(z=>{if(z&&z.d&&num(z.w)>0&&num(z.r)>0){const E=e1rm(num(z.w),num(z.r));if(!top||E>top.E)top={E,wb:w,date:L.date||'',src:'log',bw:num(z.w),br:Math.min(num(z.r),12)}}})})});
+  if(top)lb=top;
+ }
+ let best=lb||tb;if(lb&&tb&&tb.date>lb.date)best=tb;
+ if(!best)return null;
+ const TR=repsT(e),RIR=(p.rir==null||p.rir==='')?2:num(p.rir),pct=(p.prog==null||p.prog==='')?2.5:num(p.prog);
+ const W0=best.E/(1+(TR+RIR)/30),steps=Math.max(0,wi-best.wb);
+ let W=W0*Math.pow(1+pct/100,steps);
+ const dl=num(p.dl);let dlf=1;if(dl>1&&(wi+1)%dl===0){dlf=0.9;W*=dlf}
+ return{w:rnd(W),W0,E:best.E,TR,RIR,steps,pct,dlf,src:best.src,bw:best.bw,br:best.br,wb:best.wb};
+}
+const effW=(e,wi)=>{if(num(e.weight))return num(e.weight);if(kindOf(e)!=='str')return 0;const g=sugg(e,wi);return g?g.w:0};
+function calc(plan,logs){
+ return plan.weeks.map((wk,wi)=>{
+  const r={pl:{},dn:{},ton:0,dist:0,jump:0,cond:0,srpe:0,rp:[],ses:0,ps:0,ds:0};
+  const add=(o,m,x)=>{if(m)o[m]=(o[m]||0)+x};
+  wk.forEach((day,di)=>{
+   const L=logs[wi+'-'+di];
+   if(L&&L.fin){r.ses++;if(L.rpe){r.rp.push(L.rpe);r.srpe+=L.rpe*(L.min||0)}}
+   day.ex.forEach(e=>{
+    const k=kindOf(e),n=nSets(e),arr=(L&&L.sets[e.id])||[],mus=MUSK.indexOf(k)>=0;
+    if(mus){add(r.pl,e.m,n);add(r.pl,e.s,n*.5)}
+    r.ps+=n;
+    arr.forEach(x=>{if(!x||!x.d)return;
+     if(k==='str')r.ton+=num(x.w)*num(x.r);
+     else if(k==='dist')r.dist+=num(x.r);
+     else if(k==='plyo')r.jump+=num(x.r);
+     else if(k==='int')r.cond+=num(x.r)/60;
+     else if(k==='game')r.cond+=num(x.r)});
+    const d=doneSetCount(e,arr);if(mus){add(r.dn,e.m,d);add(r.dn,e.s,d*.5)}r.ds+=d;
+   });
+  });
+  r.rpe=r.rp.length?r.rp.reduce((a,b)=>a+b,0)/r.rp.length:null;
+  return r;
+ });
+}
+function adh(dietLog,start,meals,date){
+ if(!meals.length||(start&&date<start)||date>iso())return null;
+ const rec=dietLog[date];const n=rec?Object.values(rec.m||{}).filter(Boolean).length:0;
+ return n/meals.length;
+}
+function adhWeek(dietLog,start,meals){
+ const v=[];for(let i=6;i>=0;i--){v.push(adh(dietLog,start,meals,addDays(iso(),-i)))}
+ const ok=v.filter(x=>x!==null);return{days:v,avg:ok.length?ok.reduce((a,b)=>a+b,0)/ok.length:null};
+}
+function normPhone(p){let s=en(p).replace(/\D/g,'');if(s.startsWith('0098'))s=s.slice(2);else if(s.startsWith('09'))s='98'+s.slice(1);else if(s.startsWith('9')&&s.length===10)s='98'+s;return s}
+
+/* ================= ui helpers ================= */
+const fld=(l,h)=>`<div class="f"><label>${l}</label>${h}</div>`;
+const inp=(p,v,o={})=>`<input data-p="${p}"${o.n?' data-n="1" inputmode="decimal"':''}${o.ph?` placeholder="${esc(o.ph)}"`:''}${o.list?' list="lib"':''}${o.cls?` class="${o.cls}"`:''}${o.r?' data-r="1" onchange="bnd(this)"':' oninput="bnd(this)"'}${o.ex?' '+o.ex:''} value="${esc(v)}">`;
+const sel=(p,v,opts,r)=>`<select data-p="${p}"${r?' data-r="1"':''} onchange="bnd(this)">${opts.map(([a,b])=>`<option value="${a}"${String(v)===String(a)?' selected':''}>${b}</option>`).join('')}</select>`;
+const area=(p,v,ph)=>`<textarea data-p="${p}" rows="2" placeholder="${esc(ph||'')}" oninput="bnd(this)">${esc(v)}</textarea>`;
+const shell=(t,sub,body,nav,back)=>`<header class="top">${back?`<button class="ic" onclick="${back}" aria-label="بازگشت">→</button>`:`<span class="mk">${MARK}</span>`}<div class="tt"><h1>${t}</h1>${sub?`<p>${sub}</p>`:''}</div><button class="ic" onclick="go({screen:'settings'})" aria-label="تنظیمات">⚙</button></header>${body}${nav||''}`;
+function toast(m){const t=$('#toast');t.textContent=m;t.className='show';clearTimeout(toast.h);toast.h=setTimeout(()=>t.className='',2400)}
+const go=o=>{Object.assign(UI,o);render(false);scrollTo(0,0)};
+function render(keep=true){
+ const y=scrollY,sk=(DB.role==='coach'?(C()&&C().sport):(S().profile&&S().profile.sport))||'body',sp=SPORTS[sk]||SPORTS.body;
+ const st=$('#app').style;st.setProperty('--sp',sp.c);st.setProperty('--or',sk==='body'?'#ffffff':sp.c);
+ $('#lib').innerHTML=libFor(sk).map(l=>`<option value="${esc(l[0])}">`).join('');
+ $('#app').innerHTML=view();if(keep)scrollTo(0,y);
+}
+function view(){
+ if(DB.role==='coach'&&!UI.unlocked)return lockView();
+ if(UI.screen==='settings')return settingsView();
+ if(!DB.role)return roleView();
+ return DB.role==='coach'?(C()?clientView(C()):clientsView()):studentView();
+}
+
+/* ================= charts ================= */
+function line(series,o={}){
+ const n=Math.max.apply(null,series.map(s=>s.v.length));
+ const all=[].concat.apply([],series.map(s=>s.v.filter(v=>v!=null)));
+ if(!all.length)return '<div class="empty sm">هنوز داده‌ای ثبت نشده</div>';
+ const W=320,H=140,L=34,R=10,T=12,B=22;
+ let mn=o.min!=null?o.min:Math.min.apply(null,all),mx=o.max!=null?o.max:Math.max.apply(null,all);
+ if(mx===mn)mx=mn+1;
+ if(o.min==null){const p=(mx-mn)*.15;mn-=p;mx+=p}
+ const x=i=>L+(n<2?(W-L-R)/2:i*(W-L-R)/(n-1));
+ const y=v=>T+(H-T-B)*(1-(v-mn)/(mx-mn));
+ const f=o.f||(v=>fnum(v));
+ let g='';
+ [mn,(mn+mx)/2,mx].forEach(v=>{g+=`<line x1="${L}" x2="${W-R}" y1="${y(v).toFixed(1)}" y2="${y(v).toFixed(1)}" stroke="#354a5d"/><text x="${L-5}" y="${(y(v)+3).toFixed(1)}" text-anchor="end">${f(v)}</text>`});
+ for(let i=0;i<n;i+=(n>14?2:1))g+=`<text x="${x(i).toFixed(1)}" y="${H-6}" text-anchor="middle">${fa(i+1)}</text>`;
+ series.forEach(s=>{
+  const pts=[];s.v.forEach((v,i)=>{if(v!=null)pts.push([x(i),y(v)])});
+  g+=`<path d="${pts.map((p,i)=>(i?'L':'M')+p[0].toFixed(1)+' '+p[1].toFixed(1)).join('')}" fill="none" stroke="${s.c}" stroke-width="2" stroke-linejoin="round"${s.dash?' stroke-dasharray="4 4"':''}/>`;
+  if(!s.dash)g+=pts.map(p=>`<circle cx="${p[0].toFixed(1)}" cy="${p[1].toFixed(1)}" r="3.5" fill="${s.c}"/>`).join('');
+ });
+ return `<svg class="chart" viewBox="0 0 ${W} ${H}" style="direction:ltr">${g}</svg>`;
+}
+function heat(R,mode){
+ const ms=MUSCLES.filter(m=>R.some(r=>(r.pl[m]||0)>0));
+ if(!ms.length)return '<div class="empty sm">هنوز حرکتی در برنامه نیست</div>';
+ return `<div class="scroll"><table class="heat"><tr><th></th>${R.map((_,i)=>`<th>${fa(i+1)}</th>`).join('')}</tr>${ms.map(m=>`<tr><th>${m}</th>${R.map(r=>{
+  const p=r.pl[m]||0,d=r.dn[m]||0,v=mode==='plan'?p:d,a=mode==='plan'?Math.min(1,p/20):(p?Math.min(1,d/p):0);
+  return `<td style="background:rgba(111,179,232,${(a*.7).toFixed(2)})">${v?fnum(v):'—'}</td>`}).join('')}</tr>`).join('')}</table></div>`;
+}
+
+/* ================= role / settings ================= */
+const PLATE=`<svg viewBox="140 515 790 915" width="120" height="120" aria-hidden="true"><path fill="#fff" fill-rule="evenodd" d="M535 523L925 742V1200L535 1421L146 1200V742Z M535 615L226 790V1155L535 1330L846 1155V790Z M788 815L535 668L277 805V1140L535 1273L748 1150V930L600 1005L670 1043V1105L535 1183L358 1085V862L535 762L708 858Z"/></svg>`;
+const MARK=`<svg viewBox="140 515 790 915" width="34" height="34" aria-hidden="true"><path fill="#fff" fill-rule="evenodd" d="M535 523L925 742V1200L535 1421L146 1200V742Z M535 615L226 790V1155L535 1330L846 1155V790Z M788 815L535 668L277 805V1140L535 1273L748 1150V930L600 1005L670 1043V1105L535 1183L358 1085V862L535 762L708 858Z"/></svg>`;
+const WORD='<span style="font-weight:300">Grow</span><b style="font-weight:800">Fit</b>';
+function roleView(){
+ const hasPlan=!!S().plan;
+ return `<div class="hero">${PLATE}<h1 dir="ltr">${WORD}</h1><p>برنامه تمرین، تغذیه و آنالیز؛ آفلاین روی گوشی</p></div>
+ <div class="pad">${BUILD==='student'?'':'<button class="btn pri" onclick="A.setRole(\'coach\')">من مربی هستم</button>'}${hasPlan&&BUILD!=='student'?'<button class="btn" onclick="A.setRole(\'student\')">ادامه به‌عنوان شاگرد</button>':''}<button class="btn ${BUILD==='student'?'pri':''}" onclick="pickFile()">${BUILD==='student'?'وارد کردن فایل برنامه':'من شاگرد هستم؛ فایل برنامه دارم'}</button></div>`;
+}
+function lockView(){
+ const has=!!DB.pin;
+ return `<div class="hero">${PLATE}<h1>${has?'ورود مربی':'ساخت رمز مربی'}</h1><p>${has?'رمز را وارد کن':'یک رمز ۴ تا ۸ رقمی بساز. بدون آن وارد بخش مربی نمی‌شوند.'}</p></div>
+ <div class="pad"><input id="pin" type="password" inputmode="numeric" maxlength="8" data-n="1" placeholder="رمز" autocomplete="off">${has?'':'<div style="height:10px"></div><input id="pin2" type="password" inputmode="numeric" maxlength="8" data-n="1" placeholder="تکرار رمز" autocomplete="off">'}<div style="height:14px"></div><button class="btn pri" onclick="A.unlock()">${has?'ورود':'ذخیره و ورود'}</button><button class="btn" onclick="A.leave()">بازگشت</button>${has?'<p class="mut sm" style="text-align:center">رمز یادت نیست؟ فایل پشتیبان را بازیابی کن؛ رمز قبلی برمی‌گردد.</p><button class="btn sm" style="display:block;margin:8px auto" onclick="pickFile()">بازیابی از فایل پشتیبان</button>':''}</div>`;
+}
+function settingsView(){
+ const coach=DB.role==='coach';
+ return `<header class="top"><button class="ic" onclick="go({screen:null})" aria-label="بازگشت">→</button><div class="tt"><h1>تنظیمات</h1></div></header><div class="pad">
+ <div class="card"><h3>پشتیبان‌گیری</h3><p class="mut sm" style="margin-bottom:10px">همه اطلاعات فقط روی همین گوشی ذخیره می‌شود. قبل از عوض کردن گوشی یا پاک کردن اطلاعات مرورگر پشتیبان بگیر.</p><button class="btn" onclick="A.backup()">ذخیره فایل پشتیبان</button><button class="btn" onclick="pickFile()">بازیابی از فایل پشتیبان</button></div>
+ ${installCard()}
+ ${coach?'<div class="card"><h3>رمز مربی</h3><button class="btn" style="margin:0" onclick="A.changePin()">تغییر رمز</button></div>':''}
+ ${BUILD==='student'?'':'<div class="card"><h3>نقش</h3><button class="btn" style="margin:0" onclick="A.switchRole()">تغییر نقش (مربی یا شاگرد)</button></div>'}
+ <div class="card"><button class="btn danger" style="margin:0" onclick="A.reset()">پاک کردن همه اطلاعات</button></div></div>`;
+}
+
+/* ================= coach ================= */
+function clientsView(){
+ const list=DB.clients.map(c=>`<div class="card tap" onclick="A.open('${c.id}')"><div class="rowb"><b>${esc(c.name||'بدون نام')}</b>${c.logs?'<span class="chip or">گزارش جدید</span>':''}</div><div class="wrap"><span class="chip">${GOALS[c.goal]}</span><span class="chip">${c.plan?fa(c.plan.weeks.length)+' هفته برنامه':'بدون برنامه'}</span></div></div>`).join('')||'<div class="empty">هنوز شاگردی نداری. اولین پروفایل را بساز.</div>';
+ return shell('شاگردان',DB.clients.length?fa(DB.clients.length)+' نفر':'',`<div class="pad">${list}<button class="btn pri" onclick="A.newClient()">+ شاگرد جدید</button><button class="btn" onclick="pickFile()">دریافت گزارش شاگرد</button></div>`);
+}
+const CT=[['profile','پروفایل'],['plan','تمرین'],['diet','تغذیه'],['corr','اصلاحی'],['rep','گزارش'],['send','ارسال']];
+function clientView(c){
+ const strip=`<div class="strip">${CT.map(([k,l])=>`<button class="tb ${UI.ctab===k?'on':''}" onclick="go({ctab:'${k}'})">${l}</button>`).join('')}</div>`;
+ const body={profile:profileTab,plan:planTab,diet:dietTab,corr:corrTab,rep:repTab,send:sendTab}[UI.ctab](c);
+ return shell(esc(c.name||'شاگرد جدید'),'',strip+`<div class="pad">${body}</div>`,'',"go({cid:null})");
+}
+function metricsCard(m,p){
+ const row=(l,v,u)=>`<div class="kv"><span>${l}</span><b>${v}<small>${u||''}</small></b></div>`;
+ return `<div class="card"><h3>محاسبات بدن</h3>${row('BMI',fnum(m.bmi),bmiCat(m.bmi))}${row('BMR',fa(Math.round(m.bmr)),'kcal')}${row('TDEE',fa(Math.round(m.tdee)),'kcal')}${row('کالری هدف ('+GOALS[p.goal]+')',fa(Math.round(m.kcal)),'kcal')}${m.whr?row('نسبت دور کمر به باسن',fnum(m.whr)):''}<div class="macros"><div><b>${fa(Math.round(m.p))}</b>پروتئین (g)</div><div><b>${fa(Math.round(m.c))}</b>کربوهیدرات (g)</div><div><b>${fa(Math.round(m.f))}</b>چربی (g)</div></div></div>`;
+}
+function profileTab(c){
+ const m=metrics(c);
+ return `<div class="card">${fld('نام',inp('c.name',c.name,{r:1}))}
+ <div class="g2">${fld('شماره موبایل',inp('c.phone',c.phone,{n:1,ph:'09...'}))}${fld('جنسیت',sel('c.sex',c.sex,[['m','مرد'],['f','زن']],1))}</div>
+ <div class="g3">${fld('سن',inp('c.age',c.age,{n:1,r:1}))}${fld('قد (cm)',inp('c.height',c.height,{n:1,r:1}))}${fld('وزن (kg)',inp('c.weight',c.weight,{n:1,r:1}))}</div>
+ <div class="g2">${fld('دور کمر (cm)',inp('c.waist',c.waist,{n:1,r:1}))}${fld('دور باسن (cm)',inp('c.hip',c.hip,{n:1,r:1}))}</div>
+ ${fld('سطح فعالیت',sel('c.activity',c.activity,ACTS,1))}${fld('هدف',sel('c.goal',c.goal,Object.keys(GOALS).map(k=>[k,GOALS[k]]),1))}${fld('ورزش یا رشته',sel('c.sport',c.sport||'body',Object.keys(SPORTS).map(k=>[k,SPORTS[k].n]),1))}</div>
+ ${m?metricsCard(m,c):'<div class="empty sm">سن، قد و وزن را وارد کن تا BMI، BMR و ماکروها محاسبه شود.</div>'}
+ <div class="card"><h3>ارزیابی وضعیت بدن</h3><p class="mut sm">غربالگری اولیه است؛ تشخیص قطعی با پزشک یا متخصص حرکات اصلاحی.</p><div class="wrap">${ANOMN.map((n,i)=>`<button class="tb ${c.anoms.includes(n)?'on':''}" onclick="A.togAnom(${i})">${n}</button>`).join('')}</div>${area('c.anomNote',c.anomNote,'یادداشت ارزیابی، مثلاً شانه راست پایین‌تر است')}</div>
+ <button class="btn danger" onclick="A.delClient()">حذف شاگرد</button>`;
+}
+function planTab(c){
+ const p=c.plan,sp=SPORTS[c.sport||'body'];
+ if(!p)return `<div class="card"><h3>ساخت برنامه تمرینی</h3><p class="mut sm" style="margin-bottom:10px">رشته: ${sp.n}</p>${fld('نام برنامه','<input id="np-t" placeholder="مثلاً هایپرتروفی ۸ هفته‌ای">')}<div class="g2">${fld('تعداد هفته','<input id="np-w" data-n="1" inputmode="decimal" value="8">')}${fld('روز تمرین در هفته','<input id="np-d" data-n="1" inputmode="decimal" value="4">')}</div><button class="btn pri" onclick="A.createPlan()">ساخت برنامه</button></div>`;
+ UI.w=Math.min(UI.w,p.weeks.length-1);UI.d=Math.min(UI.d,p.days.length-1);
+ const day=p.weeks[UI.w][UI.d];
+ const nsys=(UI.nsys&&sp.sys.indexOf(UI.nsys)>=0)?UI.nsys:sp.sys[0],ns=SYS[nsys];
+ return `<div class="card"><div class="rowb"><b>رشته: ${sp.n}</b><span class="chip sys">${fa(sp.sys.length)} سیستم تمرینی</span></div><p class="mut sm" style="margin-bottom:10px">${sp.h}</p>
+ ${fld('نام برنامه',inp('c.plan.title',p.title))}
+ <div class="rowb"><span>هفته‌ها: <b>${fa(p.weeks.length)}</b></span><span><button class="btn sm" onclick="A.delWeek()">−</button> <button class="btn sm" onclick="A.addWeek()">+</button></span></div>
+ <div class="rowb" style="margin-top:8px"><span>روزها: <b>${fa(p.days.length)}</b></span><span><button class="btn sm" onclick="A.delDay()">−</button> <button class="btn sm" onclick="A.addDay()">+</button></span></div></div>
+ <div class="card"><h3>وزنه‌های پیشنهادی</h3><p class="mut sm" style="margin-bottom:10px">اگر وزنه یک حرکت را خالی بگذاری، شاگرد با یک ست آزمایشی وزنه کاری خودش را پیدا می‌کند و برای هفته‌های بعد با فرمول (برآورد ۱RM، تکرار هدف و RIR) وزنه پیشنهادی می‌گیرد. اگر وزنه بنویسی، همان وزنه نمایش داده می‌شود.</p><div class="g3">${fld('پیشرفت هفتگی ٪',inp('c.plan.prog',p.prog==null?2.5:p.prog,{n:1}))}${fld('RIR هدف',inp('c.plan.rir',p.rir==null?2:p.rir,{n:1}))}${fld('دلود هر n هفته',inp('c.plan.dl',p.dl==null?0:p.dl,{n:1}))}</div><p class="mut sm">RIR یعنی چند تکرار تا ناتوانی ذخیره بماند (۲ یعنی دو تکرار ذخیره). دلود: هفته‌های n، ۲n، ... با ۹۰٪ وزنه (۰ یعنی خاموش).</p></div>
+ <div class="strip" style="padding-inline:0">${p.weeks.map((_,i)=>`<button class="tb ${i===UI.w?'on':''}" onclick="go({w:${i}})">هفته ${fa(i+1)}</button>`).join('')}</div>
+ <div class="strip" style="padding-inline:0">${p.days.map((n,i)=>`<button class="tb ${i===UI.d?'on':''}" onclick="go({d:${i}})">${esc(n)}</button>`).join('')}</div>
+ ${fld('نام این روز (برای همه هفته‌ها)',inp('c.plan.days.'+UI.d,p.days[UI.d]))}
+ ${day.ex.map((e,i)=>exCard(e,i)).join('')||'<div class="empty sm">حرکتی اضافه نشده</div>'}
+ <div class="card"><h3>افزودن حرکت</h3>${fld('سیستم تمرینی',`<select onchange="UI.nsys=this.value;render()">${sp.sys.map(k=>`<option value="${k}"${k===nsys?' selected':''}>${SYS[k].n}</option>`).join('')}</select>`)}<p class="mut sm" style="margin-bottom:10px">${ns.h}</p><button class="btn pri" style="margin:0" onclick="A.addEx()">${ns.g?'+ افزودن گروه ('+fa(ns.g)+' حرکت)':'+ افزودن حرکت'}</button></div>
+ <div class="card"><h3>اعمال پیشرفت روی هفته‌های بعد</h3><p class="mut sm" style="margin-bottom:10px">هفته انتخاب‌شده را روی هفته‌های بعدی کپی می‌کند و وزنه‌ها را هر هفته به‌اندازه این درصد بالا می‌برد.</p><div class="g2"><input id="pct" data-n="1" inputmode="decimal" value="2.5"><button class="btn" style="margin:0" onclick="A.copyWeek()">اعمال</button></div></div>
+ <div class="card"><h3>ست هر عضله در هفته (طبق برنامه)</h3>${heat(calc(p,{}),'plan')}<p class="mut sm" style="margin-top:8px">ست عضله فرعی نیم‌ست حساب می‌شود. حدود ۱۰ تا ۲۰ ست در هفته برای هر عضله معمول است.</p></div>`;
+}
+function exCard(e,i){
+ const b=`c.plan.weeks.${UI.w}.${UI.d}.ex.${i}`,c=C(),sp=SPORTS[c.sport||'body'],key=e.sys||'st',sy=SYS[key]||SYS.st,k=kindOf(e),KD=KIND[k];
+ const opts=sp.sys.indexOf(key)<0?sp.sys.concat([key]):sp.sys;
+ const mem=e.g?curEx().filter(x=>x.g===e.g):[],pos=mem.indexOf(e)+1;
+ let F=KD.f.map(([f,l])=>[f,l,NUMF.indexOf(f)>=0]);
+ if(isPy(e))F=F.filter(x=>x[0]!=='sets');
+ F=F.map(([f,l,n])=>f==='reps'&&isPy(e)?['reps','تکرار هر ست',0]:f==='rest'&&sy.g?['rest','استراحت دور (ث)',1]:f==='weight'&&isPy(e)&&k==='str'?['weight','وزنه ست اول',1]:[f,l,n]);
+ const inpF=([f,l,n])=>`<div><label>${l}</label>${inp(b+'.'+f,e[f]==null?'':e[f],n?{n:1}:{ex:'dir="ltr" style="text-align:center"'})}</div>`;
+ const X=(sy.x||[]);
+ return `<div class="card ex${e.g?' grp':''}"><div class="rowb">${inp(b+'.name',e.name,{list:1,cls:'name',ph:'نام حرکت یا تمرین',ex:`onchange="A.auto(${i},this.value)"`})}<div class="acts"><button onclick="A.mvEx(${i},-1)">↑</button><button onclick="A.mvEx(${i},1)">↓</button><button class="x" onclick="A.delEx(${i})">✕</button></div></div>
+ <div class="g2" style="margin-top:10px">${fld('سیستم تمرینی',`<select onchange="A.setSys(${i},this.value)">${opts.map(o=>`<option value="${o}"${o===key?' selected':''}>${SYS[o].n}</option>`).join('')}</select>`)}${sy.g?fld('گروه',sel(b+'.g',e.g||'A',LETTERS.map(l=>[l,l]),1)):`<div class="f"><label>نوع تمرین</label><span class="chip">${KD.n}</span></div>`}</div>
+ <p class="mut sm" style="margin:-4px 0 10px">${sy.h}${mem.length>1?` (حرکت ${fa(pos)} از ${fa(mem.length)} در گروه ${e.g})`:''}</p>
+ ${MUSK.indexOf(k)>=0?`<div class="g2">${fld('عضله اصلی',sel(b+'.m',e.m,MUSCLES.map(m=>[m,m])))}${fld('عضله فرعی',sel(b+'.s',e.s,[['','ندارد']].concat(MUSCLES.map(m=>[m,m]))))}</div>`:''}
+ <div class="g5" style="grid-template-columns:repeat(${F.length},1fr)">${F.map(inpF).join('')}</div>
+ ${X.length?`<div class="g2" style="margin-top:10px">${X.map(([f,l])=>`<div><label>${l}</label>${inp(b+'.'+f,e[f]==null?'':e[f],{n:1})}</div>`).join('')}</div>`:''}
+ <div style="margin-top:10px">${inp(b+'.note',e.note,{ph:'یادداشت یا شرح تمرین (اختیاری)'})}</div></div>`;
+}
+function dietTab(c){
+ const d=c.diet,m=metrics(c);
+ const t=d.meals.reduce((a,x)=>({k:a.k+num(x.kcal),p:a.p+num(x.p),c:a.c+num(x.c),f:a.f+num(x.f)}),{k:0,p:0,c:0,f:0});
+ const cmp=(l,a,b)=>`<div><b>${fa(Math.round(a))}</b>${l}${b!=null?`<br><span style="color:${Math.abs(a-b)/b>.1?'var(--amb)':'var(--ok)'}">هدف ${fa(Math.round(b))}</span>`:''}</div>`;
+ return `<div class="card"><h3>جمع برنامه غذایی</h3><div class="macros" style="grid-template-columns:repeat(4,1fr)">${cmp('kcal',t.k,m&&m.kcal)}${cmp('پروتئین',t.p,m&&m.p)}${cmp('کربو',t.c,m&&m.c)}${cmp('چربی',t.f,m&&m.f)}</div></div>
+ ${d.meals.map((x,i)=>{const b='c.diet.meals.'+i;return `<div class="card"><div class="rowb">${inp(b+'.name',x.name,{cls:'name',ph:'نام وعده'}).replace('class="name"','class="name" style="font-weight:700;font-size:16px;background:transparent;border:0;border-bottom:1px solid var(--line);border-radius:0"')}<button class="btn sm danger" onclick="A.delMeal(${i})">حذف</button></div><div style="margin:10px 0">${area(b+'.desc',x.desc,'محتویات وعده')}</div><div class="g5" style="grid-template-columns:repeat(4,1fr)"><div><label>kcal</label>${inp(b+'.kcal',x.kcal,{n:1,r:1})}</div><div><label>پروتئین</label>${inp(b+'.p',x.p,{n:1,r:1})}</div><div><label>کربو</label>${inp(b+'.c',x.c,{n:1,r:1})}</div><div><label>چربی</label>${inp(b+'.f',x.f,{n:1,r:1})}</div></div></div>`}).join('')||'<div class="empty sm">وعده‌ای اضافه نشده</div>'}
+ <button class="btn pri" onclick="A.addMeal()">+ افزودن وعده</button>${d.meals.length?'':'<button class="btn" onclick="A.presetMeals()">ساخت ۵ وعده خالی</button>'}`;
+}
+function corrTab(c){
+ const it=c.corr.items;
+ return `<div class="card"><h3>حرکات پیشنهادی بر اساس ارزیابی</h3>${c.anoms.length?`<div class="wrap">${c.anoms.map(n=>`<button class="btn sm" onclick="A.addCorr(${ANOMN.indexOf(n)})">+ ${n}</button>`).join('')}</div>`:'<p class="mut sm">در تب پروفایل ناهنجاری‌ها را انتخاب کن تا حرکات پیشنهادی اینجا بیاید.</p>'}</div>
+ ${it.map((x,i)=>{const b='c.corr.items.'+i;return `<div class="card ex"><div class="rowb">${inp(b+'.name',x.name,{cls:'name',ph:'نام حرکت'})}<button class="btn sm danger" onclick="A.delCorr(${i})">حذف</button></div><div class="g3" style="margin-top:10px"><div><label>ست</label>${inp(b+'.sets',x.sets,{n:1})}</div><div><label>تکرار یا زمان</label>${inp(b+'.reps',x.reps)}</div><div><label>نوبت در هفته</label>${inp(b+'.freq',x.freq,{n:1})}</div></div></div>`}).join('')}
+ <button class="btn" onclick="A.addCorrBlank()">+ حرکت دلخواه</button>
+ <div class="card">${fld('توضیح برای شاگرد',area('c.corr.note',c.corr.note,'مثلاً قبل از هر جلسه تمرین انجام شود'))}</div>`;
+}
+function repTab(c){
+ if(!c.logs||!c.plan)return `<div class="empty">هنوز گزارشی از این شاگرد نرسیده. وقتی فایل گزارش را فرستاد، آن را وارد کن.</div><button class="btn pri" onclick="pickFile()">وارد کردن فایل گزارش</button>`;
+ const r=c.logs,w=adhWeek(r.dietLog||{},r.start,c.diet.meals);
+ return `<p class="mut sm" style="margin-bottom:10px">آخرین گزارش: ${jdate(iso(new Date(r.at)))}</p>${analyticsHTML(c.plan,r.logs)}
+ <div class="card"><h3>وزن ثبت‌شده</h3>${line([{v:(r.weights||[]).map(x=>x.w),c:'#ffffff'}])}</div>
+ <div class="card"><h3>رعایت برنامه غذایی (۷ روز اخیر)</h3><b style="font-size:20px">${w.avg==null?'—':'٪'+fa(Math.round(w.avg*100))}</b></div>
+ <button class="btn" onclick="pickFile()">وارد کردن گزارش جدید</button>`;
+}
+function planPack(c){
+ return{app:'fitplan',kind:'plan',v:1,cid:c.id,exported:Date.now(),profile:{name:c.name,sex:c.sex,age:c.age,height:c.height,weight:c.weight,waist:c.waist,hip:c.hip,activity:c.activity,goal:c.goal,sport:c.sport||'body',anoms:c.anoms,anomNote:c.anomNote},plan:c.plan,diet:c.diet,corr:c.corr};
+}
+function sendTab(c){
+ const ph=normPhone(c.phone);
+ const chk=[['پروفایل بدن',!!metrics(c)],['برنامه تمرین',!!c.plan],['برنامه غذایی',c.diet.meals.length>0],['برنامه اصلاحی',c.corr.items.length>0]];
+ return `<div class="card"><h3>محتوای فایل</h3>${chk.map(([l,ok])=>`<div class="kv"><span>${l}</span><b style="color:${ok?'var(--ok)':'var(--mut)'}">${ok?'آماده':'خالی'}</b></div>`).join('')}</div>
+ <button class="btn pri" onclick="A.sendPlan()">ارسال فایل برنامه</button>
+ <p class="mut sm" style="margin:-2px 0 12px">با این دکمه فهرست پیام‌رسان‌های گوشی باز می‌شود (تلگرام، واتساپ، ایتا، بله، روبیکا و ...). فایل را همان‌جا برای شاگرد بفرست.</p>
+ <div class="card"><h3>شماره شاگرد</h3>${ph?`<div class="rowb"><b dir="ltr">${esc(c.phone)}</b><button class="btn sm" onclick="A.copyPhone()">کپی شماره</button></div><div class="g2" style="margin-top:12px"><a class="btn" style="margin:0" target="_blank" rel="noopener" href="https://wa.me/${ph}">باز کردن واتساپ</a><a class="btn" style="margin:0" target="_blank" rel="noopener" href="https://t.me/+${ph}">باز کردن تلگرام</a></div><p class="mut sm" style="margin-top:8px">این دو دکمه فقط چت را باز می‌کنند؛ فایل را باید از پیام‌رسان ضمیمه کنی. برای ضمیمه خودکار از دکمه بالا استفاده کن.</p>`:'<p class="mut sm">شماره را در تب پروفایل وارد کن.</p>'}</div>
+ <button class="btn" onclick="A.dlPlan()">فقط ذخیره فایل در گوشی</button>`;
+}
+
+/* ================= analytics (shared) ================= */
+function analyticsHTML(plan,logs){
+ const R=calc(plan,logs),nd=plan.days.length*plan.weeks.length;
+ const sum=f=>R.reduce((a,r)=>a+r[f],0);
+ const ses=sum('ses'),ps=sum('ps'),ds=sum('ds'),ton=sum('ton'),dist=sum('dist'),jump=sum('jump'),cond=sum('cond'),sr=sum('srpe');
+ const all=[].concat.apply([],R.map(r=>r.rp)),rpe=all.length?all.reduce((a,b)=>a+b,0)/all.length:null;
+ UI.aw=Math.min(UI.aw,R.length-1);
+ const cur=R[UI.aw],hasMus=R.some(r=>Object.keys(r.pl).length>0);
+ let ac=null;{const pv=R.slice(Math.max(0,UI.aw-4),UI.aw).map(r=>r.srpe).filter(v=>v>0);if(cur.srpe>0&&pv.length)ac=cur.srpe/(pv.reduce((a,b)=>a+b,0)/pv.length)}
+ const ms=MUSCLES.filter(m=>(cur.pl[m]||0)>0).sort((a,b)=>cur.pl[b]-cur.pl[a]);
+ const tile=(b,t)=>`<div class="tile"><b>${b}</b><span>${t}</span></div>`;
+ const T=[tile(fa(ses)+' از '+fa(nd),'جلسه انجام‌شده'),tile('٪'+fa(ps?Math.round(ds/ps*100):0),'ست‌های انجام‌شده'),tile(rpe==null?'—':fnum(rpe),'میانگین فشار (از ۱۰)'),ton>0?tile(fa(Math.round(ton).toLocaleString('en-US')),'حجم کل (کیلوگرم)'):tile(fa(Math.round(sr)),'بار کل جلسه‌ها (فشار × دقیقه)')];
+ if(dist>0)T.push(tile(fa(Math.round(dist).toLocaleString('en-US')),'مسافت دویدن (متر)'));
+ if(jump>0)T.push(tile(fa(Math.round(jump)),'تماس‌های پلایومتریک'));
+ if(cond>0)T.push(tile(fnum(cond),'اینتروال و بازی (دقیقه)'));
+ if(ac!=null)T.push(tile(fnum(ac),'نسبت بار حاد به مزمن (هفته انتخابی)'));
+ const ch=(t,v,o)=>v.some(x=>x>0)?`<div class="card"><h3>${t}</h3>${line([{v:v.map(x=>x||null),c:'#ffffff'}],o||{})}</div>`:'';
+ const ri=v=>fa(Math.round(v));
+ const names=[];plan.weeks.forEach(w=>w.forEach(d=>d.ex.forEach(e=>{if(e.name&&kindOf(e)==='str'&&names.indexOf(e.name)<0)names.push(e.name)})));
+ if(names.indexOf(UI.aex)<0)UI.aex=names[0]||'';
+ const act=plan.weeks.map((wk,wi)=>{let mx=null;wk.forEach((day,di)=>{const L=logs[wi+'-'+di];day.ex.forEach(e=>{if(e.name!==UI.aex||!L)return;(L.sets[e.id]||[]).forEach(x=>{if(x&&x.d&&num(x.w)>(mx||0))mx=num(x.w)})})});return mx});
+ const pln=plan.weeks.map(wk=>{let mx=null;wk.forEach(day=>day.ex.forEach(e=>{if(e.name===UI.aex&&num(e.weight)>(mx||0))mx=num(e.weight)}));return mx});
+ return `<div class="tiles">${T.join('')}</div>${ac!=null?'<p class="mut sm" style="margin:-4px 0 12px">نسبت بار حاد به مزمن بین ۰٫۸ تا ۱٫۳ معمولاً محدوده مناسبی است.</p>':''}
+ ${hasMus?`<div class="card"><h3>ست هر عضله در یک هفته</h3><div class="strip" style="padding:0 0 8px">${R.map((_,i)=>`<button class="tb ${i===UI.aw?'on':''}" onclick="go({aw:${i}})">هفته ${fa(i+1)}</button>`).join('')}</div>
+ ${ms.map(m=>{const p=cur.pl[m],d=cur.dn[m]||0;return `<div class="mrow"><span>${m}</span><div class="bar"><i style="width:${Math.min(100,d/p*100)}%"></i></div><span class="nums">${fnum(d)}/${fnum(p)}</span></div>`}).join('')||'<div class="empty sm">این هفته حرکتی ندارد</div>'}</div>`:`<div class="strip" style="padding:0 0 8px">${R.map((_,i)=>`<button class="tb ${i===UI.aw?'on':''}" onclick="go({aw:${i}})">هفته ${fa(i+1)}</button>`).join('')}</div>`}
+ ${ch('حجم تمرین هر هفته (کیلوگرم)',R.map(r=>r.ton),{f:ri})}
+ ${ch('بار تمرین هر هفته (فشار × دقیقه)',R.map(r=>r.srpe),{f:ri})}
+ ${ch('مسافت دویدن هر هفته (متر)',R.map(r=>r.dist),{f:ri})}
+ ${ch('تماس‌های پلایومتریک هر هفته',R.map(r=>r.jump),{f:ri})}
+ ${ch('اینتروال و بازی هر هفته (دقیقه)',R.map(r=>r.cond),{f:ri})}
+ <div class="card"><h3>میانگین فشار تمرین هر هفته</h3>${line([{v:R.map(r=>r.rpe),c:'#6fb3e8'}],{min:1,max:10,f:v=>fa(Math.round(v))})}</div>
+ ${names.length?`<div class="card"><h3>روند وزنه یک حرکت</h3><select onchange="A.aex(this.value)" style="margin-bottom:8px">${names.map(n=>`<option${n===UI.aex?' selected':''}>${esc(n)}</option>`).join('')}</select>${line([{v:pln,c:'#5d7288',dash:1},{v:act,c:'#ffffff'}])}<p class="mut sm">خط سفید: بیشترین وزنه انجام‌شده. خط خاکستری: وزنه برنامه.</p></div>`:''}
+ ${hasMus?`<div class="card"><h3>جدول ست‌های انجام‌شده (عضله × هفته)</h3>${heat(R,'done')}</div>`:''}`;
+}
+
+/* ================= student ================= */
+function firstOpenWeek(){const s=S();if(!s.plan)return 0;for(let w=0;w<s.plan.weeks.length;w++){for(let d=0;d<s.plan.days.length;d++){const l=s.logs[w+'-'+d];if(!(l&&l.fin))return w}}return 0}
+function studentView(){
+ const s=S();
+ if(!s.plan)return shell('GrowFit','',`<div class="pad"><div class="empty">هنوز برنامه‌ای نداری. فایلی که مربی فرستاده را وارد کن.</div><button class="btn pri" onclick="pickFile()">وارد کردن فایل برنامه</button></div>`);
+ const T={train:['تمرین',trainView],ana:['آنالیز',anaView],diet:['تغذیه',sDietView],body:['بدن',bodyView],me:['من',meView]};
+ const nav=`<nav class="barnav">${Object.keys(T).map(k=>`<button class="${UI.sTab===k?'on':''}" onclick="go({sTab:'${k}'})">${T[k][0]}</button>`).join('')}</nav>`;
+ return shell(T[UI.sTab][0],jdate(iso(),{weekday:'long',day:'numeric',month:'long'}),`<div class="pad">${T[UI.sTab][1]()}</div>`,nav);
+}
+function lg(){const k=UI.w+'-'+UI.d,L=S().logs;if(!L[k])L[k]={date:iso(),start:null,sets:{},rpe:0,min:0,fin:false};return L[k]}
+function slot(L,id,i){L.sets[id]=L.sets[id]||[];return L.sets[id][i]=L.sets[id][i]||{w:'',r:'',d:false}}
+function findPanel(e){
+ return `<div class="fx"><p class="sm">یک ست آزمایشی با وزنه سبک تا متوسط بزن (حدود ۸ تا ۱۲ تکرار تمیز؛ لازم نیست تا ناتوانی بروی). وزنه و تعداد تکرارِ واقعی را بنویس. حداکثر ۱۲ تکرار در محاسبه حساب می‌شود.</p><div class="g2"><input id="tw" data-n="1" inputmode="decimal" placeholder="وزنه (kg)"><input id="tr" data-n="1" inputmode="decimal" placeholder="تکرار"></div><div class="g2" style="margin-top:8px"><button class="btn pri sm" style="width:100%" onclick="A.doFind('${e.id}')">محاسبه و ذخیره</button><button class="btn sm" style="width:100%" onclick="A.find('')">بستن</button></div></div>`;
+}
+function fxPanel(g){
+ return `<div class="fx sm"><b>فرمول وزنه پیشنهادی</b>
+ <p>۱) ۱RM تخمینی = وزنه × (۱ + تکرار ÷ ۳۰)<br><span dir="ltr">${fnum(g.bw)} × (1 + ${fa(g.br)} ÷ 30) = ${fnum(g.E)}</span></p>
+ <p>۲) وزنه هدف = ۱RM ÷ (۱ + (تکرار هدف + RIR) ÷ ۳۰)<br><span dir="ltr">${fnum(g.E)} ÷ (1 + (${fa(g.TR)} + ${fa(g.RIR)}) ÷ 30) = ${fnum(g.W0)}</span></p>
+ <p>۳) پیشرفت هفتگی: × (۱ + ${fnum(g.pct)}٪) به توان ${fa(g.steps)}</p>
+ ${g.dlf<1?'<p>۴) هفته دلود: × ۰٫۹</p>':''}
+ <p>نتیجه (گرد شده به ۰٫۵ کیلو): <b>${fnum(g.w)} kg</b></p>
+ <p class="mut">داده پایه: ${g.src==='trial'?'ست آزمایشی':'بهترین ست هفته '+fa(g.wb+1)}. هر ست سنگین‌تری که ثبت کنی، پیشنهاد هفته‌های بعد را بالا می‌برد.</p></div>`;
+}
+function exBlock(e,L){
+ const sy=SYS[e.sys]||SYS.st,k=kindOf(e),KD=KIND[k],W=effW(e,UI.w),sl=slotsOf(e,W),arr=(L&&L.sets[e.id])||[];
+ const sg=(k==='str'&&!num(e.weight))?sugg(e,UI.w):null;
+ let chips=`<span class="chip sys">${sy.n}</span>`;
+ if(k==='str'){
+  chips+=`<span class="chip">${fa(nSets(e))} ست</span>`;
+  if(e.reps!==''&&e.reps!=null)chips+=`<span class="chip">${esc(fa(e.reps))} تکرار</span>`;
+  if(e.tempo)chips+=`<span class="chip">تمپو <span dir="ltr">${esc(fa(e.tempo))}</span></span>`;
+  if(num(e.rest))chips+=`<span class="chip">استراحت ${fa(e.rest)} ثانیه</span>`;
+  if(num(e.weight))chips+=`<span class="chip">وزنه ${fa(num(e.weight))} kg</span>`;
+ }else{
+  chips+=`<span class="chip">${KD.n}</span>`;
+  if(isPy(e))chips+=`<span class="chip">${fa(nSets(e))} ست</span>`;
+  KD.f.forEach(([f,l])=>{if(f==='sets'&&isPy(e))return;const v=e[f];if(v===''||v==null||(f==='rest'&&!num(v)))return;chips+=`<span class="chip">${l} ${(f==='tempo'||f==='reps'||f==='inten')?`<span dir="ltr">${esc(fa(v))}</span>`:esc(fa(v))}</span>`});
+ }
+ (sy.x||[]).forEach(([f,l])=>{if(num(e[f])>0)chips+=`<span class="chip">${l} ${fa(e[f])}</span>`});
+ let sgh='';
+ if(k==='str'&&!num(e.weight)){
+  sgh=sg?`<div class="sg"><span>وزنه پیشنهادی این هفته: <b>${fnum(sg.w)} kg</b></span><span><button class="lnk" onclick="A.fx('${e.id}')">فرمول</button><button class="lnk" onclick="A.find('${e.id}')">به‌روزرسانی</button></span></div>`:`<div class="sg"><span>وزنه کاری‌ات را هنوز نمی‌دانی؟</span><button class="lnk" onclick="A.find('${e.id}')">پیدا کردن وزنه</button></div>`;
+  if(UI.find===e.id)sgh+=findPanel(e);
+  if(UI.fx===e.id&&sg)sgh+=fxPanel(sg);
+ }
+ const rows=sl.map((z,i)=>{const x=arr[i]||{};return `<div class="srow"><span class="si">${z.lab}${z.cap?`<small>${z.cap}</small>`:''}</span><input data-n="1" inputmode="decimal" placeholder="${z.w===''?KD.p0:esc(fa(z.w))}" value="${x.w===undefined||x.w===''?'':esc(x.w)}" oninput="A.setVal('${e.id}',${i},'w',this.value)"><input data-n="1" inputmode="decimal" placeholder="${z.r===''?'':esc(fa(z.r))}" value="${x.r===undefined||x.r===''?'':esc(x.r)}" oninput="A.setVal('${e.id}',${i},'r',this.value)"><button class="ck ${x.d?'on':''}" onclick="A.tick('${e.id}',${i})" aria-label="ثبت">✓</button></div>`}).join('');
+ return `<div class="rowb"><b style="font-size:16px">${esc(e.name||'بدون نام')}</b>${MUSK.indexOf(k)>=0?`<span class="chip or">${e.m}</span>`:''}</div><div class="wrap">${chips}</div>${e.note?`<p class="mut sm">${esc(e.note)}</p>`:''}${sgh}<div class="shead"><span></span><span>${KD.cols[0]}</span><span>${KD.cols[1]}</span><span></span></div>${rows}`;
+}
+function trainView(){
+ const s=S(),p=s.plan;UI.w=Math.min(UI.w,p.weeks.length-1);UI.d=Math.min(UI.d,p.days.length-1);
+ const fin=(w,d)=>{const l=s.logs[w+'-'+d];return !!(l&&l.fin)};
+ const L=s.logs[UI.w+'-'+UI.d],day=p.weeks[UI.w][UI.d],sp=SPORTS[(s.profile&&s.profile.sport)||'body'];
+ let tot=0,dn=0;day.ex.forEach(e=>{tot+=nSets(e);dn+=doneSetCount(e,(L&&L.sets[e.id])||[])});
+ const head=`<div class="strip" style="padding-inline:0">${p.weeks.map((_,i)=>`<button class="tb ${i===UI.w?'on':''}" onclick="go({w:${i}})">${p.days.every((_,d)=>fin(i,d))?'✓ ':''}هفته ${fa(i+1)}</button>`).join('')}</div><div class="strip" style="padding-inline:0">${p.days.map((n,i)=>`<button class="tb ${i===UI.d?'on':''}" onclick="go({d:${i}})">${fin(UI.w,i)?'✓ ':''}${esc(n)}</button>`).join('')}</div>`;
+ const prog=`<div class="rowb" style="margin-bottom:6px"><b>${esc(p.days[UI.d])} <span class="chip sys">${sp.n}</span></b><span class="mut sm">${fa(dn)} از ${fa(tot)} ست</span></div><div class="bar" style="margin-bottom:14px"><i style="width:${tot?dn/tot*100:0}%"></i></div>`;
+ const cards=dayBlocks(day).map(m=>{
+  if(m.length===1&&!m[0].g)return `<div class="card${(s.profile&&s.profile.sport||'body')!=='body'?' sk':''}">${exBlock(m[0],L)}</div>`;
+  const sy=SYS[m[0].sys]||SYS.st;
+  return `<div class="card grp"><div class="rowb"><b>${sy.n}</b><span class="chip sys">گروه ${m[0].g}</span></div><p class="mut sm" style="margin-bottom:8px">${sy.h}</p>${m.map(x=>exBlock(x,L)).join('<div class="sep"></div>')}</div>`;
+ }).join('')||'<div class="empty">برای این روز حرکتی ثبت نشده.</div>';
+ const end=day.ex.length?`<div class="card"><h3>فشار تمرین امروز</h3><div class="rpe">${[1,2,3,4,5,6,7,8,9,10].map(n=>`<button class="${L&&L.rpe===n?'on':''}" onclick="A.rpe(${n})">${fa(n)}</button>`).join('')}</div><p class="mut sm" style="margin-bottom:10px">۱ خیلی سبک، ۱۰ حداکثر فشار ممکن</p>${L&&L.fin?`<p style="margin-bottom:10px"><span class="chip or">ثبت شد: ${fa(L.min)} دقیقه، فشار ${fa(L.rpe)}</span></p>`:''}<button class="btn ${L&&L.fin?'':'pri'}" style="margin:0" onclick="A.finish()">${L&&L.fin?'باز کردن برای ویرایش':'پایان تمرین'}</button></div>`:'';
+ return head+prog+cards+end;
+}
+const anaView=()=>analyticsHTML(S().plan,S().logs);
+function sDietView(){
+ const s=S(),d=s.diet;
+ if(!d||!d.meals.length)return '<div class="empty">مربی هنوز برنامه غذایی ننوشته است.</div>';
+ const rec=s.dietLog[UI.date]||{m:{},c:{}};
+ const m=metrics(curProfile());
+ const t={k:0,p:0,c:0,f:0};d.meals.forEach((x,i)=>{if(rec.m&&rec.m[i]){t.k+=num(x.kcal);t.p+=num(x.p);t.c+=num(x.c);t.f+=num(x.f)}});
+ const a=adh(s.dietLog,s.start,d.meals,UI.date),w=adhWeek(s.dietLog,s.start,d.meals);
+ return `<div class="rowb" style="margin-bottom:10px"><button class="ic" onclick="A.shift(-1)" aria-label="روز قبل">→</button><b>${UI.date===iso()?'امروز، ':''}${jdate(UI.date,{day:'numeric',month:'long'})}</b><button class="ic" onclick="A.shift(1)" aria-label="روز بعد" ${UI.date>=iso()?'disabled style="opacity:.3"':''}>←</button></div>
+ <div class="card"><div class="rowb"><b>رعایت این روز</b><b style="color:var(--or)">${a==null?'—':'٪'+fa(Math.round(a*100))}</b></div><div class="bar" style="margin:8px 0"><i style="width:${(a||0)*100}%"></i></div><div class="macros" style="grid-template-columns:repeat(4,1fr)"><div><b>${fa(Math.round(t.k))}</b>kcal${m?`<br>از ${fa(Math.round(m.kcal))}`:''}</div><div><b>${fa(Math.round(t.p))}</b>پروتئین</div><div><b>${fa(Math.round(t.c))}</b>کربو</div><div><b>${fa(Math.round(t.f))}</b>چربی</div></div></div>
+ ${d.meals.map((x,i)=>`<div class="card mealck"><button class="ck ${rec.m&&rec.m[i]?'on':''}" onclick="A.tickMeal(${i})" aria-label="انجام شد">✓</button><div style="flex:1"><b>${esc(x.name||'وعده')}</b><p class="mut sm">${esc(x.desc||'')}</p><span class="chip">${fa(num(x.kcal))} kcal</span> <span class="chip">P ${fa(num(x.p))}</span> <span class="chip">C ${fa(num(x.c))}</span> <span class="chip">F ${fa(num(x.f))}</span></div></div>`).join('')}
+ <div class="card"><div class="rowb"><b>۷ روز اخیر</b><span class="mut sm">میانگین ${w.avg==null?'—':'٪'+fa(Math.round(w.avg*100))}</span></div><div class="days">${w.days.map((v,i)=>`<div><div class="bar"><i style="height:${(v||0)*100}%"></i></div>${jdate(addDays(iso(),i-6),{weekday:'short'})}</div>`).join('')}</div></div>`;
+}
+function curProfile(){const s=S(),p=Object.assign({},s.profile||{});if(s.weights.length)p.weight=s.weights[s.weights.length-1].w;const wl=s.weights.slice().reverse().find(x=>x.waist);if(wl)p.waist=wl.waist;return p}
+function bodyView(){
+ const s=S(),p=curProfile(),m=metrics(p),W=s.weights;
+ const first=W[0],last=W[W.length-1];
+ let sum='';
+ if(W.length>1){const days=Math.max(1,(new Date(last.date)-new Date(first.date))/864e5),ch=last.w-first.w,rate=ch/days*7;sum=`<div class="tiles"><div class="tile"><b dir="ltr">${ch>0?'+':''}${fnum(ch)}</b><span>تغییر کل (kg)</span></div><div class="tile"><b dir="ltr">${rate>0?'+':''}${fnum(rate)}</b><span>تغییر در هفته (kg)</span></div></div>`}
+ const dt=s.diet&&s.diet.meals.reduce((a,x)=>a+num(x.kcal),0);
+ const hint=(m&&dt&&Math.abs(dt-m.kcal)/m.kcal>.1)?`<div class="note">با وزن جدید، کالری هدف حدود ${fa(Math.round(m.kcal))} است و برنامه غذایی فعلی ${fa(Math.round(dt))} کالری دارد. اگر فاصله زیاد است با مربی هماهنگ کن.</div>`:'';
+ return `<div class="card"><h3>ثبت وزن این هفته</h3><div class="g2"><div class="f"><label>وزن (kg)</label><input id="wt" data-n="1" inputmode="decimal" placeholder="${p.weight?fa(p.weight):''}"></div><div class="f"><label>دور کمر (cm)، اختیاری</label><input id="wa" data-n="1" inputmode="decimal"></div></div><button class="btn pri" style="margin:0" onclick="A.addW()">ثبت</button></div>
+ ${sum}${hint}${m?metricsCard(m,p):''}
+ <div class="card"><h3>نمودار وزن</h3>${line([{v:W.map(x=>x.w),c:'#ffffff'}])}</div>
+ <div class="card"><h3>سابقه</h3>${W.slice().reverse().map((x,i,a)=>{const pr=a[i+1],dl=pr?x.w-pr.w:null;return `<div class="kv"><span>${jdate(x.date,{day:'numeric',month:'long'})}</span><b>${fnum(x.w)}<small>kg${dl!=null?` (${dl>0?'+':''}${fnum(dl)})`:''}</small></b></div>`}).join('')||'<div class="empty sm">هنوز وزنی ثبت نشده</div>'}</div>`;
+}
+function meView(){
+ const s=S(),p=s.profile||{},rec=(s.dietLog[iso()]||{m:{},c:{}}),cr=s.corr||{items:[],note:''};
+ return `<div class="card"><div class="rowb"><b style="font-size:18px">${esc(p.name||'')}</b><span class="chip or">${GOALS[p.goal]||''}</span></div>${(p.anoms&&p.anoms.length)?`<div class="wrap">${p.anoms.map(n=>`<span class="chip">${n}</span>`).join('')}</div>`:''}${p.anomNote?`<p class="mut sm">${esc(p.anomNote)}</p>`:''}</div>
+ <div class="card"><h3>برنامه اصلاحی امروز</h3>${cr.note?`<p class="mut sm" style="margin-bottom:8px">${esc(cr.note)}</p>`:''}${cr.items.map((x,i)=>`<div class="mealck" style="margin:8px 0"><button class="ck ${rec.c&&rec.c[i]?'on':''}" onclick="A.tickCorr(${i})" aria-label="انجام شد">✓</button><div><b>${esc(x.name)}</b><p class="mut sm">${fa(x.sets)} ست، ${esc(fa(x.reps))}، ${fa(x.freq)} نوبت در هفته</p></div></div>`).join('')||'<div class="empty sm">برنامه اصلاحی‌ای ثبت نشده</div>'}</div>
+ <div class="card"><h3>وزنه پیشنهادی چطور حساب می‌شود؟</h3><p class="mut sm">برای حرکت‌هایی که مربی وزنه ننوشته، با یک ست آزمایشی یا بهترین ست ثبت‌شده‌ات ۱RM تخمین زده می‌شود (وزنه × (۱ + تکرار ÷ ۳۰)). از روی آن وزنه‌ای که تکرار هدف را با چند تکرار ذخیره (RIR) می‌دهد پیشنهاد می‌شود و هر هفته به‌اندازه درصد پیشرفت مربی بالا می‌رود. فرمول کامل هر حرکت زیر همان حرکت در صفحه تمرین است.</p></div>
+ <button class="btn pri" onclick="A.sendLog()">ارسال گزارش به مربی</button>
+ <p class="mut sm" style="margin:-2px 0 12px">فایل گزارش شامل تمرین‌ها، وزن و رعایت رژیم توست. از فهرست پیام‌رسان‌ها مربی را انتخاب کن.</p>
+ ${installCard()}
+ <button class="btn" onclick="pickFile()">وارد کردن برنامه جدید از مربی</button>`;
+}
+
+/* ================= timer ================= */
+let tmr=null;
+function stopTimer(){clearInterval(tmr);$('#timerpill').className=''}
+function startTimer(sec){
+ if(!sec)return;clearInterval(tmr);const el=$('#timerpill'),end=Date.now()+sec*1000;el.className='show';
+ const tick=()=>{const r=Math.ceil((end-Date.now())/1000);
+  if(r<=0){clearInterval(tmr);el.className='show go';el.innerHTML='وقت ست بعدی است <button onclick="stopTimer()">بستن</button>';try{navigator.vibrate([200,100,200])}catch(e){}setTimeout(()=>{if(el.className==='show go')el.className=''},8000);return}
+  el.innerHTML='استراحت <b>'+fa(pad(Math.floor(r/60))+':'+pad(r%60))+'</b> <button onclick="stopTimer()">رد کردن</button>'};
+ tick();tmr=setInterval(tick,500);
+}
+
+/* ================= share / files ================= */
+function dl(obj,name){const b=new Blob([JSON.stringify(obj)],{type:'application/json'}),a=document.createElement('a');a.href=URL.createObjectURL(b);a.download=name;document.body.appendChild(a);a.click();a.remove();setTimeout(()=>URL.revokeObjectURL(a.href),4000)}
+async function shareFile(obj,name,title){
+ const f=new File([JSON.stringify(obj)],name,{type:'application/json'});
+ try{if(navigator.canShare&&navigator.canShare({files:[f]})){await navigator.share({files:[f],title});return}}catch(e){if(e&&e.name==='AbortError')return}
+ dl(obj,name);toast('فایل ذخیره شد؛ از پوشه دانلودها داخل پیام‌رسان بفرست');
+}
+function pickFile(){$('#file').click()}
+$('#file').onchange=async e=>{const f=e.target.files[0];e.target.value='';if(!f)return;let d;try{d=JSON.parse(await f.text())}catch(err){return toast('فایل معتبر نیست')}handleFile(d)};
+function importPlan(d){
+ const s=S(),same=s.plan&&s.plan.id===d.plan.id;
+ if(!same&&s.plan&&Object.keys(s.logs).length&&!confirm('این برنامه با برنامه فعلی فرق دارد و ثبت‌های قبلی پاک می‌شود. ادامه می‌دهی؟'))return false;
+ s.cid=d.cid;s.profile=d.profile;s.plan=d.plan;s.diet=d.diet||{meals:[]};s.corr=d.corr||{items:[],note:''};
+ if(!same){s.logs={};s.dietLog={};s.weights=[];s.start=iso()}
+ if(!s.weights.length&&num(d.profile.weight))s.weights.push({date:iso(),w:num(d.profile.weight),waist:num(d.profile.waist)||''});
+ DB.role='student';save();return true;
+}
+function handleFile(d){
+ if(!d||d.app!=='fitplan')return toast('این فایل مال گروفیت نیست');
+ if(d.kind==='plan'){
+  if(DB.role==='coach')return toast('در حالت مربی فقط گزارش شاگرد وارد می‌شود');
+  if(!importPlan(d))return;UI.screen=null;UI.sTab='train';UI.w=firstOpenWeek();UI.d=0;render(false);toast('برنامه وارد شد');
+ }else if(d.kind==='log'){
+  if(DB.role!=='coach'||!UI.unlocked)return toast('گزارش فقط در حالت مربی باز می‌شود');
+  const c=DB.clients.find(x=>x.id===d.cid)||DB.clients.find(x=>x.plan&&x.plan.id===d.planId);
+  if(!c)return toast('شاگردی با این گزارش پیدا نشد');
+  c.logs={at:d.exported,logs:d.logs||{},weights:d.weights||[],dietLog:d.dietLog||{},start:d.start};
+  save();UI.screen=null;UI.cid=c.id;UI.ctab='rep';render(false);toast('گزارش '+(c.name||'شاگرد')+' ثبت شد');
+ }else if(d.kind==='backup'){
+  if(confirm('همه اطلاعات فعلی با پشتیبان جایگزین شود؟')){DB=d.data;DB.student.trial=DB.student.trial||{};if(BUILD==='student'){DB.role=DB.role==='coach'?null:DB.role;DB.clients=[];DB.pin=null}UI.unlocked=false;save();UI.screen=null;UI.cid=null;render(false);toast('بازیابی شد')}
+ }
+}
+
+/* ================= actions ================= */
+function hp(s){let h1=0xdeadbeef,h2=0x41c6ce57;const t='fp|'+s+'|k9x';for(let r=0;r<2000;r++){for(let i=0;i<t.length;i++){const c=t.charCodeAt(i);h1=Math.imul(h1^c,2654435761);h2=Math.imul(h2^c,1597334677)}h1=Math.imul(h1^(h1>>>16),2246822507)^Math.imul(h2^(h2>>>13),3266489909);h2=Math.imul(h2^(h2>>>16),2246822507)^Math.imul(h1^(h1>>>13),3266489909)}return(h2>>>0).toString(16)+(h1>>>0).toString(16)}
+const pinDigits=v=>en(v||'').replace(/\D/g,'');
+function askPin(){const p=prompt('رمز مربی را وارد کن');if(p===null)return false;if(hp(pinDigits(p))!==DB.pin){toast('رمز اشتباه است');return false}return true}
+let deferredInstall=null;
+function installCard(){
+ const proto=(typeof location!=='undefined'&&location.protocol)||'';
+ let body;
+ if(typeof matchMedia==='function'&&matchMedia('(display-mode: standalone)').matches)body='<p class="mut sm">برنامه همین حالا به‌صورت نصب‌شده باز شده است.</p>';
+ else if(/^https?:/.test(proto))body=deferredInstall?'<button class="btn pri" style="margin:0" onclick="A.install()">نصب روی صفحه گوشی</button>':'<p class="mut sm">در Chrome روی ⋮ بالا بزن و «Add to Home screen» یا «Install app» را انتخاب کن. در آیفون: Share و بعد «Add to Home Screen».</p>';
+ else body='<p class="mut sm">برای ساخت آیکون روی صفحه گوشی، برنامه باید روی یک آدرس اینترنتی (https) قرار بگیرد. پکیج آماده گروفیت (growfit-web) برای همین ساخته شده است.</p>';
+ return `<div class="card"><h3>آیکون روی صفحه گوشی</h3>${body}</div>`;
+}
+const A={};
+A.install=async()=>{if(!deferredInstall)return;deferredInstall.prompt();try{await deferredInstall.userChoice}catch(e){}deferredInstall=null;render()};
+A.unlock=()=>{
+ if(Date.now()<UI.lockUntil)return toast('چند ثانیه صبر کن و دوباره امتحان کن');
+ const p=pinDigits($('#pin').value);
+ if(DB.pin){
+  if(hp(p)===DB.pin){UI.unlocked=true;UI.fails=0;go({});return}
+  UI.fails++;if(UI.fails>=5){UI.lockUntil=Date.now()+30000;UI.fails=0;return toast('۵ بار اشتباه؛ ۳۰ ثانیه صبر کن')}
+  return toast('رمز اشتباه است');
+ }
+ if(p.length<4)return toast('رمز باید حداقل ۴ رقم باشد');
+ if(p!==pinDigits($('#pin2').value))return toast('تکرار رمز یکی نیست');
+ if(S().plan)return toast('این گوشی در حالت شاگرد است');
+ DB.pin=hp(p);save();UI.unlocked=true;go({});
+};
+A.leave=()=>{DB.role=null;UI.unlocked=false;save();go({})};
+A.changePin=()=>{if(!askPin())return;const n=pinDigits(prompt('رمز جدید (۴ تا ۸ رقم)')||'');if(n.length<4||n.length>8)return toast('رمز نامعتبر است');DB.pin=hp(n);save();toast('رمز تغییر کرد')};
+A.setRole=r=>{if(r==='coach'&&BUILD==='student')return;if(r==='coach'&&!DB.pin&&S().plan)return toast('این گوشی در حالت شاگرد است');DB.role=r;UI.unlocked=false;save();go({screen:null})};
+A.switchRole=()=>{if(BUILD==='student')return;if(DB.role==='student'&&DB.pin&&!askPin())return;DB.role=null;UI.unlocked=false;save();go({screen:null,cid:null})};
+A.reset=()=>{if(DB.pin&&!askPin())return;if(confirm('همه اطلاعات این گوشی پاک می‌شود. مطمئنی؟')){DB=fresh();if(BUILD==='student')DB.role='student';UI.unlocked=false;save();go({screen:null,cid:null})}};
+A.backup=()=>dl({app:'fitplan',kind:'backup',data:DB},'growfit-backup-'+iso()+'.json');
+A.newClient=()=>{const c={id:uid(),name:'',phone:'',sex:'m',age:'',height:'',weight:'',waist:'',hip:'',activity:'2',goal:'keep',sport:'body',anoms:[],anomNote:'',plan:null,diet:{meals:[]},corr:{items:[],note:''},logs:null};DB.clients.push(c);save();go({cid:c.id,ctab:'profile',w:0,d:0})};
+A.open=id=>go({cid:id,ctab:'profile',w:0,d:0,aw:0});
+A.delClient=()=>{if(confirm('این شاگرد و همه اطلاعاتش حذف شود؟')){DB.clients=DB.clients.filter(c=>c.id!==UI.cid);save();go({cid:null})}};
+A.togAnom=i=>{const c=C(),n=ANOMN[i],k=c.anoms.indexOf(n);if(k<0)c.anoms.push(n);else c.anoms.splice(k,1);save();render()};
+A.createPlan=()=>{const c=C(),w=Math.max(1,Math.min(24,num($('#np-w').value)||8)),d=Math.max(1,Math.min(7,num($('#np-d').value)||4));c.plan={id:uid(),title:$('#np-t').value||'برنامه تمرینی',prog:2.5,rir:2,dl:0,days:Array.from({length:d},(_,i)=>'روز '+fa(i+1)),weeks:Array.from({length:w},()=>Array.from({length:d},()=>({ex:[]})))};UI.w=0;UI.d=0;save();render()};
+const curEx=()=>C().plan.weeks[UI.w][UI.d].ex;
+const dvOf=key=>((SPORTS[(C()&&C().sport)||'body'].dov)||{})[key]||{};
+function newEx(key,g){const sy=SYS[key],e=Object.assign({id:uid(),name:'',m:'سینه',s:'',sys:key,k:sy.k||'str',g:g||'',sets:'',reps:'',tempo:'',weight:'',rest:'',ir:'',dist:'',work:'',inten:'',note:''},sy.d,dvOf(key));(sy.x||[]).forEach(([f,l,d])=>{e[f]=d});if(MUSK.indexOf(e.k)<0)e.m='کل بدن';return e}
+const nextG=()=>{const u=curEx().map(x=>x.g);return LETTERS.find(l=>u.indexOf(l)<0)||'A'};
+A.addEx=()=>{const sp=SPORTS[C().sport||'body'],key=(UI.nsys&&sp.sys.indexOf(UI.nsys)>=0)?UI.nsys:sp.sys[0],sy=SYS[key],g=sy.g?nextG():'';for(let i=0;i<Math.max(1,sy.g);i++)curEx().push(newEx(key,g));save();render()};
+A.setSys=(i,key)=>{const e=curEx()[i],sy=SYS[key];e.sys=key;e.k=sy.k||'str';Object.assign(e,{sets:'',reps:'',tempo:'',rest:'',ir:'',dist:'',work:'',inten:''},sy.d,dvOf(key));(sy.x||[]).forEach(([f,l,d])=>{e[f]=d});if(MUSK.indexOf(e.k)<0)e.m='کل بدن';else if(e.m==='کل بدن')e.m='سینه';if(sy.g){if(!e.g)e.g=nextG()}else e.g='';save();render()};
+A.delEx=i=>{if(confirm('این حرکت حذف شود؟')){curEx().splice(i,1);save();render()}};
+A.mvEx=(i,d)=>{const a=curEx(),j=i+d;if(j<0||j>=a.length)return;const t=a[i];a[i]=a[j];a[j]=t;save();render()};
+A.auto=(i,name)=>{const l=LIB.find(x=>x[0]===name);if(l){const e=curEx()[i];e.m=l[1];e.s=l[2];save();render()}};
+const scaleWeek=(wk,f)=>{const n=clone(wk);n.forEach(d=>d.ex.forEach(e=>{e.id=uid();if(num(e.weight)&&kindOf(e)==='str')e.weight=Math.round(num(e.weight)*f*2)/2}));return n};
+A.addWeek=()=>{const p=C().plan;if(p.weeks.length>=24)return;p.weeks.push(scaleWeek(p.weeks[p.weeks.length-1],1));save();render()};
+A.delWeek=()=>{const p=C().plan;if(p.weeks.length>1&&confirm('آخرین هفته حذف شود؟')){p.weeks.pop();save();render()}};
+A.addDay=()=>{const p=C().plan;if(p.days.length>=7)return;p.days.push('روز '+fa(p.days.length+1));p.weeks.forEach(w=>w.push({ex:[]}));save();render()};
+A.delDay=()=>{const p=C().plan;if(p.days.length>1&&confirm('آخرین روز در همه هفته‌ها حذف شود؟')){p.days.pop();p.weeks.forEach(w=>w.pop());save();render()}};
+A.copyWeek=()=>{const p=C().plan,pct=num($('#pct').value);if(UI.w>=p.weeks.length-1)return toast('هفته بعدی وجود ندارد');if(!confirm('هفته‌های بعد از هفته '+fa(UI.w+1)+' بازنویسی می‌شوند. ادامه؟'))return;for(let t=UI.w+1;t<p.weeks.length;t++)p.weeks[t]=scaleWeek(p.weeks[UI.w],Math.pow(1+pct/100,t-UI.w));save();render();toast('اعمال شد')};
+A.addMeal=()=>{C().diet.meals.push({name:'',desc:'',kcal:'',p:'',c:'',f:''});save();render()};
+A.presetMeals=()=>{['صبحانه','میان‌وعده صبح','ناهار','میان‌وعده عصر','شام'].forEach(n=>C().diet.meals.push({name:n,desc:'',kcal:'',p:'',c:'',f:''}));save();render()};
+A.delMeal=i=>{if(confirm('این وعده حذف شود؟')){C().diet.meals.splice(i,1);save();render()}};
+A.addCorr=i=>{const it=C().corr.items;ANOM[ANOMN[i]].forEach(([n,s,r])=>{if(!it.some(x=>x.name===n))it.push({id:uid(),name:n,sets:s,reps:r,freq:3,note:''})});save();render()};
+A.addCorrBlank=()=>{C().corr.items.push({id:uid(),name:'',sets:3,reps:'10',freq:3,note:''});save();render()};
+A.delCorr=i=>{C().corr.items.splice(i,1);save();render()};
+A.sendPlan=()=>{const c=C();if(!c.plan)return toast('اول برنامه تمرین را بساز');shareFile(planPack(c),'growfit-'+(c.name||'plan').replace(/\s+/g,'_')+'.json','برنامه تمرینی GrowFit برای '+c.name)};
+A.dlPlan=()=>{const c=C();if(!c.plan)return toast('اول برنامه تمرین را بساز');dl(planPack(c),'growfit-'+(c.name||'plan').replace(/\s+/g,'_')+'.json')};
+A.copyPhone=()=>{const t=en(C().phone);(navigator.clipboard?navigator.clipboard.writeText(t):Promise.reject()).then(()=>toast('شماره کپی شد')).catch(()=>toast('کپی نشد'))};
+A.aex=v=>{UI.aex=v;render()};
+/* student */
+A.setVal=(id,i,f,v)=>{slot(lg(),id,i)[f]=v===''?'':num(v);save()};
+A.tick=(id,i)=>{
+ const day=S().plan.weeks[UI.w][UI.d],e=day.ex.find(x=>x.id===id),L=lg();if(!e)return;if(!L.start)L.start=Date.now();
+ const sl=slotsOf(e,effW(e,UI.w))[i];if(!sl)return;
+ const s=slot(L,id,i);s.d=!s.d;
+ if(s.d){
+  if(s.w==='')s.w=sl.w||'';if(s.r==='')s.r=sl.r||'';
+  let rest=sl.rest;
+  if(e.g){const mem=day.ex.filter(x=>x.g===e.g);if(mem[mem.length-1].id!==e.id)rest=num(e.ir)}
+  startTimer(rest);
+ }
+ save();render();
+};
+A.find=id=>{UI.find=(UI.find===id?'':id);UI.fx='';render()};
+A.fx=id=>{UI.fx=(UI.fx===id?'':id);UI.find='';render()};
+A.doFind=id=>{
+ const e=S().plan.weeks[UI.w][UI.d].ex.find(x=>x.id===id),w=num($('#tw').value),r=num($('#tr').value);
+ if(!e||!e.name)return toast('اسم حرکت خالی است');
+ if(w<=0||r<=0)return toast('وزنه و تکرار را وارد کن');
+ if(r>30)return toast('تکرار خیلی زیاد است؛ با وزنه سنگین‌تر امتحان کن');
+ S().trial[e.name]={w,r,date:iso(),wk:UI.w};UI.find='';save();render();toast('وزنه کاری محاسبه شد');
+};
+A.rpe=n=>{lg().rpe=n;save();render()};
+A.finish=()=>{
+ const L=lg();if(L.fin){L.fin=false;save();render();return}
+ let dn=0;Object.keys(L.sets).forEach(k=>L.sets[k].forEach(x=>{if(x&&x.d)dn++}));
+ if(!dn)return toast('حداقل یک ست را تیک بزن');
+ if(!L.rpe)return toast('فشار تمرین را از ۱ تا ۱۰ انتخاب کن');
+ L.fin=true;L.min=L.start?Math.max(1,Math.round((Date.now()-L.start)/60000)):0;L.date=iso();save();render();toast('تمرین ثبت شد');
+};
+A.shift=n=>{const d=addDays(UI.date,n);if(d>iso())return;UI.date=d;render()};
+const dayRec=()=>{const L=S().dietLog;return L[UI.date]=L[UI.date]||{m:{},c:{}}};
+A.tickMeal=i=>{const r=dayRec();r.m[i]=!r.m[i];save();render()};
+A.tickCorr=i=>{const L=S().dietLog;const r=L[iso()]=L[iso()]||{m:{},c:{}};r.c[i]=!r.c[i];save();render()};
+A.addW=()=>{const v=num($('#wt').value);if(!v)return toast('وزن را وارد کن');const s=S(),d=iso(),wa=num($('#wa').value)||'';s.weights=s.weights.filter(x=>x.date!==d);s.weights.push({date:d,w:v,waist:wa});s.weights.sort((a,b)=>a.date<b.date?-1:1);save();render();toast('وزن ثبت شد')};
+A.sendLog=()=>{const s=S(),p=s.profile||{};shareFile({app:'fitplan',kind:'log',v:1,cid:s.cid,planId:s.plan.id,name:p.name,exported:Date.now(),start:s.start,logs:s.logs,weights:s.weights,dietLog:s.dietLog},'growfit-report-'+(p.name||'student').replace(/\s+/g,'_')+'-'+iso()+'.json','گزارش '+(p.name||''))};
+
+/* ================= init ================= */
+$('#lib').innerHTML=LIB.map(l=>`<option value="${esc(l[0])}">`).join('');
+if(DB.role==='student')UI.w=firstOpenWeek();
+render(false);
+if(typeof window!=='undefined'){
+ window.addEventListener('beforeinstallprompt',e=>{e.preventDefault();deferredInstall=e;if(UI.screen==='settings'||(DB.role==='student'&&UI.sTab==='me'))render()});
+ window.addEventListener('appinstalled',()=>{deferredInstall=null;toast('برنامه نصب شد');render()});
+}
+if(typeof navigator!=='undefined'&&'serviceWorker' in navigator&&/^https?:/.test(location.protocol))navigator.serviceWorker.register('sw.js').catch(()=>{});
+</script>
+</body>
+</html>
