@@ -1,0 +1,373 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="theme-color" content="#0b0b0f">
+<meta name="color-scheme" content="dark">
+<meta name="referrer" content="no-referrer">
+<meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'unsafe-inline'; style-src 'unsafe-inline'; img-src data: blob:; connect-src 'none'; form-action 'none'; base-uri 'none'">
+<title>فرم اطلاعات گروفیت</title>
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%230b0b0f'/%3E%3Cpath d='M32 10l22 12v20L32 54 10 42V22z' fill='none' stroke='%23ff5a6a' stroke-width='5'/%3E%3C/svg%3E">
+<style>
+:root{--bg:#0b0b0f;--s1:#15151a;--s2:#1d1d24;--s3:#272730;--line:#2b2b35;--tx:#f5f5f7;--mut:#8d8d9a;--or:#ff5a6a;--ok:#3ddc97;--err:#ff6b6b;--grad:linear-gradient(135deg,#ff4d6d 0%,#ff8a4c 100%)}
+*{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+html,body{margin:0;background:var(--bg);color:var(--tx);font:16px/1.75 Vazirmatn,"Segoe UI",Tahoma,system-ui,sans-serif}
+body{padding:env(safe-area-inset-top) 0 0}
+main{max-width:520px;margin:0 auto;padding:0 16px calc(120px + env(safe-area-inset-bottom))}
+h1,h2,h3,p{margin:0}
+header{display:flex;align-items:center;gap:12px;padding:18px 0 6px}
+header svg{flex:none}
+header h1{font-size:21px;font-weight:800}
+header p{color:var(--mut);font-size:13px}
+.prog{display:flex;gap:6px;margin:14px 0 4px}
+.prog i{flex:1;height:5px;border-radius:9px;background:var(--s3);transition:background .25s}
+.prog i.on{background:var(--grad)}
+.stepname{color:var(--mut);font-size:13px;margin:6px 0 14px}
+.step{display:none;animation:in .25s ease}
+.step.on{display:block}
+@keyframes in{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:none}}
+.card{background:var(--s1);border:1px solid var(--line);border-radius:18px;padding:16px;margin-bottom:14px}
+.f{margin-bottom:14px}.f:last-child{margin-bottom:0}
+label.l{display:block;font-weight:700;margin-bottom:6px;font-size:15px}
+label.l small{color:var(--mut);font-weight:400;font-size:12.5px}
+input[type=text],input[type=tel],input[type=time],textarea,select{width:100%;background:var(--s2);color:var(--tx);border:1.5px solid var(--line);border-radius:13px;padding:13px 14px;font:inherit;font-size:16px;outline:none;min-height:50px}
+input:focus,textarea:focus{border-color:var(--or)}
+textarea{resize:vertical;min-height:76px}
+.g2{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.g3{display:grid;grid-template-columns:1fr 1fr 1fr;gap:10px}
+.opts{display:grid;gap:9px}
+.opt{position:relative}
+.opt input{position:absolute;opacity:0;inset:0;width:100%;height:100%;margin:0;cursor:pointer}
+.opt span{display:block;background:var(--s2);border:1.5px solid var(--line);border-radius:13px;padding:12px 14px;font-size:15px;transition:.15s}
+.opt input:checked+span{border-color:var(--or);background:rgba(255,90,106,.12);font-weight:700}
+.opt input:focus-visible+span{outline:2px solid var(--or);outline-offset:2px}
+.row2{display:grid;grid-template-columns:1fr 1fr;gap:9px}
+.chips{display:flex;flex-wrap:wrap;gap:9px}
+.chips .opt span{display:flex;align-items:center;gap:8px;padding:10px 13px}
+.chips .opt b{display:inline-flex;width:24px;height:24px;border-radius:50%;background:var(--s3);align-items:center;justify-content:center;font-size:12.5px}
+.chips .opt input:checked+span b{background:var(--or);color:#fff}
+.err{color:var(--err);font-size:13px;margin-top:5px;min-height:0}
+.f.bad input,.f.bad textarea,.f.bad .opt span{border-color:var(--err)}
+.note{background:rgba(255,176,32,.1);border:1px solid rgba(255,176,32,.35);color:#ffd27a;border-radius:13px;padding:10px 13px;font-size:13.5px;margin-bottom:14px}
+.info{background:var(--s2);border-radius:13px;padding:10px 13px;font-size:13.5px;color:var(--mut);margin-bottom:14px}
+.nav{position:fixed;inset-inline:0;bottom:0;background:linear-gradient(to top,var(--bg) 70%,transparent);padding:18px 16px calc(14px + env(safe-area-inset-bottom));z-index:5}
+.nav div{max-width:520px;margin:0 auto;display:flex;gap:10px}
+.btn{flex:1;border:0;border-radius:15px;padding:15px 16px;font:inherit;font-size:16px;font-weight:800;color:#fff;background:var(--s3);cursor:pointer;min-height:54px}
+.btn.pri{background:var(--grad)}
+.btn.sm{padding:10px 12px;font-size:14px;min-height:44px;font-weight:700}
+.btn:disabled{opacity:.5}
+.btn.ghost{background:transparent;border:1.5px solid var(--line);color:var(--tx)}
+.btn.back{flex:0 0 38%}
+.kv{display:flex;justify-content:space-between;gap:12px;padding:8px 0;border-bottom:1px solid var(--line);font-size:14.5px}
+.kv:last-child{border:0}
+.kv span{color:var(--mut);flex:none}
+.kv b{text-align:left;font-weight:600;overflow-wrap:anywhere}
+.kv a{color:var(--or);font-size:13px;margin-inline-start:8px;cursor:pointer;text-decoration:underline}
+.done{text-align:center;padding:26px 8px 8px}
+.done .ok{width:74px;height:74px;border-radius:50%;background:rgba(61,220,151,.14);border:2px solid var(--ok);display:inline-flex;align-items:center;justify-content:center;margin-bottom:12px}
+.done h2{font-size:22px;margin-bottom:6px}
+.done p{color:var(--mut)}
+.stack{display:grid;gap:10px;margin-top:14px}
+a.btn{text-decoration:none;display:flex;align-items:center;justify-content:center;text-align:center}
+#toast{position:fixed;left:50%;top:calc(14px + env(safe-area-inset-top));transform:translate(-50%,-90px);background:var(--tx);color:var(--bg);border-radius:12px;padding:9px 18px;font-weight:700;font-size:14px;transition:transform .25s;z-index:9;max-width:90%;text-align:center}
+#toast.show{transform:translate(-50%,0)}
+.hide{display:none!important}
+.foot{color:var(--mut);font-size:12.5px;text-align:center;margin-top:18px}
+@media (prefers-reduced-motion:reduce){.step{animation:none}#toast{transition:none}}
+</style>
+</head>
+<body>
+<main>
+<header>
+ <svg viewBox="140 515 790 915" width="38" height="38" aria-hidden="true"><path fill="#ff5a6a" fill-rule="evenodd" d="M535 523L925 742V1200L535 1421L146 1200V742Z M535 615L226 790V1155L535 1330L846 1155V790Z M788 815L535 668L277 805V1140L535 1273L748 1150V930L600 1005L670 1043V1105L535 1183L358 1085V862L535 762L708 858Z"/></svg>
+ <div><h1>فرم اطلاعات گروفیت</h1><p id="forwho">اطلاعاتت را بنویس تا مربی برنامهٔ مناسب تو را بسازد</p></div>
+</header>
+
+<div id="wizard">
+ <div class="prog" id="prog"><i></i><i></i><i></i><i></i><i></i></div>
+ <div class="stepname" id="stepname"></div>
+ <div class="note hide" id="prefillNote">اطلاعات آخرین فرمت پر شده است. فقط چیزهایی را که عوض شده اصلاح کن، مثل وزن و دورها.</div>
+
+ <section class="step" data-step="1">
+  <div class="card">
+   <div class="f" data-f="name"><label class="l" for="name">نام و نام خانوادگی</label><input type="text" id="name" autocomplete="name" maxlength="60"><div class="err"></div></div>
+   <div class="f" data-f="phone"><label class="l" for="phone">شماره موبایل <small>(اختیاری)</small></label><input type="tel" id="phone" inputmode="tel" placeholder="09..." dir="ltr" style="text-align:right" autocomplete="tel"><div class="err"></div></div>
+   <div class="f" data-f="sex"><label class="l">جنسیت</label><div class="row2">
+    <label class="opt"><input type="radio" name="sex" value="m"><span>مرد</span></label>
+    <label class="opt"><input type="radio" name="sex" value="f"><span>زن</span></label></div><div class="err"></div></div>
+  </div>
+  <div class="card">
+   <div class="g3">
+    <div class="f" data-f="age"><label class="l" for="age">سن</label><input type="text" id="age" inputmode="decimal" placeholder="سال"><div class="err"></div></div>
+    <div class="f" data-f="height"><label class="l" for="height">قد</label><input type="text" id="height" inputmode="decimal" placeholder="cm"><div class="err"></div></div>
+    <div class="f" data-f="weight"><label class="l" for="weight">وزن</label><input type="text" id="weight" inputmode="decimal" placeholder="kg"><div class="err"></div></div>
+   </div>
+   <p class="info" style="margin:12px 0 0">می‌توانی عددها را فارسی یا انگلیسی بنویسی.</p>
+  </div>
+ </section>
+
+ <section class="step" data-step="2">
+  <div class="card">
+   <p class="info">اگر دور بدنت را اندازه نگرفته‌ای، خالی بگذار و بعداً با مربی هماهنگ کن. متر را روی پوست و بدون فشار بگیر.</p>
+   <div class="g3">
+    <div class="f" data-f="waist"><label class="l" for="waist">دور کمر</label><input type="text" id="waist" inputmode="decimal" placeholder="cm"><div class="err"></div></div>
+    <div class="f" data-f="hip"><label class="l" for="hip">دور باسن</label><input type="text" id="hip" inputmode="decimal" placeholder="cm"><div class="err"></div></div>
+    <div class="f" data-f="neck"><label class="l" for="neck">دور گردن</label><input type="text" id="neck" inputmode="decimal" placeholder="cm"><div class="err"></div></div>
+   </div>
+  </div>
+  <div class="card"><div class="f"><label class="l">فعالیت روزانه بدون احتساب ورزش</label><div class="opts" id="actOpts"></div></div></div>
+  <div class="card"><div class="f"><label class="l">هدفت چیست؟</label><div class="opts" id="goalOpts"></div></div></div>
+  <div class="card"><div class="f"><label class="l">سطح استرس روزانه</label><div class="row2" style="grid-template-columns:1fr 1fr 1fr" id="stressOpts"></div></div></div>
+ </section>
+
+ <section class="step" data-step="3">
+  <div class="card">
+   <div class="f"><label class="l" for="trainHist">سابقهٔ تمرینی</label><textarea id="trainHist" placeholder="مثلاً: ۲ سال باشگاه، هفته‌ای ۳ روز"></textarea></div>
+   <div class="f"><label class="l" for="dietHist">سابقهٔ رژیم</label><textarea id="dietHist" placeholder="مثلاً: سال قبل رژیم کم‌کالری گرفتم"></textarea></div>
+   <div class="f"><label class="l" for="job">شغل <small>(اگر شاغلی)</small></label><input type="text" id="job" maxlength="120" placeholder="مثلاً: کارمند اداری، پشت میز"></div>
+  </div>
+  <div class="card">
+   <div class="f"><label class="l" for="illness">سابقهٔ بیماری</label><textarea id="illness" placeholder="اگر نداری، خالی بگذار"></textarea></div>
+   <div class="f"><label class="l" for="injury">سابقهٔ آسیب یا جراحی</label><textarea id="injury" placeholder="مثلاً: دررفتگی شانه راست، جراحی زانو"></textarea></div>
+   <div class="f"><label class="l" for="meds">داروی مصرفی <small>(هر داروی خاص یا روتین)</small></label><textarea id="meds" placeholder="اسم دارو را بنویس. اگر نداری خالی بگذار"></textarea></div>
+  </div>
+  <div class="card">
+   <div class="g2">
+    <div class="f"><label class="l" for="sleep">ساعت خواب</label><input type="time" id="sleep"></div>
+    <div class="f"><label class="l" for="wake">ساعت بیداری</label><input type="time" id="wake"></div>
+   </div>
+   <div class="f"><label class="l" for="mealLimit">محدودیت ساعتی برای وعده‌ها <small>(اگر هست)</small></label><input type="text" id="mealLimit" maxlength="300" placeholder="مثلاً: بین ۱۲ تا ۴ ظهر نمی‌توانم غذا بخورم"></div>
+  </div>
+ </section>
+
+ <section class="step" data-step="4">
+  <div class="card">
+   <p class="info">اگر می‌دانی کدام یک از ناهنجاری‌ها را داری، شمارهٔ آن را انتخاب کن. اگر مطمئن نیستی، خالی بگذار؛ مربی بررسی می‌کند.</p>
+   <div class="chips" id="anomOpts"></div>
+   <div class="f" style="margin-top:14px"><label class="l" for="anomOther">مورد دیگری که در لیست نیست <small>(اختیاری)</small></label><textarea id="anomOther" placeholder="اینجا بنویس"></textarea></div>
+  </div>
+ </section>
+
+ <section class="step" data-step="5">
+  <div class="card" id="review"></div>
+  <p class="info">با زدن «ارسال برای مربی»، فهرست برنامه‌های گوشی (تلگرام، واتساپ، ایتا، بله و ...) باز می‌شود. هر کدام را خواستی انتخاب کن و فایل را برای مربی بفرست. این صفحه سرور ندارد و اطلاعاتت جایی جز همان پیام‌رسان نمی‌رود.</p>
+ </section>
+</div>
+
+<div id="doneBox" class="hide">
+ <div class="done"><div class="ok"><svg width="38" height="38" viewBox="0 0 24 24" fill="none" stroke="#3ddc97" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12.5l4.5 4.5L19 7"/></svg></div>
+  <h2 id="doneTitle">فرم آماده شد</h2><p id="doneText"></p></div>
+ <div class="stack" id="doneBtns"></div>
+ <div class="card hide" id="fallback" style="margin-top:16px">
+  <h3 style="margin-bottom:6px;font-size:16px">اگر پیام‌رسان فایل را نپذیرفت</h3>
+  <p class="info" style="margin-bottom:10px">راه اول: فایل را از گوشی (پوشهٔ دانلودها) دستی داخل چت مربی ضمیمه کن.<br>راه دوم: کد متنی را کپی کن و مثل یک پیام معمولی برای مربی بفرست. مربی می‌تواند آن را مستقیم در برنامه بچسباند.</p>
+  <div class="stack" style="margin-top:0" id="fbBtns"></div>
+ </div>
+ <div class="stack"><button class="btn ghost" id="again">ویرایش و ارسال دوباره</button></div>
+</div>
+
+<p class="foot">GrowFit · گروفیت</p>
+</main>
+
+<div class="nav" id="nav"><div><button class="btn back hide" id="bPrev">قبلی</button><button class="btn pri" id="bNext">بعدی</button></div></div>
+<div id="toast"></div>
+
+<script>
+'use strict';
+/* ===== GrowFit intake core: shared by form.html and the coach app ===== */
+const IT_ANOMS={1:'لوردوز کمری (گودی کمر)',2:'کایفوز (قوز پشت و گردن)',3:'اسکولیوز (انحراف ستون فقرات)',4:'گردن جلو‌آمده',5:'شانه گرد',6:'پای پرانتزی',7:'پای ضربدری',8:'کف پای صاف',9:'عدم تقارن لگن'};
+const IT_ACT={1:'کم‌تحرک (بیشتر نشسته: پشت میز، رانندگی)',2:'سبک (کمی راه رفتن در طول روز)',3:'متوسط (بیشتر ایستاده یا در حال راه رفتن)',4:'زیاد (کار فیزیکی سنگین)'};
+const IT_GOAL={cut:'کاهش چربی',keep:'حفظ وزن',bulk:'افزایش حجم'};
+const IT_STRESS={low:'کم',mid:'متوسط',high:'زیاد'};
+const IT_FD='۰۱۲۳۴۵۶۷۸۹';
+const itEn=s=>String(s==null?'':s).replace(/[۰-۹]/g,d=>IT_FD.indexOf(d)).replace(/[٠-٩]/g,d=>d.charCodeAt(0)-1632).replace(/[٫,،]/g,'.');
+const itNum=v=>{const x=parseFloat(itEn(v));return isNaN(x)||!isFinite(x)?'':x};
+const itStr=(v,max)=>String(v==null?'':v).replace(/[\u0000-\u0008\u000B-\u001F\u007F‎‏‪-‮]/g,'').replace(/\s+/g,' ').trim().slice(0,max);
+const itTime=v=>{v=itEn(v);return /^([01]\d|2[0-3]):[0-5]\d$/.test(v)?v:''};
+const itId=v=>/^[A-Za-z0-9_-]{6,48}$/.test(String(v))?String(v):'';
+const itRange=(v,lo,hi)=>{v=itNum(v);return v!==''&&v>=lo&&v<=hi?Math.round(v*10)/10:''};
+/* limits shared by the form (user-facing validation) and the coach importer (defence) */
+const IT_LIM={age:[10,100],height:[100,230],weight:[25,300],waist:[30,250],hip:[30,250],neck:[20,70]};
+const IT_LAB={age:'سن',height:'قد',weight:'وزن',waist:'دور کمر',hip:'دور باسن',neck:'دور گردن'};
+function itClean(raw){
+ try{
+  if(!raw||typeof raw!=='object'||raw.app!=='fitplan'||raw.kind!=='intake')return{ok:false,err:'این فایل فرم گروفیت نیست'};
+  if(!(raw.v>=1&&raw.v<=IT_V_MAX))return{ok:false,err:'نسخهٔ فرم پشتیبانی نمی‌شود'};
+  const a=raw.a;if(!a||typeof a!=='object')return{ok:false,err:'اطلاعات فرم خالی است'};
+  const o={name:itStr(a.name,60),phone:itEn(a.phone).replace(/[^\d+]/g,'').slice(0,15),sex:a.sex==='f'?'f':a.sex==='m'?'m':'',
+   age:itRange(a.age,...IT_LIM.age),height:itRange(a.height,...IT_LIM.height),weight:itRange(a.weight,...IT_LIM.weight),
+   waist:itRange(a.waist,...IT_LIM.waist),hip:itRange(a.hip,...IT_LIM.hip),neck:itRange(a.neck,...IT_LIM.neck),
+   act:IT_ACT[itEn(a.act)]?String(itEn(a.act)):'',goal:IT_GOAL[a.goal]?a.goal:'',stress:IT_STRESS[a.stress]?a.stress:'',
+   trainHist:itStr(a.trainHist,500),dietHist:itStr(a.dietHist,500),job:itStr(a.job,120),illness:itStr(a.illness,500),injury:itStr(a.injury,500),
+   meds:itStr(a.meds,500),sleep:itTime(a.sleep),wake:itTime(a.wake),mealLimit:itStr(a.mealLimit,300),anomOther:itStr(a.anomOther,300),
+   anoms:[]};
+  (Array.isArray(a.anoms)?a.anoms:[]).forEach(x=>{x=parseInt(itEn(x),10);if(IT_ANOMS[x]&&o.anoms.indexOf(x)<0)o.anoms.push(x)});
+  o.anoms.sort((p,q)=>p-q);
+  if(!o.name)return{ok:false,err:'نام در فرم نیست'};
+  if(o.age===''||o.height===''||o.weight===''||!o.sex)return{ok:false,err:'سن، قد، وزن یا جنسیت در فرم نیست یا خارج از محدوده است'};
+  const created=Number(raw.created),now=Date.now();
+  const cr=created>1.6e12&&created<now+864e5*2?created:now;
+  let d=/^\d{4}-\d{2}-\d{2}$/.test(String(raw.d))?String(raw.d):'';
+  if(!d||Math.abs(new Date(d+'T12:00:00')-cr)>864e5*3)d=itIso(new Date(cr));
+  const c=raw.coach&&typeof raw.coach==='object'?raw.coach:{};
+  return{ok:true,data:{id:itId(raw.id)||('f'+cr.toString(36)+Math.random().toString(36).slice(2,6)),pid:itId(raw.pid),created:cr,d,coach:{n:itStr(c.n,60),p:itEn(c.p).replace(/[^\d+]/g,'').slice(0,15)},a:o}};
+ }catch(e){return{ok:false,err:'فایل قابل خواندن نیست'}}
+}
+const IT_V_MAX=1;
+const itIso=d=>d.getFullYear()+'-'+String(d.getMonth()+1).padStart(2,'0')+'-'+String(d.getDate()).padStart(2,'0');
+/* text code: a safe fallback when a messenger refuses the .json file (works pasted into any chat) */
+function itEncode(pack){const b=new TextEncoder().encode(JSON.stringify(pack));let s='';for(let i=0;i<b.length;i+=0x8000)s+=String.fromCharCode.apply(null,b.subarray(i,i+0x8000));return 'GF1:'+btoa(s).replace(/\+/g,'-').replace(/\//g,'_').replace(/=+$/,'')}
+function itDecode(text){
+ const m=String(text||'').match(/GF1:([A-Za-z0-9_-]{20,})/);if(!m)return null;
+ try{let b=m[1].replace(/-/g,'+').replace(/_/g,'/');while(b.length%4)b+='=';const s=atob(b),u=new Uint8Array(s.length);for(let i=0;i<s.length;i++)u[i]=s.charCodeAt(i);return JSON.parse(new TextDecoder().decode(u))}catch(e){return null}
+}
+/* US-Navy circumference estimate of body fat %. An estimate only, never a diagnosis. */
+function itBodyFat(a){
+ const h=+a.height,w=+a.waist,n=+a.neck,hp=+a.hip;if(!h||!w||!n)return null;
+ let bf;
+ if(a.sex==='f'){if(!hp||w+hp-n<=0)return null;bf=495/(1.29579-0.35004*Math.log10(w+hp-n)+0.221*Math.log10(h))-450}
+ else{if(w-n<=0)return null;bf=495/(1.0324-0.19077*Math.log10(w-n)+0.15456*Math.log10(h))-450}
+ return isFinite(bf)&&bf>2&&bf<65?Math.round(bf*10)/10:null;
+}
+
+
+(()=>{
+const $=(s,e=document)=>e.querySelector(s),$$=(s,e=document)=>[...e.querySelectorAll(s)];
+const FA='۰۱۲۳۴۵۶۷۸۹',fa=s=>String(s).replace(/\d/g,d=>FA[d]);const fn=x=>fa(String(x).replace('.','٫'));
+const esc=s=>String(s==null?'':s).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+const LS={get(k){try{return localStorage.getItem(k)}catch(e){return null}},set(k,v){try{localStorage.setItem(k,v)}catch(e){}},del(k){try{localStorage.removeItem(k)}catch(e){}}};
+const toast=m=>{const t=$('#toast');t.textContent=m;t.className='show';clearTimeout(toast.h);toast.h=setTimeout(()=>t.className='',2600)};
+const STEPS=['اطلاعات پایه','بدن و هدف','سابقه و سلامت','ناهنجاری‌ها','بازبینی و ارسال'];
+const Q=new URLSearchParams(location.search);
+const coach={n:itStr(Q.get('n'),60),p:itEn(Q.get('c')||'').replace(/[^\d+]/g,'').slice(0,15),tg:(Q.get('tg')||'').replace(/[^A-Za-z0-9_]/g,'').slice(0,40),ei:(Q.get('ei')||'').replace(/[^A-Za-z0-9_]/g,'').slice(0,40),bl:(Q.get('bl')||'').replace(/[^A-Za-z0-9_]/g,'').slice(0,40)};
+if(coach.n)$('#forwho').textContent='فرم ویژهٔ مربی: '+coach.n;
+const TXT=['name','phone','age','height','weight','waist','hip','neck','trainHist','dietHist','job','illness','injury','meds','sleep','wake','mealLimit','anomOther'];
+const RAD=['sex','act','goal','stress'];
+/* option lists */
+$('#actOpts').innerHTML=Object.keys(IT_ACT).map(k=>`<label class="opt"><input type="radio" name="act" value="${k}"><span>${esc(IT_ACT[k])}</span></label>`).join('');
+$('#goalOpts').innerHTML=Object.keys(IT_GOAL).map(k=>`<label class="opt"><input type="radio" name="goal" value="${k}"><span>${esc(IT_GOAL[k])}</span></label>`).join('');
+$('#stressOpts').innerHTML=Object.keys(IT_STRESS).map(k=>`<label class="opt"><input type="radio" name="stress" value="${k}"><span style="text-align:center">${esc(IT_STRESS[k])}</span></label>`).join('');
+$('#anomOpts').innerHTML=Object.keys(IT_ANOMS).map(k=>`<label class="opt"><input type="checkbox" name="anom" value="${k}"><span><b>${fa(k)}</b>${esc(IT_ANOMS[k])}</span></label>`).join('');
+
+function collect(){
+ const a={};TXT.forEach(k=>{a[k]=$('#'+k).value});
+ RAD.forEach(k=>{const r=$(`input[name=${k}]:checked`);a[k]=r?r.value:''});
+ a.anoms=$$('input[name=anom]:checked').map(x=>+x.value);return a;
+}
+function fill(a){
+ TXT.forEach(k=>{if(a[k]!=null&&a[k]!=='')$('#'+k).value=a[k]});
+ RAD.forEach(k=>{if(a[k]){const r=$(`input[name=${k}][value="${a[k]}"]`);if(r)r.checked=true}});
+ (a.anoms||[]).forEach(v=>{const r=$(`input[name=anom][value="${v}"]`);if(r)r.checked=true});
+}
+function draft(){LS.set('gf_draft',JSON.stringify({a:collect(),step:cur}))}
+/* restore: unfinished draft first, otherwise the last sent form (so a repeat form is quick) */
+let cur=1;
+try{
+ const d=JSON.parse(LS.get('gf_draft')||'null'),l=JSON.parse(LS.get('gf_last')||'null');
+ if(d&&d.a){fill(d.a);cur=Math.min(5,Math.max(1,d.step|0))}
+ else if(l&&l.a){fill(l.a);$('#prefillNote').classList.remove('hide')}
+}catch(e){}
+document.addEventListener('input',e=>{if(e.target.closest('#wizard')){const f=e.target.closest('.f');if(f)f.classList.remove('bad');draft()}});
+document.addEventListener('change',e=>{if(e.target.closest('#wizard')){const f=e.target.closest('.f');if(f)f.classList.remove('bad');draft()}});
+
+/* validation */
+function bad(k,msg){const f=$(`[data-f=${k}]`);if(!f)return;f.classList.add('bad');$('.err',f).textContent=msg}
+function clearErr(){$$('.f.bad').forEach(f=>{f.classList.remove('bad');const e=$('.err',f);if(e)e.textContent=''})}
+function validate(step){
+ clearErr();let first=null;const a=collect();const fail=(k,m)=>{bad(k,m);if(!first)first=k};
+ if(step===1){
+  if(!itStr(a.name,60))fail('name','نامت را بنویس');
+  if(!a.sex)fail('sex','جنسیت را انتخاب کن');
+  ['age','height','weight'].forEach(k=>{const v=itNum(a[k]),[lo,hi]=IT_LIM[k];if(v===''||v<lo||v>hi)fail(k,v===''?'لازم است':`عدد بین ${fa(lo)} تا ${fa(hi)}`)});
+  if(a.phone&&itEn(a.phone).replace(/\D/g,'').length<10)fail('phone','شماره کامل نیست');
+ }
+ if(step===2){['waist','hip','neck'].forEach(k=>{if(String(a[k]).trim()==='')return;const v=itNum(a[k]),[lo,hi]=IT_LIM[k];if(v===''||v<lo||v>hi)fail(k,`عدد بین ${fa(lo)} تا ${fa(hi)} (یا خالی بگذار)`)})}
+ if(first){const el=$(`[data-f=${first}]`);el.scrollIntoView({behavior:'smooth',block:'center'});const i=$('input,textarea',el);if(i&&i.type!=='radio')i.focus({preventScroll:true});toast('یک مورد را اصلاح کن')}
+ return !first;
+}
+function show(n){
+ cur=n;$$('.step').forEach(s=>s.classList.toggle('on',+s.dataset.step===n));
+ $$('#prog i').forEach((p,i)=>p.classList.toggle('on',i<n));
+ $('#stepname').textContent=`مرحلهٔ ${fa(n)} از ${fa(5)}: ${STEPS[n-1]}`;
+ $('#bPrev').classList.toggle('hide',n===1);
+ $('#bNext').textContent=n===5?'ارسال برای مربی':'بعدی';
+ if(n===5)review();
+ draft();scrollTo({top:0})
+}
+function review(){
+ const a=itClean({app:'fitplan',kind:'intake',v:1,a:collect()});
+ if(!a.ok){$('#review').innerHTML=`<p class="err">${esc(a.err)}</p>`;return}
+ const d=a.data.a,row=(l,v,s)=>v===''||v==null||(Array.isArray(v)&&!v.length)?'':`<div class="kv"><span>${l}</span><b>${esc(Array.isArray(v)?v.join('، '):v)}${s?`<a data-go="${s}">ویرایش</a>`:''}</b></div>`;
+ $('#review').innerHTML=
+  row('نام',d.name,1)+row('موبایل',d.phone)+row('جنسیت',d.sex==='m'?'مرد':'زن')+row('سن',fn(d.age))+row('قد',fn(d.height)+' cm')+row('وزن',fn(d.weight)+' kg')+
+  row('دور کمر',d.waist===''?'':fn(d.waist)+' cm',2)+row('دور باسن',d.hip===''?'':fn(d.hip)+' cm')+row('دور گردن',d.neck===''?'':fn(d.neck)+' cm')+
+  row('فعالیت روزانه',IT_ACT[d.act]||'')+row('هدف',IT_GOAL[d.goal]||'')+row('استرس',IT_STRESS[d.stress]||'')+
+  row('سابقه تمرین',d.trainHist,3)+row('سابقه رژیم',d.dietHist)+row('شغل',d.job)+row('بیماری',d.illness)+row('آسیب یا جراحی',d.injury)+row('دارو',d.meds)+
+  row('خواب',d.sleep)+row('بیداری',d.wake)+row('محدودیت وعده',d.mealLimit)+
+  row('ناهنجاری‌ها',d.anoms.map(x=>fa(x)+'. '+IT_ANOMS[x]),4)+row('ناهنجاری دیگر',d.anomOther);
+ $$('#review [data-go]').forEach(x=>x.onclick=()=>show(+x.dataset.go));
+}
+$('#bPrev').onclick=()=>show(cur-1);
+$('#bNext').onclick=()=>{if(cur===5){if(!validate(1)){show(1);validate(1);return}const r=itClean({app:'fitplan',kind:'intake',v:1,a:collect()});if(!r.ok){toast(r.err);show(1);return}send();return}if(!validate(cur))return;show(cur+1)};
+
+/* build + send */
+let PID=LS.get('gf_pid');if(!itId(PID)){PID='p'+Math.random().toString(36).slice(2,10)+Date.now().toString(36);LS.set('gf_pid',PID)}
+function buildPack(){
+ const r=itClean({app:'fitplan',kind:'intake',v:1,a:collect()}),now=Date.now();
+ return{app:'fitplan',kind:'intake',v:1,id:'f'+now.toString(36)+Math.random().toString(36).slice(2,6),pid:PID,created:now,d:itIso(new Date(now)),coach:{n:coach.n,p:coach.p},a:r.data.a};
+}
+const fname=p=>'growfit-form-'+(p.a.name.replace(/[^؀-ۿA-Za-z0-9]+/g,'_').slice(0,30)||'student')+'-'+p.d+'.json';
+function download(p){const b=new Blob([JSON.stringify(p)],{type:'application/json'}),a=document.createElement('a');a.href=URL.createObjectURL(b);a.download=fname(p);document.body.appendChild(a);a.click();a.remove();setTimeout(()=>URL.revokeObjectURL(a.href),4000)}
+async function copy(t){try{await navigator.clipboard.writeText(t);return true}catch(e){const x=document.createElement('textarea');x.value=t;x.style.cssText='position:fixed;opacity:0';document.body.appendChild(x);x.select();let ok=false;try{ok=document.execCommand('copy')}catch(e2){}x.remove();return ok}}
+let SENT=null;
+async function send(){
+ const p=buildPack();SENT=p;
+ LS.set('gf_last',JSON.stringify({a:p.a,at:p.created}));LS.del('gf_draft');
+ let shared=false,aborted=false;
+ try{
+  const file=new File([JSON.stringify(p)],fname(p),{type:'application/json'});
+  if(navigator.canShare&&navigator.canShare({files:[file]})){await navigator.share({files:[file],title:'فرم گروفیت',text:'فرم گروفیت: '+p.a.name});shared=true}
+ }catch(e){if(e&&e.name==='AbortError')aborted=true}
+ if(aborted){toast('ارسال لغو شد. دوباره امتحان کن');return}
+ done(p,shared);
+}
+function chatLinks(code){
+ const L=[];
+ if(coach.p){const w=coach.p.replace(/^\+/,'').replace(/^00/,'').replace(/^0/,'98');L.push(['واتساپ',`https://wa.me/${w}?text=${encodeURIComponent(code)}`,false]);}
+ if(coach.tg)L.push(['تلگرام',`https://t.me/${coach.tg}`,true]);else if(coach.p){const w=coach.p.replace(/^\+/,'').replace(/^00/,'').replace(/^0/,'98');L.push(['تلگرام',`https://t.me/+${w}`,true])}
+ if(coach.ei)L.push(['ایتا',`https://eitaa.com/${coach.ei}`,true]);
+ if(coach.bl)L.push(['بله',`https://ble.ir/${coach.bl}`,true]);
+ return L;
+}
+function done(p,shared){
+ $('#wizard').classList.add('hide');$('#nav').classList.add('hide');$('#doneBox').classList.remove('hide');
+ $('#doneTitle').textContent=shared?'فرم فرستاده شد':'فرم آماده است';
+ $('#doneText').textContent=shared?'اگر در پیام‌رسان روی ارسال زدی، کار تمام است. مربی فایل را در برنامه‌اش وارد می‌کند.':'روی گوشی‌ها که ارسال مستقیم نیست، یکی از راه‌های زیر را برای رساندن فرم به مربی بزن.';
+ const code=itEncode(p),btn=(t,cls,fn)=>{const b=document.createElement('button');b.className='btn '+cls;b.textContent=t;b.onclick=fn;return b};
+ const top=$('#doneBtns');top.innerHTML='';
+ if(!shared){
+  top.appendChild(btn('ذخیرهٔ فایل فرم','pri',()=>{download(p);toast('فایل ذخیره شد. آن را در چت مربی ضمیمه کن')}));
+  top.appendChild(btn('کپی کد متنی فرم','',async()=>toast(await copy(code)?'کد کپی شد. در چت مربی بچسبان و بفرست':'کپی نشد؛ فایل را ذخیره کن')));
+ }else{
+  top.appendChild(btn('ارسال دوبارهٔ فایل','',()=>send2(p)));
+ }
+ const fb=$('#fbBtns');fb.innerHTML='';$('#fallback').classList.toggle('hide',false);
+ fb.appendChild(btn('ذخیرهٔ فایل فرم','sm',()=>{download(p);toast('فایل ذخیره شد')}));
+ fb.appendChild(btn('کپی کد متنی فرم','sm',async()=>toast(await copy(code)?'کد کپی شد. در چت مربی بچسبان':'کپی نشد')));
+ chatLinks(code).forEach(([name,url,needCopy])=>{
+  const a=document.createElement('a');a.className='btn sm ghost';a.textContent='باز کردن چت مربی در '+name;a.href=url;a.target='_blank';a.rel='noopener';
+  if(needCopy)a.onclick=()=>{copy(code);toast('کد کپی شد؛ در چت بچسبان')};
+  (shared?fb:top).appendChild(a);
+ });
+ scrollTo({top:0});
+}
+async function send2(p){
+ try{const file=new File([JSON.stringify(p)],fname(p),{type:'application/json'});if(navigator.canShare&&navigator.canShare({files:[file]}))await navigator.share({files:[file],title:'فرم گروفیت',text:'فرم گروفیت: '+p.a.name})}catch(e){}
+}
+$('#again').onclick=()=>{$('#doneBox').classList.add('hide');$('#wizard').classList.remove('hide');$('#nav').classList.remove('hide');show(5)};
+show(cur);
+})();
+</script>
+</body>
+</html>

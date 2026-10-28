@@ -201,18 +201,1361 @@ textarea{resize:vertical}
 .bn .fab.on{outline:3px solid rgba(255,255,255,.18)}
 .fl{font-size:11.5px;color:var(--mut);margin-top:3px}
 @media (prefers-reduced-motion:reduce){#toast{transition:none}}
+.cmp{border-collapse:collapse;width:100%;font-size:13px;min-width:max-content}
+.cmp th,.cmp td{padding:7px 9px;text-align:center;white-space:nowrap;border-bottom:1px solid var(--line)}
+.cmp th:first-child{position:sticky;right:0;background:var(--s1);text-align:right;font-weight:600;color:var(--mut)}
+.cmp td small{display:block;font-size:11px;line-height:1.3}
+.cmp .tot{background:rgba(255,90,106,.07)}
+.fig{width:100%;max-width:440px;display:block;margin:6px auto}
+.heatleg{display:flex;align-items:center;gap:8px;justify-content:center;font-size:12px;color:var(--mut)}
+.heatleg i{width:130px;height:8px;border-radius:9px;background:linear-gradient(270deg,rgba(255,90,106,.16),rgba(255,90,106,1))}
+.qrbox{background:#fff;border-radius:16px;padding:10px;max-width:260px;margin:8px auto}
+.qrbox svg{display:block;width:100%;height:auto}
+#splash{position:fixed;inset:0;z-index:99;background:#0b0b0f;display:flex;flex-direction:column;align-items:center;justify-content:center;overflow:hidden;animation:spBg .4s ease 2.1s forwards}
+.sp-logo{filter:drop-shadow(0 0 30px rgba(255,90,106,.5));animation:spIn .95s cubic-bezier(.05,.72,.1,1) both,spOut .5s cubic-bezier(.6,0,1,.5) 1.75s forwards}
+.sp-word{margin-top:16px;font-size:32px;font-weight:800;letter-spacing:.5px;background:linear-gradient(135deg,#ff4d6d,#ff8a4c);-webkit-background-clip:text;background-clip:text;color:transparent;opacity:0;animation:spW .5s ease .85s forwards,spOut2 .4s ease 1.8s forwards}
+.sp-sub{color:#8d8d9a;font-size:14px;opacity:0;animation:spW .5s ease 1s forwards,spOut2 .4s ease 1.8s forwards}
+.sp-streak{position:absolute;top:50%;left:0;height:3px;width:70vw;margin-top:-1px;background:linear-gradient(90deg,transparent,rgba(255,90,106,.8),transparent);opacity:0;animation:spS .95s ease-out both}
+@keyframes spIn{from{transform:translateX(120vw) skewX(-16deg);opacity:0}12%{opacity:1}to{transform:none;opacity:1}}
+@keyframes spOut{to{transform:translateX(-130vw) skewX(16deg);opacity:0}}
+@keyframes spW{to{opacity:1}}
+@keyframes spOut2{to{opacity:0;transform:translateX(-30vw)}}
+@keyframes spBg{to{opacity:0;visibility:hidden}}
+@keyframes spS{0%{transform:translateX(110vw);opacity:.9}100%{transform:translateX(-20vw);opacity:0}}
+@media (prefers-reduced-motion:reduce){#splash{animation:spBg .3s ease .7s forwards}.sp-logo,.sp-word,.sp-sub{animation:none;opacity:1;transform:none}.sp-streak{display:none}}
+@media print{#splash{display:none}}
 </style>
 </head>
 <body>
+<div id="splash" aria-hidden="true"><div class="sp-streak"></div><div class="sp-logo"><svg viewBox="140 515 790 915" width="124" height="144"><defs><linearGradient id="spg" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#ff4d6d"/><stop offset="1" stop-color="#ff8a4c"/></linearGradient></defs><path fill="url(#spg)" fill-rule="evenodd" d="M535 523L925 742V1200L535 1421L146 1200V742Z M535 615L226 790V1155L535 1330L846 1155V790Z M788 815L535 668L277 805V1140L535 1273L748 1150V930L600 1005L670 1043V1105L535 1183L358 1085V862L535 762L708 858Z"/></svg></div><div class="sp-word">GrowFit</div><div class="sp-sub">گروفیت</div></div>
+<script>(function(){var s=document.getElementById("splash");if(!s)return;var r=function(){if(s.parentNode)s.parentNode.removeChild(s)};s.addEventListener("click",r);setTimeout(r,2700)})();</script>
 <div id="app"></div>
 <div id="timerpill"></div>
 <div id="toast"></div>
 <div id="printroot"></div>
-<input type="file" id="file" accept=".json,.fitplan,application/json" hidden>
+<input type="file" id="file" accept=".json,.fitplan,application/json" multiple hidden>
 <datalist id="lib"></datalist>
 <script>
 
 'use strict';
+/* QR encoder: (c) 2009 Kazuhiko Arase, MIT license, http://www.d-project.com/ */
+var GFQR=(function(){var __m={};function __r(n){return __m[n.replace("./","")]}
+(function(){var module={exports:{}};var exports=module.exports;
+module.exports = {
+    MODE_NUMBER :       1 << 0,
+    MODE_ALPHA_NUM :    1 << 1,
+    MODE_8BIT_BYTE :    1 << 2,
+    MODE_KANJI :        1 << 3
+};
+
+__m["QRMode"]=module.exports;})();
+(function(){var module={exports:{}};var exports=module.exports;
+module.exports = {
+	L : 1,
+	M : 0,
+	Q : 3,
+	H : 2
+};
+
+
+__m["QRErrorCorrectLevel"]=module.exports;})();
+(function(){var module={exports:{}};var exports=module.exports;
+module.exports = {
+	PATTERN000 : 0,
+	PATTERN001 : 1,
+	PATTERN010 : 2,
+	PATTERN011 : 3,
+	PATTERN100 : 4,
+	PATTERN101 : 5,
+	PATTERN110 : 6,
+	PATTERN111 : 7
+};
+
+__m["QRMaskPattern"]=module.exports;})();
+(function(){var module={exports:{}};var exports=module.exports;
+var QRMath = {
+
+	glog : function(n) {
+	
+		if (n < 1) {
+			throw new Error("glog(" + n + ")");
+		}
+		
+		return QRMath.LOG_TABLE[n];
+	},
+	
+	gexp : function(n) {
+	
+		while (n < 0) {
+			n += 255;
+		}
+	
+		while (n >= 256) {
+			n -= 255;
+		}
+	
+		return QRMath.EXP_TABLE[n];
+	},
+	
+	EXP_TABLE : new Array(256),
+	
+	LOG_TABLE : new Array(256)
+
+};
+	
+for (var i = 0; i < 8; i++) {
+	QRMath.EXP_TABLE[i] = 1 << i;
+}
+for (var i = 8; i < 256; i++) {
+	QRMath.EXP_TABLE[i] = QRMath.EXP_TABLE[i - 4]
+		^ QRMath.EXP_TABLE[i - 5]
+		^ QRMath.EXP_TABLE[i - 6]
+		^ QRMath.EXP_TABLE[i - 8];
+}
+for (var i = 0; i < 255; i++) {
+	QRMath.LOG_TABLE[QRMath.EXP_TABLE[i] ] = i;
+}
+
+module.exports = QRMath;
+
+__m["QRMath"]=module.exports;})();
+(function(){var module={exports:{}};var exports=module.exports;
+var QRMath = __r("QRMath");
+
+function QRPolynomial(num, shift) {
+	if (num.length === undefined) {
+		throw new Error(num.length + "/" + shift);
+	}
+
+	var offset = 0;
+
+	while (offset < num.length && num[offset] === 0) {
+		offset++;
+	}
+
+	this.num = new Array(num.length - offset + shift);
+	for (var i = 0; i < num.length - offset; i++) {
+		this.num[i] = num[i + offset];
+	}
+}
+
+QRPolynomial.prototype = {
+
+	get : function(index) {
+		return this.num[index];
+	},
+	
+	getLength : function() {
+		return this.num.length;
+	},
+	
+	multiply : function(e) {
+	
+		var num = new Array(this.getLength() + e.getLength() - 1);
+	
+		for (var i = 0; i < this.getLength(); i++) {
+			for (var j = 0; j < e.getLength(); j++) {
+				num[i + j] ^= QRMath.gexp(QRMath.glog(this.get(i) ) + QRMath.glog(e.get(j) ) );
+			}
+		}
+	
+		return new QRPolynomial(num, 0);
+	},
+	
+	mod : function(e) {
+	
+		if (this.getLength() - e.getLength() < 0) {
+			return this;
+		}
+	
+		var ratio = QRMath.glog(this.get(0) ) - QRMath.glog(e.get(0) );
+	
+		var num = new Array(this.getLength() );
+		
+		for (var i = 0; i < this.getLength(); i++) {
+			num[i] = this.get(i);
+		}
+		
+		for (var x = 0; x < e.getLength(); x++) {
+			num[x] ^= QRMath.gexp(QRMath.glog(e.get(x) ) + ratio);
+		}
+	
+		// recursive call
+		return new QRPolynomial(num, 0).mod(e);
+	}
+};
+
+module.exports = QRPolynomial;
+
+__m["QRPolynomial"]=module.exports;})();
+(function(){var module={exports:{}};var exports=module.exports;
+function QRBitBuffer() {
+	this.buffer = [];
+	this.length = 0;
+}
+
+QRBitBuffer.prototype = {
+
+	get : function(index) {
+		var bufIndex = Math.floor(index / 8);
+		return ( (this.buffer[bufIndex] >>> (7 - index % 8) ) & 1) == 1;
+	},
+	
+	put : function(num, length) {
+		for (var i = 0; i < length; i++) {
+			this.putBit( ( (num >>> (length - i - 1) ) & 1) == 1);
+		}
+	},
+	
+	getLengthInBits : function() {
+		return this.length;
+	},
+	
+	putBit : function(bit) {
+	
+		var bufIndex = Math.floor(this.length / 8);
+		if (this.buffer.length <= bufIndex) {
+			this.buffer.push(0);
+		}
+	
+		if (bit) {
+			this.buffer[bufIndex] |= (0x80 >>> (this.length % 8) );
+		}
+	
+		this.length++;
+	}
+};
+
+module.exports = QRBitBuffer;
+
+__m["QRBitBuffer"]=module.exports;})();
+(function(){var module={exports:{}};var exports=module.exports;
+var QRMode = __r("QRMode");
+
+function QR8bitByte(data) {
+	this.mode = QRMode.MODE_8BIT_BYTE;
+	this.data = data;
+}
+
+QR8bitByte.prototype = {
+
+	getLength : function() {
+		return this.data.length;
+	},
+	
+	write : function(buffer) {
+		for (var i = 0; i < this.data.length; i++) {
+			// not JIS ...
+			buffer.put(this.data.charCodeAt(i), 8);
+		}
+	}
+};
+
+module.exports = QR8bitByte;
+
+__m["QR8bitByte"]=module.exports;})();
+(function(){var module={exports:{}};var exports=module.exports;
+var QRErrorCorrectLevel = __r("QRErrorCorrectLevel");
+
+function QRRSBlock(totalCount, dataCount) {
+	this.totalCount = totalCount;
+	this.dataCount  = dataCount;
+}
+
+QRRSBlock.RS_BLOCK_TABLE = [
+
+	// L
+	// M
+	// Q
+	// H
+
+	// 1
+	[1, 26, 19],
+	[1, 26, 16],
+	[1, 26, 13],
+	[1, 26, 9],
+	
+	// 2
+	[1, 44, 34],
+	[1, 44, 28],
+	[1, 44, 22],
+	[1, 44, 16],
+
+	// 3
+	[1, 70, 55],
+	[1, 70, 44],
+	[2, 35, 17],
+	[2, 35, 13],
+
+	// 4		
+	[1, 100, 80],
+	[2, 50, 32],
+	[2, 50, 24],
+	[4, 25, 9],
+	
+	// 5
+	[1, 134, 108],
+	[2, 67, 43],
+	[2, 33, 15, 2, 34, 16],
+	[2, 33, 11, 2, 34, 12],
+	
+	// 6
+	[2, 86, 68],
+	[4, 43, 27],
+	[4, 43, 19],
+	[4, 43, 15],
+	
+	// 7		
+	[2, 98, 78],
+	[4, 49, 31],
+	[2, 32, 14, 4, 33, 15],
+	[4, 39, 13, 1, 40, 14],
+	
+	// 8
+	[2, 121, 97],
+	[2, 60, 38, 2, 61, 39],
+	[4, 40, 18, 2, 41, 19],
+	[4, 40, 14, 2, 41, 15],
+	
+	// 9
+	[2, 146, 116],
+	[3, 58, 36, 2, 59, 37],
+	[4, 36, 16, 4, 37, 17],
+	[4, 36, 12, 4, 37, 13],
+	
+	// 10		
+	[2, 86, 68, 2, 87, 69],
+	[4, 69, 43, 1, 70, 44],
+	[6, 43, 19, 2, 44, 20],
+	[6, 43, 15, 2, 44, 16],
+
+	// 11
+	[4, 101, 81],
+	[1, 80, 50, 4, 81, 51],
+	[4, 50, 22, 4, 51, 23],
+	[3, 36, 12, 8, 37, 13],
+
+	// 12
+	[2, 116, 92, 2, 117, 93],
+	[6, 58, 36, 2, 59, 37],
+	[4, 46, 20, 6, 47, 21],
+	[7, 42, 14, 4, 43, 15],
+
+	// 13
+	[4, 133, 107],
+	[8, 59, 37, 1, 60, 38],
+	[8, 44, 20, 4, 45, 21],
+	[12, 33, 11, 4, 34, 12],
+
+	// 14
+	[3, 145, 115, 1, 146, 116],
+	[4, 64, 40, 5, 65, 41],
+	[11, 36, 16, 5, 37, 17],
+	[11, 36, 12, 5, 37, 13],
+
+	// 15
+	[5, 109, 87, 1, 110, 88],
+	[5, 65, 41, 5, 66, 42],
+	[5, 54, 24, 7, 55, 25],
+	[11, 36, 12],
+
+	// 16
+	[5, 122, 98, 1, 123, 99],
+	[7, 73, 45, 3, 74, 46],
+	[15, 43, 19, 2, 44, 20],
+	[3, 45, 15, 13, 46, 16],
+
+	// 17
+	[1, 135, 107, 5, 136, 108],
+	[10, 74, 46, 1, 75, 47],
+	[1, 50, 22, 15, 51, 23],
+	[2, 42, 14, 17, 43, 15],
+
+	// 18
+	[5, 150, 120, 1, 151, 121],
+	[9, 69, 43, 4, 70, 44],
+	[17, 50, 22, 1, 51, 23],
+	[2, 42, 14, 19, 43, 15],
+
+	// 19
+	[3, 141, 113, 4, 142, 114],
+	[3, 70, 44, 11, 71, 45],
+	[17, 47, 21, 4, 48, 22],
+	[9, 39, 13, 16, 40, 14],
+
+	// 20
+	[3, 135, 107, 5, 136, 108],
+	[3, 67, 41, 13, 68, 42],
+	[15, 54, 24, 5, 55, 25],
+	[15, 43, 15, 10, 44, 16],
+
+	// 21
+	[4, 144, 116, 4, 145, 117],
+	[17, 68, 42],
+	[17, 50, 22, 6, 51, 23],
+	[19, 46, 16, 6, 47, 17],
+
+	// 22
+	[2, 139, 111, 7, 140, 112],
+	[17, 74, 46],
+	[7, 54, 24, 16, 55, 25],
+	[34, 37, 13],
+
+	// 23
+	[4, 151, 121, 5, 152, 122],
+	[4, 75, 47, 14, 76, 48],
+	[11, 54, 24, 14, 55, 25],
+	[16, 45, 15, 14, 46, 16],
+
+	// 24
+	[6, 147, 117, 4, 148, 118],
+	[6, 73, 45, 14, 74, 46],
+	[11, 54, 24, 16, 55, 25],
+	[30, 46, 16, 2, 47, 17],
+
+	// 25
+	[8, 132, 106, 4, 133, 107],
+	[8, 75, 47, 13, 76, 48],
+	[7, 54, 24, 22, 55, 25],
+	[22, 45, 15, 13, 46, 16],
+
+	// 26
+	[10, 142, 114, 2, 143, 115],
+	[19, 74, 46, 4, 75, 47],
+	[28, 50, 22, 6, 51, 23],
+	[33, 46, 16, 4, 47, 17],
+
+	// 27
+	[8, 152, 122, 4, 153, 123],
+	[22, 73, 45, 3, 74, 46],
+	[8, 53, 23, 26, 54, 24],
+	[12, 45, 15, 28, 46, 16],
+
+	// 28
+	[3, 147, 117, 10, 148, 118],
+	[3, 73, 45, 23, 74, 46],
+	[4, 54, 24, 31, 55, 25],
+	[11, 45, 15, 31, 46, 16],
+
+	// 29
+	[7, 146, 116, 7, 147, 117],
+	[21, 73, 45, 7, 74, 46],
+	[1, 53, 23, 37, 54, 24],
+	[19, 45, 15, 26, 46, 16],
+
+	// 30
+	[5, 145, 115, 10, 146, 116],
+	[19, 75, 47, 10, 76, 48],
+	[15, 54, 24, 25, 55, 25],
+	[23, 45, 15, 25, 46, 16],
+
+	// 31
+	[13, 145, 115, 3, 146, 116],
+	[2, 74, 46, 29, 75, 47],
+	[42, 54, 24, 1, 55, 25],
+	[23, 45, 15, 28, 46, 16],
+
+	// 32
+	[17, 145, 115],
+	[10, 74, 46, 23, 75, 47],
+	[10, 54, 24, 35, 55, 25],
+	[19, 45, 15, 35, 46, 16],
+
+	// 33
+	[17, 145, 115, 1, 146, 116],
+	[14, 74, 46, 21, 75, 47],
+	[29, 54, 24, 19, 55, 25],
+	[11, 45, 15, 46, 46, 16],
+
+	// 34
+	[13, 145, 115, 6, 146, 116],
+	[14, 74, 46, 23, 75, 47],
+	[44, 54, 24, 7, 55, 25],
+	[59, 46, 16, 1, 47, 17],
+
+	// 35
+	[12, 151, 121, 7, 152, 122],
+	[12, 75, 47, 26, 76, 48],
+	[39, 54, 24, 14, 55, 25],
+	[22, 45, 15, 41, 46, 16],
+
+	// 36
+	[6, 151, 121, 14, 152, 122],
+	[6, 75, 47, 34, 76, 48],
+	[46, 54, 24, 10, 55, 25],
+	[2, 45, 15, 64, 46, 16],
+
+	// 37
+	[17, 152, 122, 4, 153, 123],
+	[29, 74, 46, 14, 75, 47],
+	[49, 54, 24, 10, 55, 25],
+	[24, 45, 15, 46, 46, 16],
+
+	// 38
+	[4, 152, 122, 18, 153, 123],
+	[13, 74, 46, 32, 75, 47],
+	[48, 54, 24, 14, 55, 25],
+	[42, 45, 15, 32, 46, 16],
+
+	// 39
+	[20, 147, 117, 4, 148, 118],
+	[40, 75, 47, 7, 76, 48],
+	[43, 54, 24, 22, 55, 25],
+	[10, 45, 15, 67, 46, 16],
+
+	// 40
+	[19, 148, 118, 6, 149, 119],
+	[18, 75, 47, 31, 76, 48],
+	[34, 54, 24, 34, 55, 25],
+	[20, 45, 15, 61, 46, 16]
+];
+
+QRRSBlock.getRSBlocks = function(typeNumber, errorCorrectLevel) {
+	
+	var rsBlock = QRRSBlock.getRsBlockTable(typeNumber, errorCorrectLevel);
+	
+	if (rsBlock === undefined) {
+		throw new Error("bad rs block @ typeNumber:" + typeNumber + "/errorCorrectLevel:" + errorCorrectLevel);
+	}
+
+	var length = rsBlock.length / 3;
+	
+	var list = [];
+	
+	for (var i = 0; i < length; i++) {
+
+		var count = rsBlock[i * 3 + 0];
+		var totalCount = rsBlock[i * 3 + 1];
+		var dataCount  = rsBlock[i * 3 + 2];
+
+		for (var j = 0; j < count; j++) {
+			list.push(new QRRSBlock(totalCount, dataCount) );	
+		}
+	}
+	
+	return list;
+};
+
+QRRSBlock.getRsBlockTable = function(typeNumber, errorCorrectLevel) {
+
+	switch(errorCorrectLevel) {
+	case QRErrorCorrectLevel.L :
+		return QRRSBlock.RS_BLOCK_TABLE[(typeNumber - 1) * 4 + 0];
+	case QRErrorCorrectLevel.M :
+		return QRRSBlock.RS_BLOCK_TABLE[(typeNumber - 1) * 4 + 1];
+	case QRErrorCorrectLevel.Q :
+		return QRRSBlock.RS_BLOCK_TABLE[(typeNumber - 1) * 4 + 2];
+	case QRErrorCorrectLevel.H :
+		return QRRSBlock.RS_BLOCK_TABLE[(typeNumber - 1) * 4 + 3];
+	default :
+		return undefined;
+	}
+};
+
+module.exports = QRRSBlock;
+
+__m["QRRSBlock"]=module.exports;})();
+(function(){var module={exports:{}};var exports=module.exports;
+var QRMode = __r("QRMode");
+var QRPolynomial = __r("QRPolynomial");
+var QRMath = __r("QRMath");
+var QRMaskPattern = __r("QRMaskPattern");
+
+var QRUtil = {
+
+    PATTERN_POSITION_TABLE : [
+        [],
+        [6, 18],
+        [6, 22],
+        [6, 26],
+        [6, 30],
+        [6, 34],
+        [6, 22, 38],
+        [6, 24, 42],
+        [6, 26, 46],
+        [6, 28, 50],
+        [6, 30, 54],        
+        [6, 32, 58],
+        [6, 34, 62],
+        [6, 26, 46, 66],
+        [6, 26, 48, 70],
+        [6, 26, 50, 74],
+        [6, 30, 54, 78],
+        [6, 30, 56, 82],
+        [6, 30, 58, 86],
+        [6, 34, 62, 90],
+        [6, 28, 50, 72, 94],
+        [6, 26, 50, 74, 98],
+        [6, 30, 54, 78, 102],
+        [6, 28, 54, 80, 106],
+        [6, 32, 58, 84, 110],
+        [6, 30, 58, 86, 114],
+        [6, 34, 62, 90, 118],
+        [6, 26, 50, 74, 98, 122],
+        [6, 30, 54, 78, 102, 126],
+        [6, 26, 52, 78, 104, 130],
+        [6, 30, 56, 82, 108, 134],
+        [6, 34, 60, 86, 112, 138],
+        [6, 30, 58, 86, 114, 142],
+        [6, 34, 62, 90, 118, 146],
+        [6, 30, 54, 78, 102, 126, 150],
+        [6, 24, 50, 76, 102, 128, 154],
+        [6, 28, 54, 80, 106, 132, 158],
+        [6, 32, 58, 84, 110, 136, 162],
+        [6, 26, 54, 82, 110, 138, 166],
+        [6, 30, 58, 86, 114, 142, 170]
+    ],
+
+    G15 : (1 << 10) | (1 << 8) | (1 << 5) | (1 << 4) | (1 << 2) | (1 << 1) | (1 << 0),
+    G18 : (1 << 12) | (1 << 11) | (1 << 10) | (1 << 9) | (1 << 8) | (1 << 5) | (1 << 2) | (1 << 0),
+    G15_MASK : (1 << 14) | (1 << 12) | (1 << 10)    | (1 << 4) | (1 << 1),
+
+    getBCHTypeInfo : function(data) {
+        var d = data << 10;
+        while (QRUtil.getBCHDigit(d) - QRUtil.getBCHDigit(QRUtil.G15) >= 0) {
+            d ^= (QRUtil.G15 << (QRUtil.getBCHDigit(d) - QRUtil.getBCHDigit(QRUtil.G15) ) );    
+        }
+        return ( (data << 10) | d) ^ QRUtil.G15_MASK;
+    },
+
+    getBCHTypeNumber : function(data) {
+        var d = data << 12;
+        while (QRUtil.getBCHDigit(d) - QRUtil.getBCHDigit(QRUtil.G18) >= 0) {
+            d ^= (QRUtil.G18 << (QRUtil.getBCHDigit(d) - QRUtil.getBCHDigit(QRUtil.G18) ) );    
+        }
+        return (data << 12) | d;
+    },
+
+    getBCHDigit : function(data) {
+
+        var digit = 0;
+
+        while (data !== 0) {
+            digit++;
+            data >>>= 1;
+        }
+
+        return digit;
+    },
+
+    getPatternPosition : function(typeNumber) {
+        return QRUtil.PATTERN_POSITION_TABLE[typeNumber - 1];
+    },
+
+    getMask : function(maskPattern, i, j) {
+        
+        switch (maskPattern) {
+            
+        case QRMaskPattern.PATTERN000 : return (i + j) % 2 === 0;
+        case QRMaskPattern.PATTERN001 : return i % 2 === 0;
+        case QRMaskPattern.PATTERN010 : return j % 3 === 0;
+        case QRMaskPattern.PATTERN011 : return (i + j) % 3 === 0;
+        case QRMaskPattern.PATTERN100 : return (Math.floor(i / 2) + Math.floor(j / 3) ) % 2 === 0;
+        case QRMaskPattern.PATTERN101 : return (i * j) % 2 + (i * j) % 3 === 0;
+        case QRMaskPattern.PATTERN110 : return ( (i * j) % 2 + (i * j) % 3) % 2 === 0;
+        case QRMaskPattern.PATTERN111 : return ( (i * j) % 3 + (i + j) % 2) % 2 === 0;
+
+        default :
+            throw new Error("bad maskPattern:" + maskPattern);
+        }
+    },
+
+    getErrorCorrectPolynomial : function(errorCorrectLength) {
+
+        var a = new QRPolynomial([1], 0);
+
+        for (var i = 0; i < errorCorrectLength; i++) {
+            a = a.multiply(new QRPolynomial([1, QRMath.gexp(i)], 0) );
+        }
+
+        return a;
+    },
+
+    getLengthInBits : function(mode, type) {
+
+        if (1 <= type && type < 10) {
+
+            // 1 - 9
+
+            switch(mode) {
+            case QRMode.MODE_NUMBER     : return 10;
+            case QRMode.MODE_ALPHA_NUM  : return 9;
+            case QRMode.MODE_8BIT_BYTE  : return 8;
+            case QRMode.MODE_KANJI      : return 8;
+            default :
+                throw new Error("mode:" + mode);
+            }
+
+        } else if (type < 27) {
+
+            // 10 - 26
+
+            switch(mode) {
+            case QRMode.MODE_NUMBER     : return 12;
+            case QRMode.MODE_ALPHA_NUM  : return 11;
+            case QRMode.MODE_8BIT_BYTE  : return 16;
+            case QRMode.MODE_KANJI      : return 10;
+            default :
+                throw new Error("mode:" + mode);
+            }
+
+        } else if (type < 41) {
+
+            // 27 - 40
+
+            switch(mode) {
+            case QRMode.MODE_NUMBER     : return 14;
+            case QRMode.MODE_ALPHA_NUM  : return 13;
+            case QRMode.MODE_8BIT_BYTE  : return 16;
+            case QRMode.MODE_KANJI      : return 12;
+            default :
+                throw new Error("mode:" + mode);
+            }
+
+        } else {
+            throw new Error("type:" + type);
+        }
+    },
+
+    getLostPoint : function(qrCode) {
+        
+        var moduleCount = qrCode.getModuleCount();
+        var lostPoint = 0;
+        var row = 0; 
+        var col = 0;
+
+        
+        // LEVEL1
+        
+        for (row = 0; row < moduleCount; row++) {
+
+            for (col = 0; col < moduleCount; col++) {
+
+                var sameCount = 0;
+                var dark = qrCode.isDark(row, col);
+
+                for (var r = -1; r <= 1; r++) {
+
+                    if (row + r < 0 || moduleCount <= row + r) {
+                        continue;
+                    }
+
+                    for (var c = -1; c <= 1; c++) {
+
+                        if (col + c < 0 || moduleCount <= col + c) {
+                            continue;
+                        }
+
+                        if (r === 0 && c === 0) {
+                            continue;
+                        }
+
+                        if (dark === qrCode.isDark(row + r, col + c) ) {
+                            sameCount++;
+                        }
+                    }
+                }
+
+                if (sameCount > 5) {
+                    lostPoint += (3 + sameCount - 5);
+                }
+            }
+        }
+
+        // LEVEL2
+
+        for (row = 0; row < moduleCount - 1; row++) {
+            for (col = 0; col < moduleCount - 1; col++) {
+                var count = 0;
+                if (qrCode.isDark(row,     col    ) ) count++;
+                if (qrCode.isDark(row + 1, col    ) ) count++;
+                if (qrCode.isDark(row,     col + 1) ) count++;
+                if (qrCode.isDark(row + 1, col + 1) ) count++;
+                if (count === 0 || count === 4) {
+                    lostPoint += 3;
+                }
+            }
+        }
+
+        // LEVEL3
+
+        for (row = 0; row < moduleCount; row++) {
+            for (col = 0; col < moduleCount - 6; col++) {
+                if (qrCode.isDark(row, col) && 
+                        !qrCode.isDark(row, col + 1) && 
+                         qrCode.isDark(row, col + 2) && 
+                         qrCode.isDark(row, col + 3) && 
+                         qrCode.isDark(row, col + 4) && 
+                        !qrCode.isDark(row, col + 5) && 
+                         qrCode.isDark(row, col + 6) ) {
+                    lostPoint += 40;
+                }
+            }
+        }
+
+        for (col = 0; col < moduleCount; col++) {
+            for (row = 0; row < moduleCount - 6; row++) {
+                if (qrCode.isDark(row, col) &&
+                        !qrCode.isDark(row + 1, col) &&
+                         qrCode.isDark(row + 2, col) &&
+                         qrCode.isDark(row + 3, col) &&
+                         qrCode.isDark(row + 4, col) &&
+                        !qrCode.isDark(row + 5, col) &&
+                         qrCode.isDark(row + 6, col) ) {
+                    lostPoint += 40;
+                }
+            }
+        }
+
+        // LEVEL4
+        
+        var darkCount = 0;
+
+        for (col = 0; col < moduleCount; col++) {
+            for (row = 0; row < moduleCount; row++) {
+                if (qrCode.isDark(row, col) ) {
+                    darkCount++;
+                }
+            }
+        }
+        
+        var ratio = Math.abs(100 * darkCount / moduleCount / moduleCount - 50) / 5;
+        lostPoint += ratio * 10;
+
+        return lostPoint;       
+    }
+
+};
+
+module.exports = QRUtil;
+
+__m["QRUtil"]=module.exports;})();
+(function(){var module={exports:{}};var exports=module.exports;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+var QR8bitByte = __r("QR8bitByte");
+var QRUtil = __r("QRUtil");
+var QRPolynomial = __r("QRPolynomial");
+var QRRSBlock = __r("QRRSBlock");
+var QRBitBuffer = __r("QRBitBuffer");
+
+function QRCode(typeNumber, errorCorrectLevel) {
+	this.typeNumber = typeNumber;
+	this.errorCorrectLevel = errorCorrectLevel;
+	this.modules = null;
+	this.moduleCount = 0;
+	this.dataCache = null;
+	this.dataList = [];
+}
+
+QRCode.prototype = {
+	
+	addData : function(data) {
+		var newData = new QR8bitByte(data);
+		this.dataList.push(newData);
+		this.dataCache = null;
+	},
+	
+	isDark : function(row, col) {
+		if (row < 0 || this.moduleCount <= row || col < 0 || this.moduleCount <= col) {
+			throw new Error(row + "," + col);
+		}
+		return this.modules[row][col];
+	},
+
+	getModuleCount : function() {
+		return this.moduleCount;
+	},
+	
+	make : function() {
+		// Calculate automatically typeNumber if provided is < 1
+		if (this.typeNumber < 1 ){
+			var typeNumber = 1;
+			for (typeNumber = 1; typeNumber < 40; typeNumber++) {
+				var rsBlocks = QRRSBlock.getRSBlocks(typeNumber, this.errorCorrectLevel);
+
+				var buffer = new QRBitBuffer();
+				var totalDataCount = 0;
+				for (var i = 0; i < rsBlocks.length; i++) {
+					totalDataCount += rsBlocks[i].dataCount;
+				}
+
+				for (var x = 0; x < this.dataList.length; x++) {
+					var data = this.dataList[x];
+					buffer.put(data.mode, 4);
+					buffer.put(data.getLength(), QRUtil.getLengthInBits(data.mode, typeNumber) );
+					data.write(buffer);
+				}
+				if (buffer.getLengthInBits() <= totalDataCount * 8)
+					break;
+			}
+			this.typeNumber = typeNumber;
+		}
+		this.makeImpl(false, this.getBestMaskPattern() );
+	},
+	
+	makeImpl : function(test, maskPattern) {
+		
+		this.moduleCount = this.typeNumber * 4 + 17;
+		this.modules = new Array(this.moduleCount);
+		
+		for (var row = 0; row < this.moduleCount; row++) {
+			
+			this.modules[row] = new Array(this.moduleCount);
+			
+			for (var col = 0; col < this.moduleCount; col++) {
+				this.modules[row][col] = null;//(col + row) % 3;
+			}
+		}
+	
+		this.setupPositionProbePattern(0, 0);
+		this.setupPositionProbePattern(this.moduleCount - 7, 0);
+		this.setupPositionProbePattern(0, this.moduleCount - 7);
+		this.setupPositionAdjustPattern();
+		this.setupTimingPattern();
+		this.setupTypeInfo(test, maskPattern);
+		
+		if (this.typeNumber >= 7) {
+			this.setupTypeNumber(test);
+		}
+	
+		if (this.dataCache === null) {
+			this.dataCache = QRCode.createData(this.typeNumber, this.errorCorrectLevel, this.dataList);
+		}
+	
+		this.mapData(this.dataCache, maskPattern);
+	},
+
+	setupPositionProbePattern : function(row, col)  {
+		
+		for (var r = -1; r <= 7; r++) {
+			
+			if (row + r <= -1 || this.moduleCount <= row + r) continue;
+			
+			for (var c = -1; c <= 7; c++) {
+				
+				if (col + c <= -1 || this.moduleCount <= col + c) continue;
+				
+				if ( (0 <= r && r <= 6 && (c === 0 || c === 6) ) || 
+                     (0 <= c && c <= 6 && (r === 0 || r === 6) ) || 
+                     (2 <= r && r <= 4 && 2 <= c && c <= 4) ) {
+					this.modules[row + r][col + c] = true;
+				} else {
+					this.modules[row + r][col + c] = false;
+				}
+			}		
+		}		
+	},
+	
+	getBestMaskPattern : function() {
+	
+		var minLostPoint = 0;
+		var pattern = 0;
+	
+		for (var i = 0; i < 8; i++) {
+			
+			this.makeImpl(true, i);
+	
+			var lostPoint = QRUtil.getLostPoint(this);
+	
+			if (i === 0 || minLostPoint >  lostPoint) {
+				minLostPoint = lostPoint;
+				pattern = i;
+			}
+		}
+	
+		return pattern;
+	},
+	
+	createMovieClip : function(target_mc, instance_name, depth) {
+	
+		var qr_mc = target_mc.createEmptyMovieClip(instance_name, depth);
+		var cs = 1;
+	
+		this.make();
+
+		for (var row = 0; row < this.modules.length; row++) {
+			
+			var y = row * cs;
+			
+			for (var col = 0; col < this.modules[row].length; col++) {
+	
+				var x = col * cs;
+				var dark = this.modules[row][col];
+			
+				if (dark) {
+					qr_mc.beginFill(0, 100);
+					qr_mc.moveTo(x, y);
+					qr_mc.lineTo(x + cs, y);
+					qr_mc.lineTo(x + cs, y + cs);
+					qr_mc.lineTo(x, y + cs);
+					qr_mc.endFill();
+				}
+			}
+		}
+		
+		return qr_mc;
+	},
+
+	setupTimingPattern : function() {
+		
+		for (var r = 8; r < this.moduleCount - 8; r++) {
+			if (this.modules[r][6] !== null) {
+				continue;
+			}
+			this.modules[r][6] = (r % 2 === 0);
+		}
+	
+		for (var c = 8; c < this.moduleCount - 8; c++) {
+			if (this.modules[6][c] !== null) {
+				continue;
+			}
+			this.modules[6][c] = (c % 2 === 0);
+		}
+	},
+	
+	setupPositionAdjustPattern : function() {
+	
+		var pos = QRUtil.getPatternPosition(this.typeNumber);
+		
+		for (var i = 0; i < pos.length; i++) {
+		
+			for (var j = 0; j < pos.length; j++) {
+			
+				var row = pos[i];
+				var col = pos[j];
+				
+				if (this.modules[row][col] !== null) {
+					continue;
+				}
+				
+				for (var r = -2; r <= 2; r++) {
+				
+					for (var c = -2; c <= 2; c++) {
+					
+						if (Math.abs(r) === 2 || 
+                            Math.abs(c) === 2 ||
+                            (r === 0 && c === 0) ) {
+							this.modules[row + r][col + c] = true;
+						} else {
+							this.modules[row + r][col + c] = false;
+						}
+					}
+				}
+			}
+		}
+	},
+	
+	setupTypeNumber : function(test) {
+	
+		var bits = QRUtil.getBCHTypeNumber(this.typeNumber);
+        var mod;
+	
+		for (var i = 0; i < 18; i++) {
+			mod = (!test && ( (bits >> i) & 1) === 1);
+			this.modules[Math.floor(i / 3)][i % 3 + this.moduleCount - 8 - 3] = mod;
+		}
+	
+		for (var x = 0; x < 18; x++) {
+			mod = (!test && ( (bits >> x) & 1) === 1);
+			this.modules[x % 3 + this.moduleCount - 8 - 3][Math.floor(x / 3)] = mod;
+		}
+	},
+	
+	setupTypeInfo : function(test, maskPattern) {
+	
+		var data = (this.errorCorrectLevel << 3) | maskPattern;
+		var bits = QRUtil.getBCHTypeInfo(data);
+        var mod;
+	
+		// vertical		
+		for (var v = 0; v < 15; v++) {
+	
+			mod = (!test && ( (bits >> v) & 1) === 1);
+	
+			if (v < 6) {
+				this.modules[v][8] = mod;
+			} else if (v < 8) {
+				this.modules[v + 1][8] = mod;
+			} else {
+				this.modules[this.moduleCount - 15 + v][8] = mod;
+			}
+		}
+	
+		// horizontal
+		for (var h = 0; h < 15; h++) {
+	
+			mod = (!test && ( (bits >> h) & 1) === 1);
+			
+			if (h < 8) {
+				this.modules[8][this.moduleCount - h - 1] = mod;
+			} else if (h < 9) {
+				this.modules[8][15 - h - 1 + 1] = mod;
+			} else {
+				this.modules[8][15 - h - 1] = mod;
+			}
+		}
+	
+		// fixed module
+		this.modules[this.moduleCount - 8][8] = (!test);
+	
+	},
+	
+	mapData : function(data, maskPattern) {
+		
+		var inc = -1;
+		var row = this.moduleCount - 1;
+		var bitIndex = 7;
+		var byteIndex = 0;
+		
+		for (var col = this.moduleCount - 1; col > 0; col -= 2) {
+	
+			if (col === 6) col--;
+	
+			while (true) {
+	
+				for (var c = 0; c < 2; c++) {
+					
+					if (this.modules[row][col - c] === null) {
+						
+						var dark = false;
+	
+						if (byteIndex < data.length) {
+							dark = ( ( (data[byteIndex] >>> bitIndex) & 1) === 1);
+						}
+	
+						var mask = QRUtil.getMask(maskPattern, row, col - c);
+	
+						if (mask) {
+							dark = !dark;
+						}
+						
+						this.modules[row][col - c] = dark;
+						bitIndex--;
+	
+						if (bitIndex === -1) {
+							byteIndex++;
+							bitIndex = 7;
+						}
+					}
+				}
+								
+				row += inc;
+	
+				if (row < 0 || this.moduleCount <= row) {
+					row -= inc;
+					inc = -inc;
+					break;
+				}
+			}
+		}
+		
+	}
+
+};
+
+QRCode.PAD0 = 0xEC;
+QRCode.PAD1 = 0x11;
+
+QRCode.createData = function(typeNumber, errorCorrectLevel, dataList) {
+	
+	var rsBlocks = QRRSBlock.getRSBlocks(typeNumber, errorCorrectLevel);
+	
+	var buffer = new QRBitBuffer();
+	
+	for (var i = 0; i < dataList.length; i++) {
+		var data = dataList[i];
+		buffer.put(data.mode, 4);
+		buffer.put(data.getLength(), QRUtil.getLengthInBits(data.mode, typeNumber) );
+		data.write(buffer);
+	}
+
+	// calc num max data.
+	var totalDataCount = 0;
+	for (var x = 0; x < rsBlocks.length; x++) {
+		totalDataCount += rsBlocks[x].dataCount;
+	}
+
+	if (buffer.getLengthInBits() > totalDataCount * 8) {
+		throw new Error("code length overflow. (" + 
+            buffer.getLengthInBits() + 
+            ">" +  
+            totalDataCount * 8 + 
+            ")");
+	}
+
+	// end code
+	if (buffer.getLengthInBits() + 4 <= totalDataCount * 8) {
+		buffer.put(0, 4);
+	}
+
+	// padding
+	while (buffer.getLengthInBits() % 8 !== 0) {
+		buffer.putBit(false);
+	}
+
+	// padding
+	while (true) {
+		
+		if (buffer.getLengthInBits() >= totalDataCount * 8) {
+			break;
+		}
+		buffer.put(QRCode.PAD0, 8);
+		
+		if (buffer.getLengthInBits() >= totalDataCount * 8) {
+			break;
+		}
+		buffer.put(QRCode.PAD1, 8);
+	}
+
+	return QRCode.createBytes(buffer, rsBlocks);
+};
+
+QRCode.createBytes = function(buffer, rsBlocks) {
+
+	var offset = 0;
+	
+	var maxDcCount = 0;
+	var maxEcCount = 0;
+	
+	var dcdata = new Array(rsBlocks.length);
+	var ecdata = new Array(rsBlocks.length);
+	
+	for (var r = 0; r < rsBlocks.length; r++) {
+
+		var dcCount = rsBlocks[r].dataCount;
+		var ecCount = rsBlocks[r].totalCount - dcCount;
+
+		maxDcCount = Math.max(maxDcCount, dcCount);
+		maxEcCount = Math.max(maxEcCount, ecCount);
+		
+		dcdata[r] = new Array(dcCount);
+		
+		for (var i = 0; i < dcdata[r].length; i++) {
+			dcdata[r][i] = 0xff & buffer.buffer[i + offset];
+		}
+		offset += dcCount;
+		
+		var rsPoly = QRUtil.getErrorCorrectPolynomial(ecCount);
+		var rawPoly = new QRPolynomial(dcdata[r], rsPoly.getLength() - 1);
+
+		var modPoly = rawPoly.mod(rsPoly);
+		ecdata[r] = new Array(rsPoly.getLength() - 1);
+		for (var x = 0; x < ecdata[r].length; x++) {
+            var modIndex = x + modPoly.getLength() - ecdata[r].length;
+			ecdata[r][x] = (modIndex >= 0)? modPoly.get(modIndex) : 0;
+		}
+
+	}
+	
+	var totalCodeCount = 0;
+	for (var y = 0; y < rsBlocks.length; y++) {
+		totalCodeCount += rsBlocks[y].totalCount;
+	}
+
+	var data = new Array(totalCodeCount);
+	var index = 0;
+
+	for (var z = 0; z < maxDcCount; z++) {
+		for (var s = 0; s < rsBlocks.length; s++) {
+			if (z < dcdata[s].length) {
+				data[index++] = dcdata[s][z];
+			}
+		}
+	}
+
+	for (var xx = 0; xx < maxEcCount; xx++) {
+		for (var t = 0; t < rsBlocks.length; t++) {
+			if (xx < ecdata[t].length) {
+				data[index++] = ecdata[t][xx];
+			}
+		}
+	}
+
+	return data;
+
+};
+
+module.exports = QRCode;
+
+__m["index"]=module.exports;})();
+var QRCode=__m["index"],ECL=__m["QRErrorCorrectLevel"];
+function matrix(text,lvl){var L=ECL[lvl||"M"];for(var t=1;t<=40;t++){try{var q=new QRCode(t,L);q.addData(text);q.make();var n=q.getModuleCount(),m=[];for(var r=0;r<n;r++){m.push([]);for(var c=0;c<n;c++)m[r].push(q.isDark(r,c))}return m}catch(e){if(t===40)throw e}}}
+function svg(text,o){o=o||{};var m=matrix(text,o.ecc),n=m.length,q=4,s=n+q*2,d="";for(var r=0;r<n;r++)for(var c=0;c<n;c++)if(m[r][c])d+="M"+(c+q)+" "+(r+q)+"h1v1h-1z";return '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 '+s+' '+s+'" shape-rendering="crispEdges"><rect width="'+s+'" height="'+s+'" fill="#fff"/><path d="'+d+'" fill="#000"/></svg>'}
+return{matrix:matrix,svg:svg}})();
+
+/* ===== GrowFit intake core: shared by form.html and the coach app ===== */
+const IT_ANOMS={1:'لوردوز کمری (گودی کمر)',2:'کایفوز (قوز پشت و گردن)',3:'اسکولیوز (انحراف ستون فقرات)',4:'گردن جلو‌آمده',5:'شانه گرد',6:'پای پرانتزی',7:'پای ضربدری',8:'کف پای صاف',9:'عدم تقارن لگن'};
+const IT_ACT={1:'کم‌تحرک (بیشتر نشسته: پشت میز، رانندگی)',2:'سبک (کمی راه رفتن در طول روز)',3:'متوسط (بیشتر ایستاده یا در حال راه رفتن)',4:'زیاد (کار فیزیکی سنگین)'};
+const IT_GOAL={cut:'کاهش چربی',keep:'حفظ وزن',bulk:'افزایش حجم'};
+const IT_STRESS={low:'کم',mid:'متوسط',high:'زیاد'};
+const IT_FD='۰۱۲۳۴۵۶۷۸۹';
+const itEn=s=>String(s==null?'':s).replace(/[۰-۹]/g,d=>IT_FD.indexOf(d)).replace(/[٠-٩]/g,d=>d.charCodeAt(0)-1632).replace(/[٫,،]/g,'.');
+const itNum=v=>{const x=parseFloat(itEn(v));return isNaN(x)||!isFinite(x)?'':x};
+const itStr=(v,max)=>String(v==null?'':v).replace(/[\u0000-\u0008\u000B-\u001F\u007F‎‏‪-‮]/g,'').replace(/\s+/g,' ').trim().slice(0,max);
+const itTime=v=>{v=itEn(v);return /^([01]\d|2[0-3]):[0-5]\d$/.test(v)?v:''};
+const itId=v=>/^[A-Za-z0-9_-]{6,48}$/.test(String(v))?String(v):'';
+const itRange=(v,lo,hi)=>{v=itNum(v);return v!==''&&v>=lo&&v<=hi?Math.round(v*10)/10:''};
+/* limits shared by the form (user-facing validation) and the coach importer (defence) */
+const IT_LIM={age:[10,100],height:[100,230],weight:[25,300],waist:[30,250],hip:[30,250],neck:[20,70]};
+const IT_LAB={age:'سن',height:'قد',weight:'وزن',waist:'دور کمر',hip:'دور باسن',neck:'دور گردن'};
+function itClean(raw){
+ try{
+  if(!raw||typeof raw!=='object'||raw.app!=='fitplan'||raw.kind!=='intake')return{ok:false,err:'این فایل فرم گروفیت نیست'};
+  if(!(raw.v>=1&&raw.v<=IT_V_MAX))return{ok:false,err:'نسخهٔ فرم پشتیبانی نمی‌شود'};
+  const a=raw.a;if(!a||typeof a!=='object')return{ok:false,err:'اطلاعات فرم خالی است'};
+  const o={name:itStr(a.name,60),phone:itEn(a.phone).replace(/[^\d+]/g,'').slice(0,15),sex:a.sex==='f'?'f':a.sex==='m'?'m':'',
+   age:itRange(a.age,...IT_LIM.age),height:itRange(a.height,...IT_LIM.height),weight:itRange(a.weight,...IT_LIM.weight),
+   waist:itRange(a.waist,...IT_LIM.waist),hip:itRange(a.hip,...IT_LIM.hip),neck:itRange(a.neck,...IT_LIM.neck),
+   act:IT_ACT[itEn(a.act)]?String(itEn(a.act)):'',goal:IT_GOAL[a.goal]?a.goal:'',stress:IT_STRESS[a.stress]?a.stress:'',
+   trainHist:itStr(a.trainHist,500),dietHist:itStr(a.dietHist,500),job:itStr(a.job,120),illness:itStr(a.illness,500),injury:itStr(a.injury,500),
+   meds:itStr(a.meds,500),sleep:itTime(a.sleep),wake:itTime(a.wake),mealLimit:itStr(a.mealLimit,300),anomOther:itStr(a.anomOther,300),
+   anoms:[]};
+  (Array.isArray(a.anoms)?a.anoms:[]).forEach(x=>{x=parseInt(itEn(x),10);if(IT_ANOMS[x]&&o.anoms.indexOf(x)<0)o.anoms.push(x)});
+  o.anoms.sort((p,q)=>p-q);
+  if(!o.name)return{ok:false,err:'نام در فرم نیست'};
+  if(o.age===''||o.height===''||o.weight===''||!o.sex)return{ok:false,err:'سن، قد، وزن یا جنسیت در فرم نیست یا خارج از محدوده است'};
+  const created=Number(raw.created),now=Date.now();
+  const cr=created>1.6e12&&created<now+864e5*2?created:now;
+  let d=/^\d{4}-\d{2}-\d{2}$/.test(String(raw.d))?String(raw.d):'';
+  if(!d||Math.abs(new Date(d+'T12:00:00')-cr)>864e5*3)d=itIso(new Date(cr));
+  const c=raw.coach&&typeof raw.coach==='object'?raw.coach:{};
+  return{ok:true,data:{id:itId(raw.id)||('f'+cr.toString(36)+Math.random().toString(36).slice(2,6)),pid:itId(raw.pid),created:cr,d,coach:{n:itStr(c.n,60),p:itEn(c.p).replace(/[^\d+]/g,'').slice(0,15)},a:o}};
+ }catch(e){return{ok:false,err:'فایل قابل خواندن نیست'}}
+}
+const IT_V_MAX=1;
+const itIso=d=>d.getFullYear()+'-'+String(d.getMonth()+1).padStart(2,'0')+'-'+String(d.getDate()).padStart(2,'0');
+/* text code: a safe fallback when a messenger refuses the .json file (works pasted into any chat) */
+function itEncode(pack){const b=new TextEncoder().encode(JSON.stringify(pack));let s='';for(let i=0;i<b.length;i+=0x8000)s+=String.fromCharCode.apply(null,b.subarray(i,i+0x8000));return 'GF1:'+btoa(s).replace(/\+/g,'-').replace(/\//g,'_').replace(/=+$/,'')}
+function itDecode(text){
+ const m=String(text||'').match(/GF1:([A-Za-z0-9_-]{20,})/);if(!m)return null;
+ try{let b=m[1].replace(/-/g,'+').replace(/_/g,'/');while(b.length%4)b+='=';const s=atob(b),u=new Uint8Array(s.length);for(let i=0;i<s.length;i++)u[i]=s.charCodeAt(i);return JSON.parse(new TextDecoder().decode(u))}catch(e){return null}
+}
+/* US-Navy circumference estimate of body fat %. An estimate only, never a diagnosis. */
+function itBodyFat(a){
+ const h=+a.height,w=+a.waist,n=+a.neck,hp=+a.hip;if(!h||!w||!n)return null;
+ let bf;
+ if(a.sex==='f'){if(!hp||w+hp-n<=0)return null;bf=495/(1.29579-0.35004*Math.log10(w+hp-n)+0.221*Math.log10(h))-450}
+ else{if(w-n<=0)return null;bf=495/(1.0324-0.19077*Math.log10(w-n)+0.15456*Math.log10(h))-450}
+ return isFinite(bf)&&bf>2&&bf<65?Math.round(bf*10)/10:null;
+}
+
 /* ================= helpers ================= */
 const $=(s,e=document)=>e.querySelector(s);
 const FA='۰۱۲۳۴۵۶۷۸۹';
@@ -255,7 +1598,8 @@ const ANOM={
 'زانوی پرانتزی (واروس)':[['کشش نوار ایلیوتیبیال',2,'30 ثانیه'],['تقویت سرینی میانی',3,'15'],['تقویت نزدیک‌کننده ران',3,'12']],
 'پای صاف':[['تمرین پای کوتاه (Short Foot)',3,'10'],['بالا رفتن روی پنجه',3,'15'],['جمع کردن حوله با انگشتان پا',2,'15']],
 'چرخش قدامی لگن':[['کج‌کردن لگن به عقب',3,'12'],['کشش خم‌کننده لگن',2,'30 ثانیه'],['ددباگ',3,'10']],
-'اسکولیوز (کج‌پشتی)':[['پلانک جانبی',3,'20 ثانیه'],['برد داگ',3,'10'],['ارجاع به متخصص طبق نظر پزشک',1,'—']]
+'اسکولیوز (کج‌پشتی)':[['پلانک جانبی',3,'20 ثانیه'],['برد داگ',3,'10'],['ارجاع به متخصص طبق نظر پزشک',1,'—']],
+'عدم تقارن لگن':[['پل سرینی تک‌پا',3,'10'],['پلانک جانبی',3,'20 ثانیه'],['کلمشل',3,'15'],['ارجاع به متخصص طبق نظر پزشک',1,'—']]
 };
 const ANOMN=Object.keys(ANOM);
 const GOALS={cut:'کاهش چربی',keep:'حفظ وزن',bulk:'افزایش حجم'};
@@ -503,6 +1847,199 @@ const libFor=sk=>LIB.filter(l=>String(l[3]||'b').split('').some(ch=>(LIBLET[sk]|
 /* ===== بانک غذایی ===== */
 const FOODS=[["تخم‌مرغ",143,12.6,0.7,9.5,50,"عدد"],["سفیده تخم‌مرغ",52,11,0.7,0.2,33,"عدد"],["سینه مرغ (پخته)",165,31,0,3.6,0,""],["ران مرغ بدون پوست (پخته)",177,25,0,8,0,""],["گوشت گوساله لخم (پخته)",210,27,0,11,0,""],["گوشت چرخ‌کرده لخم (پخته)",215,26,0,12,0,""],["گوشت گوسفندی لخم (پخته)",250,26,0,16,0,""],["ماهی سالمون (پخته)",206,22,0,12,0,""],["ماهی سفید (پخته)",122,24,0,2.5,0,""],["تن ماهی کنسرو در آب",116,26,0,1,0,""],["میگو (پخته)",99,24,0.2,0.3,0,""],["سینه بوقلمون (پخته)",135,30,0,1,0,""],["پودر پروتئین وی",400,80,8,6,30,"اسکوپ"],["توفو",76,8,1.9,4.8,0,""],["ماست کم‌چرب",60,5,6,1.5,0,""],["ماست کامل",61,3.5,4.7,3.3,0,""],["ماست یونانی کم‌چرب",73,10,4,2,0,""],["شیر کم‌چرب",42,3.4,5,1,0,""],["شیر کامل",61,3.2,4.8,3.3,0,""],["پنیر سفید (فتا)",264,14,4,21,0,""],["پنیر کاتیج",98,11,3.4,4.3,0,""],["پنیر پیتزا",300,22,2,22,0,""],["پنیر خامه‌ای",342,6,4,34,0,""],["کره",717,0.9,0.1,81,10,"قاشق"],["دوغ",28,1.8,2.5,1,0,""],["برنج سفید (پخته)",130,2.7,28,0.3,0,""],["برنج قهوه‌ای (پخته)",123,2.7,26,1,0,""],["نان سنگک",260,9,52,1.5,0,""],["نان بربری",270,9,52,2.5,0,""],["نان لواش",275,9,57,1.2,0,""],["نان جو",250,10,48,2,0,""],["نان تست سبوس‌دار",250,11,43,4,0,""],["جو دوسر (خام)",389,17,66,7,0,""],["ماکارونی (پخته)",158,5.8,31,0.9,0,""],["سیب‌زمینی (پخته)",87,1.9,20,0.1,0,""],["سیب‌زمینی شیرین (پخته)",90,2,21,0.2,0,""],["بلغور گندم (پخته)",83,3,19,0.2,0,""],["کینوا (پخته)",120,4.4,21,1.9,0,""],["ذرت (پخته)",96,3.4,21,1.5,0,""],["کورن‌فلکس",357,7.5,84,0.4,0,""],["گرانولا",471,10,64,20,0,""],["کیک برنجی",387,8,82,3,10,"عدد"],["عدس (پخته)",116,9,20,0.4,0,""],["لوبیا (پخته)",127,8.7,23,0.5,0,""],["نخود (پخته)",164,8.9,27,2.6,0,""],["باقلا (پخته)",110,7.6,20,0.4,0,""],["ماش (پخته)",105,7,19,0.4,0,""],["سیب",52,0.3,14,0.2,180,"عدد"],["موز",89,1.1,23,0.3,120,"عدد"],["پرتقال",47,0.9,12,0.1,150,"عدد"],["گلابی",57,0.4,15,0.1,170,"عدد"],["انگور",69,0.7,18,0.2,0,""],["انار",83,1.7,19,1.2,0,""],["کیوی",61,1.1,15,0.5,75,"عدد"],["هلو",39,0.9,10,0.3,150,"عدد"],["توت‌فرنگی",32,0.7,7.7,0.3,0,""],["خربزه",34,0.8,8,0.2,0,""],["هندوانه",30,0.6,8,0.2,0,""],["آووکادو",160,2,9,15,0,""],["خرما",282,2.5,75,0.4,8,"عدد"],["انجیر خشک",249,3.3,64,0.9,0,""],["کشمش",299,3.1,79,0.5,0,""],["خیار",15,0.7,3.6,0.1,0,""],["گوجه‌فرنگی",18,0.9,3.9,0.2,0,""],["هویج",41,0.9,10,0.2,0,""],["کاهو",15,1.4,2.9,0.2,0,""],["کدو سبز",17,1.2,3.1,0.3,0,""],["بادمجان",25,1,6,0.2,0,""],["اسفناج",23,2.9,3.6,0.4,0,""],["قارچ",22,3.1,3.3,0.3,0,""],["فلفل دلمه‌ای",31,1,6,0.3,0,""],["سبزی تازه",30,3,4,0.5,0,""],["بروکلی (پخته)",35,2.4,7,0.4,0,""],["کلم",25,1.3,6,0.1,0,""],["پیاز",40,1.1,9,0.1,0,""],["لوبیا سبز (پخته)",31,1.8,7,0.2,0,""],["روغن زیتون",884,0,0,100,10,"قاشق"],["روغن مایع",884,0,0,100,10,"قاشق"],["بادام",579,21,22,50,0,""],["گردو",654,15,14,65,0,""],["پسته",560,20,28,45,0,""],["فندق",628,15,17,61,0,""],["کره بادام‌زمینی",588,25,20,50,15,"قاشق"],["ارده",595,17,21,54,0,""],["تخمه کدو",559,30,11,49,0,""],["عسل",304,0.3,82,0,21,"قاشق"],["مربا",250,0.4,65,0.1,0,""],["شکلات تلخ",546,5,60,31,0,""],["پودر کاکائو",228,20,58,14,0,""],["رب گوجه‌فرنگی",82,4.3,19,0.5,0,""]];
 const MEALS=[["bf","املت ۲ تخم‌مرغ با نان سنگک و خیار و گوجه",[[0,100],[27,80],[63,80],[77,5],[62,100],[63,100]]],["bf","املت ۲ تخم‌مرغ با نان سنگک و پنیر و گردو",[[0,100],[27,80],[63,80],[77,5],[19,30],[79,15]]],["bf","املت ۲ تخم‌مرغ با نان جو و خیار و گوجه",[[0,100],[30,80],[63,80],[77,5],[62,100],[63,100]]],["bf","املت ۲ تخم‌مرغ با نان جو و پنیر و گردو",[[0,100],[30,80],[63,80],[77,5],[19,30],[79,15]]],["bf","املت ۳ تخم‌مرغ با نان سنگک و خیار و گوجه",[[0,150],[27,80],[63,80],[77,5],[62,100],[63,100]]],["bf","املت ۳ تخم‌مرغ با نان سنگک و پنیر و گردو",[[0,150],[27,80],[63,80],[77,5],[19,30],[79,15]]],["bf","املت ۳ تخم‌مرغ با نان جو و خیار و گوجه",[[0,150],[30,80],[63,80],[77,5],[62,100],[63,100]]],["bf","املت ۳ تخم‌مرغ با نان جو و پنیر و گردو",[[0,150],[30,80],[63,80],[77,5],[19,30],[79,15]]],["bf","املت ۴ تخم‌مرغ با نان سنگک و خیار و گوجه",[[0,200],[27,80],[63,80],[77,5],[62,100],[63,100]]],["bf","املت ۴ تخم‌مرغ با نان سنگک و پنیر و گردو",[[0,200],[27,80],[63,80],[77,5],[19,30],[79,15]]],["bf","املت ۴ تخم‌مرغ با نان جو و خیار و گوجه",[[0,200],[30,80],[63,80],[77,5],[62,100],[63,100]]],["bf","املت ۴ تخم‌مرغ با نان جو و پنیر و گردو",[[0,200],[30,80],[63,80],[77,5],[19,30],[79,15]]],["bf","نیمرو ۲ تخم‌مرغ با نان سنگک و خیار و گوجه",[[0,100],[27,80],[77,10],[62,100],[63,100]]],["bf","نیمرو ۲ تخم‌مرغ با نان سنگک و پنیر و گردو",[[0,100],[27,80],[77,10],[19,30],[79,15]]],["bf","نیمرو ۲ تخم‌مرغ با نان جو و خیار و گوجه",[[0,100],[30,80],[77,10],[62,100],[63,100]]],["bf","نیمرو ۲ تخم‌مرغ با نان جو و پنیر و گردو",[[0,100],[30,80],[77,10],[19,30],[79,15]]],["bf","نیمرو ۳ تخم‌مرغ با نان سنگک و خیار و گوجه",[[0,150],[27,80],[77,10],[62,100],[63,100]]],["bf","نیمرو ۳ تخم‌مرغ با نان سنگک و پنیر و گردو",[[0,150],[27,80],[77,10],[19,30],[79,15]]],["bf","نیمرو ۳ تخم‌مرغ با نان جو و خیار و گوجه",[[0,150],[30,80],[77,10],[62,100],[63,100]]],["bf","نیمرو ۳ تخم‌مرغ با نان جو و پنیر و گردو",[[0,150],[30,80],[77,10],[19,30],[79,15]]],["bf","نیمرو ۴ تخم‌مرغ با نان سنگک و خیار و گوجه",[[0,200],[27,80],[77,10],[62,100],[63,100]]],["bf","نیمرو ۴ تخم‌مرغ با نان سنگک و پنیر و گردو",[[0,200],[27,80],[77,10],[19,30],[79,15]]],["bf","نیمرو ۴ تخم‌مرغ با نان جو و خیار و گوجه",[[0,200],[30,80],[77,10],[62,100],[63,100]]],["bf","نیمرو ۴ تخم‌مرغ با نان جو و پنیر و گردو",[[0,200],[30,80],[77,10],[19,30],[79,15]]],["bf","تخم‌مرغ آب‌پز ۲ تخم‌مرغ با نان سنگک و خیار و گوجه",[[0,100],[27,80],[62,100],[63,100]]],["bf","تخم‌مرغ آب‌پز ۲ تخم‌مرغ با نان سنگک و پنیر و گردو",[[0,100],[27,80],[19,30],[79,15]]],["bf","تخم‌مرغ آب‌پز ۲ تخم‌مرغ با نان جو و خیار و گوجه",[[0,100],[30,80],[62,100],[63,100]]],["bf","تخم‌مرغ آب‌پز ۲ تخم‌مرغ با نان جو و پنیر و گردو",[[0,100],[30,80],[19,30],[79,15]]],["bf","تخم‌مرغ آب‌پز ۳ تخم‌مرغ با نان سنگک و خیار و گوجه",[[0,150],[27,80],[62,100],[63,100]]],["bf","تخم‌مرغ آب‌پز ۳ تخم‌مرغ با نان سنگک و پنیر و گردو",[[0,150],[27,80],[19,30],[79,15]]],["bf","تخم‌مرغ آب‌پز ۳ تخم‌مرغ با نان جو و خیار و گوجه",[[0,150],[30,80],[62,100],[63,100]]],["bf","تخم‌مرغ آب‌پز ۳ تخم‌مرغ با نان جو و پنیر و گردو",[[0,150],[30,80],[19,30],[79,15]]],["bf","تخم‌مرغ آب‌پز ۴ تخم‌مرغ با نان سنگک و خیار و گوجه",[[0,200],[27,80],[62,100],[63,100]]],["bf","تخم‌مرغ آب‌پز ۴ تخم‌مرغ با نان سنگک و پنیر و گردو",[[0,200],[27,80],[19,30],[79,15]]],["bf","تخم‌مرغ آب‌پز ۴ تخم‌مرغ با نان جو و خیار و گوجه",[[0,200],[30,80],[62,100],[63,100]]],["bf","تخم‌مرغ آب‌پز ۴ تخم‌مرغ با نان جو و پنیر و گردو",[[0,200],[30,80],[19,30],[79,15]]],["bf","فرنی جو دوسر با شیر (۴۰ گرم جو) و موز و عسل",[[32,40],[17,200],[48,120],[85,10]]],["bf","فرنی جو دوسر با شیر (۴۰ گرم جو) و کره بادام‌زمینی و موز",[[32,40],[17,200],[82,15],[48,100]]],["bf","فرنی جو دوسر با شیر (۴۰ گرم جو) و سیب و گردو",[[32,40],[17,200],[47,150],[79,15]]],["bf","فرنی جو دوسر با شیر (۴۰ گرم جو) و توت‌فرنگی و بادام",[[32,40],[17,200],[55,100],[78,15]]],["bf","فرنی جو دوسر با شیر (۴۰ گرم جو) و خرما و گردو",[[32,40],[17,200],[59,40],[79,15]]],["bf","فرنی جو دوسر با شیر (۴۰ گرم جو) و کشمش و بادام",[[32,40],[17,200],[61,20],[78,15]]],["bf","فرنی جو دوسر با شیر (۶۰ گرم جو) و موز و عسل",[[32,60],[17,200],[48,120],[85,10]]],["bf","فرنی جو دوسر با شیر (۶۰ گرم جو) و کره بادام‌زمینی و موز",[[32,60],[17,200],[82,15],[48,100]]],["bf","فرنی جو دوسر با شیر (۶۰ گرم جو) و سیب و گردو",[[32,60],[17,200],[47,150],[79,15]]],["bf","فرنی جو دوسر با شیر (۶۰ گرم جو) و توت‌فرنگی و بادام",[[32,60],[17,200],[55,100],[78,15]]],["bf","فرنی جو دوسر با شیر (۶۰ گرم جو) و خرما و گردو",[[32,60],[17,200],[59,40],[79,15]]],["bf","فرنی جو دوسر با شیر (۶۰ گرم جو) و کشمش و بادام",[[32,60],[17,200],[61,20],[78,15]]],["bf","فرنی جو دوسر با شیر (۸۰ گرم جو) و موز و عسل",[[32,80],[17,200],[48,120],[85,10]]],["bf","فرنی جو دوسر با شیر (۸۰ گرم جو) و کره بادام‌زمینی و موز",[[32,80],[17,200],[82,15],[48,100]]],["bf","فرنی جو دوسر با شیر (۸۰ گرم جو) و سیب و گردو",[[32,80],[17,200],[47,150],[79,15]]],["bf","فرنی جو دوسر با شیر (۸۰ گرم جو) و توت‌فرنگی و بادام",[[32,80],[17,200],[55,100],[78,15]]],["bf","فرنی جو دوسر با شیر (۸۰ گرم جو) و خرما و گردو",[[32,80],[17,200],[59,40],[79,15]]],["bf","فرنی جو دوسر با شیر (۸۰ گرم جو) و کشمش و بادام",[[32,80],[17,200],[61,20],[78,15]]],["bf","ماست یونانی با گرانولا و موز",[[16,200],[40,40],[48,100]]],["bf","ماست یونانی با توت‌فرنگی و گردو",[[16,200],[55,120],[79,20]]],["bf","ماست یونانی با انار و پسته",[[16,200],[52,100],[80,20]]],["bf","ماست یونانی با انجیر و عسل",[[16,200],[60,40],[85,10]]],["bf","ماست کم‌چرب با گرانولا و موز",[[14,250],[40,40],[48,100]]],["bf","ماست کم‌چرب با توت‌فرنگی و گردو",[[14,250],[55,120],[79,20]]],["bf","ماست کم‌چرب با انار و پسته",[[14,250],[52,100],[80,20]]],["bf","ماست کم‌چرب با انجیر و عسل",[[14,250],[60,40],[85,10]]],["bf","پنیر کاتیج با گرانولا و موز",[[20,200],[40,40],[48,100]]],["bf","پنیر کاتیج با توت‌فرنگی و گردو",[[20,200],[55,120],[79,20]]],["bf","پنیر کاتیج با انار و پسته",[[20,200],[52,100],[80,20]]],["bf","پنیر کاتیج با انجیر و عسل",[[20,200],[60,40],[85,10]]],["bf","نان سنگک، پنیر، گردو و سبزی",[[27,100],[19,40],[79,20],[71,50]]],["bf","نان سنگک با کره و مربا",[[27,100],[23,10],[86,25]]],["bf","نان سنگک با کره بادام‌زمینی و خرما",[[27,100],[82,20],[59,30]]],["bf","نان بربری، پنیر، گردو و سبزی",[[28,100],[19,40],[79,20],[71,50]]],["bf","نان بربری با کره و مربا",[[28,100],[23,10],[86,25]]],["bf","نان بربری با کره بادام‌زمینی و خرما",[[28,100],[82,20],[59,30]]],["bf","نان لواش، پنیر، گردو و سبزی",[[29,80],[19,40],[79,20],[71,50]]],["bf","نان لواش با کره و مربا",[[29,80],[23,10],[86,25]]],["bf","نان لواش با کره بادام‌زمینی و خرما",[[29,80],[82,20],[59,30]]],["bf","نان جو، پنیر، گردو و سبزی",[[30,100],[19,40],[79,20],[71,50]]],["bf","نان جو با کره و مربا",[[30,100],[23,10],[86,25]]],["bf","نان جو با کره بادام‌زمینی و خرما",[[30,100],[82,20],[59,30]]],["bf","ساندویچ تخم‌مرغ و پنیر در لواش",[[0,100],[29,80],[19,30],[63,60]]],["bf","ساندویچ تخم‌مرغ و پنیر در لواش (حجیم)",[[0,150],[29,100],[19,40],[63,60]]],["bf","ساندویچ مرغ و آووکادو در نان جو",[[2,80],[58,50],[30,80],[65,30]]],["bf","ساندویچ مرغ و آووکادو در نان جو (حجیم)",[[2,120],[58,70],[30,100],[65,30]]],["bf","رول لواش تن‌ماهی و خیار",[[9,80],[29,80],[62,60]]],["bf","رول لواش پنیر خامه‌ای و بوقلمون",[[22,30],[11,70],[29,80],[62,50]]],["bf","تست تخم‌مرغ و آووکادو",[[31,70],[0,100],[58,60]]],["bf","تست کره بادام‌زمینی و موز",[[31,70],[82,25],[48,100]]],["bf","پنکیک جو دوسر و موز (۲ تخم‌مرغ)",[[32,50],[0,100],[48,100],[85,10]]],["bf","پنکیک جو دوسر و موز (۳ تخم‌مرغ)",[[32,60],[0,150],[48,120],[85,10]]],["bf","اسموتی موز، شیر و وی",[[48,120],[17,250],[12,30]]],["bf","اسموتی موز، شیر، وی و جو دوسر",[[48,120],[17,250],[12,30],[32,30]]],["sn","سیب با بادام (۲۰ گرم)",[[47,180],[78,20]]],["sn","سیب با گردو (۲۰ گرم)",[[47,180],[79,20]]],["sn","سیب با پسته (۲۰ گرم)",[[47,180],[80,20]]],["sn","موز با بادام (۲۰ گرم)",[[48,120],[78,20]]],["sn","موز با گردو (۲۰ گرم)",[[48,120],[79,20]]],["sn","موز با پسته (۲۰ گرم)",[[48,120],[80,20]]],["sn","پرتقال با بادام (۲۰ گرم)",[[49,150],[78,20]]],["sn","پرتقال با گردو (۲۰ گرم)",[[49,150],[79,20]]],["sn","پرتقال با پسته (۲۰ گرم)",[[49,150],[80,20]]],["sn","گلابی با بادام (۲۰ گرم)",[[50,170],[78,20]]],["sn","گلابی با گردو (۲۰ گرم)",[[50,170],[79,20]]],["sn","گلابی با پسته (۲۰ گرم)",[[50,170],[80,20]]],["sn","انگور با بادام (۲۰ گرم)",[[51,150],[78,20]]],["sn","انگور با گردو (۲۰ گرم)",[[51,150],[79,20]]],["sn","انگور با پسته (۲۰ گرم)",[[51,150],[80,20]]],["sn","انار با بادام (۲۰ گرم)",[[52,150],[78,20]]],["sn","انار با گردو (۲۰ گرم)",[[52,150],[79,20]]],["sn","انار با پسته (۲۰ گرم)",[[52,150],[80,20]]],["sn","کیوی با بادام (۲۰ گرم)",[[53,75],[78,20]]],["sn","کیوی با گردو (۲۰ گرم)",[[53,75],[79,20]]],["sn","کیوی با پسته (۲۰ گرم)",[[53,75],[80,20]]],["sn","هلو با بادام (۲۰ گرم)",[[54,150],[78,20]]],["sn","هلو با گردو (۲۰ گرم)",[[54,150],[79,20]]],["sn","هلو با پسته (۲۰ گرم)",[[54,150],[80,20]]],["sn","ماست کم‌چرب با خیار و نعناع",[[14,200],[62,100],[71,10]]],["sn","ماست کم‌چرب با توت‌فرنگی",[[14,200],[55,120]]],["sn","ماست کم‌چرب با عسل و گردو",[[14,200],[85,10],[79,15]]],["sn","ماست کم‌چرب با انجیر",[[14,200],[60,40]]],["sn","ماست یونانی با خیار و نعناع",[[16,150],[62,100],[71,10]]],["sn","ماست یونانی با توت‌فرنگی",[[16,150],[55,120]]],["sn","ماست یونانی با عسل و گردو",[[16,150],[85,10],[79,15]]],["sn","ماست یونانی با انجیر",[[16,150],[60,40]]],["sn","پنیر کاتیج با خیار و نعناع",[[20,150],[62,100],[71,10]]],["sn","پنیر کاتیج با توت‌فرنگی",[[20,150],[55,120]]],["sn","پنیر کاتیج با عسل و گردو",[[20,150],[85,10],[79,15]]],["sn","پنیر کاتیج با انجیر",[[20,150],[60,40]]],["sn","وی با موز و شیر",[[12,30],[48,120],[17,200]]],["sn","وی با کره بادام‌زمینی و شیر",[[12,30],[82,15],[17,250]]],["sn","شیر، موز و جو دوسر",[[17,250],[48,100],[32,30]]],["sn","وی با آب و سیب",[[12,30],[47,150]]],["sn","اسموتی سبز پروتئینی",[[12,30],[68,50],[48,100],[17,200]]],["sn","دوغ و خیار (سبک)",[[24,300],[62,100]]],["sn","شیر کاکائو سبک",[[17,250],[88,10],[85,10]]],["sn","وی با جو دوسر و توت‌فرنگی",[[12,30],[32,30],[55,100],[17,200]]],["sn","تخم‌مرغ آب‌پز (۱ عدد) با خیار",[[0,50],[62,100]]],["sn","تخم‌مرغ آب‌پز (۲ عدد) با خیار",[[0,100],[62,100]]],["sn","تخم‌مرغ آب‌پز (۳ عدد) با خیار",[[0,150],[62,100]]],["sn","لقمه لواش و پنیر",[[29,50],[19,30],[71,20]]],["sn","لقمه لواش و پنیر (حجیم)",[[29,80],[19,50],[71,30]]],["sn","لقمه لواش و تن‌ماهی",[[29,60],[9,60],[62,50]]],["sn","سینه مرغ (۸۰ گرم) با خیار",[[2,80],[62,100]]],["sn","سینه مرغ (۱۲۰ گرم) با خیار",[[2,120],[62,100]]],["sn","نخود پخته با خیار (۱۰۰ گرم نخود)",[[44,100],[62,100]]],["sn","نخود پخته با خیار (۱۵۰ گرم نخود)",[[44,150],[62,100]]],["sn","ذرت پخته (۱۰۰ گرم)",[[38,100]]],["sn","ذرت پخته (۱۵۰ گرم)",[[38,150]]],["sn","سیب‌زمینی پخته با ماست",[[34,150],[14,100]]],["sn","سیب‌زمینی شیرین پخته (۱۵۰ گرم)",[[35,150]]],["sn","سیب‌زمینی شیرین پخته (۲۰۰ گرم)",[[35,200]]],["sn","عدس پخته با گوجه",[[42,150],[63,100]]],["sn","نان تست با پنیر و گوجه",[[31,50],[19,30],[63,80]]],["sn","تن‌ماهی و ذرت",[[9,80],[38,100]]],["sn","خرما و گردو (۴۰ گرم خرما)",[[59,40],[79,15]]],["sn","خرما و گردو (۶۰ گرم خرما)",[[59,60],[79,15]]],["sn","خرما و گردو (۸۰ گرم خرما)",[[59,80],[79,15]]],["sn","کیک برنجی (۲ عدد) با کره بادام‌زمینی",[[41,20],[82,15]]],["sn","کیک برنجی (۴ عدد) با کره بادام‌زمینی",[[41,40],[82,15]]],["sn","شکلات تلخ و بادام",[[87,20],[78,15]]],["sn","کشمش و گردو",[[61,30],[79,15]]],["sn","انجیر خشک و پسته",[[60,50],[80,20]]],["sn","موز با کره بادام‌زمینی",[[48,120],[82,15]]],["sn","سیب با کره بادام‌زمینی",[[47,150],[82,15]]],["sn","ارده و خرما",[[83,15],[59,40]]],["sn","نان تست و مربا",[[31,40],[86,20]]],["sn","بادام (۲۰ گرم)",[[78,20]]],["sn","بادام (۳۰ گرم)",[[78,30]]],["sn","بادام (۴۰ گرم)",[[78,40]]],["sn","گردو (۲۰ گرم)",[[79,20]]],["sn","پسته (۲۰ گرم)",[[80,20]]],["sn","گردو (۳۰ گرم)",[[79,30]]],["sn","پسته (۳۰ گرم)",[[80,30]]],["sn","فندق (۲۰ گرم)",[[81,20]]],["sn","مخلوط آجیل (بادام، گردو، پسته)",[[78,15],[79,15],[80,10]]],["sn","تخمه کدو (۲۰ گرم)",[[84,20]]],["sn","کیک برنجی (۲ عدد) با پنیر کاتیج",[[41,20],[20,50]]],["sn","کیک برنجی (۲ عدد) با تخم‌مرغ",[[41,20],[0,50]]],["sn","کیک برنجی (۲ عدد) با موز و کره بادام‌زمینی",[[41,20],[48,100],[82,10]]],["sn","کیک برنجی (۴ عدد) با پنیر کاتیج",[[41,40],[20,50]]],["sn","کیک برنجی (۴ عدد) با تخم‌مرغ",[[41,40],[0,100]]],["sn","کیک برنجی (۴ عدد) با موز و کره بادام‌زمینی",[[41,40],[48,100],[82,10]]],["ln","سینه مرغ گریل با برنج سفید و سالاد شیرازی",[[2,150],[25,220],[62,120],[63,100],[74,20],[76,5]]],["ln","سینه مرغ گریل با برنج قهوه‌ای و سالاد شیرازی",[[2,150],[26,200],[62,120],[63,100],[74,20],[76,5]]],["ln","سینه مرغ گریل با سیب‌زمینی پخته و سالاد شیرازی",[[2,150],[34,250],[62,120],[63,100],[74,20],[76,5]]],["ln","سینه مرغ گریل با ماکارونی و سالاد شیرازی",[[2,150],[33,220],[62,120],[63,100],[74,20],[76,5]]],["ln","سینه مرغ گریل (حجیم) با برنج سفید و سالاد شیرازی",[[2,200],[25,220],[62,120],[63,100],[74,20],[76,5]]],["ln","سینه مرغ گریل (حجیم) با برنج قهوه‌ای و سالاد شیرازی",[[2,200],[26,200],[62,120],[63,100],[74,20],[76,5]]],["ln","سینه مرغ گریل (حجیم) با سیب‌زمینی پخته و سالاد شیرازی",[[2,200],[34,250],[62,120],[63,100],[74,20],[76,5]]],["ln","سینه مرغ گریل (حجیم) با بلغور و سالاد شیرازی",[[2,200],[36,200],[62,120],[63,100],[74,20],[76,5]]],["ln","ران مرغ بدون پوست با برنج سفید و سالاد شیرازی",[[3,180],[25,220],[62,120],[63,100],[74,20],[76,5]]],["ln","ران مرغ بدون پوست با برنج قهوه‌ای و سالاد شیرازی",[[3,180],[26,200],[62,120],[63,100],[74,20],[76,5]]],["ln","ران مرغ بدون پوست با سیب‌زمینی پخته و سالاد شیرازی",[[3,180],[34,250],[62,120],[63,100],[74,20],[76,5]]],["ln","ران مرغ بدون پوست با کینوا و سالاد شیرازی",[[3,180],[37,200],[62,120],[63,100],[74,20],[76,5]]],["ln","گوشت گوساله با برنج سفید و سالاد شیرازی",[[4,120],[25,220],[62,120],[63,100],[74,20],[76,5]]],["ln","گوشت گوساله با برنج قهوه‌ای و سالاد شیرازی",[[4,120],[26,200],[62,120],[63,100],[74,20],[76,5]]],["ln","گوشت گوساله با سیب‌زمینی پخته و سالاد شیرازی",[[4,120],[34,250],[62,120],[63,100],[74,20],[76,5]]],["ln","گوشت گوساله با ماکارونی و سالاد شیرازی",[[4,120],[33,220],[62,120],[63,100],[74,20],[76,5]]],["ln","گوشت گوساله (حجیم) با برنج سفید و سالاد شیرازی",[[4,160],[25,220],[62,120],[63,100],[74,20],[76,5]]],["ln","گوشت گوساله (حجیم) با برنج قهوه‌ای و سالاد شیرازی",[[4,160],[26,200],[62,120],[63,100],[74,20],[76,5]]],["ln","گوشت گوساله (حجیم) با سیب‌زمینی پخته و سالاد شیرازی",[[4,160],[34,250],[62,120],[63,100],[74,20],[76,5]]],["ln","گوشت گوساله (حجیم) با بلغور و سالاد شیرازی",[[4,160],[36,200],[62,120],[63,100],[74,20],[76,5]]],["ln","کباب کوبیده لخم با برنج سفید و سالاد شیرازی",[[5,140],[25,220],[62,120],[63,100],[74,20],[76,5]]],["ln","کباب کوبیده لخم با برنج قهوه‌ای و سالاد شیرازی",[[5,140],[26,200],[62,120],[63,100],[74,20],[76,5]]],["ln","کباب کوبیده لخم با سیب‌زمینی پخته و سالاد شیرازی",[[5,140],[34,250],[62,120],[63,100],[74,20],[76,5]]],["ln","کباب کوبیده لخم با کینوا و سالاد شیرازی",[[5,140],[37,200],[62,120],[63,100],[74,20],[76,5]]],["ln","گوشت گوسفندی لخم با برنج سفید و سالاد شیرازی",[[6,130],[25,220],[62,120],[63,100],[74,20],[76,5]]],["ln","گوشت گوسفندی لخم با برنج قهوه‌ای و سالاد شیرازی",[[6,130],[26,200],[62,120],[63,100],[74,20],[76,5]]],["ln","گوشت گوسفندی لخم با سیب‌زمینی پخته و سالاد شیرازی",[[6,130],[34,250],[62,120],[63,100],[74,20],[76,5]]],["ln","گوشت گوسفندی لخم با ماکارونی و سالاد شیرازی",[[6,130],[33,220],[62,120],[63,100],[74,20],[76,5]]],["ln","ماهی سفید با برنج سفید و سالاد شیرازی",[[8,180],[25,220],[62,120],[63,100],[74,20],[76,5]]],["ln","ماهی سفید با برنج قهوه‌ای و سالاد شیرازی",[[8,180],[26,200],[62,120],[63,100],[74,20],[76,5]]],["ln","ماهی سفید با سیب‌زمینی پخته و سالاد شیرازی",[[8,180],[34,250],[62,120],[63,100],[74,20],[76,5]]],["ln","ماهی سفید با بلغور و سالاد شیرازی",[[8,180],[36,200],[62,120],[63,100],[74,20],[76,5]]],["ln","ماهی سالمون با برنج سفید و سالاد شیرازی",[[7,150],[25,220],[62,120],[63,100],[74,20],[76,5]]],["ln","ماهی سالمون با برنج قهوه‌ای و سالاد شیرازی",[[7,150],[26,200],[62,120],[63,100],[74,20],[76,5]]],["ln","ماهی سالمون با سیب‌زمینی پخته و سالاد شیرازی",[[7,150],[34,250],[62,120],[63,100],[74,20],[76,5]]],["ln","ماهی سالمون با کینوا و سالاد شیرازی",[[7,150],[37,200],[62,120],[63,100],[74,20],[76,5]]],["ln","میگو با برنج سفید و سالاد شیرازی",[[10,160],[25,220],[62,120],[63,100],[74,20],[76,5]]],["ln","میگو با برنج قهوه‌ای و سالاد شیرازی",[[10,160],[26,200],[62,120],[63,100],[74,20],[76,5]]],["ln","میگو با سیب‌زمینی پخته و سالاد شیرازی",[[10,160],[34,250],[62,120],[63,100],[74,20],[76,5]]],["ln","میگو با ماکارونی و سالاد شیرازی",[[10,160],[33,220],[62,120],[63,100],[74,20],[76,5]]],["ln","سینه بوقلمون با برنج سفید و سالاد شیرازی",[[11,150],[25,220],[62,120],[63,100],[74,20],[76,5]]],["ln","سینه بوقلمون با برنج قهوه‌ای و سالاد شیرازی",[[11,150],[26,200],[62,120],[63,100],[74,20],[76,5]]],["ln","سینه بوقلمون با سیب‌زمینی پخته و سالاد شیرازی",[[11,150],[34,250],[62,120],[63,100],[74,20],[76,5]]],["ln","سینه بوقلمون با بلغور و سالاد شیرازی",[[11,150],[36,200],[62,120],[63,100],[74,20],[76,5]]],["ln","عدس‌پلو با مرغ",[[25,250],[42,60],[2,120],[61,15],[77,10]]],["ln","لوبیاپلو با گوشت",[[25,250],[43,60],[4,90],[89,15],[77,10]]],["ln","باقلاپلو با مرغ",[[25,250],[45,70],[3,130],[71,30],[77,10]]],["ln","ماش‌پلو با گوشت",[[25,250],[46,60],[4,90],[77,10]]],["ln","خورشت قیمه با برنج",[[25,250],[4,80],[42,40],[89,20],[77,10]]],["ln","قرمه‌سبزی با برنج",[[25,250],[4,90],[43,40],[71,100],[77,10]]],["ln","فسنجان مرغ با برنج",[[25,250],[3,120],[79,35],[77,5]]],["ln","خورشت بادمجان با برنج",[[25,250],[67,150],[4,80],[63,100],[77,10]]],["ln","خورشت کدو با برنج",[[25,250],[66,150],[4,80],[89,15],[77,10]]],["ln","کتلت گوشت و سیب‌زمینی",[[5,120],[34,150],[0,50],[77,10],[27,60]]],["ln","جوجه‌کباب با برنج",[[2,200],[25,250],[63,100],[23,10]]],["ln","چلوکباب برگ",[[4,150],[25,300],[23,10],[63,100]]],["ln","زرشک‌پلو با مرغ",[[25,250],[3,150],[61,10],[77,10]]],["ln","سبزی‌پلو با ماهی",[[25,250],[8,180],[71,60],[77,10]]],["ln","ته‌چین مرغ",[[25,220],[2,150],[14,80],[0,50],[77,10]]],["ln","دلمه فلفل با گوشت و برنج",[[70,200],[5,100],[25,120],[77,10]]],["ln","کوکو سبزی با نان و ماست",[[0,100],[71,80],[79,10],[77,10],[27,80],[14,100]]],["ln","کوکو سیب‌زمینی با سالاد",[[34,200],[0,100],[77,10],[62,100],[63,100]]],["ln","عدسی با نان",[[42,250],[74,30],[77,10],[27,100]]],["ln","آش رشته",[[43,100],[42,50],[33,80],[71,80],[14,50]]],["ln","ماکارونی با گوشت چرخ‌کرده",[[33,250],[5,100],[89,20],[77,10]]],["ln","لوبیا چیتی با تن‌ماهی",[[43,150],[9,100],[63,100],[76,10],[29,60]]],["ln","نخودپلو با مرغ",[[25,220],[44,80],[2,150]]],["ln","میرزاقاسمی با نان",[[67,200],[0,100],[63,100],[77,10],[27,100]]],["ln","سالاد مرغ و کینوا",[[2,150],[37,150],[62,100],[63,100],[76,10]]],["ln","بشقاب مرغ، سیب‌زمینی شیرین و بروکلی",[[2,170],[35,250],[72,100],[76,10]]],["ln","بشقاب ماهی، برنج قهوه‌ای و بروکلی",[[8,170],[26,200],[72,100],[76,10]]],["ln","خوراک لوبیا با گوشت و نان",[[43,200],[4,60],[89,15],[77,5],[27,80]]],["ln","ساندویچ مرغ گریل در بربری",[[2,150],[28,120],[65,30],[63,50],[14,20]]],["ln","ساندویچ کباب کوبیده در لواش",[[5,130],[29,100],[63,80],[74,20]]],["ln","عدس‌پلو با مرغ (پرس کوچک)",[[25,190],[42,45],[2,90],[61,10],[77,10]]],["ln","لوبیاپلو با گوشت (پرس کوچک)",[[25,190],[43,45],[4,70],[89,10],[77,10]]],["ln","باقلاپلو با مرغ (پرس کوچک)",[[25,190],[45,50],[3,100],[71,20],[77,10]]],["ln","ماش‌پلو با گوشت (پرس کوچک)",[[25,190],[46,45],[4,70],[77,10]]],["ln","خورشت قیمه با برنج (پرس کوچک)",[[25,190],[4,60],[42,30],[89,15],[77,10]]],["ln","قرمه‌سبزی با برنج (پرس کوچک)",[[25,190],[4,70],[43,30],[71,75],[77,10]]],["ln","فسنجان مرغ با برنج (پرس کوچک)",[[25,190],[3,90],[79,25],[77,5]]],["ln","خورشت بادمجان با برنج (پرس کوچک)",[[25,190],[67,110],[4,60],[63,75],[77,10]]],["ln","خورشت کدو با برنج (پرس کوچک)",[[25,190],[66,110],[4,60],[89,10],[77,10]]],["ln","کتلت گوشت و سیب‌زمینی (پرس کوچک)",[[5,90],[34,110],[0,37],[77,5],[27,45]]],["ln","جوجه‌کباب با برنج (پرس کوچک)",[[2,150],[25,190],[63,75],[23,10]]],["ln","چلوکباب برگ (پرس کوچک)",[[4,110],[25,225],[23,10],[63,75]]],["ln","زرشک‌پلو با مرغ (پرس کوچک)",[[25,190],[3,110],[61,10],[77,10]]],["ln","سبزی‌پلو با ماهی (پرس کوچک)",[[25,190],[8,135],[71,45],[77,5]]],["ln","ته‌چین مرغ (پرس کوچک)",[[25,165],[2,110],[14,60],[0,37],[77,10]]],["ln","دلمه فلفل با گوشت و برنج (پرس کوچک)",[[70,150],[5,75],[25,90],[77,5]]],["ln","کوکو سبزی با نان و ماست (پرس کوچک)",[[0,75],[71,60],[79,10],[77,10],[27,60],[14,75]]],["ln","کوکو سیب‌زمینی با سالاد (پرس کوچک)",[[34,150],[0,75],[77,10],[62,75],[63,75]]],["ln","عدسی با نان (پرس کوچک)",[[42,190],[74,20],[77,10],[27,75]]],["ln","آش رشته (پرس کوچک)",[[43,75],[42,40],[33,60],[71,60],[14,40]]],["ln","ماکارونی با گوشت چرخ‌کرده (پرس کوچک)",[[33,190],[5,75],[89,15],[77,5]]],["dn","سینه مرغ با سالاد و نان",[[2,150],[65,100],[62,100],[63,100],[76,10],[27,60]]],["dn","سینه مرغ با سالاد و نان (پرس بزرگ)",[[2,195],[65,100],[62,100],[63,100],[76,10],[27,60]]],["dn","سینه مرغ با سبزیجات بخارپز و سیب‌زمینی",[[2,150],[72,120],[64,80],[34,150],[76,10]]],["dn","سینه مرغ با سبزیجات بخارپز و سیب‌زمینی (پرس بزرگ)",[[2,195],[72,120],[64,80],[34,150],[76,10]]],["dn","سینه مرغ با برنج کم و سبزیجات",[[2,150],[25,120],[66,120],[70,80],[76,10]]],["dn","سینه مرغ با برنج کم و سبزیجات (پرس بزرگ)",[[2,195],[25,120],[66,120],[70,80],[76,10]]],["dn","ماهی سفید با سالاد و نان",[[8,170],[65,100],[62,100],[63,100],[76,10],[27,60]]],["dn","ماهی سفید با سالاد و نان (پرس بزرگ)",[[8,220],[65,100],[62,100],[63,100],[76,10],[27,60]]],["dn","ماهی سفید با سبزیجات بخارپز و سیب‌زمینی",[[8,170],[72,120],[64,80],[34,150],[76,10]]],["dn","ماهی سفید با سبزیجات بخارپز و سیب‌زمینی (پرس بزرگ)",[[8,220],[72,120],[64,80],[34,150],[76,10]]],["dn","ماهی سفید با برنج کم و سبزیجات",[[8,170],[25,120],[66,120],[70,80],[76,10]]],["dn","ماهی سفید با برنج کم و سبزیجات (پرس بزرگ)",[[8,220],[25,120],[66,120],[70,80],[76,10]]],["dn","سالمون با سالاد و نان",[[7,130],[65,100],[62,100],[63,100],[76,10],[27,60]]],["dn","سالمون با سالاد و نان (پرس بزرگ)",[[7,170],[65,100],[62,100],[63,100],[76,10],[27,60]]],["dn","سالمون با سبزیجات بخارپز و سیب‌زمینی",[[7,130],[72,120],[64,80],[34,150],[76,10]]],["dn","سالمون با سبزیجات بخارپز و سیب‌زمینی (پرس بزرگ)",[[7,170],[72,120],[64,80],[34,150],[76,10]]],["dn","سالمون با برنج کم و سبزیجات",[[7,130],[25,120],[66,120],[70,80],[76,10]]],["dn","سالمون با برنج کم و سبزیجات (پرس بزرگ)",[[7,170],[25,120],[66,120],[70,80],[76,10]]],["dn","میگو با سالاد و نان",[[10,150],[65,100],[62,100],[63,100],[76,10],[27,60]]],["dn","میگو با سالاد و نان (پرس بزرگ)",[[10,195],[65,100],[62,100],[63,100],[76,10],[27,60]]],["dn","میگو با سبزیجات بخارپز و سیب‌زمینی",[[10,150],[72,120],[64,80],[34,150],[76,10]]],["dn","میگو با سبزیجات بخارپز و سیب‌زمینی (پرس بزرگ)",[[10,195],[72,120],[64,80],[34,150],[76,10]]],["dn","میگو با برنج کم و سبزیجات",[[10,150],[25,120],[66,120],[70,80],[76,10]]],["dn","میگو با برنج کم و سبزیجات (پرس بزرگ)",[[10,195],[25,120],[66,120],[70,80],[76,10]]],["dn","تن‌ماهی با سالاد و نان",[[9,120],[65,100],[62,100],[63,100],[76,10],[27,60]]],["dn","تن‌ماهی با سالاد و نان (پرس بزرگ)",[[9,155],[65,100],[62,100],[63,100],[76,10],[27,60]]],["dn","تن‌ماهی با سبزیجات بخارپز و سیب‌زمینی",[[9,120],[72,120],[64,80],[34,150],[76,10]]],["dn","تن‌ماهی با سبزیجات بخارپز و سیب‌زمینی (پرس بزرگ)",[[9,155],[72,120],[64,80],[34,150],[76,10]]],["dn","تن‌ماهی با برنج کم و سبزیجات",[[9,120],[25,120],[66,120],[70,80],[76,10]]],["dn","تن‌ماهی با برنج کم و سبزیجات (پرس بزرگ)",[[9,155],[25,120],[66,120],[70,80],[76,10]]],["dn","سینه بوقلمون با سالاد و نان",[[11,150],[65,100],[62,100],[63,100],[76,10],[27,60]]],["dn","سینه بوقلمون با سالاد و نان (پرس بزرگ)",[[11,195],[65,100],[62,100],[63,100],[76,10],[27,60]]],["dn","سینه بوقلمون با سبزیجات بخارپز و سیب‌زمینی",[[11,150],[72,120],[64,80],[34,150],[76,10]]],["dn","سینه بوقلمون با سبزیجات بخارپز و سیب‌زمینی (پرس بزرگ)",[[11,195],[72,120],[64,80],[34,150],[76,10]]],["dn","سینه بوقلمون با برنج کم و سبزیجات",[[11,150],[25,120],[66,120],[70,80],[76,10]]],["dn","سینه بوقلمون با برنج کم و سبزیجات (پرس بزرگ)",[[11,195],[25,120],[66,120],[70,80],[76,10]]],["dn","توفو با سالاد و نان",[[13,200],[65,100],[62,100],[63,100],[76,10],[27,60]]],["dn","توفو با سالاد و نان (پرس بزرگ)",[[13,260],[65,100],[62,100],[63,100],[76,10],[27,60]]],["dn","توفو با سبزیجات بخارپز و سیب‌زمینی",[[13,200],[72,120],[64,80],[34,150],[76,10]]],["dn","توفو با سبزیجات بخارپز و سیب‌زمینی (پرس بزرگ)",[[13,260],[72,120],[64,80],[34,150],[76,10]]],["dn","توفو با برنج کم و سبزیجات",[[13,200],[25,120],[66,120],[70,80],[76,10]]],["dn","توفو با برنج کم و سبزیجات (پرس بزرگ)",[[13,260],[25,120],[66,120],[70,80],[76,10]]],["dn","گوشت گوساله لخم با سالاد و نان",[[4,110],[65,100],[62,100],[63,100],[76,10],[27,60]]],["dn","گوشت گوساله لخم با سالاد و نان (پرس بزرگ)",[[4,145],[65,100],[62,100],[63,100],[76,10],[27,60]]],["dn","گوشت گوساله لخم با سبزیجات بخارپز و سیب‌زمینی",[[4,110],[72,120],[64,80],[34,150],[76,10]]],["dn","گوشت گوساله لخم با سبزیجات بخارپز و سیب‌زمینی (پرس بزرگ)",[[4,145],[72,120],[64,80],[34,150],[76,10]]],["dn","گوشت گوساله لخم با برنج کم و سبزیجات",[[4,110],[25,120],[66,120],[70,80],[76,10]]],["dn","گوشت گوساله لخم با برنج کم و سبزیجات (پرس بزرگ)",[[4,145],[25,120],[66,120],[70,80],[76,10]]],["dn","املت سبزیجات ۲ تخم‌مرغ با نان سنگک",[[0,100],[69,60],[70,50],[74,20],[77,5],[27,60]]],["dn","املت سبزیجات ۲ تخم‌مرغ با نان جو",[[0,100],[69,60],[70,50],[74,20],[77,5],[30,60]]],["dn","نیمرو ۲ تخم‌مرغ با سالاد",[[0,100],[77,10],[65,100],[62,100],[63,100]]],["dn","تخم‌مرغ و اسفناج ۲ تخم‌مرغ",[[0,100],[68,150],[77,5],[19,20]]],["dn","املت سبزیجات ۳ تخم‌مرغ با نان سنگک",[[0,150],[69,60],[70,50],[74,20],[77,5],[27,60]]],["dn","املت سبزیجات ۳ تخم‌مرغ با نان جو",[[0,150],[69,60],[70,50],[74,20],[77,5],[30,60]]],["dn","نیمرو ۳ تخم‌مرغ با سالاد",[[0,150],[77,10],[65,100],[62,100],[63,100]]],["dn","تخم‌مرغ و اسفناج ۳ تخم‌مرغ",[[0,150],[68,150],[77,5],[19,20]]],["dn","کوکو سبزی با ماست",[[0,100],[71,80],[79,10],[77,10],[14,100]]],["dn","کوکو کدو با نان",[[0,100],[66,200],[77,10],[27,60]]],["dn","کوکو سبزی با ماست (پرس بزرگ)",[[0,140],[71,110],[79,15],[77,15],[14,140]]],["dn","کوکو کدو با نان (پرس بزرگ)",[[0,140],[66,280],[77,15],[27,85]]],["dn","سوپ جو با مرغ",[[2,100],[32,30],[64,60],[74,30],[77,5]]],["dn","سوپ جو با مرغ (پرس بزرگ)",[[2,135],[32,40],[64,80],[74,40],[77,5]]],["dn","سوپ مرغ و سبزیجات",[[2,120],[64,80],[66,80],[34,100]]],["dn","سوپ مرغ و سبزیجات (پرس بزرگ)",[[2,160],[64,110],[66,110],[34,135]]],["dn","سوپ عدس",[[42,200],[64,50],[74,30],[77,10],[27,60]]],["dn","سوپ عدس (پرس بزرگ)",[[42,270],[64,70],[74,40],[77,10],[27,80]]],["dn","آش رشته سبک",[[43,80],[42,40],[33,60],[71,80],[14,40]]],["dn","آش رشته سبک (پرس بزرگ)",[[43,110],[42,55],[33,80],[71,110],[14,55]]],["dn","سوپ ماهی و سبزیجات",[[8,120],[64,60],[34,100],[74,30]]],["dn","سوپ ماهی و سبزیجات (پرس بزرگ)",[[8,160],[64,80],[34,135],[74,40]]],["dn","عدسی با نان",[[42,200],[74,30],[77,10],[27,80]]],["dn","عدسی با نان (پرس بزرگ)",[[42,270],[74,40],[77,10],[27,110]]],["dn","خوراک لوبیا سبز و مرغ",[[75,200],[2,120],[89,15],[77,5]]],["dn","خوراک لوبیا سبز و مرغ (پرس بزرگ)",[[75,270],[2,160],[89,20],[77,10]]],["dn","سالاد مرغ",[[2,130],[65,120],[62,100],[63,100],[76,10]]],["dn","سالاد مرغ (پرس بزرگ)",[[2,175],[65,160],[62,135],[63,135],[76,15]]],["dn","سالاد تن‌ماهی",[[9,100],[65,120],[62,100],[63,100],[76,10],[38,50]]],["dn","سالاد تن‌ماهی (پرس بزرگ)",[[9,135],[65,160],[62,135],[63,135],[76,15],[38,70]]],["dn","سالاد نخود و تن‌ماهی",[[44,120],[9,80],[62,100],[63,100],[76,10]]],["dn","سالاد نخود و تن‌ماهی (پرس بزرگ)",[[44,160],[9,110],[62,135],[63,135],[76,10]]],["dn","سالاد کینوا و تخم‌مرغ",[[37,150],[0,100],[62,100],[63,100],[76,10]]],["dn","سالاد کینوا و تخم‌مرغ (پرس بزرگ)",[[37,200],[0,135],[62,135],[63,135],[76,10]]],["dn","سالاد سزار سبک",[[2,130],[65,150],[21,20],[31,30],[14,40]]],["dn","سالاد سزار سبک (پرس بزرگ)",[[2,175],[65,200],[21,25],[31,40],[14,55]]],["pre","نان تست با کره بادام‌زمینی و موز (۱ برش)",[[31,35],[82,15],[48,100]]],["pre","نان تست با مربا و سفیده تخم‌مرغ (۱ برش)",[[31,35],[86,20],[1,66]]],["pre","برنج و عسل (۱۵۰ گرم برنج)",[[25,150],[85,10]]],["pre","کورن‌فلکس با شیر (۱ پرس)",[[39,30],[17,200]]],["pre","کیک برنجی با عسل (۲ عدد)",[[41,20],[85,10]]],["pre","نان تست با کره بادام‌زمینی و موز (۲ برش)",[[31,70],[82,15],[48,100]]],["pre","نان تست با مربا و سفیده تخم‌مرغ (۲ برش)",[[31,70],[86,20],[1,66]]],["pre","برنج و عسل (۲۰۰ گرم برنج)",[[25,200],[85,10]]],["pre","کورن‌فلکس با شیر (۲ پرس)",[[39,60],[17,200]]],["pre","کیک برنجی با عسل (۴ عدد)",[[41,40],[85,10]]],["pre","جو دوسر و موز (۳۰ گرم جو)",[[32,30],[48,120],[17,150]]],["pre","جو دوسر با عسل و کشمش (۳۰ گرم جو)",[[32,30],[85,10],[61,15],[17,150]]],["pre","جو دوسر و موز (۴۰ گرم جو)",[[32,40],[48,120],[17,150]]],["pre","جو دوسر با عسل و کشمش (۴۰ گرم جو)",[[32,40],[85,10],[61,15],[17,150]]],["pre","جو دوسر و موز (۵۰ گرم جو)",[[32,50],[48,120],[17,150]]],["pre","جو دوسر با عسل و کشمش (۵۰ گرم جو)",[[32,50],[85,10],[61,15],[17,150]]],["pre","خرما (۳ عدد) با کره بادام‌زمینی",[[59,25],[82,10]]],["pre","خرما (۵ عدد) با کره بادام‌زمینی",[[59,40],[82,10]]],["pre","خرما (۷ عدد) با کره بادام‌زمینی",[[59,55],[82,10]]],["pre","سیب‌زمینی پخته (۱۵۰ گرم) با ماست",[[34,150],[14,80]]],["pre","سیب‌زمینی پخته (۲۰۰ گرم) با ماست",[[34,200],[14,80]]],["pre","سیب‌زمینی پخته (۲۵۰ گرم) با ماست",[[34,250],[14,80]]],["pre","ماست با میوه و عسل (۱۵۰ گرم ماست)",[[14,150],[48,100],[85,10]]],["pre","ماست با میوه و عسل (۲۰۰ گرم ماست)",[[14,200],[48,100],[85,10]]],["pre","موز (۱ عدد) با عسل",[[48,120],[85,10]]],["pre","موز (۲ عدد) با عسل",[[48,240],[85,10]]],["pre","نان بربری با مربا (۱۰۰ گرم)",[[28,100],[86,20]]],["pre","نان بربری با مربا (۱۵۰ گرم)",[[28,150],[86,20]]],["pre","ماکارونی ساده (۲۰۰ گرم) با کمی روغن",[[33,200],[76,5]]],["pre","ماکارونی ساده (۲۵۰ گرم) با کمی روغن",[[33,250],[76,5]]],["pre","سیب و کشمش",[[47,180],[61,20]]],["pre","انجیر و گردو",[[60,40],[79,10]]],["pre","پرتقال و کیک برنجی",[[49,150],[41,20]]],["post","وی با موز (۳۰ گرم وی، ۱ موز)",[[12,30],[48,120],[17,200]]],["post","وی با موز (۳۰ گرم وی، ۲ موز)",[[12,30],[48,240],[17,200]]],["post","وی با موز (۴۰ گرم وی، ۱ موز)",[[12,40],[48,120],[17,200]]],["post","وی با موز (۴۰ گرم وی، ۲ موز)",[[12,40],[48,240],[17,200]]],["post","وی با جو دوسر و شیر (۳۰ گرم جو)",[[12,30],[32,30],[17,250]]],["post","وی با جو دوسر و شیر (۴۰ گرم جو)",[[12,30],[32,40],[17,250]]],["post","وی با جو دوسر و شیر (۵۰ گرم جو)",[[12,30],[32,50],[17,250]]],["post","سینه مرغ (۱۰۰ گرم) با برنج (۱۲۰ گرم)",[[2,100],[25,120],[62,100]]],["post","سینه مرغ (۱۵۰ گرم) با برنج (۱۵۰ گرم)",[[2,150],[25,150],[62,100]]],["post","سینه مرغ (۱۵۰ گرم) با برنج (۲۰۰ گرم)",[[2,150],[25,200],[62,100]]],["post","سینه مرغ (۲۰۰ گرم) با برنج (۲۰۰ گرم)",[[2,200],[25,200],[62,100]]],["post","سینه مرغ (۱۰۰ گرم) با برنج (۱۸۰ گرم)",[[2,100],[25,180],[62,100]]],["post","سینه مرغ (۲۰۰ گرم) با برنج (۲۵۰ گرم)",[[2,200],[25,250],[62,100]]],["post","تن‌ماهی (۱۰۰ گرم) با نان تست",[[9,100],[31,70],[63,80]]],["post","تخم‌مرغ (۲ عدد) با نان تست",[[0,100],[31,70],[62,80]]],["post","ماست یونانی (۲۰۰ گرم) با عسل و موز",[[16,200],[85,10],[48,100]]],["post","پنیر کاتیج (۱۵۰ گرم) با میوه",[[20,150],[48,100],[85,5]]],["post","ساندویچ بوقلمون در نان جو (۱۰۰ گرم بوقلمون)",[[11,100],[30,80],[65,30],[63,50]]],["post","تن‌ماهی (۱۵۰ گرم) با نان تست",[[9,150],[31,70],[63,80]]],["post","تخم‌مرغ (۳ عدد) با نان تست",[[0,150],[31,70],[62,80]]],["post","ماست یونانی (۲۵۰ گرم) با عسل و موز",[[16,250],[85,10],[48,100]]],["post","پنیر کاتیج (۲۰۰ گرم) با میوه",[[20,200],[48,100],[85,5]]],["post","ساندویچ بوقلمون در نان جو (۱۵۰ گرم بوقلمون)",[[11,150],[30,80],[65,30],[63,50]]],["post","سالمون (۱۱۰ گرم) با سیب‌زمینی",[[7,110],[34,200],[72,80]]],["post","گوشت گوساله (۱۱۰ گرم) با برنج",[[4,110],[25,200],[63,100]]],["post","سالمون (۱۵۰ گرم) با سیب‌زمینی",[[7,150],[34,200],[72,80]]],["post","گوشت گوساله (۱۵۰ گرم) با برنج",[[4,150],[25,200],[63,100]]],["post","املت سفیده (۴ سفیده) با نان",[[1,132],[0,50],[27,70],[63,80]]],["post","املت سفیده (۶ سفیده) با نان",[[1,198],[0,50],[27,70],[63,80]]],["post","کورن‌فلکس با شیر و وی (۲۰ گرم)",[[39,30],[17,250],[12,20]]],["post","کورن‌فلکس با شیر و وی (۳۰ گرم)",[[39,40],[17,250],[12,20]]],["post","شیر و موز و کره بادام‌زمینی (۳)",[[17,300],[48,120],[82,15]]],["post","شیر و موز و کره بادام‌زمینی (۴)",[[17,450],[48,120],[82,15]]],["post","وی با آب و سیب و کیک برنجی",[[12,30],[47,150],[41,20]]],["post","ماست یونانی با گرانولا",[[16,200],[40,40]]],["post","بوقلمون با برنج و سبزیجات",[[11,130],[25,180],[72,100]]],["post","میگو با برنج",[[10,130],[25,180],[70,80]]],["bed","پنیر کاتیج (۱۵۰ گرم) با گردو",[[20,150],[79,15]]],["bed","ماست یونانی (۱۵۰ گرم) با بادام",[[16,150],[78,15]]],["bed","ماست کم‌چرب (۲۰۰ گرم) با گردو",[[14,200],[79,15]]],["bed","ماست و عسل و بادام (۱۵۰ گرم ماست)",[[14,150],[85,10],[78,10]]],["bed","پنیر کاتیج (۲۰۰ گرم) با گردو",[[20,200],[79,15]]],["bed","ماست یونانی (۲۰۰ گرم) با بادام",[[16,200],[78,15]]],["bed","ماست کم‌چرب (۲۵۰ گرم) با گردو",[[14,250],[79,15]]],["bed","ماست و عسل و بادام (۲۰۰ گرم ماست)",[[14,200],[85,10],[78,10]]],["bed","شیر کم‌چرب (۲۰۰ میلی‌لیتر) با عسل",[[17,200],[85,10]]],["bed","شیر کاکائو سبک (۲۰۰ میلی‌لیتر)",[[17,200],[88,10]]],["bed","شیر کم‌چرب (۳۰۰ میلی‌لیتر) با عسل",[[17,300],[85,10]]],["bed","شیر کاکائو سبک (۳۰۰ میلی‌لیتر)",[[17,300],[88,10]]],["bed","تخم‌مرغ آب‌پز (۲ عدد) با خیار",[[0,100],[62,100]]],["bed","تخم‌مرغ آب‌پز (۳ عدد) با خیار",[[0,150],[62,100]]],["bed","پنیر و گردو (۴۰ گرم پنیر)",[[19,40],[79,15],[62,80]]],["bed","پنیر و گردو (۶۰ گرم پنیر)",[[19,60],[79,15],[62,80]]],["bed","سفیده تخم‌مرغ (۴ عدد) و پنیر کاتیج",[[1,132],[20,80],[62,60]]],["bed","سفیده تخم‌مرغ (۶ عدد) و پنیر کاتیج",[[1,198],[20,80],[62,60]]],["bed","کره بادام‌زمینی با موز",[[82,15],[48,100]]],["bed","پنیر کاتیج با توت‌فرنگی",[[20,150],[55,100]]],["bed","ماست یونانی با توت‌فرنگی",[[16,150],[55,100]]]];
+/* ===== extra foods + 175 new meals (25 per meal type); indexes 90+ are the new foods ===== */
+FOODS.push(
+["حمص",166,7.9,14.3,9.6,0,""],["ماهی قزل‌آلا (پخته)",168,24,0,7.4,0,""],["دانه چیا",486,17,42,31,0,""],["کنجد",573,18,23,50,0,""],
+["بلوبری",57,0.7,14,0.3,0,""],["پنیر موزارلا کم‌چرب",254,24,3,16,0,""],["نان پیتا سبوس‌دار",266,9.8,55,1.7,0,""],["ذرت بوداده (بدون روغن)",387,13,78,4.5,0,""],
+["شیر بادام (بدون شکر)",15,0.6,0.6,1.2,0,""],["کدو حلوایی (پخته)",40,1,10,0.1,0,""],["زیتون",115,0.8,6,11,0,""],["لپه (پخته)",118,8.3,21,0.4,0,""],
+["کرفس",16,0.7,3,0.2,0,""],["زردآلو خشک",241,3.4,63,0.5,0,""],["بادام‌زمینی",567,26,16,49,0,""],["شیر سویا",54,3.3,6,1.8,0,""],
+["ماهی تیلاپیا (پخته)",128,26,0,2.7,0,""],["خیارشور",11,0.3,2.3,0.2,0,""],["آلو خشک",240,2.2,64,0.4,0,""]
+);
+MEALS.push(
+/* ---- صبحانه ---- */
+["bf","املت اسفناج و پنیر با نان جو",[[0,100],[68,100],[19,25],[30,80],[76,5]]],
+["bf","نیمرو ۲ تخم‌مرغ با سبزی و نان سنگک",[[0,100],[71,30],[27,80],[77,5],[63,80]]],
+["bf","عدسی صبحانه با نان سنگک و پیاز",[[42,200],[27,60],[74,30],[76,5]]],
+["bf","فرنی جو دوسر با شیر، موز و گردو",[[32,50],[17,200],[48,120],[79,10]]],
+["bf","ساندویچ تخم‌مرغ آب‌پز و گوجه در نان پیتا",[[0,100],[63,80],[96,70],[65,20],[22,15]]],
+["bf","ماست یونانی با گرانولا و توت‌فرنگی",[[16,200],[40,35],[55,100]]],
+["bf","پنکیک جو دوسر و موز با تخم‌مرغ",[[0,100],[32,40],[48,100],[23,5]]],
+["bf","اسموتی پروتئینی موز و کره بادام‌زمینی",[[12,30],[17,250],[48,120],[82,15]]],
+["bf","نان، پنیر، گردو و سبزی (صبحانه سنتی)",[[27,100],[19,50],[79,20],[63,100],[71,20]]],
+["bf","املت قارچ و فلفل دلمه‌ای (۳ تخم‌مرغ)",[[0,150],[69,80],[70,60],[77,8],[27,60]]],
+["bf","سفیده‌املت با بروکلی و نان بربری",[[1,200],[0,50],[72,60],[28,70]]],
+["bf","ماست و خیار با نان لواش و پنیر خامه‌ای",[[14,150],[62,100],[29,60],[22,20],[79,10]]],
+["bf","بلغور با شیر، خرما و گردو",[[36,150],[17,200],[59,24],[79,10]]],
+["bf","پودینگ چیا با شیر بادام و بلوبری",[[92,30],[98,250],[94,80],[85,10]]],
+["bf","۲ تخم‌مرغ آب‌پز با آووکادو و نان تست",[[0,100],[58,70],[31,60],[63,80]]],
+["bf","کینوا صبحانه با شیر و توت‌فرنگی",[[37,150],[17,150],[55,80],[78,15]]],
+["bf","ساندویچ تن ماهی و خیارشور در نان پیتا",[[9,80],[96,70],[107,40],[65,20],[63,40],[14,30]]],
+["bf","کوکو سبزی (۲ تخم‌مرغ) با نان سنگک",[[0,100],[71,100],[79,10],[77,5],[27,80]]],
+["bf","نان تست سبوس‌دار با پنیر کاتیج و هلو",[[31,60],[20,150],[54,150]]],
+["bf","حمص و تخم‌مرغ آب‌پز با نان لواش",[[90,80],[0,100],[29,60],[62,80],[76,5]]],
+["bf","شیر، جو دوسر، کشمش و بادام",[[32,60],[17,250],[61,20],[78,15]]],
+["bf","املت گوجه با پنیر و نان جو",[[0,100],[63,200],[74,40],[19,30],[30,80],[77,6]]],
+["bf","ماست کم‌چرب با جو دوسر و سیب رنده‌شده",[[14,200],[32,30],[47,150],[79,10]]],
+["bf","نان تست با موزارلا، گوجه و ریحان",[[95,50],[63,100],[31,60],[76,5],[71,5]]],
+["bf","تخم‌مرغ و سیب‌زمینی پخته با سبزی",[[0,100],[34,200],[71,20],[76,6]]],
+/* ---- میان‌وعده ---- */
+["sn","ماست یونانی با بلوبری",[[16,150],[94,60]]],
+["sn","ذرت بوداده بدون روغن با پسته",[[97,30],[80,10]]],
+["sn","هویج و حمص",[[64,150],[90,60]]],
+["sn","خیار و پنیر کاتیج",[[62,200],[20,100]]],
+["sn","دوغ با ۲ عدد خرما",[[24,250],[59,16]]],
+["sn","اسموتی موز، شیر بادام و وی",[[48,120],[98,200],[12,15]]],
+["sn","سیب با بادام‌زمینی",[[104,20],[47,180]]],
+["sn","تخم‌مرغ آب‌پز و خیار",[[0,50],[62,150]]],
+["sn","انار و گردو",[[52,150],[79,15]]],
+["sn","کیک برنجی با کره بادام‌زمینی (۲ عدد)",[[41,20],[82,15]]],
+["sn","ماست و خیار با گردو",[[14,150],[62,100],[79,8],[71,5]]],
+["sn","نخود پخته با آبلیمو و فلفل",[[44,120],[76,4]]],
+["sn","زردآلو خشک و بادام",[[103,30],[78,15]]],
+["sn","پرتقال و پسته",[[49,150],[80,12]]],
+["sn","شیر کم‌چرب با کاکائو و عسل",[[17,250],[88,6],[85,8]]],
+["sn","کیوی و ماست یونانی",[[53,150],[16,100]]],
+["sn","توت‌فرنگی با ماست و عسل",[[55,150],[14,100],[85,6]]],
+["sn","تن ماهی و خیار روی کاهو",[[9,60],[62,100],[65,40]]],
+["sn","ارده و خرما (۲ قاشق ارده)",[[83,20],[59,16]]],
+["sn","کرفس با کره بادام‌زمینی",[[102,150],[82,15]]],
+["sn","گلابی و فندق",[[50,170],[81,12]]],
+["sn","دوغ و لواش با پنیر",[[24,250],[29,40],[19,25]]],
+["sn","هلو و پنیر کاتیج",[[54,150],[20,100]]],
+["sn","سیب‌زمینی شیرین پخته",[[35,150]]],
+["sn","۱۵ گرم شکلات تلخ با ۱۵ گرم بادام",[[87,15],[78,15]]],
+/* ---- ناهار ---- */
+["ln","چلو مرغ ساده با سالاد (۱۵۰ گرم سینه)",[[2,150],[25,180],[63,100],[62,100],[76,8]]],
+["ln","عدس‌پلو بدون گوشت با ماست",[[25,150],[42,100],[61,10],[14,100],[76,6]]],
+["ln","خورش لپه و گوشت گوساله با برنج",[[4,100],[101,100],[25,170],[63,50],[76,8]]],
+["ln","قورمه‌سبزی (۱۰۰ گرم گوشت) با برنج کم",[[4,100],[71,100],[43,70],[25,150],[76,8]]],
+["ln","مرغ و سبزیجات تابه‌ای با نان",[[2,150],[70,80],[66,100],[74,40],[27,80],[76,8]]],
+["ln","ماهی قزل‌آلا کبابی با برنج و سالاد",[[91,150],[25,160],[63,100],[62,100],[76,8]]],
+["ln","استانبولی‌پلو با گوشت چرخ‌کرده لخم",[[5,100],[25,170],[63,100],[74,30],[76,8]]],
+["ln","عدسی غلیظ با سبزی و نان سنگک",[[42,250],[74,40],[71,20],[27,100],[76,8]]],
+["ln","کوفته سینه مرغ با ماکارونی کم",[[2,150],[33,150],[63,100],[76,8]]],
+["ln","سالاد مرغ و کینوا با آووکادو",[[2,150],[37,150],[58,50],[65,60],[63,80],[76,6]]],
+["ln","لوبیاپلو با گوشت گوسفندی لخم",[[6,90],[25,150],[75,80],[63,50],[76,6]]],
+["ln","میگو و برنج با سبزیجات",[[10,150],[25,160],[70,60],[66,80],[76,8]]],
+["ln","ماهی سفید با سیب‌زمینی پخته و بروکلی",[[8,160],[34,200],[72,100],[76,8]]],
+["ln","خوراک نخود و گوشت چرخ‌کرده با نان",[[44,150],[5,80],[74,40],[27,80],[76,5]]],
+["ln","بوقلمون گریل با برنج قهوه‌ای و سبزیجات بخارپز",[[11,160],[26,170],[72,80],[64,60],[76,8]]],
+["ln","کتلت مرغ (بدون سرخ‌کردن) با سیب‌زمینی",[[2,140],[34,180],[0,25],[74,30],[63,60],[76,8]]],
+["ln","باقالی‌پلو با مرغ",[[2,140],[25,150],[45,70],[71,20],[76,8]]],
+["ln","ماکارونی با سس گوجه و گوشت چرخ‌کرده لخم",[[33,250],[5,80],[63,150],[74,30],[76,8]]],
+["ln","ماش‌پلو سبک با ماست",[[46,100],[25,130],[14,120],[61,8],[76,5]]],
+["ln","کاسهٔ برنج، تن ماهی و ذرت",[[9,100],[25,170],[38,60],[65,50],[63,80],[76,8]]],
+["ln","سوپ بلغور و مرغ با نان",[[2,120],[36,150],[64,50],[74,30],[27,70]]],
+["ln","بادمجان کبابی با گوشت و برنج",[[67,200],[5,90],[63,100],[25,150],[76,8]]],
+["ln","خوراک لوبیا چیتی با تخم‌مرغ و نان",[[43,200],[0,100],[63,80],[27,60],[76,5]]],
+["ln","ران مرغ بدون پوست با سیب‌زمینی شیرین و کدو",[[3,160],[35,170],[66,100],[76,8]]],
+["ln","پیتای مرغ و حمص با سالاد",[[2,130],[96,90],[90,40],[65,50],[63,60]]],
+/* ---- شام ---- */
+["dn","املت سبزیجات با نان",[[0,150],[66,80],[70,50],[63,80],[27,60],[76,6]]],
+["dn","سوپ عدس و سبزیجات با نان جو",[[42,180],[64,50],[74,30],[30,60]]],
+["dn","ماهی قزل‌آلا با سبزیجات بخارپز",[[91,150],[72,100],[64,60],[66,60],[76,6]]],
+["dn","سینه مرغ با کدو و بادمجان کبابی",[[2,150],[66,100],[67,100],[63,60],[76,8]]],
+["dn","ماهی تیلاپیا با سالاد و نان تست",[[106,160],[65,60],[62,80],[31,50],[76,8]]],
+["dn","کوکو کدو با ماست",[[0,100],[66,150],[79,8],[14,120]]],
+["dn","مرغ و قارچ سوته با سیب‌زمینی",[[2,140],[69,120],[34,150],[74,30],[76,8]]],
+["dn","سالاد تن ماهی، لوبیا سبز و لوبیا",[[9,100],[75,100],[43,80],[63,80],[76,8]]],
+["dn","میگو و بروکلی با کمی برنج",[[10,150],[72,120],[25,100],[76,8]]],
+["dn","خوراک بوقلمون و سبزیجات با سیب‌زمینی",[[11,150],[72,80],[70,60],[64,50],[34,120],[76,6]]],
+["dn","توفو و سبزیجات با کینوا",[[13,150],[37,120],[72,80],[70,50],[76,8]]],
+["dn","نیمرو ۲ تخم‌مرغ با خیارشور و نان سنگک",[[0,100],[107,50],[27,80],[63,80],[77,5]]],
+["dn","سالاد مرغ و ذرت",[[2,130],[38,60],[65,80],[63,80],[70,40],[76,8]]],
+["dn","گوشت گوساله و سبزیجات تابه‌ای با نان",[[4,110],[70,60],[66,80],[69,60],[76,8],[27,60]]],
+["dn","ماهی سفید با کدو حلوایی و اسفناج",[[8,160],[99,150],[68,100],[76,8]]],
+["dn","کتلت عدس و سبزیجات با ماست",[[42,150],[0,50],[34,80],[71,20],[74,30],[76,8],[14,80]]],
+["dn","ماست و خیار با نان و تخم‌مرغ آب‌پز",[[14,200],[62,100],[0,100],[29,60]]],
+["dn","کوئیش ساده اسفناج و پنیر با نان جو",[[68,150],[0,100],[19,40],[30,70],[76,5]]],
+["dn","مرغ با لوبیا سبز و برنج قهوه‌ای کم",[[2,140],[75,120],[26,90],[76,8]]],
+["dn","سالاد یونانی با مرغ",[[2,120],[62,80],[63,80],[100,20],[19,40],[65,50],[76,8]]],
+["dn","سوپ سبزیجات و مرغ با نان",[[2,100],[64,60],[66,60],[74,30],[71,20],[27,70]]],
+["dn","بادمجان و بوقلمون کبابی با نان",[[11,140],[67,150],[63,100],[27,60],[76,6]]],
+["dn","کاسهٔ کینوا با سالمون",[[7,120],[37,100],[72,60],[62,60],[76,5]]],
+["dn","خوراک لپه و گوشت با سالاد",[[101,120],[5,70],[63,60],[62,80],[76,6]]],
+["dn","املت کدو با پنیر کاتیج",[[0,100],[66,150],[20,100],[27,60],[76,5]]],
+/* ---- قبل تمرین ---- */
+["pre","موز و عسل روی نان تست",[[48,120],[31,50],[85,10]]],
+["pre","جو دوسر با شیر و خرما",[[32,40],[17,200],[59,16]]],
+["pre","سیب‌زمینی شیرین پخته با عسل",[[35,200],[85,8]]],
+["pre","نان تست با مربا و پنیر کاتیج",[[31,60],[86,20],[20,80]]],
+["pre","خرما و بادام (۴ خرما)",[[59,32],[78,10]]],
+["pre","برنج و تخم‌مرغ آب‌پز (۱۲۰ گرم برنج)",[[25,120],[0,50],[76,3]]],
+["pre","کورن‌فلکس، موز و شیر",[[39,30],[48,100],[17,150]]],
+["pre","نان بربری با عسل و کاتیج",[[28,60],[85,10],[20,80]]],
+["pre","اسموتی موز و جو دوسر",[[48,120],[32,30],[17,200]]],
+["pre","کیک برنجی و موز (۳ عدد)",[[41,30],[48,120]]],
+["pre","ماست با انجیر خشک و عسل",[[14,150],[60,30],[85,8]]],
+["pre","سیب و کره بادام‌زمینی با نان تست",[[47,150],[82,15],[31,40]]],
+["pre","ماکارونی ساده با کمی پنیر (۱۵۰ گرم)",[[33,150],[19,20],[76,3]]],
+["pre","کشمش، گردو و نان لواش",[[61,25],[79,10],[29,50]]],
+["pre","هلو و ماست یونانی با گرانولا",[[54,150],[16,100],[40,20]]],
+["pre","نان، تخم‌مرغ آب‌پز و خرما",[[27,60],[0,50],[59,16]]],
+["pre","شیر، موز و دارچین",[[17,250],[48,120]]],
+["pre","پوره سیب‌زمینی با ماست",[[34,200],[14,100]]],
+["pre","انگور، پنیر سفید و نان لواش",[[51,150],[19,30],[29,40]]],
+["pre","بلغور شیرین با شیر و عسل",[[36,150],[17,100],[85,8]]],
+["pre","گرانولا و شیر",[[40,40],[17,200]]],
+["pre","زردآلو خشک، کره بادام‌زمینی و نان تست",[[103,40],[82,10],[31,40]]],
+["pre","کینوا با شیر و عسل",[[37,150],[17,100],[85,8]]],
+["pre","برنج، عسل و دارچین (۱۰۰ گرم برنج)",[[25,100],[85,12]]],
+["pre","پرتقال، کیک برنجی و بادام",[[49,150],[41,20],[78,10]]],
+/* ---- بعد تمرین ---- */
+["post","سینه مرغ، برنج سفید و خیار",[[2,150],[25,170],[62,100]]],
+["post","تخم‌مرغ آب‌پز، سیب‌زمینی و خیار",[[0,150],[34,200],[62,100]]],
+["post","ماست یونانی با موز و عسل",[[16,250],[48,120],[85,8]]],
+["post","تن ماهی با نان لواش و گوجه",[[9,120],[29,80],[63,100],[76,5]]],
+["post","شیر کاکائو و موز (۳۰۰ میلی‌لیتر شیر)",[[17,300],[88,8],[85,10],[48,120]]],
+["post","پنیر کاتیج، انجیر خشک و نان تست",[[20,200],[60,40],[31,50]]],
+["post","شیک وی با کره بادام‌زمینی و موز",[[12,30],[17,250],[48,120],[82,15]]],
+["post","ماکارونی با تن ماهی و سبزیجات",[[33,200],[9,100],[70,40],[76,5]]],
+["post","بوقلمون و سیب‌زمینی شیرین",[[11,150],[35,200],[72,60]]],
+["post","کینوا با مرغ و سبزی",[[37,170],[2,130],[71,20],[76,5]]],
+["post","سفیده تخم‌مرغ با نان و آووکادو",[[1,200],[27,80],[58,50]]],
+["post","دوغ، نان، پنیر و مرغ",[[24,300],[2,100],[27,80],[19,25]]],
+["post","سالمون و برنج",[[7,120],[25,170],[62,80]]],
+["post","کته مرغ با ماست",[[2,130],[25,170],[14,150]]],
+["post","عدسی با نان سنگک و تخم‌مرغ",[[42,200],[27,70],[0,50]]],
+["post","کاسهٔ موز، ماست، جو دوسر و وی",[[48,120],[14,150],[32,30],[12,20]]],
+["post","ساندویچ مرغ و پنیر در نان پیتا",[[2,120],[96,80],[19,25],[65,30],[63,50]]],
+["post","شیک سنتی شیر، تخم‌مرغ و خرما",[[17,250],[0,100],[59,24]]],
+["post","میگو و برنج با کدو",[[10,130],[25,160],[66,100],[76,5]]],
+["post","ماست، گردو و عسل با نان لواش",[[14,200],[79,12],[85,8],[29,60]]],
+["post","ماهی سفید و سیب‌زمینی",[[8,160],[34,220],[72,60],[76,5]]],
+["post","پودینگ وی و چیا با بلوبری",[[12,25],[92,20],[98,200],[94,60]]],
+["post","گوشت گوساله و برنج کم با سالاد",[[4,110],[25,140],[65,60],[63,80]]],
+["post","لوبیا و تخم‌مرغ با نان",[[43,150],[0,100],[27,70]]],
+["post","نان بربری، موزارلا و بوقلمون",[[28,80],[95,40],[11,80]]],
+/* ---- قبل خواب ---- */
+["bed","پنیر کاتیج با بادام‌زمینی",[[20,200],[104,15]]],
+["bed","ماست یونانی با دارچین و فندق",[[16,200],[81,12]]],
+["bed","شیر گرم با عسل",[[17,250],[85,8]]],
+["bed","ماست با دانه چیا",[[14,200],[92,15]]],
+["bed","کاتیج ۲۰۰ گرمی با توت‌فرنگی تازه",[[20,200],[55,100]]],
+["bed","شیر گرم با ارده و خرما",[[17,250],[83,15],[59,8]]],
+["bed","۲ تخم‌مرغ آب‌پز با خیار",[[0,100],[62,100]]],
+["bed","پنیر سفید، گردو و خیار",[[19,40],[79,12],[62,120]]],
+["bed","ماست با بلوبری و پسته",[[14,200],[94,60],[80,10]]],
+["bed","کاتیج با سیب و دارچین",[[20,150],[47,120]]],
+["bed","ماست با کنجد و عسل",[[15,150],[93,8],[85,8]]],
+["bed","شیر سویا و موز کوچک",[[105,250],[48,80]]],
+["bed","دوغ با تخمه کدو",[[24,300],[84,15]]],
+["bed","ماست یونانی ۱۵۰ گرمی با کیوی",[[53,150],[16,150]]],
+["bed","سفیده تخم‌مرغ آب‌پز و خیارشور",[[1,150],[107,50]]],
+["bed","پنیر کاتیج با انجیر خشک",[[20,150],[60,25]]],
+["bed","شیر با کاکائو بدون شکر",[[17,250],[88,5],[85,5]]],
+["bed","ماست با گردو و انار",[[14,200],[79,10],[52,80]]],
+["bed","موزارلا و گوجه",[[95,50],[63,100]]],
+["bed","بلغور شیرین با شیر کم",[[36,100],[17,150]]],
+["bed","ماست با بادام و کشمش",[[14,200],[78,12],[61,10]]],
+["bed","ماست یونانی با گلابی",[[16,150],[50,150]]],
+["bed","پنیر کاتیج با هلو و گردو",[[20,150],[54,120],[79,8]]],
+["bed","شیر گرم با کمی جو دوسر",[[17,250],[32,25]]],
+["bed","ماست، خیار و تخم‌مرغ آب‌پز",[[0,50],[14,150],[62,80]]]
+);
+
 const MT=[['bf','صبحانه'],['sn','میان‌وعده'],['ln','ناهار'],['dn','شام'],['pre','قبل تمرین'],['post','بعد تمرین'],['bed','قبل خواب']];
 const MTN={};MT.forEach(([k,l])=>{MTN[k]=l});
 const MSHARE={bf:.25,sn:.1,ln:.3,dn:.25,pre:.1,post:.15,bed:.08};
@@ -529,14 +2066,14 @@ function dietTotals(d){const r={k:0,p:0,c:0,f:0,lo:0,hi:0};(d.meals||[]).forEach
 /* ================= storage ================= *//* ================= storage ================= */
 const BUILD='student'; /* full = مربی و شاگرد | student = فقط شاگرد */
 const KEY=BUILD==='student'?'growfit_student_v2':'growfit_full_v2';
-const fresh=()=>({role:null,pin:null,clients:[],student:{cid:null,profile:null,plan:null,diet:null,corr:null,logs:{},weights:[],dietLog:{},start:null,trial:{}}});
+const fresh=()=>({role:null,pin:null,clients:[],pending:[],formCfg:{},student:{cid:null,profile:null,plan:null,diet:null,corr:null,logs:{},weights:[],dietLog:{},start:null,trial:{},bodyHist:[],formLink:''}});
 function load(){
  try{const d=JSON.parse(localStorage.getItem(KEY));if(d&&d.student)return d}catch(e){}
  try{const o=JSON.parse(localStorage.getItem('fitplan_v1'));if(o&&o.student){const f=fresh();if(BUILD==='student')f.student=o.student;else Object.assign(f,o);return f}}catch(e){}
  return fresh();
 }
 let DB=load();
-DB.student.trial=DB.student.trial||{};
+function normDB(){DB.student.trial=DB.student.trial||{};DB.student.bodyHist=Array.isArray(DB.student.bodyHist)?DB.student.bodyHist:[];DB.student.formLink=cleanUrl(DB.student.formLink);DB.formCfg=DB.formCfg&&typeof DB.formCfg==='object'?DB.formCfg:{};DB.clients=Array.isArray(DB.clients)?DB.clients:[];reCleanForms()}
 normDietObj(DB.student.diet);DB.clients.forEach(c=>normDietObj(c.diet));
 if(BUILD==='student'){DB.role='student';DB.clients=[];DB.pin=null}else{DB.role=null}
 function save(){try{localStorage.setItem(KEY,JSON.stringify(DB))}catch(e){toast('ذخیره نشد؛ حافظه مرورگر پر یا بسته است')}}
@@ -650,6 +2187,8 @@ function render(keep=true){
 }
 function view(){
  if(DB.role==='coach'&&!UI.unlocked)return lockView();
+ if(DB.role==='coach'&&UI.screen==='pform')return pformView();
+ if(DB.role==='coach'&&UI.screen==='formlink')return formLinkView();
  if(UI.screen==='settings')return settingsView();
  if(!DB.role)return roleView();
  return (DB.role==='coach'?(C()?clientView(C()):clientsView()):studentView())+(UI.pdf&&UI.po?exportSheet():'')+(UI.mb&&DB.role==='coach'&&C()?mbSheet():'');
@@ -723,12 +2262,12 @@ function clientsView(){
  const n=DB.clients.length,nr=DB.clients.filter(c=>c.logs).length,np=DB.clients.filter(c=>c.plan).length;
  const tile=(b,l)=>`<div class="tile"><b>${fa(b)}</b><span>${l}</span></div>`;
  const list=DB.clients.map(c=>`<div class="card tap" onclick="A.open('${c.id}')"><div class="rowb"><div class="rowb" style="gap:12px;justify-content:flex-start"><div class="avatar">${esc((c.name||'؟').trim().charAt(0)||'؟')}</div><div><b>${esc(c.name||'بدون نام')}</b><div class="wrap" style="margin:2px 0 0"><span class="chip">${(SPORTS[c.sport||'body']||SPORTS.body).n}</span><span class="chip">${GOALS[c.goal]}</span><span class="chip">${c.plan?fa(c.plan.weeks.length)+' هفته برنامه':'بدون برنامه'}</span></div></div></div>${c.logs?'<span class="chip or">گزارش جدید</span>':''}</div></div>`).join('')||'<div class="empty">هنوز شاگردی نداری. اولین پروفایل را بساز.</div>';
- return shell('شاگردان',n?fa(n)+' نفر':'',`<div class="pad"><div class="t3">${tile(n,'شاگرد')}${tile(np,'برنامه فعال')}${tile(nr,'گزارش جدید')}</div>${list}<button class="btn pri" onclick="A.newClient()">+ شاگرد جدید</button><button class="btn" onclick="pickFile()">دریافت گزارش شاگرد</button></div>`);
+ return shell('شاگردان',n?fa(n)+' نفر':'',`<div class="pad"><div class="t3">${tile(n,'شاگرد')}${tile(np,'برنامه فعال')}${tile(nr,'گزارش جدید')}</div>${pendingBlock()}<h3 style="margin:14px 0 8px">شاگردان</h3>${list}<button class="btn pri" onclick="A.newClient()">+ شاگرد جدید</button><button class="btn" onclick="pickFile()">دریافت گزارش شاگرد</button></div>`);
 }
-const CT=[['profile','پروفایل'],['plan','تمرین'],['diet','تغذیه'],['corr','اصلاحی'],['rep','گزارش'],['send','ارسال']];
+const CT=[['profile','پروفایل'],['forms','فرم‌ها'],['plan','تمرین'],['diet','تغذیه'],['corr','اصلاحی'],['rep','گزارش'],['send','ارسال']];
 function clientView(c){
  const strip=`<div class="strip">${CT.map(([k,l])=>`<button class="tb ${UI.ctab===k?'on':''}" onclick="go({ctab:'${k}'})">${l}</button>`).join('')}</div>`;
- const body={profile:profileTab,plan:planTab,diet:dietTab,corr:corrTab,rep:repTab,send:sendTab}[UI.ctab](c);
+ const body={profile:profileTab,forms:formsTab,plan:planTab,diet:dietTab,corr:corrTab,rep:repTab,send:sendTab}[UI.ctab](c);
  return shell(esc(c.name||'شاگرد جدید'),'',strip+`<div class="pad">${body}</div>`,'',"go({cid:null})");
 }
 function metricsCard(m,p){
@@ -763,7 +2302,7 @@ function planTab(c){
  ${day.ex.map((e,i)=>exCard(e,i)).join('')||'<div class="empty sm">حرکتی اضافه نشده</div>'}
  <div class="card"><h3>افزودن حرکت</h3>${fld('سیستم تمرینی',`<select onchange="UI.nsys=this.value;render()">${sp.sys.map(k=>`<option value="${k}"${k===nsys?' selected':''}>${SYS[k].n}</option>`).join('')}</select>`)}<p class="mut sm" style="margin-bottom:10px">${ns.h}</p><button class="btn pri" style="margin:0" onclick="A.addEx()">${ns.g?'+ افزودن گروه ('+fa(ns.g)+' حرکت)':'+ افزودن حرکت'}</button></div>
  <div class="card"><h3>اعمال پیشرفت روی هفته‌های بعد</h3><p class="mut sm" style="margin-bottom:10px">هفته انتخاب‌شده را روی هفته‌های بعدی کپی می‌کند و وزنه‌ها را هر هفته به‌اندازه این درصد بالا می‌برد.</p><div class="g2"><input id="pct" data-n="1" inputmode="decimal" value="2.5"><button class="btn" style="margin:0" onclick="A.copyWeek()">اعمال</button></div></div>
- <div class="card"><h3>ست هر عضله در هفته (طبق برنامه)</h3>${heat(calc(p,{}),'plan')}<p class="mut sm" style="margin-top:8px">ست عضله فرعی نیم‌ست حساب می‌شود. حدود ۱۰ تا ۲۰ ست در هفته برای هر عضله معمول است.</p></div>`;
+ <div class="card"><h3>ست هر عضله در هفته (طبق برنامه)</h3>${heat(calc(p,{}),'plan')}<p class="mut sm" style="margin-top:8px">ست عضله فرعی نیم‌ست حساب می‌شود. حدود ۱۰ تا ۲۰ ست در هفته برای هر عضله معمول است.</p></div>`+heatCard(p,{},UI.w,UI.d,'نقشهٔ بدن این روز (طبق برنامه)');
 }
 function exCard(e,i){
  const b=`c.plan.weeks.${UI.w}.${UI.d}.ex.${i}`,c=C(),sp=SPORTS[c.sport||'body'],key=e.sys||'st',sy=SYS[key]||SYS.st,k=kindOf(e),KD=KIND[k];
@@ -827,7 +2366,8 @@ function corrTab(c){
  <div class="card">${fld('توضیح برای شاگرد',area('c.corr.note',c.corr.note,'مثلاً قبل از هر جلسه تمرین انجام شود'))}</div>
  <button class="btn" onclick="A.pdfOpen('corr')">ساخت PDF برنامه اصلاحی</button>`;
 }
-function repTab(c){
+function repTab(c){return cmpCard(formRows(c),c.goal,'تغییرات بدن از فرم‌ها')+repTab0(c)}
+function repTab0(c){
  if(!c.logs||!c.plan)return `<div class="empty">هنوز گزارشی از این شاگرد نرسیده. وقتی فایل گزارش را فرستاد، آن را وارد کن.</div><button class="btn pri" onclick="pickFile()">وارد کردن فایل گزارش</button>`;
  const r=c.logs,w=adhWeek(r.dietLog||{},r.start,c.diet.meals);
  return `<p class="mut sm" style="margin-bottom:10px">آخرین گزارش: ${jdate(iso(new Date(r.at)))}</p>${analyticsHTML(c.plan,r.logs)}
@@ -838,7 +2378,7 @@ function repTab(c){
 function planPack(c){
  const pl=c.plan?clone(c.plan):null;
  if(pl)pl.weeks.forEach(w=>w.forEach(d=>d.ex.forEach(e=>{const t=libDesc(e.name);if(t)e.ds=t})));
- return{app:'fitplan',kind:'plan',v:1,cid:c.id,exported:Date.now(),profile:{name:c.name,sex:c.sex,age:c.age,height:c.height,weight:c.weight,waist:c.waist,hip:c.hip,activity:c.activity,goal:c.goal,sport:c.sport||'body',anoms:c.anoms,anomNote:c.anomNote},plan:pl,diet:c.diet,corr:c.corr};
+ return{app:'fitplan',kind:'plan',v:1,cid:c.id,exported:Date.now(),profile:{name:c.name,sex:c.sex,age:c.age,height:c.height,weight:c.weight,waist:c.waist,hip:c.hip,activity:c.activity,goal:c.goal,sport:c.sport||'body',anoms:c.anoms,anomNote:c.anomNote},plan:pl,diet:c.diet,corr:c.corr,bodyHist:formRows(c),formLink:formLink()};
 }
 function sendTab(c){
  const ph=normPhone(c.phone);
@@ -874,6 +2414,7 @@ function analyticsHTML(plan,logs){
  const act=plan.weeks.map((wk,wi)=>{let mx=null;wk.forEach((day,di)=>{const L=logs[wi+'-'+di];day.ex.forEach(e=>{if(e.name!==UI.aex||!L)return;(L.sets[e.id]||[]).forEach(x=>{if(x&&x.d&&num(x.w)>(mx||0))mx=num(x.w)})})});return mx});
  const pln=plan.weeks.map(wk=>{let mx=null;wk.forEach(day=>day.ex.forEach(e=>{if(e.name===UI.aex&&num(e.weight)>(mx||0))mx=num(e.weight)}));return mx});
  return `<div class="tiles">${T.join('')}</div>${ac!=null?'<p class="mut sm" style="margin:-4px 0 12px">نسبت بار حاد به مزمن بین ۰٫۸ تا ۱٫۳ معمولاً محدوده مناسبی است.</p>':''}
+ ${hasMus?heatDayCard(plan,logs):''}
  ${hasMus?`<div class="card"><h3>ست هر عضله در یک هفته</h3><div class="strip" style="padding:0 0 8px">${R.map((_,i)=>`<button class="tb ${i===UI.aw?'on':''}" onclick="go({aw:${i}})">هفته ${fa(i+1)}</button>`).join('')}</div>
  ${ms.map(m=>{const p=cur.pl[m],d=cur.dn[m]||0;return `<div class="mrow"><span>${m}</span><div class="bar"><i style="width:${Math.min(100,d/p*100)}%"></i></div><span class="nums">${fnum(d)}/${fnum(p)}</span></div>`}).join('')||'<div class="empty sm">این هفته حرکتی ندارد</div>'}</div>`:`<div class="strip" style="padding:0 0 8px">${R.map((_,i)=>`<button class="tb ${i===UI.aw?'on':''}" onclick="go({aw:${i}})">هفته ${fa(i+1)}</button>`).join('')}</div>`}
  ${ch('حجم تمرین هر هفته (کیلوگرم)',R.map(r=>r.ton),{f:ri})}
@@ -985,7 +2526,7 @@ function trainView(){
  const end=day.ex.length?`<div class="card"><h3>فشار تمرین امروز</h3><div class="rpe">${[1,2,3,4,5,6,7,8,9,10].map(n=>`<button class="${L&&L.rpe===n?'on':''}" onclick="A.rpe(${n})">${fa(n)}</button>`).join('')}</div><p class="mut sm" style="margin-bottom:10px">۱ خیلی سبک، ۱۰ حداکثر فشار ممکن</p>${L&&L.fin?`<p style="margin-bottom:10px"><span class="chip or">ثبت شد: ${fa(L.min)} دقیقه، فشار ${fa(L.rpe)}</span></p>`:''}<button class="btn ${L&&L.fin?'':'pri'}" style="margin:0" onclick="A.finish()">${L&&L.fin?'باز کردن برای ویرایش':'پایان تمرین'}</button></div>`:'';
  return head+prog+cards+end;
 }
-const anaView=()=>analyticsHTML(S().plan,S().logs);
+const anaView=()=>analyticsHTML(S().plan,S().logs)+cmpCard(S().bodyHist||[],(S().profile||{}).goal,'تغییرات بدن از فرم‌ها');
 function sDietView(){
  const s=S(),d=s.diet;
  if(!d||!d.meals||!d.meals.length)return '<div class="empty">مربی هنوز برنامه غذایی ننوشته است.</div>';
@@ -1012,7 +2553,8 @@ function bodyView(){
  return `<div class="card"><h3>ثبت وزن این هفته</h3><div class="g2"><div class="f"><label>وزن (kg)</label><input id="wt" data-n="1" inputmode="decimal" placeholder="${p.weight?fa(p.weight):''}"></div><div class="f"><label>دور کمر (cm)، اختیاری</label><input id="wa" data-n="1" inputmode="decimal"></div></div><button class="btn pri" style="margin:0" onclick="A.addW()">ثبت</button></div>
  ${sum}${hint}${m?metricsCard(m,p):''}
  <div class="card"><h3>نمودار وزن</h3>${line([{v:W.map(x=>x.w),c:'#ff5a6a'}])}</div>
- <div class="card"><h3>سابقه</h3>${W.slice().reverse().map((x,i,a)=>{const pr=a[i+1],dl=pr?x.w-pr.w:null;return `<div class="kv"><span>${jdate(x.date,{day:'numeric',month:'long'})}</span><b>${fnum(x.w)}<small>kg${dl!=null?` (${dl>0?'+':''}${fnum(dl)})`:''}</small></b></div>`}).join('')||'<div class="empty sm">هنوز وزنی ثبت نشده</div>'}</div>`;
+ <div class="card"><h3>سابقه</h3>${W.slice().reverse().map((x,i,a)=>{const pr=a[i+1],dl=pr?x.w-pr.w:null;return `<div class="kv"><span>${jdate(x.date,{day:'numeric',month:'long'})}</span><b>${fnum(x.w)}<small>kg${dl!=null?` (${dl>0?'+':''}${fnum(dl)})`:''}</small></b></div>`}).join('')||'<div class="empty sm">هنوز وزنی ثبت نشده</div>'}</div>
+ ${cmpCard(s.bodyHist||[],p.goal,'تغییرات بدن از فرم‌ها')}${formCard()}`;
 }
 function meView(){
  const s=S(),p=s.profile||{},rec=(s.dietLog[iso()]||{m:{},c:{}}),cr=s.corr||{items:[],note:''};
@@ -1048,11 +2590,30 @@ async function shareFile(obj,name,title){
  dl(obj,name);toast(isMobile()?'فایل ذخیره شد؛ از پوشه دانلودها داخل پیام‌رسان بفرست':'فایل دانلود شد؛ آن را از پوشه Downloads برای مربی بفرست');
 }
 function pickFile(){$('#file').click()}
-$('#file').onchange=async e=>{const f=e.target.files[0];e.target.value='';if(!f)return;let d;try{d=JSON.parse(await f.text())}catch(err){return toast('فایل معتبر نیست')}handleFile(d)};
+$('#file').onchange=async e=>{
+ const files=[...e.target.files].slice(0,30);e.target.value='';if(!files.length)return;
+ const cid=UI.itCid||'';UI.itCid='';const sum={ok:0,dup:0,bad:0,other:0};let lastErr='';
+ const tc=cid&&DB.clients.find(x=>x.id===cid),prevNew=tc?(newestForm(tc)||{}).id:null;
+ for(const f of files){
+  if(f.size>25e6){sum.bad++;continue}
+  let d;try{d=JSON.parse(await f.text())}catch(err){sum.bad++;continue}
+  if(d&&d.app==='fitplan'&&d.kind==='intake'){
+   if(DB.role!=='coach'||!UI.unlocked){toast('فرم شاگرد فقط در حالت مربی باز می‌شود');return}
+   const r=intakeImport(d,cid);if(r==='ok')sum.ok++;else if(r==='dup')sum.dup++;else{sum.bad++;lastErr=r}
+  }else{sum.other++;handleFile(d)}
+ }
+ if(sum.ok||sum.dup||(sum.bad&&!sum.other)){
+  if(sum.ok&&tc){const nf=newestForm(tc);if(nf&&nf.id!==prevNew&&confirm('فرم جدیدتری وارد شد. پروفایل شاگرد با آن به‌روز شود؟ (سن، وزن، دورها، سطح فعالیت، هدف و ناهنجاری‌های جدید)'))applyFormToProfile(tc,nf)}
+  if(sum.ok)save();
+  const msg=[sum.ok&&fa(sum.ok)+' فرم وارد شد',sum.dup&&fa(sum.dup)+' فرم تکراری بود',sum.bad&&fa(sum.bad)+' فایل نامعتبر بود'+(lastErr&&sum.bad===1?': '+lastErr:'')].filter(Boolean).join('، ');
+  if(sum.ok&&cid)UI.ctab='forms';
+  render(false);toast(msg);
+ }
+};
 function importPlan(d){
  const s=S(),same=s.plan&&s.plan.id===d.plan.id;
  if(!same&&s.plan&&Object.keys(s.logs).length&&!confirm('این برنامه با برنامه فعلی فرق دارد و ثبت‌های قبلی پاک می‌شود. ادامه می‌دهی؟'))return false;
- s.cid=d.cid;s.profile=d.profile;s.plan=d.plan;s.diet=d.diet||{meals:[]};normDietObj(s.diet);s.corr=d.corr||{items:[],note:''};
+ s.cid=d.cid;s.profile=d.profile;s.plan=d.plan;if(Array.isArray(d.bodyHist))s.bodyHist=cleanRows(d.bodyHist);s.formLink=cleanUrl(d.formLink);s.diet=d.diet||{meals:[]};normDietObj(s.diet);s.corr=d.corr||{items:[],note:''};
  if(!same){s.logs={};s.dietLog={};s.weights=[];s.start=iso()}
  if(!s.weights.length&&num(d.profile.weight))s.weights.push({date:iso(),w:num(d.profile.weight),waist:num(d.profile.waist)||''});
  DB.role='student';save();return true;
@@ -1069,7 +2630,7 @@ function handleFile(d){
   c.logs={at:d.exported,logs:d.logs||{},weights:d.weights||[],dietLog:d.dietLog||{},start:d.start};
   save();UI.screen=null;UI.cid=c.id;UI.ctab='rep';render(false);toast('گزارش '+(c.name||'شاگرد')+' ثبت شد');
  }else if(d.kind==='backup'){
-  if(confirm('همه اطلاعات فعلی با پشتیبان جایگزین شود؟')){DB=d.data;DB.student.trial=DB.student.trial||{};normDietObj(DB.student.diet);(DB.clients||[]).forEach(c=>normDietObj(c.diet));if(BUILD==='student'){DB.role=DB.role==='coach'?null:DB.role;DB.clients=[];DB.pin=null}UI.unlocked=false;save();UI.screen=null;UI.cid=null;render(false);toast('بازیابی شد')}
+  if(confirm('همه اطلاعات فعلی با پشتیبان جایگزین شود؟')){DB=d.data;normDB();normDietObj(DB.student.diet);(DB.clients||[]).forEach(c=>normDietObj(c.diet));if(BUILD==='student'){DB.role=DB.role==='coach'?null:DB.role;DB.clients=[];DB.pin=null}UI.unlocked=false;save();UI.screen=null;UI.cid=null;render(false);toast('بازیابی شد')}
  }
 }
 
@@ -1155,6 +2716,254 @@ function installCard(){
  return `<div class="card"><h3>آیکون روی صفحه گوشی</h3>${body}</div>`;
 }
 const A={};
+/* ===== body heat figure: sets x pressure of ONE training day ===== */
+/* score per muscle = weighted sets (main 1, secondary 0.5) x (0.4 + 0.6 x RPE/10); 8 or more = full colour */
+const HEAT_FULL=8;
+function dayHeat(plan,logs,w,d){
+ const day=plan.weeks[w]&&plan.weeks[w][d];if(!day)return null;
+ const L=logs[w+'-'+d],pl={},dn={};let any=false;
+ const add=(o,m,x)=>{if(m&&x)o[m]=(o[m]||0)+x};
+ day.ex.forEach(e=>{
+  if(MUSK.indexOf(kindOf(e))<0)return;
+  const n=nSets(e),dd=doneSetCount(e,(L&&L.sets[e.id])||[]);
+  add(pl,e.m,n);add(pl,e.s,n*.5);add(dn,e.m,dd);add(dn,e.s,dd*.5);if(dd>0)any=true;
+ });
+ const rpe=(L&&L.rpe)||0,mode=any?'done':'plan',src=any?dn:pl,press=rpe?rpe/10:.7,k=.4+.6*press;
+ const sc={};let whole=0;
+ Object.keys(src).forEach(m=>{const v=src[m]*k;if(m==='کل بدن')whole=Math.min(1,v/HEAT_FULL)*.45;else sc[m]=Math.min(1,v/HEAT_FULL)});
+ if(whole)['سینه','پشت','شانه','جلوبازو','پشت‌بازو','ساعد','چهارسر','همسترینگ','سرینی','ساق','شکم','کمر','نزدیک‌کننده'].forEach(m=>{sc[m]=Math.max(sc[m]||0,whole)});
+ return{sc,sets:src,planned:pl,mode,rpe,press,name:plan.days[d],hasMuscle:Object.keys(pl).length>0};
+}
+const heatCol=a=>a>0?`rgba(255,90,106,${(.16+.84*a).toFixed(2)})`:'transparent';
+/* front (x 0..210) and back (x 210..420) silhouettes; every muscle is its own shape so it can be coloured */
+function bodyFig(sc){
+ const f=m=>`fill="${heatCol(sc[m]||0)}"`;
+ const line='stroke="#4a4a58" stroke-width="1.2" stroke-linejoin="round"';
+ const base='#22222a';
+ const body=(ox,back)=>{
+  const X=x=>x+ox;
+  const e=(cx,cy,rx,ry,m,rot)=>`<ellipse cx="${X(cx)}" cy="${cy}" rx="${rx}" ry="${ry}" ${f(m)} ${line}${rot?` transform="rotate(${rot} ${X(cx)} ${cy})"`:''}/>`;
+  const silhouette=`<g fill="${base}" stroke="#2f2f3a" stroke-width="1"><circle cx="${X(105)}" cy="30" r="18"/><rect x="${X(96)}" y="44" width="18" height="16" rx="6"/>
+   <path d="M${X(62)} 66 Q${X(105)} 56 ${X(148)} 66 L${X(142)} 112 L${X(136)} 168 L${X(76)} 168 L${X(68)} 112 Z"/>
+   <path d="M${X(66)} 70 L${X(54)} 72 Q${X(44)} 100 ${X(46)} 134 L${X(36)} 196 L${X(48)} 200 L${X(60)} 140 Q${X(66)} 108 ${X(70)} 84Z"/>
+   <path d="M${X(144)} 70 L${X(156)} 72 Q${X(166)} 100 ${X(164)} 134 L${X(174)} 196 L${X(162)} 200 L${X(150)} 140 Q${X(144)} 108 ${X(140)} 84Z"/>
+   <path d="M${X(76)} 164 L${X(104)} 164 L${X(102)} 262 L${X(96)} 372 L${X(78)} 372 L${X(70)} 262Z"/>
+   <path d="M${X(106)} 164 L${X(134)} 164 L${X(140)} 262 L${X(132)} 372 L${X(114)} 372 L${X(108)} 262Z"/>
+   <ellipse cx="${X(87)}" cy="382" rx="11" ry="6"/><ellipse cx="${X(123)}" cy="382" rx="11" ry="6"/></g>`;
+  let m='';
+  if(!back){
+   m+=e(58,80,13,17,'شانه',-8)+e(152,80,13,17,'شانه',8);
+   m+=`<path d="M${X(104)} 72 C${X(92)} 66 ${X(76)} 68 ${X(70)} 80 C${X(68)} 94 ${X(82)} 106 ${X(104)} 104Z" ${f('سینه')} ${line}/><path d="M${X(106)} 72 C${X(118)} 66 ${X(134)} 68 ${X(140)} 80 C${X(142)} 94 ${X(128)} 106 ${X(106)} 104Z" ${f('سینه')} ${line}/>`;
+   m+=`<path d="M${X(90)} 108 h30 v54 q-15 8 -30 0z" ${f('شکم')} ${line}/><path d="M${X(90)} 124 h30 M${X(90)} 140 h30 M${X(105)} 108 v54" stroke="#4a4a58" stroke-width="1" fill="none"/>`;
+   m+=e(46,106,9,24,'جلوبازو',4)+e(164,106,9,24,'جلوبازو',-4);
+   m+=e(42,160,8,26,'ساعد',6)+e(168,160,8,26,'ساعد',-6);
+   m+=e(88,210,15,46,'چهارسر',-3)+e(122,210,15,46,'چهارسر',3);
+   m+=`<path d="M${X(98)} 176 q4 40 -1 78 q-6 -38 1 -78z" ${f('نزدیک‌کننده')} ${line}/><path d="M${X(112)} 176 q-4 40 1 78 q6 -38 -1 -78z" ${f('نزدیک‌کننده')} ${line}/>`;
+   m+=e(86,312,10,38,'ساق')+e(124,312,10,38,'ساق');
+  }else{
+   m+=e(58,80,13,17,'شانه',-8)+e(152,80,13,17,'شانه',8);
+   m+=`<path d="M${X(105)} 58 L${X(74)} 74 C${X(70)} 100 ${X(76)} 128 ${X(94)} 138 L${X(105)} 140 L${X(116)} 138 C${X(134)} 128 ${X(140)} 100 ${X(136)} 74Z" ${f('پشت')} ${line}/><path d="M${X(105)} 62 V138" stroke="#4a4a58" stroke-width="1" fill="none"/>`;
+   m+=e(46,106,9,24,'پشت‌بازو',4)+e(164,106,9,24,'پشت‌بازو',-4);
+   m+=e(42,160,8,26,'ساعد',6)+e(168,160,8,26,'ساعد',-6);
+   m+=`<path d="M${X(88)} 140 h34 l-3 26 h-28z" ${f('کمر')} ${line}/>`;
+   m+=e(91,184,16,18,'سرینی')+e(119,184,16,18,'سرینی');
+   m+=e(88,238,14,36,'همسترینگ',-2)+e(122,238,14,36,'همسترینگ',2);
+   m+=e(86,314,11,36,'ساق')+e(124,314,11,36,'ساق');
+  }
+  return silhouette+m;
+ };
+ return `<svg class="fig" viewBox="0 0 420 396" role="img" aria-label="نقشه فشار تمرین روی بدن"><g>${body(0,false)}${body(210,true)}</g><text x="105" y="394" text-anchor="middle" fill="#8d8d9a" font-size="11">جلو</text><text x="315" y="394" text-anchor="middle" fill="#8d8d9a" font-size="11">پشت</text></svg>`;
+}
+function heatCard(plan,logs,w,d,title,opt){
+ opt=opt||{};const H=dayHeat(plan,logs,w,d);
+ if(!H)return '';
+ if(!H.hasMuscle)return `<div class="card"><h3>${title}</h3><div class="empty sm">برای این روز حرکت عضله‌ای ثبت نشده</div></div>`;
+ const rows=Object.keys(H.sets).filter(m=>H.sets[m]>0).sort((a,b)=>H.sets[b]-H.sets[a]);
+ const rl=H.mode==='done'?(H.rpe?`فشار جلسه: ${fa(H.rpe)} از ۱۰`:'فشار جلسه ثبت نشده؛ ۷ از ۱۰ فرض شد'):'هنوز ستی ثبت نشده؛ این نقشه طبق برنامه است (فشار فرضی ۷ از ۱۰)';
+ return `<div class="card"><h3>${title}</h3><div class="rowb" style="margin-bottom:6px"><b>${esc(H.name||'')}</b><span class="chip ${H.mode==='done'?'or':''}">${H.mode==='done'?'انجام‌شده':'طبق برنامه'}</span></div>
+ ${bodyFig(H.sc)}
+ <div class="heatleg"><span>کم</span><i></i><span>زیاد</span></div>
+ <p class="mut sm" style="margin:4px 0 10px">${rl}. رنگ پررنگ‌تر یعنی ست بیشتر و فشار بیشتر روی همان عضله.</p>
+ ${rows.map(m=>`<div class="mrow"><span>${m}</span><div class="bar"><i style="width:${Math.round((H.sc[m]||0)*100)}%"></i></div><span class="nums">${fnum(H.sets[m])} ست</span></div>`).join('')}</div>`;
+}
+/* day picker used under analytics: uses the already selected analytics week */
+function heatDayCard(plan,logs){
+ UI.ad=Math.min(UI.ad||0,plan.days.length-1);if(UI.ad<0)UI.ad=0;
+ const pick=`<div class="strip" style="padding:0 0 8px">${plan.days.map((n,i)=>`<button class="tb ${i===UI.ad?'on':''}" onclick="go({ad:${i}})">${esc(n)}</button>`).join('')}</div>`;
+ const c=heatCard(plan,logs,UI.aw,UI.ad,`نقشهٔ فشار روی بدن، هفته ${fa(UI.aw+1)}`);
+ return c.replace('<div class="rowb" style="margin-bottom:6px">',pick+'<div class="rowb" style="margin-bottom:6px">');
+}
+
+/* ===== intake forms: waiting list, history, comparison, link + QR (coach side) ===== */
+const IT2ANOM={1:'لوردوز (گودی کمر)',2:'کایفوز (قوز پشتی)',3:'اسکولیوز (کج‌پشتی)',4:'سر به جلو',5:'شانه گرد',6:'زانوی پرانتزی (واروس)',7:'زانوی ضربدری (والگوس)',8:'پای صاف',9:'عدم تقارن لگن'};
+const sameDay=(x,y)=>x.d<y.d?-1:x.d>y.d?1:x.created-y.created;
+const allForms=()=>[].concat(DB.pending||[],...DB.clients.map(c=>c.forms||[]));
+function similarClient(f){
+ const ph=normPhone(f.a.phone),nm=f.a.name.replace(/\s+/g,'');
+ return DB.clients.find(c=>(c.forms||[]).some(x=>f.pid&&x.pid===f.pid))
+  ||(ph.length>=10&&DB.clients.find(c=>normPhone(c.phone)===ph))
+  ||DB.clients.find(c=>(c.name||'').replace(/\s+/g,'')===nm)||null;
+}
+/* returns 'ok' | 'dup' | error text. cid = attach straight to that student, otherwise waiting list */
+function intakeImport(raw,cid){
+ const r=itClean(raw);if(!r.ok)return r.err;
+ const f=r.data;
+ if(allForms().some(x=>x.id===f.id))return 'dup';
+ if(cid){const c=DB.clients.find(x=>x.id===cid);if(!c)return 'شاگرد پیدا نشد';c.forms=c.forms||[];c.forms.push(f);c.forms.sort(sameDay)}
+ else{DB.pending=DB.pending||[];DB.pending.push(f)}
+ return 'ok';
+}
+function applyFormToProfile(c,f){
+ const a=f.a;['age','weight','waist','hip','neck'].forEach(k=>{if(a[k]!=='')c[k]=a[k]});
+ if(a.sex)c.sex=a.sex;if(a.height!=='')c.height=a.height;if(a.act)c.activity=a.act;if(a.goal)c.goal=a.goal;if(a.phone&&!c.phone)c.phone=a.phone;
+ c.anoms=c.anoms||[];a.anoms.forEach(i=>{const n=IT2ANOM[i];if(n&&c.anoms.indexOf(n)<0)c.anoms.push(n)});
+ if(a.anomOther&&(c.anomNote||'').indexOf(a.anomOther)<0)c.anomNote=((c.anomNote?c.anomNote+'\n':'')+a.anomOther).slice(0,600);
+}
+const newestForm=c=>(c.forms||[]).slice().sort(sameDay).pop();
+/* ---- reading helpers ---- */
+const FL={name:'نام',phone:'موبایل',sex:'جنسیت',age:'سن',height:'قد',weight:'وزن',waist:'دور کمر',hip:'دور باسن',neck:'دور گردن',act:'فعالیت روزانه (غیرورزشی)',goal:'هدف',stress:'استرس روزانه',trainHist:'سابقه تمرین',dietHist:'سابقه رژیم',job:'شغل',illness:'سابقه بیماری',injury:'سابقه آسیب یا جراحی',meds:'داروی مصرفی',sleep:'ساعت خواب',wake:'ساعت بیداری',mealLimit:'محدودیت ساعتی وعده',anoms:'ناهنجاری‌ها',anomOther:'ناهنجاری دیگر'};
+function formDetail(f){
+ const a=f.a,U={weight:'kg',height:'cm',waist:'cm',hip:'cm',neck:'cm',age:'سال'};
+ const val=k=>{
+  const v=a[k];if(v===''||v==null||(Array.isArray(v)&&!v.length))return '';
+  if(k==='sex')return v==='m'?'مرد':'زن';if(k==='act')return IT_ACT[v];if(k==='goal')return IT_GOAL[v];if(k==='stress')return IT_STRESS[v];
+  if(k==='anoms')return v.map(i=>fa(i)+'. '+IT_ANOMS[i]).join('، ');
+  if(U[k])return fnum(v)+' '+U[k];
+  if(k==='phone'||k==='sleep'||k==='wake')return fa(v);
+  return v;
+ };
+ const bf=itBodyFat(a),extra=bf?`<div class="kv"><span>چربی تخمینی (فرمول دورها)</span><b>٪${fnum(bf)}</b></div>`:'';
+ return Object.keys(FL).map(k=>{const v=val(k);return v===''?'':`<div class="kv"><span>${FL[k]}</span><b style="font-weight:600;overflow-wrap:anywhere">${esc(v)}</b></div>`}).join('')+extra;
+}
+/* ---- comparison (used by the coach and, via bodyHist, by the student) ---- */
+function formRows(c){return (c.forms||[]).slice().sort(sameDay).map(f=>({id:f.id,d:f.d,w:f.a.weight,waist:f.a.waist,hip:f.a.hip,neck:f.a.neck,h:f.a.height,sx:f.a.sex}))}
+function cmpCard(rows,goal,title){
+ if(!rows.length)return '';
+ const M=rows.map(r=>({w:r.w===''?null:r.w,waist:r.waist===''?null:r.waist,hip:r.hip===''?null:r.hip,neck:r.neck===''?null:r.neck,
+  whr:r.waist&&r.hip?r.waist/r.hip:null,bmi:r.w&&r.h?r.w/Math.pow(r.h/100,2):null,bf:itBodyFat({sex:r.sx,height:r.h,waist:r.waist,neck:r.neck,hip:r.hip})}));
+ const defs=[['w','وزن (kg)',goal==='cut'?'d':goal==='bulk'?'u':'k'],['waist','دور کمر (cm)','d'],['hip','دور باسن (cm)','n'],['neck','دور گردن (cm)','n'],['whr','کمر ÷ باسن','d'],['bmi','BMI','n'],['bf','چربی تخمینی ٪','d']];
+ const fmt=(v,k)=>v==null?'—':k==='whr'?fnum(Math.round(v*100)/100):fnum(v);
+ const delta=(a,b,mode,k)=>{
+  if(a==null||b==null)return '';const dv=Math.round((b-a)*100)/100;if(!dv)return '<small class="mut">بدون تغییر</small>';
+  const up=dv>0,good=mode==='d'?!up:mode==='u'?up:mode==='k'?Math.abs(b-a)<1:null;
+  const col=good==null?'var(--mut)':good?'var(--ok)':'var(--or)';
+  return `<small style="color:${col}" dir="ltr">${up?'▲':'▼'} ${fnum(Math.abs(dv))}</small>`;
+ };
+ const head=rows.map(r=>`<th>${jdate(r.d,{day:'numeric',month:'short'})}</th>`).join('');
+ const body=defs.filter(([k])=>M.some(m=>m[k]!=null)).map(([k,l,mode])=>{
+  const cells=M.map((m,i)=>`<td>${fmt(m[k],k)}${i?delta(M[i-1][k],m[k],mode,k):''}</td>`).join('');
+  const first=M.find(m=>m[k]!=null),last=M.slice().reverse().find(m=>m[k]!=null);
+  const tot=M.length>1&&first&&last&&first!==last?delta(first[k],last[k],mode,k):'';
+  return `<tr><th>${l}</th>${cells}<td class="tot">${tot||'—'}</td></tr>`;
+ }).join('');
+ const ch=(k,l,c)=>M.filter(m=>m[k]!=null).length>1?`<div class="card"><h3>${l}</h3>${line([{v:M.map(m=>m[k]),c}])}</div>`:'';
+ return `<div class="card"><h3>${title||'مقایسهٔ فرم‌ها'}</h3><div class="scroll"><table class="cmp"><tr><th></th>${head}<th>کل تغییر</th></tr>${body}</table></div>
+ <p class="mut sm" style="margin-top:8px">فلش سبز یعنی تغییر در جهت هدف. چربی تخمینی با فرمول دورهای بدن حساب می‌شود و فقط برای دیدن روند است، نه جایگزین اندازه‌گیری دقیق.</p></div>
+ ${ch('w','نمودار وزن از فرم‌ها','#ff5a6a')}${ch('waist','نمودار دور کمر از فرم‌ها','#ffb347')}`;
+}
+/* ---- waiting list (home screen) ---- */
+function pendingBlock(){
+ const P=(DB.pending||[]).slice().sort((a,b)=>b.created-a.created);
+ const paste=UI.paste?`<div class="card"><h3>چسباندن کد فرم</h3><p class="mut sm" style="margin-bottom:8px">اگر شاگرد به‌جای فایل، کد متنی فرم (شروع با GF1:) را فرستاده، همین‌جا بچسبان.</p><textarea id="itPaste" rows="4" dir="ltr" placeholder="GF1:..."></textarea><div class="g2" style="margin-top:8px"><button class="btn pri sm" style="width:100%" onclick="A.itPaste()">ثبت فرم</button><button class="btn sm" style="width:100%" onclick="go({paste:false})">بستن</button></div></div>`:'';
+ const list=P.map(f=>{const sm=similarClient(f);return `<div class="card"><div class="rowb"><div style="min-width:0"><b>${esc(f.a.name)}</b><div class="wrap" style="margin:2px 0 0"><span class="chip">${esc(IT_GOAL[f.a.goal]||'بدون هدف')}</span><span class="chip">${fnum(f.a.weight)} kg</span><span class="chip">${jdate(f.d,{day:'numeric',month:'long'})}</span>${sm?`<span class="chip or">شاگرد قبلی: ${esc(sm.name||'بدون نام')}</span>`:''}${f.a.anoms.length?`<span class="chip">${fa(f.a.anoms.length)} ناهنجاری</span>`:''}</div></div><button class="btn sm" onclick="go({screen:'pform',pfid:'${f.id}'})">مشاهده</button></div>
+  <div class="g2" style="margin-top:10px">${sm?`<button class="btn pri sm" style="width:100%" onclick="A.itAttach('${f.id}','${sm.id}')">افزودن به ${esc((sm.name||'شاگرد').slice(0,14))}</button>`:`<button class="btn pri sm" style="width:100%" onclick="A.itCreate('${f.id}')">ساخت پروفایل شاگرد</button>`}<button class="btn danger sm" style="width:100%" onclick="A.itDelPending('${f.id}')">حذف</button></div></div>`}).join('');
+ return `<div class="rowb" style="margin:6px 0 8px"><h3 style="margin:0">فرم‌های در انتظار ${P.length?`<span class="chip or">${fa(P.length)}</span>`:''}</h3></div>${list||'<div class="empty sm">فرمی در انتظار نیست. وقتی شاگرد فرم را فرستاد، فایلش را وارد کن تا اینجا بیاید.</div>'}${paste}
+ <div class="g2"><button class="btn pri" style="margin:0" onclick="A.itPick('')">وارد کردن فایل فرم</button><button class="btn" style="margin:0" onclick="go({paste:!UI.paste})">چسباندن کد متنی</button></div>
+ <button class="btn" onclick="go({screen:'formlink'})">لینک و QR فرم برای شاگردان</button><div style="height:6px"></div>`;
+}
+function pformView(){
+ const f=(DB.pending||[]).find(x=>x.id===UI.pfid);
+ if(!f){UI.screen=null;return clientsView()}
+ const sm=similarClient(f);
+ return shell('فرم '+esc(f.a.name),jdate(f.d),`<div class="pad"><div class="card">${formDetail(f)}</div>
+  <button class="btn pri" onclick="A.itCreate('${f.id}')">ساخت پروفایل شاگرد جدید</button>
+  ${DB.clients.length?`<div class="card"><h3>افزودن به شاگرد موجود</h3>${sm?`<p class="mut sm" style="margin-bottom:8px">پیشنهاد: ${esc(sm.name||'بدون نام')}</p>`:''}<select id="itTarget">${DB.clients.map(c=>`<option value="${c.id}"${sm&&sm.id===c.id?' selected':''}>${esc(c.name||'بدون نام')}</option>`).join('')}</select><button class="btn" style="margin:10px 0 0" onclick="A.itAttach('${f.id}',$('#itTarget').value)">افزودن به این شاگرد</button></div>`:''}
+  <button class="btn danger" onclick="A.itDelPending('${f.id}')">حذف فرم</button></div>`,'',"go({screen:null,pfid:null})");
+}
+/* ---- per-student forms tab ---- */
+function formsTab(c){
+ c.forms=c.forms||[];const F=c.forms.slice().sort(sameDay).reverse();
+ const up=`<div class="card"><h3>آپلود فرم این شاگرد</h3><p class="mut sm" style="margin-bottom:10px">فایل فرم را وارد کن. فرم‌های قبلی پاک نمی‌شوند و همه برای مقایسه می‌مانند.</p><div class="g2"><button class="btn pri" style="margin:0" onclick="A.itPick('${c.id}')">وارد کردن فایل فرم</button><button class="btn" style="margin:0" onclick="go({paste:!UI.paste})">چسباندن کد متنی</button></div>
+  ${UI.paste?`<textarea id="itPaste" rows="4" dir="ltr" placeholder="GF1:..." style="margin-top:10px"></textarea><button class="btn pri sm" style="margin:8px 0 0;width:100%" onclick="A.itPaste('${c.id}')">ثبت فرم</button>`:''}</div>`;
+ const items=F.map((f,i)=>{const open=UI.fx===f.id;return `<div class="card"><div class="rowb"><div><b>${jdate(f.d)}</b><div class="wrap" style="margin:2px 0 0"><span class="chip">${fnum(f.a.weight)} kg</span>${f.a.waist!==''?`<span class="chip">کمر ${fnum(f.a.waist)}</span>`:''}${i===0?'<span class="chip or">آخرین فرم</span>':''}</div></div><button class="btn sm" onclick="go({fx:${open?"''":`'${f.id}'`}})">${open?'بستن':'پاسخ‌ها'}</button></div>
+  ${open?`<div style="margin-top:8px">${formDetail(f)}</div>`:''}
+  <div class="g2" style="margin-top:10px"><button class="btn sm" style="width:100%" onclick="A.itApply('${f.id}')">اعمال روی پروفایل</button><button class="btn danger sm" style="width:100%" onclick="A.itDel('${f.id}')">حذف فرم</button></div></div>`}).join('');
+ return up+(F.length?cmpCard(formRows(c),c.goal,'مقایسهٔ تغییرات بدن')+`<h3 style="margin:14px 0 8px">فرم‌های ثبت‌شده (${fa(F.length)})</h3>`+items:'<div class="empty">هنوز فرمی برای این شاگرد ثبت نشده.</div>');
+}
+/* ---- link + QR ---- */
+function formCfg(){
+ DB.formCfg=DB.formCfg||{};const g=DB.formCfg;
+ if(g.url==null){try{g.url=/^https?:/.test(location.protocol)?location.href.replace(/[#?].*$/,'').replace(/[^\/]*$/,'')+'form.html':''}catch(e){g.url=''}}
+ return g;
+}
+function formLink(){
+ const g=formCfg();if(!/^https?:\/\/[^\s]+$/i.test(g.url||''))return '';
+ const q=[];if(g.n)q.push('n='+encodeURIComponent(g.n));
+ const p=itEn(g.p||'').replace(/[^\d+]/g,'');if(p)q.push('c='+p);
+ ['tg','ei','bl'].forEach(k=>{const v=(g[k]||'').replace(/[^A-Za-z0-9_]/g,'');if(v)q.push(k+'='+v)});
+ return g.url+(q.length?(g.url.indexOf('?')<0?'?':'&')+q.join('&'):'');
+}
+function formLinkView(){
+ const g=formCfg(),link=formLink();
+ let qr='';if(link){try{qr=GFQR.svg(link,{ecc:'M'})}catch(e){qr=''}}
+ const f=(l,k,ph,dir)=>fld(l,`<input value="${esc(g[k]||'')}" placeholder="${esc(ph||'')}" ${dir?'dir="ltr" style="text-align:right"':''} onchange="A.fcfg('${k}',this.value)">`);
+ return shell('لینک و QR فرم','برای شاگردان دور',`<div class="pad">
+  <div class="card"><h3>آدرس صفحهٔ فرم</h3><p class="mut sm" style="margin-bottom:8px">فایل <b dir="ltr">form.html</b> را کنار برنامه روی GitHub Pages بگذار و آدرس کاملش را اینجا بنویس. مثلاً <span dir="ltr">https://yourname.github.io/growfit/form.html</span></p>${f('آدرس','url','https://...',1)}</div>
+  <div class="card"><h3>اطلاعات تو (اختیاری)</h3><p class="mut sm" style="margin-bottom:8px">اینها داخل لینک می‌رود تا بعد از پر کردن فرم، دکمهٔ باز کردن چت تو در واتساپ و تلگرام دیده شود.</p>${f('نام تو','n','مثلاً امیر')}${f('شماره موبایل','p','09...',1)}<div class="g3">${f('یوزرنیم تلگرام','tg','بدون @',1)}${f('یوزرنیم ایتا','ei','بدون @',1)}${f('یوزرنیم بله','bl','بدون @',1)}</div></div>
+  ${link?`<div class="card" style="text-align:center"><h3>QR فرم</h3><div class="qrbox">${qr}</div><p class="mut sm" style="margin:8px 0" dir="ltr">${esc(link)}</p><div class="g2"><button class="btn pri sm" style="width:100%" onclick="A.fcopy()">کپی لینک</button><button class="btn sm" style="width:100%" onclick="A.fshare()">ارسال لینک</button></div><button class="btn sm" style="width:100%;margin-top:8px" onclick="A.fqr()">ذخیرهٔ تصویر QR (برای پوستر یا استوری)</button><p class="mut sm" style="margin-top:8px">هر کسی این QR را با دوربین گوشی اسکن کند، مستقیم فرم را باز می‌کند.</p></div>`:'<div class="empty sm">آدرس را که بنویسی، QR اینجا ساخته می‌شود.</div>'}</div>`,'',"go({screen:null})");
+}
+/* ---- actions ---- */
+A.fcfg=(k,v)=>{const g=formCfg();g[k]=String(v||'').trim().slice(0,300);save();render()};
+A.fcopy=async()=>{const l=formLink();try{await navigator.clipboard.writeText(l);toast('لینک کپی شد')}catch(e){prompt('لینک را کپی کن',l)}};
+A.fshare=async()=>{const l=formLink();try{if(navigator.share){await navigator.share({title:'فرم گروفیت',text:'فرم اطلاعات گروفیت را پر کن',url:l});return}}catch(e){if(e&&e.name==='AbortError')return}A.fcopy()};
+A.fqr=()=>{
+ const l=formLink();if(!l)return;let m;try{m=GFQR.matrix(l,'M')}catch(e){return toast('ساخت QR ممکن نشد')}
+ const n=m.length,q=4,s=12,cv=document.createElement('canvas');cv.width=cv.height=(n+q*2)*s;const x=cv.getContext('2d');x.fillStyle='#fff';x.fillRect(0,0,cv.width,cv.height);x.fillStyle='#000';
+ for(let r=0;r<n;r++)for(let c=0;c<n;c++)if(m[r][c])x.fillRect((c+q)*s,(r+q)*s,s,s);
+ cv.toBlob(b=>{const a=document.createElement('a');a.href=URL.createObjectURL(b);a.download='growfit-form-qr.png';document.body.appendChild(a);a.click();a.remove();setTimeout(()=>URL.revokeObjectURL(a.href),4000);toast('تصویر QR ذخیره شد')},'image/png');
+};
+A.itPick=cid=>{UI.itCid=cid||'';$('#file').click()};
+A.itPaste=cid=>{
+ const t=($('#itPaste')||{}).value,raw=itDecode(t);if(!raw)return toast('کد معتبر پیدا نشد؛ باید با GF1: شروع شود');
+ const r=intakeImport(raw,cid||'');UI.paste=false;
+ if(r==='ok'){save();toast('فرم ثبت شد');go({})}else{toast(r==='dup'?'این فرم قبلاً وارد شده':r);render()}
+};
+function itRemovePending(id){DB.pending=(DB.pending||[]).filter(x=>x.id!==id)}
+A.itCreate=id=>{
+ const f=(DB.pending||[]).find(x=>x.id===id);if(!f)return;const a=f.a;
+ const c={id:uid(),name:a.name,phone:a.phone,sex:a.sex,age:a.age,height:a.height,weight:a.weight,waist:a.waist,hip:a.hip,neck:a.neck,activity:a.act||'2',goal:a.goal||'keep',sport:'body',anoms:a.anoms.map(i=>IT2ANOM[i]).filter(Boolean),anomNote:a.anomOther||'',plan:null,diet:{meals:[]},corr:{items:[],note:''},logs:null,forms:[f]};
+ DB.clients.push(c);itRemovePending(id);save();UI.screen=null;go({cid:c.id,ctab:'forms',pfid:null,w:0,d:0,aw:0});toast('پروفایل ساخته شد');
+};
+A.itAttach=(id,cid)=>{
+ const f=(DB.pending||[]).find(x=>x.id===id),c=DB.clients.find(x=>x.id===cid);if(!f||!c)return;
+ c.forms=c.forms||[];const newest=newestForm(c),isNew=!newest||sameDay(newest,f)<0;
+ const sameP=c.forms.some(x=>f.pid&&x.pid===f.pid);
+ if(!sameP&&f.a.name.replace(/\s+/g,'')!==(c.name||'').replace(/\s+/g,'')&&!confirm('نام این فرم ('+f.a.name+') با نام شاگرد ('+(c.name||'بدون نام')+') فرق دارد. باز هم اضافه شود؟'))return;
+ c.forms.push(f);c.forms.sort(sameDay);itRemovePending(id);
+ if(isNew&&confirm('پروفایل شاگرد با این فرم به‌روز شود؟ (سن، وزن، دورها، سطح فعالیت، هدف و ناهنجاری‌های جدید)'))applyFormToProfile(c,f);
+ save();UI.screen=null;go({cid:c.id,ctab:'forms',pfid:null});toast('فرم به '+(c.name||'شاگرد')+' اضافه شد');
+};
+A.itDelPending=id=>{if(!confirm('این فرم حذف شود؟'))return;itRemovePending(id);save();UI.screen=null;go({pfid:null});toast('فرم حذف شد')};
+A.itDel=id=>{
+ const c=C();if(!c)return;const f=(c.forms||[]).find(x=>x.id===id);if(!f)return;
+ if(!confirm('فرم '+jdate(f.d)+' حذف شود؟ اطلاعات آن از مقایسه و آنالیز هم پاک می‌شود.'))return;
+ c.forms=c.forms.filter(x=>x.id!==id);if(UI.fx===id)UI.fx='';save();render();toast('فرم حذف شد');
+};
+A.itApply=id=>{const c=C(),f=c&&(c.forms||[]).find(x=>x.id===id);if(!f)return;if(!confirm('اطلاعات پروفایل با این فرم جایگزین شود؟'))return;applyFormToProfile(c,f);save();render();toast('پروفایل به‌روز شد')};
+/* ---- student side: body history that travels inside the plan file ---- */
+function cleanRows(a){return (Array.isArray(a)?a:[]).slice(0,300).map(r=>r&&typeof r==='object'?{id:itId(r.id)||uid(),d:/^\d{4}-\d{2}-\d{2}$/.test(String(r.d))?String(r.d):'',w:itRange(r.w,...IT_LIM.weight),waist:itRange(r.waist,...IT_LIM.waist),hip:itRange(r.hip,...IT_LIM.hip),neck:itRange(r.neck,...IT_LIM.neck),h:itRange(r.h,...IT_LIM.height),sx:r.sx==='f'?'f':'m'}:null).filter(r=>r&&r.d)}
+const cleanUrl=u=>/^https:\/\/[^\s"'<>]{4,300}$/i.test(String(u||''))?String(u):'';
+function formCard(){
+ const u=S().formLink;if(!u)return '';let h='';try{h=new URL(u).hostname}catch(e){return ''}
+ return `<div class="card"><h3>ارسال فرم جدید به مربی</h3><p class="mut sm" style="margin-bottom:10px">وزن و دورهای بدنت را به‌روز کن و فرم را دوباره برای مربی بفرست. اگر قبلاً فرم فرستاده باشی، اطلاعات قبلی از قبل پر است.</p><a class="btn pri" style="margin:0;text-align:center;text-decoration:none;display:block" href="${esc(u)}" target="_blank" rel="noopener noreferrer">باز کردن فرم</a><p class="mut sm" style="margin-top:6px" dir="ltr">${esc(h)}</p></div>`;
+}
+/* backups and imported files are re-validated, so a damaged or edited file can never inject markup */
+function reCleanForms(){
+ const fix=f=>{const r=itClean({app:'fitplan',kind:'intake',v:1,id:f&&f.id,pid:f&&f.pid,created:f&&f.created,d:f&&f.d,coach:f&&f.coach,a:f&&f.a});return r.ok?r.data:null};
+ DB.pending=(Array.isArray(DB.pending)?DB.pending:[]).map(fix).filter(Boolean);
+ DB.clients.forEach(c=>{c.forms=(Array.isArray(c.forms)?c.forms:[]).map(fix).filter(Boolean).sort(sameDay)});
+}
+
 A.install=async()=>{if(!deferredInstall)return;deferredInstall.prompt();try{await deferredInstall.userChoice}catch(e){}deferredInstall=null;render()};
 A.pdfOpen=w=>{UI.po={prof:true,plan:w==='plan'||w==='all',diet:w==='diet'||w==='all',corr:w==='corr'||w==='all',desc:true,week:'all'};UI.pdf=true;render()};
 A.po=k=>{UI.po[k]=!UI.po[k];render()};
@@ -1187,8 +2996,8 @@ A.setRole=r=>{if(r==='coach'&&BUILD==='student')return;if(r==='coach'&&!DB.pin&&
 A.switchRole=()=>{if(BUILD==='student')return;if(DB.role==='student'&&DB.pin&&!askPin())return;DB.role=null;UI.unlocked=false;save();go({screen:null,cid:null})};
 A.reset=()=>{if(DB.pin&&!askPin())return;if(confirm('همه اطلاعات این گوشی پاک می‌شود. مطمئنی؟')){DB=fresh();if(BUILD==='student')DB.role='student';UI.unlocked=false;save();go({screen:null,cid:null})}};
 A.backup=()=>dl({app:'fitplan',kind:'backup',data:DB},'growfit-backup-'+iso()+'.json');
-A.newClient=()=>{const c={id:uid(),name:'',phone:'',sex:'m',age:'',height:'',weight:'',waist:'',hip:'',activity:'2',goal:'keep',sport:'body',anoms:[],anomNote:'',plan:null,diet:{meals:[]},corr:{items:[],note:''},logs:null};DB.clients.push(c);save();go({cid:c.id,ctab:'profile',w:0,d:0})};
-A.open=id=>go({cid:id,ctab:'profile',w:0,d:0,aw:0});
+A.newClient=()=>{const c={id:uid(),name:'',phone:'',sex:'m',age:'',height:'',weight:'',waist:'',hip:'',activity:'2',goal:'keep',sport:'body',anoms:[],anomNote:'',plan:null,diet:{meals:[]},corr:{items:[],note:''},logs:null,forms:[],neck:''};DB.clients.push(c);save();go({cid:c.id,ctab:'profile',w:0,d:0})};
+A.open=id=>go({cid:id,ctab:'profile',w:0,d:0,aw:0,paste:false,fx:''});
 A.delClient=()=>{if(confirm('این شاگرد و همه اطلاعاتش حذف شود؟')){DB.clients=DB.clients.filter(c=>c.id!==UI.cid);save();go({cid:null})}};
 A.togAnom=i=>{const c=C(),n=ANOMN[i],k=c.anoms.indexOf(n);if(k<0)c.anoms.push(n);else c.anoms.splice(k,1);save();render()};
 A.createPlan=()=>{const c=C(),w=Math.max(1,Math.min(24,num($('#np-w').value)||8)),d=Math.max(1,Math.min(7,num($('#np-d').value)||4));c.plan={id:uid(),title:$('#np-t').value||'برنامه تمرینی',prog:2.5,rir:2,dl:0,days:Array.from({length:d},(_,i)=>'روز '+fa(i+1)),weeks:Array.from({length:w},()=>Array.from({length:d},()=>({ex:[]})))};UI.w=0;UI.d=0;save();render()};
@@ -1276,6 +3085,7 @@ A.dlLog=()=>{const x=logPack();dl(x.pack,x.file);toast('فایل گزارش دا
 
 /* ================= init ================= */
 $('#lib').innerHTML=LIB.map(l=>`<option value="${esc(l[0])}">`).join('');
+normDB();
 if(DB.role==='student')UI.w=firstOpenWeek();
 render(false);
 if(typeof window!=='undefined'){
