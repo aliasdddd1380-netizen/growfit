@@ -3,18 +3,21 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
-<meta name="theme-color" content="#0b0b0f">
+<meta name="theme-color" content="#08051a">
 <meta name="color-scheme" content="dark">
 <meta name="referrer" content="no-referrer">
-<meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'unsafe-inline'; style-src 'unsafe-inline'; img-src data: blob:; connect-src 'none'; form-action 'none'; base-uri 'none'">
+<meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'unsafe-inline'; style-src 'unsafe-inline'; img-src data: blob:; connect-src 'none'; font-src 'self'; form-action 'none'; base-uri 'none'">
 <title>فرم اطلاعات گروفیت</title>
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%230b0b0f'/%3E%3Cpath d='M32 10l22 12v20L32 54 10 42V22z' fill='none' stroke='%23ff5a6a' stroke-width='5'/%3E%3C/svg%3E">
 <style>
-:root{--bg:#0b0b0f;--s1:#15151a;--s2:#1d1d24;--s3:#272730;--line:#2b2b35;--tx:#f5f5f7;--mut:#8d8d9a;--or:#ff5a6a;--ok:#3ddc97;--err:#ff6b6b;--grad:linear-gradient(135deg,#ff4d6d 0%,#ff8a4c 100%)}
+@font-face{font-family:"Vazirmatn";font-weight:400;font-display:swap;src:local("Vazirmatn"),local("Vazirmatn Regular"),url("fonts/Vazirmatn-Regular.woff2") format("woff2")}
+@font-face{font-family:"Vazirmatn";font-weight:700;font-display:swap;src:local("Vazirmatn Bold"),url("fonts/Vazirmatn-Bold.woff2") format("woff2")}
+:root{--bg:#08051a;--s1:#120d2b;--s2:#1a1340;--s3:#271c57;--line:rgba(139,92,246,.24);--tx:#f6f3ff;--mut:#9d96bd;--or:#a855f7;--or2:#d8b4fe;--ice:#22d3ee;--amb:#fbbf24;--ok:#34d399;--err:#fb7185;--vio:#7c3aed;--pink:#e879f9;--grad:linear-gradient(135deg,#7c3aed 0%,#a855f7 100%);--grad2:linear-gradient(135deg,#22d3ee 0%,#34d399 100%);--glass:rgba(22,15,52,.72);--glow:0 10px 30px rgba(124,58,237,.28);--font:Vazirmatn,"IRANSansX","IRANSans","Shabnam","Noto Sans Arabic","Segoe UI",Tahoma,system-ui,sans-serif}
+
 *{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
-html,body{margin:0;background:var(--bg);color:var(--tx);font:16px/1.75 Vazirmatn,"Segoe UI",Tahoma,system-ui,sans-serif}
+html,body{margin:0;color:var(--tx);font:16px/1.75 var(--font);background:radial-gradient(1100px 560px at 90% -8%,rgba(124,58,237,.38),transparent 62%),radial-gradient(900px 520px at -10% 105%,rgba(79,70,229,.28),transparent 60%),var(--bg);background-attachment:fixed;min-height:100vh}
 body{padding:env(safe-area-inset-top) 0 0}
-main{max-width:520px;margin:0 auto;padding:0 16px calc(120px + env(safe-area-inset-bottom))}
+main{max-width:640px;margin:0 auto;padding:0 16px calc(120px + env(safe-area-inset-bottom))}
 h1,h2,h3,p{margin:0}
 header{display:flex;align-items:center;gap:12px;padding:18px 0 6px}
 header svg{flex:none}
@@ -27,7 +30,7 @@ header p{color:var(--mut);font-size:13px}
 .step{display:none;animation:in .25s ease}
 .step.on{display:block}
 @keyframes in{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:none}}
-.card{background:var(--s1);border:1px solid var(--line);border-radius:18px;padding:16px;margin-bottom:14px}
+.card{background:var(--glass);border:1px solid var(--line);border-radius:22px;padding:16px;margin-bottom:14px}
 .f{margin-bottom:14px}.f:last-child{margin-bottom:0}
 label.l{display:block;font-weight:700;margin-bottom:6px;font-size:15px}
 label.l small{color:var(--mut);font-weight:400;font-size:12.5px}
@@ -40,7 +43,7 @@ textarea{resize:vertical;min-height:76px}
 .opt{position:relative}
 .opt input{position:absolute;opacity:0;inset:0;width:100%;height:100%;margin:0;cursor:pointer}
 .opt span{display:block;background:var(--s2);border:1.5px solid var(--line);border-radius:13px;padding:12px 14px;font-size:15px;transition:.15s}
-.opt input:checked+span{border-color:var(--or);background:rgba(255,90,106,.12);font-weight:700}
+.opt input:checked+span{border-color:var(--or);background:rgba(168,85,247,.2);font-weight:700}
 .opt input:focus-visible+span{outline:2px solid var(--or);outline-offset:2px}
 .row2{display:grid;grid-template-columns:1fr 1fr;gap:9px}
 .chips{display:flex;flex-wrap:wrap;gap:9px}
@@ -52,7 +55,7 @@ textarea{resize:vertical;min-height:76px}
 .note{background:rgba(255,176,32,.1);border:1px solid rgba(255,176,32,.35);color:#ffd27a;border-radius:13px;padding:10px 13px;font-size:13.5px;margin-bottom:14px}
 .info{background:var(--s2);border-radius:13px;padding:10px 13px;font-size:13.5px;color:var(--mut);margin-bottom:14px}
 .nav{position:fixed;inset-inline:0;bottom:0;background:linear-gradient(to top,var(--bg) 70%,transparent);padding:18px 16px calc(14px + env(safe-area-inset-bottom));z-index:5}
-.nav div{max-width:520px;margin:0 auto;display:flex;gap:10px}
+.nav div{max-width:640px;margin:0 auto;display:flex;gap:10px}
 .btn{flex:1;border:0;border-radius:15px;padding:15px 16px;font:inherit;font-size:16px;font-weight:800;color:#fff;background:var(--s3);cursor:pointer;min-height:54px}
 .btn.pri{background:var(--grad)}
 .btn.sm{padding:10px 12px;font-size:14px;min-height:44px;font-weight:700}
@@ -75,17 +78,137 @@ a.btn{text-decoration:none;display:flex;align-items:center;justify-content:cente
 .hide{display:none!important}
 .foot{color:var(--mut);font-size:12.5px;text-align:center;margin-top:18px}
 @media (prefers-reduced-motion:reduce){.step{animation:none}#toast{transition:none}}
+/* ===== GrowFit "Liquid Glass" =====
+   Translucent, light-refracting surfaces: frosted blur + saturation boost, a bright specular edge, inner highlights,
+   soft depth shadows, and a floating glass dock. Only appearance changes; layout, features and data are untouched.
+   Fallbacks: no backdrop-filter, reduced transparency, higher contrast and low-end devices get calmer, more opaque glass. */
+:root{
+ --lg-tint:rgba(18,10,48,.42);
+ --lg-blur:blur(20px) saturate(175%);
+ --lg-edge:linear-gradient(135deg,rgba(255,255,255,.62),rgba(255,255,255,.10) 26%,rgba(255,255,255,.03) 54%,rgba(255,255,255,.36));
+ --lg-hi:inset 0 1px 0 rgba(255,255,255,.36),inset 0 -1px 0 rgba(255,255,255,.05),inset 0 0 24px rgba(255,255,255,.035);
+ --lg-shadow:0 12px 36px rgba(4,1,22,.52);
+ --lg-btn:linear-gradient(180deg,rgba(255,255,255,.17),rgba(255,255,255,.05));
+ --lg-pri:linear-gradient(180deg,#7c3aed 0%,#5b21b6 100%);
+ --mut:#b9b2da;--line:rgba(255,255,255,.16);
+}
+html{background:#060316}
+body{min-height:100vh;min-height:100dvh;background:
+ radial-gradient(60vmax 60vmax at 92% -6%,rgba(139,92,246,.78),transparent 62%),
+ radial-gradient(48vmax 48vmax at -8% 24%,rgba(34,211,238,.46),transparent 62%),
+ radial-gradient(54vmax 54vmax at 78% 108%,rgba(232,121,249,.54),transparent 64%),
+ radial-gradient(44vmax 44vmax at 4% 104%,rgba(59,130,246,.5),transparent 64%),
+ radial-gradient(34vmax 34vmax at 52% 46%,rgba(99,102,241,.32),transparent 66%),#060316;
+ background-attachment:fixed}
+/* ---------- primary glass surfaces (blur) ---------- */
+.card,.dcard,.dt,.wk,.ringcard,.tile,.d-sub,.rc{
+ position:relative;border:1px solid transparent;
+ background:linear-gradient(150deg,rgba(255,255,255,.11),rgba(255,255,255,.03) 46%,rgba(124,82,255,.08)),var(--lg-tint);
+ -webkit-backdrop-filter:var(--lg-blur);backdrop-filter:var(--lg-blur);
+ box-shadow:var(--lg-hi),var(--lg-shadow)}
+.card:before,.dcard:before,.dt:before,.wk:before,.ringcard:before,.tile:before,.d-sub:before,.rc:before,.bn:before,#side:before,.sheet>div:before,.d-hero:before,.d-ban:before{
+ content:'';position:absolute;inset:0;border-radius:inherit;padding:1px;pointer-events:none;z-index:3;
+ background:var(--lg-edge);
+ -webkit-mask:linear-gradient(#000 0 0) content-box,linear-gradient(#000 0 0);-webkit-mask-composite:xor;
+ mask:linear-gradient(#000 0 0) content-box exclude,linear-gradient(#000 0 0)}
+.d-hero,.d-ban{position:relative;border-color:transparent;-webkit-backdrop-filter:var(--lg-blur);backdrop-filter:var(--lg-blur);box-shadow:var(--lg-hi),var(--lg-shadow)}
+.d-hero{background:linear-gradient(120deg,rgba(14,9,40,.5) 0%,rgba(76,40,180,.5) 58%,rgba(139,92,246,.46) 100%)}
+.d-ban{background:linear-gradient(120deg,rgba(91,33,182,.62),rgba(20,12,52,.55))}
+.rw{border:1px solid rgba(255,255,255,.14);background:rgba(10,6,32,.5);box-shadow:var(--lg-hi)}
+.card.sk,.card.grp{border-right:4px solid var(--sp,var(--or))}
+.sheet .card,.sheet .dcard{-webkit-backdrop-filter:none;backdrop-filter:none}
+/* ---------- secondary glass (tint only, no nested blur) ---------- */
+#app .opt,.sg,.fx,.macros div,.mac,.tipbox,.sprow{background:rgba(255,255,255,.07);border:1px solid rgba(255,255,255,.12);box-shadow:inset 0 1px 0 rgba(255,255,255,.14)}
+.btn,.tb,.ic,.dlink,.qa,.opt span{
+ background:var(--lg-btn);border:1px solid rgba(255,255,255,.2);color:var(--tx);
+ box-shadow:inset 0 1px 0 rgba(255,255,255,.34),inset 0 -1px 0 rgba(255,255,255,.04),0 4px 14px rgba(4,1,22,.3);
+ transition:background .2s,box-shadow .2s,border-color .2s}
+.btn:hover,.tb:hover,.ic:hover,.dlink:hover,.qa:hover{background:linear-gradient(180deg,rgba(255,255,255,.24),rgba(255,255,255,.09));border-color:rgba(255,255,255,.32)}
+.btn.pri,.tb.on,.rpe button.on,.ck.on,.d-cta,.d-ban .go2,.banner{
+ background:var(--lg-pri);border-color:rgba(196,181,253,.55);color:#fff;
+ box-shadow:inset 0 1.5px 0 rgba(255,255,255,.5),inset 0 -10px 18px rgba(30,6,90,.35),0 10px 28px rgba(124,58,237,.5)}
+.banner{border:1px solid rgba(196,181,253,.5)}
+.d-cta i{background:rgba(255,255,255,.92)}
+.chip{background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.16);color:#d9d2f4}
+.chip.or{background:rgba(139,92,246,.3);border-color:rgba(196,181,253,.45);color:#efe9ff}
+input,select,textarea{background:rgba(6,3,24,.42);border:1px solid rgba(255,255,255,.18);color:var(--tx);
+ box-shadow:inset 0 2px 8px rgba(0,0,0,.4),inset 0 -1px 0 rgba(255,255,255,.07)}
+input:focus,select:focus,textarea:focus{border-color:rgba(103,232,249,.85);box-shadow:inset 0 2px 8px rgba(0,0,0,.4),0 0 0 3px rgba(34,211,238,.32);outline:none}
+input:focus-visible,select:focus-visible,textarea:focus-visible,button:focus-visible,a:focus-visible,summary:focus-visible{outline:3px solid #67e8f9;outline-offset:2px}
+.opt input:checked+span{background:linear-gradient(180deg,rgba(139,92,246,.62),rgba(91,33,182,.55));border-color:rgba(196,181,253,.7);color:#fff;
+ box-shadow:inset 0 1px 0 rgba(255,255,255,.4),0 6px 18px rgba(124,58,237,.4)}
+.opt input:focus-visible+span{outline:3px solid #67e8f9;outline-offset:2px}
+.bar,.prog i{background:rgba(255,255,255,.12);box-shadow:inset 0 1px 2px rgba(0,0,0,.35)}
+.prog i.on{background:var(--lg-pri);box-shadow:0 0 12px rgba(124,58,237,.6)}
+.sw i{background:rgba(255,255,255,.12);border:1px solid rgba(255,255,255,.2);box-shadow:inset 0 1px 3px rgba(0,0,0,.4)}
+.sw input:checked+i{background:var(--lg-pri)}
+.kv,.mac div{border-color:rgba(255,255,255,.12)}
+.note{background:rgba(251,191,36,.14);border:1px solid rgba(251,191,36,.45);color:#fde68a;box-shadow:inset 0 1px 0 rgba(255,255,255,.12)}
+.info{background:rgba(255,255,255,.07);border:1px solid rgba(255,255,255,.12);color:var(--mut)}
+/* ---------- floating glass dock ---------- */
+.bn{left:12px;right:12px;bottom:calc(10px + env(safe-area-inset-bottom));max-width:520px;margin:0 auto;border-radius:32px;padding:8px;
+ background:linear-gradient(150deg,rgba(255,255,255,.15),rgba(255,255,255,.04) 55%),rgba(20,12,52,.5);
+ -webkit-backdrop-filter:blur(28px) saturate(190%);backdrop-filter:blur(28px) saturate(190%);
+ border:1px solid transparent;box-shadow:var(--lg-hi),0 20px 54px rgba(3,1,20,.62)}
+.bn>button{border-radius:22px;transition:background .2s,color .2s}
+.bn>button.on{background:rgba(255,255,255,.14);box-shadow:inset 0 1px 0 rgba(255,255,255,.3);color:#fff}
+.bn .fab{background:radial-gradient(circle at 30% 18%,rgba(255,255,255,.6),transparent 46%),linear-gradient(160deg,#8b5cf6,#5b21b6);
+ border:1px solid rgba(255,255,255,.4);color:#fff;box-shadow:inset 0 1px 0 rgba(255,255,255,.6),inset 0 -8px 14px rgba(30,6,90,.4),0 12px 30px rgba(124,58,237,.6)}
+#app{padding-bottom:calc(128px + env(safe-area-inset-bottom))}
+/* ---------- overlays ---------- */
+.sheet{background:rgba(4,2,16,.55);-webkit-backdrop-filter:blur(4px);backdrop-filter:blur(4px)}
+.sheet>div{position:relative;background:linear-gradient(160deg,rgba(255,255,255,.13),rgba(255,255,255,.03)),rgba(20,12,52,.68);
+ -webkit-backdrop-filter:blur(30px) saturate(180%);backdrop-filter:blur(30px) saturate(180%);border:1px solid transparent;border-bottom:0;box-shadow:var(--lg-hi),0 -14px 50px rgba(3,1,20,.5)}
+#toast{background:rgba(255,255,255,.9);color:#140c34;-webkit-backdrop-filter:blur(16px) saturate(180%);backdrop-filter:blur(16px) saturate(180%);box-shadow:0 10px 30px rgba(4,1,22,.45),inset 0 1px 0 #fff}
+#timerpill{background:rgba(20,12,52,.62);-webkit-backdrop-filter:blur(20px) saturate(180%);backdrop-filter:blur(20px) saturate(180%);border:1px solid rgba(255,255,255,.22);box-shadow:var(--lg-hi),0 10px 30px rgba(4,1,22,.5)}
+/* ---------- desktop sidebar and top bar ---------- */
+@media (min-width:1024px){
+ #side{background:linear-gradient(160deg,rgba(255,255,255,.14),rgba(255,255,255,.03) 50%),rgba(20,12,52,.52);
+  -webkit-backdrop-filter:blur(28px) saturate(185%);backdrop-filter:blur(28px) saturate(185%);border:1px solid transparent;border-radius:32px;box-shadow:var(--lg-hi),0 24px 64px rgba(3,1,20,.6)}
+ #side nav button{color:#e4dcff}
+ #side nav button.on{background:var(--lg-pri);border:1px solid rgba(196,181,253,.5);box-shadow:inset 0 1px 0 rgba(255,255,255,.45),0 8px 22px rgba(124,58,237,.5)}
+ #side .upg{background:rgba(255,255,255,.07);border:1px solid rgba(255,255,255,.18);box-shadow:inset 0 1px 0 rgba(255,255,255,.2)}
+ #tbar .sr input{background:rgba(255,255,255,.09);border:1px solid rgba(255,255,255,.2);-webkit-backdrop-filter:blur(18px) saturate(170%);backdrop-filter:blur(18px) saturate(170%);box-shadow:var(--lg-hi)}
+ #tbar .res,#tbar .bp{background:rgba(24,15,60,.9);-webkit-backdrop-filter:blur(26px) saturate(180%);backdrop-filter:blur(26px) saturate(180%);border:1px solid rgba(255,255,255,.2)}
+}
+/* ---------- public pages (form, sport test) ---------- */
+.nav{background:none}
+.nav div{padding:10px;border-radius:30px;background:linear-gradient(150deg,rgba(255,255,255,.15),rgba(255,255,255,.04) 55%),rgba(20,12,52,.52);
+ -webkit-backdrop-filter:blur(26px) saturate(185%);backdrop-filter:blur(26px) saturate(185%);border:1px solid rgba(255,255,255,.2);box-shadow:var(--lg-hi),0 18px 46px rgba(3,1,20,.55)}
+.nav{padding-bottom:calc(12px + env(safe-area-inset-bottom))}
+.nav .btn{border-radius:22px}
+.btn.ghost{background:rgba(255,255,255,.06)}
+.done .ok{-webkit-backdrop-filter:blur(8px);backdrop-filter:blur(8px)}
+/* ---------- fallbacks ---------- */
+@supports not ((-webkit-backdrop-filter:blur(1px)) or (backdrop-filter:blur(1px))){
+ :root{--lg-tint:rgba(24,16,62,.95)}
+ .bn,.sheet>div,.nav div,#side,#toast,#timerpill{background:#1a1140}
+}
+@media (prefers-reduced-transparency:reduce){
+ :root{--lg-tint:rgba(24,16,62,.96)}
+ *{-webkit-backdrop-filter:none!important;backdrop-filter:none!important}
+ .bn,.sheet>div,.nav div,#side{background:#1a1140}
+}
+@media (prefers-contrast:more){
+ :root{--lg-tint:rgba(16,9,44,.86);--lg-edge:linear-gradient(135deg,#fff,rgba(255,255,255,.4))}
+ .btn,.tb,.ic,input,select,textarea{border-color:rgba(255,255,255,.55)}
+}
+html.lite{--lg-tint:rgba(24,16,62,.92)}
+html.lite *{-webkit-backdrop-filter:none!important;backdrop-filter:none!important}
+html.lite .bn,html.lite .sheet>div,html.lite .nav div,html.lite #side{background:#1a1140}
+@media print{*{-webkit-backdrop-filter:none!important;backdrop-filter:none!important}}
 </style>
 </head>
 <body>
 <main>
 <header>
- <svg viewBox="140 515 790 915" width="38" height="38" aria-hidden="true"><path fill="#ff5a6a" fill-rule="evenodd" d="M535 523L925 742V1200L535 1421L146 1200V742Z M535 615L226 790V1155L535 1330L846 1155V790Z M788 815L535 668L277 805V1140L535 1273L748 1150V930L600 1005L670 1043V1105L535 1183L358 1085V862L535 762L708 858Z"/></svg>
+ <svg viewBox="140 515 790 915" width="38" height="38" aria-hidden="true"><path fill="#a855f7" fill-rule="evenodd" d="M535 523L925 742V1200L535 1421L146 1200V742Z M535 615L226 790V1155L535 1330L846 1155V790Z M788 815L535 668L277 805V1140L535 1273L748 1150V930L600 1005L670 1043V1105L535 1183L358 1085V862L535 762L708 858Z"/></svg>
  <div><h1>فرم اطلاعات گروفیت</h1><p id="forwho">اطلاعاتت را بنویس تا مربی برنامهٔ مناسب تو را بسازد</p></div>
 </header>
 
+<div class="card hide" id="spBanner" style="border-color:rgba(168,85,247,.5)"></div>
 <div id="wizard">
- <div class="prog" id="prog"><i></i><i></i><i></i><i></i><i></i></div>
+ <div class="prog" id="prog"><i></i><i></i><i></i><i></i><i></i><i></i></div>
  <div class="stepname" id="stepname"></div>
  <div class="note hide" id="prefillNote">اطلاعات آخرین فرمت پر شده است. فقط چیزهایی را که عوض شده اصلاح کن، مثل وزن و دورها.</div>
 
@@ -104,6 +227,10 @@ a.btn{text-decoration:none;display:flex;align-items:center;justify-content:cente
     <div class="f" data-f="weight"><label class="l" for="weight">وزن</label><input type="text" id="weight" inputmode="decimal" placeholder="kg"><div class="err"></div></div>
    </div>
    <p class="info" style="margin:12px 0 0">می‌توانی عددها را فارسی یا انگلیسی بنویسی.</p>
+  </div>
+  <div class="card hide" id="pkgCard">
+   <div class="f"><label class="l" for="pkg">پلن مورد نظر <small>(اختیاری)</small></label><select id="pkg"></select></div>
+   <div class="f"><label class="l" for="code">کد تخفیف <small>(اگر داری)</small></label><input type="text" id="code" dir="ltr" maxlength="24" style="text-align:right" autocomplete="off"><p class="info" style="margin:6px 0 0">کد را مربی بررسی می‌کند. قیمت نهایی را مربی اعلام می‌کند.</p></div>
   </div>
  </section>
 
@@ -150,6 +277,14 @@ a.btn{text-decoration:none;display:flex;align-items:center;justify-content:cente
  </section>
 
  <section class="step" data-step="5">
+  <div class="card"><h3 style="font-size:16px;margin-bottom:6px">غربالگری سلامت</h3><p class="info" style="margin-bottom:12px">این پرسش‌ها بر پایهٔ پرسشنامهٔ شناخته‌شدهٔ PAR-Q نوشته شده‌اند و فقط برای ایمنی تو هستند. اگر مربوط نیست، «خیر» را بزن.</p><div id="parq"></div></div>
+  <div class="card hide" id="parqWarn" style="border-color:var(--or)"><p style="color:var(--or);font-weight:700;margin-bottom:4px">به یک یا چند پرسش «بله» گفته‌ای</p><p class="info">این به معنی ممنوعیت ورزش نیست، ولی بهتر است قبل از شروع تمرین با پزشک مشورت کنی و نظرش را به مربی بگویی. می‌توانی فرم را ادامه بدهی.</p></div>
+  <div class="card"><h3 style="font-size:16px;margin-bottom:10px">رضایت‌نامهٔ آگاهانه</h3>
+   <div class="f" data-f="cag"><div class="opts" id="consOpts"></div><div class="err"></div></div>
+   <div class="f" data-f="sig" style="margin-top:14px"><label class="l" for="sig">امضا: نام و نام خانوادگی کامل <small>(با نوشتن نامت، موارد بالا را تأیید می‌کنی)</small></label><input type="text" id="sig" maxlength="60" autocomplete="off"><div class="err"></div></div></div>
+ </section>
+
+ <section class="step" data-step="6">
   <div class="card" id="review"></div>
   <p class="info">با زدن «ارسال برای مربی»، فهرست برنامه‌های گوشی (تلگرام، واتساپ، ایتا، بله و ...) باز می‌شود. هر کدام را خواستی انتخاب کن و فایل را برای مربی بفرست. این صفحه سرور ندارد و اطلاعاتت جایی جز همان پیام‌رسان نمی‌رود.</p>
  </section>
@@ -175,11 +310,74 @@ a.btn{text-decoration:none;display:flex;align-items:center;justify-content:cente
 
 <script>
 'use strict';
+/* ===== GrowFit sport catalog: shared by sport.html (the test) and the coach app (SPORTS registry) ===== */
+/* profile order (0..5 each): aer هوازی, str قدرت, pow توان انفجاری, spd سرعت و چابکی, mob انعطاف, bal تعادل و هماهنگی, mnd تمرکز و آرامش,
+   soc تیمی بودن, cmp رقابتی, con برخورد بدنی, imp فشار ضربه‌ای روی مفاصل, cst هزینه و تجهیزات, out فضای باز, wat آب, tec دشواری فنی, mus رشد عضله, cal مصرف انرژی */
+const SPD=['aer','str','pow','spd','mob','bal','mnd','soc','cmp','con','imp','cst','out','wat','tec','mus','cal'];
+const SP_CAT={gym:'باشگاهی و تناسب‌اندام',cardio:'استقامتی و فضای باز',water:'آبی',combat:'رزمی و مبارزه‌ای',team:'تیمی',racket:'راکتی و چابکی',mind:'ذهن و بدن',skill:'مهارتی و ماجراجویانه',prec:'دقت و تمرکز'};
+const SP_RISK={kn:'زانو',bk:'کمر',sh:'شانه',nk:'گردن',an:'مچ پا',hd:'ضربه به سر',ht:'قلب و فشار خون',wr:'مچ دست',el:'آرنج',rs:'تنفس و آسم'};
+const SP_PLACE={gym:'باشگاه بدنسازی',pool:'استخر',court:'سالن یا زمین ورزشی',mat:'سالن رزمی (تاتامی، رینگ)',studio:'استودیو کلاس گروهی',outdoor:'فضای باز، پارک، کوه',home:'خانه',special:'مکان یا تجهیزات ویژه (اسب، پیست، میدان تیر)'};
+/* k, name, category, icon, color, profile, risks, any-of places, training template, what it is, how to start, good complement */
+const SPORTS_CAT=[
+['body','بدنسازی','gym','🏋️','#ffb347',[2,5,2,1,2,2,2,1,2,0,1,2,0,0,2,5,3],'sh,bk',['gym','home'],'body','تمرین با وزنه و دستگاه برای رشد عضله، قدرت و فرم بدن.','با ۳ جلسه در هفته و حرکات پایه شروع کن؛ اول تکنیک، بعد وزنه.','هوازی سبک ۲ جلسه'],
+['fit','فیتنس و تناسب‌اندام','gym','🤸','#b7a4ff',[3,3,2,2,3,3,2,3,1,0,2,2,0,0,1,3,4],'',['gym','studio','home'],'fit','ترکیب وزنه سبک، سیرکوئیت و اینتروال برای سلامت و فرم عمومی.','سیرکوئیت‌های ۳۰ تا ۴۵ دقیقه‌ای با شدت متوسط خوب‌ترین شروع‌اند.','پیاده‌روی یا شنا'],
+['trx','TRX','gym','🎗','#4fd69c',[3,3,2,2,3,4,2,3,1,0,1,2,1,0,2,3,3],'sh',['gym','studio','home'],'trx','تمرین با وزن بدن روی تسمه معلق؛ قدرت، تعادل و ثبات مرکزی بدن.','با زاویهٔ ساده و سطح ۱ تا ۲ شروع کن و کم‌کم شیب را بیشتر کن.','کشش و تحرک‌پذیری'],
+['cf','کراس‌فیت و فانکشنال','gym','🔥','#ff5a5f',[4,4,4,3,3,4,2,4,4,0,3,3,0,0,4,4,5],'sh,bk,kn',['gym'],'cf','تمرین‌های متنوع و شدید (وزنه‌برداری، ژیمناستیک، هوازی) در قالب کلاس.','ابتدا کلاس مبتدی (On-ramp) را بگذران و شدت را کم‌کم بالا ببر.','ریکاوری و کشش'],
+['aero','ایروبیک و زومبا','gym','💃','#ff8bd1',[4,1,1,3,2,3,1,5,0,0,2,1,0,0,2,1,4],'kn',['studio'],'grp','کلاس گروهی با موسیقی؛ هوازی شاد و کم‌استرس.','کلاس سطح مبتدی را امتحان کن؛ لازم نیست همه حرکات را درست بزنی.','تمرین قدرتی سبک'],
+['dnc','رقص ورزشی','gym','🕺','#ff9a62',[3,1,1,3,4,5,2,4,2,0,2,1,0,0,4,1,3],'kn,an',['studio','home'],'grp','رقص با هدف تناسب و هماهنگی؛ از آرام تا رقابتی.','کلاس مقدماتی یک سبک (لاتین، هیپ‌هاپ، سالسا ...) انتخاب کن.','تمرین قدرتی پا'],
+['pwl','پاورلیفتینگ','gym','🏆','#e6b800',[1,5,4,0,1,2,3,1,3,0,2,2,0,0,3,5,2],'bk,kn,ht',['gym'],'pwr','سه حرکت اسکوات، پرس سینه و ددلیفت برای حداکثر قدرت.','با مربی فرم سه حرکت را یاد بگیر؛ ماه اول با وزنهٔ سبک.','هوازی سبک و تحرک‌پذیری'],
+['owl','وزنه‌برداری المپیک','gym','🥇','#ffcf40',[2,5,5,2,3,4,3,1,4,0,3,3,0,0,5,4,3],'bk,kn,sh,wr',['gym'],'pwr','اسنچ و کلین‌اندجرک؛ قدرت، سرعت و تکنیک همزمان.','حتماً با مربی و با هالتر خالی شروع کن؛ تکنیک مهم‌تر از وزنه است.','تحرک‌پذیری مچ و شانه'],
+['cal','کالیستنیکس','skill','🤸‍♂️','#4fd69c',[3,4,3,2,3,5,3,2,1,0,2,0,2,0,4,4,3],'sh,wr',['outdoor','home','gym'],'skill','تمرین با وزن بدن: بارفیکس، دیپ، شنا و حرکات تعادلی.','با پیشرفت‌های ساده (شنای شیب‌دار، بارفیکس کششی) شروع کن.','کشش مچ و شانه'],
+['yog','یوگا','mind','🧘','#9be7ff',[1,2,0,0,5,5,5,2,0,0,0,1,0,0,2,1,1],'',['home','studio'],'mind','حرکات کششی، تعادلی و تنفسی برای انعطاف، آرامش و تمرکز.','کلاس مقدماتی یا ویدیوی ۲۰ دقیقه‌ای؛ هرگز بیش از حد درد نکش.','پیاده‌روی یا تمرین قدرتی'],
+['pil','پیلاتس','mind','🌀','#a0e8d0',[1,2,0,0,4,4,4,2,0,0,0,2,0,0,2,2,1],'',['studio','home'],'mind','تقویت عضلات مرکزی بدن (کور)، پاسچر و کنترل حرکت.','کلاس مات مقدماتی؛ روی تنفس و کنترل تمرکز کن.','هوازی ملایم'],
+['tai','تای‌چی و چی‌گونگ','mind','☯️','#c7b6ff',[1,1,0,0,3,5,5,3,0,0,0,1,2,0,3,0,1],'',['outdoor','home','studio'],'mind','حرکات آهستهٔ پیوسته؛ تعادل، آرامش و تحرک مفاصل با فشار بسیار کم.','کلاس گروهی ملایم یا ویدیوی مقدماتی؛ شروع کم‌فشار برای همه سنین.','پیاده‌روی'],
+['run','دویدن و دو و میدانی','cardio','🏃','#4cc3ff',[5,1,2,3,1,2,3,1,3,0,4,1,4,0,1,1,5],'kn,an',['outdoor','gym'],'run','از دویدن تفریحی تا ۵ و ۱۰ کیلومتر و ماراتن.','با تناوب دویدن و راه رفتن (مثلاً ۱ و ۲ دقیقه) و کفش مناسب شروع کن.','تمرین قدرتی پا و میانتنه'],
+['wlk','پیاده‌روی تند و طبیعت‌گردی','cardio','🚶','#8be04e',[3,0,0,0,1,1,3,2,0,0,1,0,5,0,0,0,2],'',['outdoor','home','gym'],'cardio','کم‌فشارترین ورزش هوازی؛ مناسب برای شروع و بازگشت بعد از وقفه.','روزانه ۲۰ تا ۳۰ دقیقه با سرعت «قابل صحبت کردن» و کم‌کم بیشتر.','تمرین قدرتی ۲ جلسه'],
+['hik','کوهنوردی','cardio','⛰️','#6fcf97',[4,2,1,1,1,3,4,3,1,0,3,2,5,0,2,2,4],'kn,ht',['outdoor'],'cardio','پیمایش مسیرهای کوهستانی؛ استقامت پا، ریه و ذهن.','مسیرهای کوتاه و آسان با گروه باتجربه؛ آب و لباس مناسب.','تمرین پا و کور'],
+['cyc','دوچرخه‌سواری','cardio','🚴','#4cc3ff',[5,2,2,2,1,3,3,2,3,0,1,3,4,0,2,2,4],'kn',['outdoor','gym','special'],'cardio','جادهٔ شهری، کوهستان یا دوچرخهٔ ثابت؛ هوازی کم‌ضربه.','دوچرخهٔ سایز مناسب و ۳۰ تا ۴۵ دقیقه آرام؛ زین را درست تنظیم کن.','تمرین قدرتی و کشش'],
+['row','قایقرانی و روئینگ','cardio','🚣','#5fb7ff',[5,3,2,1,1,3,3,3,3,0,1,4,3,3,4,3,4],'bk,sh',['special','gym'],'cardio','تمرین هوازی و قدرتی تمام‌بدن (ارگ در باشگاه یا قایق روی آب).','با ارگومتر و یادگیری تکنیک شروع کن؛ فرم کمر مهم است.','تحرک‌پذیری و کور'],
+['swm','شنا','water','🏊','#3ab8ff',[5,2,2,2,3,3,3,1,3,0,0,2,0,5,4,3,4],'sh',['pool'],'swim','هوازی تمام‌بدن بدون ضربه روی مفاصل؛ مناسب تقریباً همه.','اگر شنا بلد نیستی کلاس آموزشی؛ بعد ۲۰ تا ۳۰ دقیقه پیوسته.','کشش شانه'],
+['aqu','ایروبیک آبی','water','🌊','#7fd6ff',[3,1,0,1,2,2,2,5,0,0,0,2,0,5,1,1,3],'',['pool'],'swim','حرکات هوازی و قدرتی در آب؛ مناسب مشکلات مفصلی، اضافه‌وزن و سالمندی.','کلاس گروهی در آب کم‌عمق؛ نیازی به شنا بلد بودن نیست.','پیاده‌روی'],
+['wpl','واترپلو','water','🤽','#4ac0ff',[5,3,4,3,2,3,3,5,5,4,1,3,0,5,4,3,5],'sh',['pool'],'team','ورزش تیمی در آب؛ شنا، توپ‌بازی و قدرت.','نیاز به شنای خوب دارد؛ ابتدا شنا را تقویت کن.','تمرین قدرتی شانه'],
+['box','بوکس','combat','🥊','#ff6b6b',[4,3,4,4,2,4,3,2,5,4,3,2,0,0,4,3,5],'hd,sh,wr',['mat','gym'],'cmb','ضربه با مشت، حرکت پا و دفاع؛ تمرین بدون برخورد (کیسه، پد) هم ممکن است.','فقط کلاس تمرین با کیسه و پد را شروع کن؛ بدون اسپارینگ در ماه‌های اول.','هوازی و قدرت پا'],
+['kbx','کیک‌بوکسینگ و مایتای','combat','🦵','#ff7a59',[4,3,4,4,3,4,3,2,5,4,3,2,0,0,4,3,5],'hd,kn,an',['mat'],'cmb','ترکیب مشت و ضربهٔ پا (و زانو و آرنج در مایتای)؛ شدت بالا.','کلاس کاردیو-کیک‌بوکسینگ بدون برخورد مناسب‌ترین شروع است.','تحرک‌پذیری مفصل ران'],
+['krt','کاراته','combat','🥋','#f0f0f0',[3,2,3,4,4,4,4,2,4,3,3,1,0,0,5,2,3],'kn',['mat'],'cmb','رزمی سنتی با کاتا و کومیته؛ انضباط، سرعت و تکنیک.','از رده‌های مبتدی و زیر نظر مربی دارای مدرک شروع کن.','تمرین قدرتی پا'],
+['tkd','تکواندو','combat','🥋','#7aa2ff',[3,2,4,4,5,4,3,2,4,3,3,2,0,0,4,2,3],'kn,an',['mat'],'cmb','رزمی کره‌ای با تمرکز بر ضربات پا؛ انعطاف، سرعت و انفجار.','گرم‌کردن و کشش کافی؛ در ماه اول فقط تکنیک و کشش.','تقویت زانو و مچ پا'],
+['jdo','جودو','combat','🤼','#6c8cff',[3,4,4,3,2,4,3,2,5,5,4,2,0,0,5,3,4],'sh,bk,kn',['mat'],'cmb','کشتی با لباس؛ پرتاب، کنترل و زمین‌گیری.','یاد گرفتن افتادن صحیح (اوکمی) اولین و مهم‌ترین مرحله است.','قدرت گرفتن و کور'],
+['wrs','کشتی','combat','🤼‍♂️','#c97c4a',[4,4,4,3,3,4,3,2,5,5,4,1,0,0,5,4,5],'nk,sh,kn',['mat'],'cmb','ورزش ملی ایران؛ قدرت، استقامت و تکنیک در تماس نزدیک.','باشگاه مجاز و مربی رسمی؛ با تمرین فنی و بدنی آغاز کن.','تحرک‌پذیری گردن و شانه'],
+['mma','ام‌ام‌ای (MMA)','combat','🥷','#d94f4f',[5,4,4,4,3,4,3,2,5,5,4,3,0,0,5,4,5],'hd,kn,sh',['mat'],'cmb','ترکیب ضربه، کشتی و زمین؛ سخت‌ترین ورزش رزمی از نظر آمادگی.','اول یکی از پایه‌ها (بوکس یا کشتی یا جیوجیتسو) را یاد بگیر.','هوازی و قدرت'],
+['bjj','جیوجیتسو برزیلی','combat','🥋','#4d7cff',[4,4,3,2,4,4,5,2,4,5,3,2,0,0,5,3,4],'kn,sh',['mat'],'cmb','مبارزه در زمین با قفل و خفه؛ به‌شدت فکری و کم‌ضربه نسبت به رزمی‌های ضربه‌ای.','کلاس مقدماتی و تمرین با هم‌وزن؛ از قفل زدن با فشار پرهیز کن.','تحرک‌پذیری ران'],
+['wsh','ووشو','combat','🐉','#e84a5f',[3,2,3,4,5,5,4,2,3,2,2,1,0,0,5,2,3],'kn',['mat','studio'],'cmb','رزمی چینی با فرم‌های هنری (تالو) و رقابتی (ساندا).','تالو (فرم) بدون برخورد گزینهٔ خوب برای شروع است.','قدرت پا'],
+['fen','شمشیربازی','combat','🤺','#c0c8d8',[2,1,2,5,3,5,5,2,5,1,2,4,0,0,5,1,2],'kn,an',['special','court'],'rkt','مبارزهٔ سریع و تاکتیکی؛ چابکی و تمرکز بالا.','باشگاه دارای مربی و تجهیزات؛ فقط تکنیک پایه در ابتدا.','قدرت پا'],
+['foot','فوتبال','team','⚽','#8be04e',[4,2,3,4,1,3,2,5,5,3,3,1,4,0,3,2,5],'kn,an,hd',['court','outdoor'],'foot','ورزش تیمی پرطرفدار؛ استقامت، سرعت و کار گروهی.','تیم تفریحی و با گرم‌کردن کامل؛ فشار را کم‌کم بالا ببر.','تمرین قدرتی پا و پیشگیری از آسیب'],
+['fsal','فوتسال','team','🥅','#ffb020',[4,2,3,5,1,4,2,5,5,3,3,1,0,0,3,2,5],'kn,an',['court'],'fsal','فوتسال در سالن؛ سرعت، چابکی و تصمیم‌گیری سریع.','سالن‌های بازی دوستانه؛ کفش مناسب سالن حتماً.','قدرت پا و پیشگیری از آسیب'],
+['bsk','بسکتبال','team','🏀','#ff8a3d',[4,2,5,4,1,4,2,5,5,2,4,1,0,0,3,2,5],'kn,an',['court'],'team','پرش، پرتاب و جابه‌جایی سریع؛ قد بلند مزیت است.','بازی دوستانه و تمرین پرتاب و دریبل؛ تقویت مچ و زانو.','پلایومتریک و پیشگیری'],
+['vol','والیبال','team','🏐','#ffd34d',[3,2,5,3,2,4,2,5,5,0,3,1,0,0,3,2,4],'sh,kn',['court','outdoor'],'team','پرش، ضربه و هماهنگی تیمی بدون برخورد؛ قد بلند مزیت است.','تیم تفریحی؛ پاس و سرویس را بیاموز.','تقویت شانه و پرش'],
+['hbl','هندبال','team','🤾','#4fd69c',[4,3,5,4,1,4,2,5,5,4,4,1,0,0,3,3,5],'sh,kn',['court'],'team','سرعت، پرتاب و تماس بدنی در سالن.','تمرین پایه و پرتاب؛ گرم‌کردن شانه.','تقویت شانه و پا'],
+['rgb','راگبی','team','🏉','#8f6bff',[4,4,5,4,1,3,2,5,5,5,5,1,3,0,3,4,5],'nk,sh,kn,hd',['outdoor','court'],'team','برخورد کامل بدنی با قدرت و استقامت بالا.','فقط با باشگاه رسمی؛ ابتدا نسخهٔ تگ یا لمسی.','قدرت کلی و گردن'],
+['ten','تنیس','racket','🎾','#c6f24e',[4,2,3,4,2,4,4,2,5,0,3,3,3,0,5,2,4],'sh,kn,el',['outdoor','court','special'],'rkt','راکتی با تحرک پیاپی؛ هماهنگی و استقامت.','چند جلسه با مربی برای ضربات پایه؛ خیلی زود تفریحی بازی کن.','قدرت شانه و پا'],
+['ttn','تنیس روی میز','racket','🏓','#ff7ab6',[2,1,2,4,1,5,5,3,5,0,0,2,0,0,5,0,2],'',['court','home'],'rkt','سرعت واکنش و هماهنگی دست و چشم با فشار تقریباً صفر روی مفاصل.','تمرین ضربات پایه و بازی تفریحی؛ مناسب همهٔ سنین.','هوازی سبک'],
+['bdm','بدمینتون','racket','🏸','#6ee7a8',[4,1,4,5,2,4,4,3,5,0,3,2,0,0,4,1,4],'sh,kn',['court'],'rkt','سرعت و چابکی بالا در سالن؛ شادابی و کالری‌سوزی خوب.','بازی دوستانه و تمرین حرکت پا؛ زانو را گرم کن.','قدرت پا'],
+['sqs','اسکواش','racket','🟡','#ffe36e',[5,2,4,5,2,4,4,2,5,1,4,3,0,0,4,2,5],'kn,an',['special','court'],'rkt','ورزش بسیار شدید داخل سالن بسته؛ استقامت و چابکی.','با شدت کم شروع کن؛ سطح آمادگی هوازی را اول بالا ببر.','تقویت زانو و مچ'],
+['clm','سنگ‌نوردی','skill','🧗','#ffaf5f',[3,4,3,2,4,5,5,2,2,0,2,3,3,0,4,3,4],'sh,wr',['special','gym'],'clm','قدرت انگشت و بالاتنه، تعادل و حل مسئله؛ سالن یا طبیعت.','سالن بولدرینگ با مسیرهای آسان و آموزش افتادن.','کشش شانه و آرنج'],
+['gms','ژیمناستیک','skill','🤸‍♀️','#ff9ad5',[3,4,5,3,5,5,4,2,4,0,5,3,0,0,5,3,3],'wr,bk,sh',['special','gym'],'skill','قدرت، انعطاف و کنترل در حرکات هنری و آکروباتیک.','در کودکی ایدئال‌تر است؛ بزرگسالان کلاس تناسب ژیمناستیک را امتحان کنند.','تحرک‌پذیری'],
+['prk','پارکور','skill','🏙','#ff8a4c',[3,3,5,4,3,5,4,3,2,0,5,0,5,0,5,3,4],'kn,an,wr',['outdoor'],'skill','حرکت خلاق در محیط؛ پرش، تعادل و ترس‌زدایی.','کلاس پارکور با مربی و سطح زمین نرم؛ افتادن را یاد بگیر.','قدرت پا و مچ'],
+['arc','تیراندازی با کمان','prec','🏹','#e0a96d',[0,2,0,0,1,3,5,1,4,0,0,4,3,0,5,0,0],'sh',['special','outdoor'],'prec','تمرکز، کنترل تنفس و ثبات؛ تقریباً بدون فشار مفصلی.','کلاس مقدماتی با مربی و تجهیزات استاندارد.','تقویت شانه و کمر'],
+['sht','تیراندازی ورزشی','prec','🎯','#9aa4b2',[0,0,0,0,0,2,5,1,4,0,0,5,2,0,5,0,0],'',['special'],'prec','تمرکز و کنترل ذهن بالا، فشار فیزیکی کم؛ نیازمند مجوز و میدان.','فقط در میدان‌های مجاز و با مربی رسمی.','هوازی و قدرت پایه'],
+['rid','سوارکاری','prec','🐎','#c08f5a',[2,2,1,1,2,5,4,1,3,1,2,5,5,0,5,2,2],'bk',['special'],'prec','تعادل، ارتباط با حیوان و قدرت پایین‌تنه و کور.','باشگاه سوارکاری معتبر و جلسهٔ آموزشی مقدماتی.','کور و تحرک ران'],
+['ska','اسکیت (رولر و یخ)','cardio','⛸️','#7ad7ff',[4,2,2,3,2,5,3,3,2,0,3,3,4,0,3,2,4],'kn,wr',['outdoor','special'],'cardio','تعادل و استقامت پا؛ هوازی با لذت و سرعت.','وسایل ایمنی (کلاه، مچ‌بند) و یادگیری ترمز و افتادن.','قدرت پا'],
+['ski','اسکی','cardio','⛷️','#aee3ff',[3,3,3,3,2,5,3,3,3,1,4,5,5,0,4,2,4],'kn,hd',['special'],'cardio','فصلی و پرهزینه؛ پا، تعادل و آمادگی هوازی.','کلاس مبتدی؛ قبل از فصل قدرت پا را آماده کن.','تمرین قدرتی پا']
+];
+/* index by key */
+const SPORT_BY=Object.fromEntries(SPORTS_CAT.map(r=>[r[0],{k:r[0],n:r[1],cat:r[2],ic:r[3],c:r[4],p:r[5],rk:r[6]?r[6].split(','):[],nd:r[7],tpl:r[8],d:r[9],s:r[10],m:r[11]}]));
+
 /* ===== GrowFit intake core: shared by form.html and the coach app ===== */
 const IT_ANOMS={1:'لوردوز کمری (گودی کمر)',2:'کایفوز (قوز پشت و گردن)',3:'اسکولیوز (انحراف ستون فقرات)',4:'گردن جلو‌آمده',5:'شانه گرد',6:'پای پرانتزی',7:'پای ضربدری',8:'کف پای صاف',9:'عدم تقارن لگن'};
 const IT_ACT={1:'کم‌تحرک (بیشتر نشسته: پشت میز، رانندگی)',2:'سبک (کمی راه رفتن در طول روز)',3:'متوسط (بیشتر ایستاده یا در حال راه رفتن)',4:'زیاد (کار فیزیکی سنگین)'};
 const IT_GOAL={cut:'کاهش چربی',keep:'حفظ وزن',bulk:'افزایش حجم'};
 const IT_STRESS={low:'کم',mid:'متوسط',high:'زیاد'};
+const IT_PARQ=['آیا پزشک تا به حال گفته مشکل قلبی داری و فقط باید با توصیهٔ پزشک ورزش کنی؟','هنگام فعالیت بدنی، درد یا فشار در قفسهٔ سینه احساس می‌کنی؟','در یک ماه گذشته، بدون اینکه ورزش کرده باشی، درد قفسهٔ سینه داشته‌ای؟','سرگیجه یا از دست دادن تعادل و هوشیاری داشته‌ای؟','مشکل استخوان یا مفصل (مثل کمر، زانو یا لگن) داری که با ورزش بدتر شود؟','در حال حاضر برای فشار خون یا مشکل قلبی دارو مصرف می‌کنی؟','باردار هستی یا کمتر از ۶ ماه از زایمانت گذشته، یا دلیل دیگری هست که ورزش برایت ممنوع یا خطرناک باشد؟'];
+const IT_CONSENT=['اطلاعاتی که در این فرم نوشته‌ام درست و کامل است. می‌دانم پنهان کردن بیماری، آسیب یا داروی مصرفی می‌تواند خطر تمرین را بالا ببرد.','می‌دانم ورزش و تغییر رژیم غذایی ریسک‌هایی مثل خستگی، درد عضلانی و آسیب دارد. اجرای درست برنامه و توقف تمرین در صورت درد، سرگیجه، تنگی نفس یا علائم غیرعادی با خودم است. این برنامه جایگزین تشخیص یا درمان پزشک نیست.','اجازه می‌دهم اطلاعات این فرم (از جمله اطلاعات بدنی و سلامت) فقط برای ساخت برنامهٔ من در اختیار مربی قرار بگیرد و از طریق پیام‌رسانی که خودم انتخاب می‌کنم به او برسد.'];
 const IT_FD='۰۱۲۳۴۵۶۷۸۹';
 const itEn=s=>String(s==null?'':s).replace(/[۰-۹]/g,d=>IT_FD.indexOf(d)).replace(/[٠-٩]/g,d=>d.charCodeAt(0)-1632).replace(/[٫,،]/g,'.');
 const itNum=v=>{const x=parseFloat(itEn(v));return isNaN(x)||!isFinite(x)?'':x};
@@ -201,9 +399,18 @@ function itClean(raw){
    act:IT_ACT[itEn(a.act)]?String(itEn(a.act)):'',goal:IT_GOAL[a.goal]?a.goal:'',stress:IT_STRESS[a.stress]?a.stress:'',
    trainHist:itStr(a.trainHist,500),dietHist:itStr(a.dietHist,500),job:itStr(a.job,120),illness:itStr(a.illness,500),injury:itStr(a.injury,500),
    meds:itStr(a.meds,500),sleep:itTime(a.sleep),wake:itTime(a.wake),mealLimit:itStr(a.mealLimit,300),anomOther:itStr(a.anomOther,300),
-   anoms:[]};
+   sport:/^[a-z][a-z0-9]{1,5}$/.test(a.sport||'')?a.sport:'',sportN:itStr(a.sportN,40),sportRec:(Array.isArray(a.sportRec)?a.sportRec:[]).filter(x=>/^[a-z][a-z0-9]{1,5}$/.test(x)).slice(0,3),
+   anoms:[],pkg:itStr(a.pkg,40),code:itStr(a.code,24).toUpperCase().replace(/\s+/g,''),consent:null};
   (Array.isArray(a.anoms)?a.anoms:[]).forEach(x=>{x=parseInt(itEn(x),10);if(IT_ANOMS[x]&&o.anoms.indexOf(x)<0)o.anoms.push(x)});
   o.anoms.sort((p,q)=>p-q);
+  if(raw.v>=2){
+   const c=a.consent&&typeof a.consent==='object'?a.consent:{},p={};
+   IT_PARQ.forEach((q,i)=>{const v=c.parq&&c.parq['p'+(i+1)];p['p'+(i+1)]=v==='y'?'y':v==='n'?'n':''});
+   const ts=Number(c.ts);
+   o.consent={agree:c.agree===true,sig:itStr(c.sig,60),ts:ts>1.6e12&&ts<Date.now()+864e5*2?ts:0,parq:p};
+   if(!o.consent.agree||o.consent.sig.length<3)return{ok:false,err:'رضایت‌نامه تأیید یا امضا نشده است'};
+   if(Object.keys(p).some(k=>!p[k]))return{ok:false,err:'پاسخ پرسش‌های سلامت کامل نیست'};
+  }
   if(!o.name)return{ok:false,err:'نام در فرم نیست'};
   if(o.age===''||o.height===''||o.weight===''||!o.sex)return{ok:false,err:'سن، قد، وزن یا جنسیت در فرم نیست یا خارج از محدوده است'};
   const created=Number(raw.created),now=Date.now();
@@ -211,10 +418,10 @@ function itClean(raw){
   let d=/^\d{4}-\d{2}-\d{2}$/.test(String(raw.d))?String(raw.d):'';
   if(!d||Math.abs(new Date(d+'T12:00:00')-cr)>864e5*3)d=itIso(new Date(cr));
   const c=raw.coach&&typeof raw.coach==='object'?raw.coach:{};
-  return{ok:true,data:{id:itId(raw.id)||('f'+cr.toString(36)+Math.random().toString(36).slice(2,6)),pid:itId(raw.pid),created:cr,d,coach:{n:itStr(c.n,60),p:itEn(c.p).replace(/[^\d+]/g,'').slice(0,15)},a:o}};
+  return{ok:true,data:{v:raw.v,id:itId(raw.id)||('f'+cr.toString(36)+Math.random().toString(36).slice(2,6)),pid:itId(raw.pid),created:cr,d,coach:{n:itStr(c.n,60),p:itEn(c.p).replace(/[^\d+]/g,'').slice(0,15)},a:o}};
  }catch(e){return{ok:false,err:'فایل قابل خواندن نیست'}}
 }
-const IT_V_MAX=1;
+const IT_V_MAX=2;
 const itIso=d=>d.getFullYear()+'-'+String(d.getMonth()+1).padStart(2,'0')+'-'+String(d.getDate()).padStart(2,'0');
 /* text code: a safe fallback when a messenger refuses the .json file (works pasted into any chat) */
 function itEncode(pack){const b=new TextEncoder().encode(JSON.stringify(pack));let s='';for(let i=0;i<b.length;i+=0x8000)s+=String.fromCharCode.apply(null,b.subarray(i,i+0x8000));return 'GF1:'+btoa(s).replace(/\+/g,'-').replace(/\//g,'_').replace(/=+$/,'')}
@@ -238,25 +445,44 @@ const FA='۰۱۲۳۴۵۶۷۸۹',fa=s=>String(s).replace(/\d/g,d=>FA[d]);const fn
 const esc=s=>String(s==null?'':s).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
 const LS={get(k){try{return localStorage.getItem(k)}catch(e){return null}},set(k,v){try{localStorage.setItem(k,v)}catch(e){}},del(k){try{localStorage.removeItem(k)}catch(e){}}};
 const toast=m=>{const t=$('#toast');t.textContent=m;t.className='show';clearTimeout(toast.h);toast.h=setTimeout(()=>t.className='',2600)};
-const STEPS=['اطلاعات پایه','بدن و هدف','سابقه و سلامت','ناهنجاری‌ها','بازبینی و ارسال'];
+const STEPS=['اطلاعات پایه','بدن و هدف','سابقه و سلامت','ناهنجاری‌ها','سلامت و رضایت‌نامه','بازبینی و ارسال'];
 const Q=new URLSearchParams(location.search);
 const coach={n:itStr(Q.get('n'),60),p:itEn(Q.get('c')||'').replace(/[^\d+]/g,'').slice(0,15),tg:(Q.get('tg')||'').replace(/[^A-Za-z0-9_]/g,'').slice(0,40),ei:(Q.get('ei')||'').replace(/[^A-Za-z0-9_]/g,'').slice(0,40),bl:(Q.get('bl')||'').replace(/[^A-Za-z0-9_]/g,'').slice(0,40)};
+const PK=(Q.get('pk')||'').split('|').slice(0,8).map(x=>{const p=x.split('~');return{n:itStr(p[0],40),w:parseInt(itEn(p[1]),10)||0,p:Math.min(1e12,Math.round(Number(String(itEn(p[2])).replace(/[^\d]/g,''))||0))}}).filter(x=>x.n&&x.p>0);
+if(PK.length){
+ $('#pkg').innerHTML='<option value="">هنوز مطمئن نیستم؛ با مربی هماهنگ می‌کنم</option>'+PK.map(x=>`<option value="${esc(x.n)}">${esc(x.n)}${x.w?' · '+fa(x.w)+' هفته':''} · ${fa(x.p.toLocaleString('en-US')).replace(/,/g,'٬')} تومان</option>`).join('');
+ $('#pkgCard').classList.remove('hide');
+}
 if(coach.n)$('#forwho').textContent='فرم ویژهٔ مربی: '+coach.n;
-const TXT=['name','phone','age','height','weight','waist','hip','neck','trainHist','dietHist','job','illness','injury','meds','sleep','wake','mealLimit','anomOther'];
+/* sport chosen on the suggestion page (optional) */
+const SPK=/^[a-z][a-z0-9]{1,5}$/.test(Q.get('sp')||'')?Q.get('sp'):'';
+const SPR=(Q.get('sr')||'').split(',').filter(x=>/^[a-z][a-z0-9]{1,5}$/.test(x)).slice(0,3);
+const SPN_=SPK?(SPORT_BY[SPK]?SPORT_BY[SPK].n:itStr(Q.get('spn'),40)):'';
+if(SPK&&SPN_){const s=SPORT_BY[SPK]||{};$('#spBanner').classList.remove('hide');$('#spBanner').innerHTML='<div style="display:flex;gap:12px;align-items:center"><span style="font-size:30px">'+esc(s.ic||'🏅')+'</span><div><div style="color:var(--mut);font-size:13px">رشتهٔ انتخابی تو</div><b style="font-size:18px">'+esc(SPN_)+'</b></div></div>'}
+const TXT=['pkg','code','name','phone','age','height','weight','waist','hip','neck','trainHist','dietHist','job','illness','injury','meds','sleep','wake','mealLimit','anomOther'];
 const RAD=['sex','act','goal','stress'];
 /* option lists */
 $('#actOpts').innerHTML=Object.keys(IT_ACT).map(k=>`<label class="opt"><input type="radio" name="act" value="${k}"><span>${esc(IT_ACT[k])}</span></label>`).join('');
 $('#goalOpts').innerHTML=Object.keys(IT_GOAL).map(k=>`<label class="opt"><input type="radio" name="goal" value="${k}"><span>${esc(IT_GOAL[k])}</span></label>`).join('');
 $('#stressOpts').innerHTML=Object.keys(IT_STRESS).map(k=>`<label class="opt"><input type="radio" name="stress" value="${k}"><span style="text-align:center">${esc(IT_STRESS[k])}</span></label>`).join('');
+$('#parq').innerHTML=IT_PARQ.map((q,i)=>`<div class="f" data-f="pq${i+1}"><label class="l">${fa(i+1)}. ${esc(q)}</label><div class="row2"><label class="opt"><input type="radio" name="pq${i+1}" value="n"><span style="text-align:center">خیر</span></label><label class="opt"><input type="radio" name="pq${i+1}" value="y"><span style="text-align:center">بله</span></label></div><div class="err"></div></div>`).join('');
+$('#consOpts').innerHTML=IT_CONSENT.map((t,i)=>`<label class="opt"><input type="checkbox" name="cag" value="${i}"><span>${esc(t)}</span></label>`).join('');
 $('#anomOpts').innerHTML=Object.keys(IT_ANOMS).map(k=>`<label class="opt"><input type="checkbox" name="anom" value="${k}"><span><b>${fa(k)}</b>${esc(IT_ANOMS[k])}</span></label>`).join('');
 
 function collect(){
  const a={};TXT.forEach(k=>{a[k]=$('#'+k).value});
+ a.consent={agree:$$('input[name=cag]:checked').length===IT_CONSENT.length,sig:$('#sig').value,ts:Date.now(),parq:{}};
+ for(let i=1;i<=IT_PARQ.length;i++){const r=$(`input[name=pq${i}]:checked`);a.consent.parq['p'+i]=r?r.value:''}
  RAD.forEach(k=>{const r=$(`input[name=${k}]:checked`);a[k]=r?r.value:''});
  a.anoms=$$('input[name=anom]:checked').map(x=>+x.value);return a;
 }
-function fill(a){
- TXT.forEach(k=>{if(a[k]!=null&&a[k]!=='')$('#'+k).value=a[k]});
+function fill(a,draftMode){
+ TXT.forEach(k=>{if(a[k]!=null&&a[k]!==''){const el=$('#'+k);if(el)el.value=a[k]}});
+ if(a.consent&&typeof a.consent==='object'){
+  if(a.consent.sig)$('#sig').value=a.consent.sig;
+  Object.keys(a.consent.parq||{}).forEach(k=>{const v=a.consent.parq[k],r=$(`input[name=pq${k.slice(1)}][value="${v}"]`);if(r)r.checked=true});
+  if(draftMode&&a.consent.agree)$$('input[name=cag]').forEach(x=>x.checked=true);
+ }
  RAD.forEach(k=>{if(a[k]){const r=$(`input[name=${k}][value="${a[k]}"]`);if(r)r.checked=true}});
  (a.anoms||[]).forEach(v=>{const r=$(`input[name=anom][value="${v}"]`);if(r)r.checked=true});
 }
@@ -265,11 +491,12 @@ function draft(){LS.set('gf_draft',JSON.stringify({a:collect(),step:cur}))}
 let cur=1;
 try{
  const d=JSON.parse(LS.get('gf_draft')||'null'),l=JSON.parse(LS.get('gf_last')||'null');
- if(d&&d.a){fill(d.a);cur=Math.min(5,Math.max(1,d.step|0))}
+ if(d&&d.a){fill(d.a,true);cur=Math.min(6,Math.max(1,d.step|0))}
  else if(l&&l.a){fill(l.a);$('#prefillNote').classList.remove('hide')}
 }catch(e){}
 document.addEventListener('input',e=>{if(e.target.closest('#wizard')){const f=e.target.closest('.f');if(f)f.classList.remove('bad');draft()}});
-document.addEventListener('change',e=>{if(e.target.closest('#wizard')){const f=e.target.closest('.f');if(f)f.classList.remove('bad');draft()}});
+function parqWarn(){const c=collect().consent;$('#parqWarn').classList.toggle('hide',!Object.keys(c.parq).some(k=>c.parq[k]==='y'))}
+document.addEventListener('change',e=>{if(e.target.closest('#wizard')){const f=e.target.closest('.f');if(f)f.classList.remove('bad');draft();parqWarn()}});
 
 /* validation */
 function bad(k,msg){const f=$(`[data-f=${k}]`);if(!f)return;f.classList.add('bad');$('.err',f).textContent=msg}
@@ -283,39 +510,45 @@ function validate(step){
   if(a.phone&&itEn(a.phone).replace(/\D/g,'').length<10)fail('phone','شماره کامل نیست');
  }
  if(step===2){['waist','hip','neck'].forEach(k=>{if(String(a[k]).trim()==='')return;const v=itNum(a[k]),[lo,hi]=IT_LIM[k];if(v===''||v<lo||v>hi)fail(k,`عدد بین ${fa(lo)} تا ${fa(hi)} (یا خالی بگذار)`)})}
+ if(step===5){
+  const c=a.consent;for(let i=1;i<=IT_PARQ.length;i++)if(!c.parq['p'+i])fail('pq'+i,'یکی را انتخاب کن');
+  if(!c.agree)fail('cag','برای ادامه باید هر سه مورد را تأیید کنی');
+  if(itStr(c.sig,60).length<3)fail('sig','نام و نام خانوادگی کامل را بنویس');
+ }
  if(first){const el=$(`[data-f=${first}]`);el.scrollIntoView({behavior:'smooth',block:'center'});const i=$('input,textarea',el);if(i&&i.type!=='radio')i.focus({preventScroll:true});toast('یک مورد را اصلاح کن')}
  return !first;
 }
 function show(n){
  cur=n;$$('.step').forEach(s=>s.classList.toggle('on',+s.dataset.step===n));
  $$('#prog i').forEach((p,i)=>p.classList.toggle('on',i<n));
- $('#stepname').textContent=`مرحلهٔ ${fa(n)} از ${fa(5)}: ${STEPS[n-1]}`;
+ $('#stepname').textContent=`مرحلهٔ ${fa(n)} از ${fa(6)}: ${STEPS[n-1]}`;
  $('#bPrev').classList.toggle('hide',n===1);
- $('#bNext').textContent=n===5?'ارسال برای مربی':'بعدی';
- if(n===5)review();
+ $('#bNext').textContent=n===6?'ارسال برای مربی':'بعدی';
+ if(n===5)parqWarn();
+ if(n===6)review();
  draft();scrollTo({top:0})
 }
 function review(){
- const a=itClean({app:'fitplan',kind:'intake',v:1,a:collect()});
+ const a=itClean({app:'fitplan',kind:'intake',v:2,a:collect()});
  if(!a.ok){$('#review').innerHTML=`<p class="err">${esc(a.err)}</p>`;return}
  const d=a.data.a,row=(l,v,s)=>v===''||v==null||(Array.isArray(v)&&!v.length)?'':`<div class="kv"><span>${l}</span><b>${esc(Array.isArray(v)?v.join('، '):v)}${s?`<a data-go="${s}">ویرایش</a>`:''}</b></div>`;
  $('#review').innerHTML=
-  row('نام',d.name,1)+row('موبایل',d.phone)+row('جنسیت',d.sex==='m'?'مرد':'زن')+row('سن',fn(d.age))+row('قد',fn(d.height)+' cm')+row('وزن',fn(d.weight)+' kg')+
+  row('نام',d.name,1)+row('پلن',d.pkg,1)+row('کد تخفیف',d.code)+row('موبایل',d.phone)+row('جنسیت',d.sex==='m'?'مرد':'زن')+row('سن',fn(d.age))+row('قد',fn(d.height)+' cm')+row('وزن',fn(d.weight)+' kg')+
   row('دور کمر',d.waist===''?'':fn(d.waist)+' cm',2)+row('دور باسن',d.hip===''?'':fn(d.hip)+' cm')+row('دور گردن',d.neck===''?'':fn(d.neck)+' cm')+
   row('فعالیت روزانه',IT_ACT[d.act]||'')+row('هدف',IT_GOAL[d.goal]||'')+row('استرس',IT_STRESS[d.stress]||'')+
   row('سابقه تمرین',d.trainHist,3)+row('سابقه رژیم',d.dietHist)+row('شغل',d.job)+row('بیماری',d.illness)+row('آسیب یا جراحی',d.injury)+row('دارو',d.meds)+
   row('خواب',d.sleep)+row('بیداری',d.wake)+row('محدودیت وعده',d.mealLimit)+
-  row('ناهنجاری‌ها',d.anoms.map(x=>fa(x)+'. '+IT_ANOMS[x]),4)+row('ناهنجاری دیگر',d.anomOther);
+  row('ناهنجاری‌ها',d.anoms.map(x=>fa(x)+'. '+IT_ANOMS[x]),4)+row('ناهنجاری دیگر',d.anomOther)+row('رضایت‌نامه',d.consent?'تأیید شد — '+d.consent.sig:'',5)+row('پرسش‌های سلامت',d.consent?(Object.keys(d.consent.parq).filter(k=>d.consent.parq[k]==='y').length?fa(Object.keys(d.consent.parq).filter(k=>d.consent.parq[k]==='y').length)+' پاسخ «بله»':'همه «خیر»'):'');
  $$('#review [data-go]').forEach(x=>x.onclick=()=>show(+x.dataset.go));
 }
 $('#bPrev').onclick=()=>show(cur-1);
-$('#bNext').onclick=()=>{if(cur===5){if(!validate(1)){show(1);validate(1);return}const r=itClean({app:'fitplan',kind:'intake',v:1,a:collect()});if(!r.ok){toast(r.err);show(1);return}send();return}if(!validate(cur))return;show(cur+1)};
+$('#bNext').onclick=()=>{if(cur===6){if(!validate(1)){show(1);validate(1);return}if(!validate(5)){show(5);validate(5);return}const r=itClean({app:'fitplan',kind:'intake',v:2,a:collect()});if(!r.ok){toast(r.err);show(1);return}send();return}if(!validate(cur))return;show(cur+1)};
 
 /* build + send */
 let PID=LS.get('gf_pid');if(!itId(PID)){PID='p'+Math.random().toString(36).slice(2,10)+Date.now().toString(36);LS.set('gf_pid',PID)}
 function buildPack(){
- const r=itClean({app:'fitplan',kind:'intake',v:1,a:collect()}),now=Date.now();
- return{app:'fitplan',kind:'intake',v:1,id:'f'+now.toString(36)+Math.random().toString(36).slice(2,6),pid:PID,created:now,d:itIso(new Date(now)),coach:{n:coach.n,p:coach.p},a:r.data.a};
+ const r=itClean({app:'fitplan',kind:'intake',v:2,a:Object.assign(collect(),{sport:SPN_?SPK:'',sportN:SPN_,sportRec:SPR})}),now=Date.now();
+ return{app:'fitplan',kind:'intake',v:2,id:'f'+now.toString(36)+Math.random().toString(36).slice(2,6),pid:PID,created:now,d:itIso(new Date(now)),coach:{n:coach.n,p:coach.p},a:r.data.a};
 }
 const fname=p=>'growfit-form-'+(p.a.name.replace(/[^؀-ۿA-Za-z0-9]+/g,'_').slice(0,30)||'student')+'-'+p.d+'.json';
 function download(p){const b=new Blob([JSON.stringify(p)],{type:'application/json'}),a=document.createElement('a');a.href=URL.createObjectURL(b);a.download=fname(p);document.body.appendChild(a);a.click();a.remove();setTimeout(()=>URL.revokeObjectURL(a.href),4000)}
@@ -365,7 +598,7 @@ function done(p,shared){
 async function send2(p){
  try{const file=new File([JSON.stringify(p)],fname(p),{type:'application/json'});if(navigator.canShare&&navigator.canShare({files:[file]}))await navigator.share({files:[file],title:'فرم گروفیت',text:'فرم گروفیت: '+p.a.name})}catch(e){}
 }
-$('#again').onclick=()=>{$('#doneBox').classList.add('hide');$('#wizard').classList.remove('hide');$('#nav').classList.remove('hide');show(5)};
+$('#again').onclick=()=>{$('#doneBox').classList.add('hide');$('#wizard').classList.remove('hide');$('#nav').classList.remove('hide');show(6)};
 show(cur);
 })();
 </script>
