@@ -768,6 +768,48 @@ body{background:radial-gradient(58vmax 38vmax at 100% 0%,rgba(198,244,50,.05),tr
 }
 @media print{*{-webkit-backdrop-filter:none!important;backdrop-filter:none!important}body{background:#fff}}
 </style>
+<style id="growfit-ui-refresh">
+/* GrowFit UI refresh: visual-only polish */
+:root{
+ --gf-surface:#141812;--gf-surface-2:#1b2117;
+ --gf-line:rgba(198,244,50,.16);--gf-radius:20px;
+ --gf-shadow:0 16px 42px rgba(0,0,0,.28);
+}
+html{scroll-behavior:smooth}
+body{font-family:var(--font,Vazirmatn,Tahoma,sans-serif);letter-spacing:-.12px}
+button,input,select,textarea{font:inherit}
+:where(button,.btn,a.btn,input,select,textarea,[tabindex]):focus-visible{
+ outline:2px solid var(--or,#C6F432);outline-offset:3px
+}
+:where(.card,.dcard,.tile,.rc,.step,.hero){border-color:var(--gf-line)}
+.card,.dcard,.tile,.rc,.step{
+ border-radius:var(--gf-radius);box-shadow:0 8px 28px rgba(0,0,0,.16)
+}
+.card.tap:hover,.tile:hover,.dcard:hover{
+ border-color:rgba(198,244,50,.34);box-shadow:var(--gf-shadow);transform:translateY(-2px)
+}
+.btn,.btn.pri,.d-cta{min-height:44px;border-radius:14px;font-weight:700}
+.btn.pri,.d-cta{box-shadow:0 7px 22px rgba(198,244,50,.12)}
+.btn.pri:hover,.d-cta:hover{filter:brightness(1.07);transform:translateY(-1px)}
+input,select,textarea{
+ border-radius:13px!important;border-color:rgba(255,255,255,.12)!important;
+ background-color:rgba(255,255,255,.035)!important
+}
+input:focus,select:focus,textarea:focus{
+ border-color:var(--or,#C6F432)!important;box-shadow:0 0 0 3px rgba(198,244,50,.10)!important
+}
+.chip,.pill{border-radius:999px}
+.note,.info,.tipbox{border-radius:14px}
+.bar,.prog{border-radius:999px;overflow:hidden}
+#toast{border:1px solid var(--gf-line);border-radius:14px;box-shadow:var(--gf-shadow)}
+@media(max-width:640px){
+ .card,.dcard,.tile,.rc,.step{border-radius:17px}
+ .btn,.btn.pri,.d-cta{min-height:46px}
+}
+@media(prefers-reduced-motion:reduce){
+ *,*::before,*::after{scroll-behavior:auto!important;transition:none!important;animation-duration:.01ms!important}
+}
+</style>
 </head>
 <body>
 <div id="splash" aria-hidden="true"><div class="sp-streak"></div><div class="sp-logo"><svg viewBox="140 515 790 915" width="124" height="144"><defs><linearGradient id="spg" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#C6F432"/><stop offset="1" stop-color="#C6F432"/></linearGradient></defs><path fill="url(#spg)" fill-rule="evenodd" d="M535 523L925 742V1200L535 1421L146 1200V742Z M535 615L226 790V1155L535 1330L846 1155V790Z M788 815L535 668L277 805V1140L535 1273L748 1150V930L600 1005L670 1043V1105L535 1183L358 1085V862L535 762L708 858Z"/></svg></div><div class="sp-word">GrowFit</div><div class="sp-sub">گروفیت</div></div>
