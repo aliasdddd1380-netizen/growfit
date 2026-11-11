@@ -1,6 +1,6 @@
 /* GrowFit service worker v8 — network-first, offline fallback.
    Cache name bumped (growfit-v3) so the new files replace the old cache; old caches are deleted on activate. */
-const V='growfit-v3';
+const V='growfit-v4';
 const FILES=['./','index.html','student.html','coach.html','form.html','sport.html','manifest-student.json','manifest-coach.json','icon-192.png','icon-512.png','icon-maskable-512.png','apple-touch-icon.png','fonts/Vazirmatn-Regular.woff2','fonts/Vazirmatn-Bold.woff2'];
 self.addEventListener('install',e=>{
   /* tolerant: a missing optional file (font, icon) must not break the whole install */
