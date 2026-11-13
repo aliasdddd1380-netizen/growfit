@@ -1,0 +1,39 @@
+name: Publish GrowFit Lab Preview
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - "growfit-lab/inbox/**"
+      - ".github/workflows/growfit-lab-pages.yml"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+concurrency:
+  group: "growfit-lab-pages"
+  cancel-in-progress: true
+
+jobs:
+  deploy:
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+      - name: Configure GitHub Pages
+        uses: actions/configure-pages@v5
+        with:
+          enablement: true
+      - name: Upload lab preview
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: growfit-lab/inbox
+      - name: Deploy
+        id: deployment
+        uses: actions/deploy-pages@v4
