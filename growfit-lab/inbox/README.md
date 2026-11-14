@@ -14,3 +14,7 @@
 - اگر چند فایل به هم وابسته‌اند، همه را با ساختار پوشه‌ای اصلی‌شان بارگذاری کن.
 - اگر فایل HTML به CSS، JS، تصویر یا فونت نیاز دارد، همهٔ وابستگی‌هایش را هم بفرست.
 - بعد از بارگذاری، من فایل‌ها را از همین مسیر می‌خوانم و بررسی می‌کنم.
+
+## USDA nutrition enrichment
+
+The preview workflow also runs the USDA FoodData Central enrichment script when `USDA_API_KEY` is configured as a GitHub Actions repository secret. Matched food records are added only when confidence checks pass; ambiguous or missing matches are kept for review rather than guessed.
