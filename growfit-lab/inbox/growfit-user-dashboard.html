@@ -52,18 +52,18 @@ main{min-width:0}.topbar{display:flex;align-items:center;justify-content:space-b
 </aside>
 <main>
   <header class="topbar">
-    <div class="greeting"><small>پنج‌شنبه، ۲۲ آبان ۱۴۰۵</small><h1>سلام، <span>علی!</span> 👋</h1></div>
+    <div class="greeting"><small id="todayDate">امروز</small><h1>سلام، <span>علی!</span> 👋</h1></div>
     <div class="top-actions"><a class="home-link" href="growfit-home%20(1).html">⌂ صفحه اصلی</a><div class="date-pill">☀️ روزت پرانرژی</div><button class="icon-btn" aria-label="اعلان‌ها" onclick="notify('فعلاً اعلان جدیدی نداری')">♧<i class="dot"></i></button><button class="icon-btn" aria-label="تنظیمات پروفایل" onclick="window.location.href='growfit-settings.html'">◉</button></div>
   </header>
   <section class="hero">
     <div class="hero-main"><div class="hero-content"><div class="eyebrow">● برنامه امروزت آماده است</div><h2>امروز برای یک قدم<br>نزدیک‌تر شدن آماده‌ای؟</h2><p>با برنامه‌ات همراه شو و پیشرفتت رو قدم‌به‌قدم ثبت کن.</p><button class="primary" onclick="window.location.href='growfit-workout.html'">مشاهده تمرین امروز ←</button></div></div>
-    <div class="hero-side"><div><div class="side-head"><span>🔥 استمرار فعالیت</span><span>این هفته</span></div><div class="streak">۴ <span>روز فعال</span></div></div><div class="week"><div class="day done"><b>✓</b><span>ش</span></div><div class="day done"><b>✓</b><span>ی</span></div><div class="day"><b>·</b><span>د</span></div><div class="day done"><b>✓</b><span>س</span></div><div class="day today"><b>●</b><span>چ</span></div><div class="day"><b>·</b><span>پ</span></div><div class="day"><b>·</b><span>ج</span></div></div></div>
+    <div class="hero-side"><div><div class="side-head"><span>🔥 فعالیت امروز</span><span>وضعیت ثبت‌ها</span></div><div class="streak" style="font-size:25px">GrowFit <span>پیشرفتت را ثبت کن</span></div></div><div class="week"><div class="day done"><b>✓</b><span>ش</span></div><div class="day done"><b>✓</b><span>ی</span></div><div class="day"><b>·</b><span>د</span></div><div class="day done"><b>✓</b><span>س</span></div><div class="day today"><b>●</b><span>چ</span></div><div class="day"><b>·</b><span>پ</span></div><div class="day"><b>·</b><span>ج</span></div></div></div>
   </section>
-  <section class="stats">
-    <div class="stat"><div class="stat-top"><span>جلسات این ماه</span><span class="stat-icon">▣</span></div><strong>۱۲</strong><small><span class="positive">↑ ۳ جلسه</span> نسبت به ماه قبل</small></div>
-    <div class="stat"><div class="stat-top"><span>زمان تمرین</span><span class="stat-icon">◷</span></div><strong>۸h ۴۰m</strong><small>مجموع زمان فعالیت</small></div>
-    <div class="stat"><div class="stat-top"><span>تمرین‌های تکمیل‌شده</span><span class="stat-icon">✓</span></div><strong>۸۵٪</strong><small>از برنامه این ماه</small></div>
-    <div class="stat"><div class="stat-top"><span>هدف هفتگی</span><span class="stat-icon">◎</span></div><strong>۳ / ۴</strong><small>جلسه تا رسیدن به هدف</small></div>
+  <section class="stats" aria-label="آمار زنده امروز">
+    <div class="stat"><div class="stat-top"><span>ست‌های انجام‌شده</span><span class="stat-icon">▣</span></div><strong id="workoutDoneCount">۰ / ۰</strong><small>ثبت‌شده در همین دستگاه</small></div>
+    <div class="stat"><div class="stat-top"><span>پیشرفت تمرین</span><span class="stat-icon">◷</span></div><strong id="workoutStatPct">۰٪</strong><small>بر اساس ست‌های علامت‌خورده</small></div>
+    <div class="stat"><div class="stat-top"><span>وعده‌های تکمیل‌شده</span><span class="stat-icon">✓</span></div><strong id="nutritionDoneCount">۰ / ۰</strong><small>از برنامه غذایی ثبت‌شده</small></div>
+    <div class="stat"><div class="stat-top"><span>آب امروز</span><span class="stat-icon">◎</span></div><strong id="waterStatCount">۰ / ۸</strong><small>لیوان ثبت‌شده امروز</small></div>
   </section>
   <div class="content-grid">
     <div>
@@ -91,25 +91,32 @@ function fa(v){return String(v).replace(/\d/g,d=>'۰۱۲۳۴۵۶۷۸۹'[Number(d
 function notify(message){const el=document.getElementById('toast');el.textContent=message;el.classList.add('show');clearTimeout(toastTimer);toastTimer=setTimeout(()=>el.classList.remove('show'),2500)}
 function renderDashboard(){
  const today=localDate();
+ const dateEl=document.getElementById('todayDate');
+ if(dateEl){try{dateEl.textContent=new Intl.DateTimeFormat('fa-IR',{weekday:'long',day:'numeric',month:'long',year:'numeric'}).format(new Date())}catch(e){dateEl.textContent='امروز'}}
  try{water=Math.max(0,Number(localStorage.getItem(WATER_PREFIX+today)||0))||0}catch(e){water=0}
  const waterPct=Math.min(100,Math.round(water/8*100));
+ document.getElementById('waterStatCount').textContent=fa(water)+' / ۸';
  const waterCount=document.getElementById('waterCount');
  waterCount.innerHTML=fa(water)+' <small style="font-size:11px;color:var(--muted)">/ ۸ لیوان</small>';
  document.getElementById('waterBar').style.width=waterPct+'%';
  document.getElementById('waterPct').textContent=fa(waterPct)+'٪';
  document.getElementById('waterProgressBar').style.width=waterPct+'%';
  let sets=[];try{const raw=JSON.parse(localStorage.getItem(WORKOUT_KEY)||'[]');if(Array.isArray(raw))sets=raw}catch(e){}
- const workoutPct=sets.length?Math.round(sets.filter(Boolean).length/sets.length*100):0;
+ const workoutDone=sets.filter(Boolean).length;
+ const workoutPct=sets.length?Math.round(workoutDone/sets.length*100):0;
+ document.getElementById('workoutDoneCount').textContent=fa(workoutDone)+' / '+fa(sets.length);
+ document.getElementById('workoutStatPct').textContent=fa(workoutPct)+'٪';
  document.getElementById('workoutPct').textContent=fa(workoutPct)+'٪';
  document.getElementById('workoutBar').style.width=workoutPct+'%';
- let nutritionPct=0;
+ let nutritionPct=0,nutritionTotal=0,nutritionDone=0;
  try{
   const db=JSON.parse(localStorage.getItem(STUDENT_KEY)||'null');
   const student=db&&db.student;
   const meals=student&&student.diet&&Array.isArray(student.diet.meals)?student.diet.meals:[];
   const record=student&&student.dietLog&&student.dietLog[today];
-  if(meals.length){const done=record&&record.m&&typeof record.m==='object'?record.m:{};nutritionPct=Math.round(meals.filter((m,i)=>!!done[i]).length/meals.length*100)}
+  if(meals.length){const done=record&&record.m&&typeof record.m==='object'?record.m:{};nutritionTotal=meals.length;nutritionDone=meals.filter((m,i)=>!!done[i]).length;nutritionPct=Math.round(nutritionDone/nutritionTotal*100)}
  }catch(e){}
+ document.getElementById('nutritionDoneCount').textContent=fa(nutritionDone)+' / '+fa(nutritionTotal);
  document.getElementById('nutritionPct').textContent=fa(nutritionPct)+'٪';
  document.getElementById('nutritionBar').style.width=nutritionPct+'%';
  const overall=Math.round((workoutPct+nutritionPct)/2);
