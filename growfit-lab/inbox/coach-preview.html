@@ -2742,11 +2742,10 @@ function dietTotals(d){const r={k:0,p:0,c:0,f:0,lo:0,hi:0};(d.meals||[]).forEach
 
 /* ================= storage ================= *//* ================= storage ================= */
 const BUILD='full'; /* full = مربی و شاگرد | student = فقط شاگرد */
-const KEY=BUILD==='student'?'growfit_student_v2':'growfit_full_v2';
+const KEY='growfit_lab_coach_preview_v1';
 const fresh=()=>({role:null,pin:null,clients:[],pending:[],formCfg:{},student:{cid:null,profile:null,plan:null,diet:null,corr:null,logs:{},weights:[],dietLog:{},start:null,trial:{},bodyHist:[],formLink:''}});
 function load(){
  try{const d=JSON.parse(localStorage.getItem(KEY));if(d&&d.student)return d}catch(e){}
- try{const o=JSON.parse(localStorage.getItem('fitplan_v1'));if(o&&o.student){const f=fresh();if(BUILD==='student')f.student=o.student;else Object.assign(f,o);return f}}catch(e){}
  return fresh();
 }
 let DB=load();
