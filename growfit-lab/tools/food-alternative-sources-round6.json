@@ -14,7 +14,7 @@
   "sources": [
     {
       "sourceId": "ZAKERIAN-IRAN-FCT-2018-SECONDARY-2023",
-      "title": "The relationship between nutritional facts and temperament of selected Iranians’ frequent food items: a summative content analysis study",
+      "title": "The relationship between nutritional facts and temperament of selected Iranians’ frequent food items: a summative content analysis study (Iranian FCT edition discrepancy)",
       "year": 2023,
       "authors": [
         "Mohsen Zakerian",
@@ -31,7 +31,10 @@
       "limitations": [
         "The article does not map each nutrient value to one of the two underlying databases",
         "Original FCT food code and exact Doogh definition not reproduced",
-        "Summary table reports only selected highest values, not a complete Doogh record"
+        "Summary table reports only selected highest values, not a complete Doogh record",
+        "The paper describes the Iranian FCT as published in 2018, while FAO/EuroFIR catalogs the national dataset as Iranian Food Composition Table 2017; discrepancy unresolved.",
+        "FAO/EuroFIR marks the Iranian 2017 FCT as restricted access.",
+        "Doogh sodium appears in a ranked high-sodium foods table; exact source database and food code are not identified."
       ]
     },
     {
@@ -106,7 +109,9 @@
       "reviewNotes": [
         "The paper says it used the 2018 Iranian FCT and USDA but does not state which database supplied the Doogh values.",
         "The reported water value is broadly compatible with GrowFit's diluted drink definition but does not prove identity.",
-        "Need original Iranian FCT food code and complete record before publication."
+        "Need original Iranian FCT food code and complete record before publication.",
+        "FAO/EuroFIR catalog the national Iranian FCT as 2017 (restricted access), while the article says 2018; exact edition discrepancy unresolved.",
+        "The 421 mg/100g sodium value is from a ranked summary, not a complete Doogh source row, and may derive from either Iranian FCT or USDA."
       ]
     },
     {
