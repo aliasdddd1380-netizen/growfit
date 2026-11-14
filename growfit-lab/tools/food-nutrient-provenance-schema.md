@@ -1,0 +1,163 @@
+# طرح ساختار منبع‌دهی مستقل برای هر ریزمغذی
+
+تاریخ: 2026-11-14  
+وضعیت: طرح پیشنهادی و غیرفعال  
+محدوده: فقط محیط آزمایشگاهی GrowFit
+
+## هدف
+
+ساختار فعلی بانک غذایی برای هر ماده یک شیء micronutrientsPer100g و یک منبع کلی fdcMatch دارد. این مدل زمانی مناسب است که همه مقادیر از یک رکورد USDA آمده باشند؛ اما برای ترکیب کنترل‌شده منابع علمی مختلف کافی نیست.
+
+طرح حاضر به هر مقدار ریزمغذی provenance مستقل می‌دهد: منبع، نوع داده، واحد، مبنای اندازه‌گیری، روش آزمایش و وضعیت بازبینی.
+
+این سند به‌تنهایی هیچ رفتاری را در برنامه فعال نمی‌کند. اسکریپت enrichment و صفحه تغذیه فعلی هنوز فقط ساختار قدیمی را می‌خوانند. هیچ فایل بانک غذایی یا صفحه کاربر در این مرحله تغییر نکرده است.
+
+## اصول طراحی
+
+1. منبع در سطح هر nutrient value ذخیره شود، نه فقط در سطح ماده غذایی.
+2. مقدار خام منبع بدون دستکاری حفظ شود؛ مقدار استانداردشده جداگانه ثبت شود.
+3. واحد و مخرج همیشه صریح باشند؛ مثلاً mg/kg dry matter با mg/100g edible portion یکی نیست.
+4. وضعیت خام/پخته و روش پخت ثبت شود.
+5. نوع داده مشخص شود: آزمایشگاهی، محاسبه‌شده از دستور، اقتباس‌شده از جدول دیگر یا برآوردشده.
+6. مقادیر نامعلوم null بمانند؛ نبود داده هرگز صفر نیست.
+7. مقدار تبدیل‌شده فقط وقتی قابل انتشار باشد که فرمول، ضریب تبدیل و داده ورودی لازم مستند باشند.
+8. آلاینده‌ها و فلزات سمی در فیلدهای مواد معدنی تغذیه‌ای قرار نگیرند.
+9. یک nutrient می‌تواند چند شاهد داشته باشد، اما فقط یک مقدار منتخب و تأییدشده وارد نمای تغذیه‌ای شود.
+10. رکوردهای USDA همچنان با شناسه FDC خود نگهداری شوند؛ منابع غیر USDA نباید به‌زور در fdcMatch جا داده شوند.
+
+## ساختار پیشنهادی در سطح ماده غذایی
+
+نمونه مفهومی برای آهن سنگک:
+
+{
+  "id": 27,
+  "name": "نان سنگک",
+  "nutrientEvidence": {
+    "iron": [
+      {
+        "evidenceId": "SANGAK-IRON-2012-A",
+        "sourceId": "SANGAK-BARBARI-MINERALS-2012",
+        "rawValue": 37.6,
+        "rawUnit": "µg/g",
+        "rawBasis": "as-reported; moisture basis not confirmed",
+        "standardValue": null,
+        "standardUnit": "mg/100g edible portion",
+        "standardBasis": "edible portion",
+        "conversion": null,
+        "foodState": "baked",
+        "sampleCountry": "Iran",
+        "sampleRegion": null,
+        "sampleYear": 2012,
+        "sampleCount": null,
+        "method": null,
+        "dataType": "analytical",
+        "reviewStatus": "research-only",
+        "reviewNote": "Basis is not sufficient for safe conversion to edible-weight value."
+      }
+    ]
+  },
+  "micronutrientsPer100g": {
+    "iron": null
+  }
+}
+
+در مثال بالا مقدار خام مقاله حفظ می‌شود، اما مقدار استانداردشده عمداً null است؛ بنابراین رابط کاربری فعلی نباید آن را به‌عنوان آهن در هر ۱۰۰ گرم نمایش دهد.
+
+## قرارداد فیلدها
+
+| فیلد | کاربرد |
+|---|---|
+| evidenceId | شناسه یکتای مشاهده/مقدار |
+| sourceId | ارجاع به رکورد منبع در فهرست منابع |
+| rawValue, rawUnit, rawBasis | مقدار دقیقاً مطابق منبع |
+| standardValue, standardUnit, standardBasis | مقدار تبدیل‌شده فقط در صورت تبدیل معتبر |
+| conversion | فرمول، ضرایب، ورودی‌ها و توضیح تبدیل |
+| foodState | خام، پخته، خشک، پخته‌شده با روش مشخص و مانند آن |
+| sampleCountry, sampleRegion, sampleYear | محل و زمان نمونه‌برداری |
+| sampleCount | تعداد نمونه‌ها، در صورت گزارش |
+| method | روش آزمایشگاهی یا محاسباتی |
+| dataType | analytical، calculated، borrowed یا estimated |
+| reviewStatus | وضعیت ارزیابی و اجازه استفاده |
+| reviewNote | محدودیت‌ها و توضیح بازبین |
+
+## وضعیت‌های مجاز
+
+- research-only: شاهد علمی ثبت شده، اما قابل استفاده در محاسبات برنامه نیست.
+- needs-review: اطلاعات برای تصمیم‌گیری کافی نیست.
+- approved: مقدار و مبنای آن بررسی و برای استفاده تأیید شده است.
+- rejected: این شاهد برای این ماده/مغذی قابل استفاده نیست.
+
+## فهرست منابع مستقل
+
+نمونه:
+
+{
+  "sources": [
+    {
+      "sourceId": "SANGAK-BARBARI-MINERALS-2012",
+      "title": "Dephytinisation of Sangak and Barbari bread made from different extraction rate flours increases iron and zinc bioaccessibility in Caco-2 cells",
+      "year": 2012,
+      "url": "https://academic.oup.com/ijfst/article/47/11/2252/7865861",
+      "sourceType": "peer-reviewed-article",
+      "country": "Iran",
+      "bibliographicNote": "Record source metadata once; link individual nutrient observations to this source."
+    }
+  ]
+}
+
+## سازگاری با نسخه فعلی GrowFit
+
+برای جلوگیری از شکستن داشبورد یا pipeline، مهاجرت باید دو مرحله‌ای باشد.
+
+### مرحله A — فقط ذخیره شواهد
+
+- افزودن nutrientEvidence به‌صورت ساختار افزوده و غیرفعال.
+- نگه داشتن micronutrientsPer100g و fdcMatch بدون تغییر.
+- اسکریپت فعلی enrichment نباید داده‌های nutrientEvidence را حذف یا بازنویسی کند.
+- صفحه تغذیه همچنان فقط مقدارهای قدیمی را نمایش دهد.
+- شواهد ناقص و dry-weight فقط در گزارش پژوهشی بمانند.
+
+### مرحله B — انتشار مقدارهای تأییدشده، پس از تأیید جداگانه
+
+- یک مرحله اعتبارسنجی، فقط مقادیر approved با واحد و مبنای سازگار را به نمای استاندارد micronutrientsPer100g منتقل کند.
+- هر مقدار منتشرشده باید منبع قابل نمایش داشته باشد.
+- اگر یک ماده برای یک nutrient چند مقدار معتبر دارد، سیاست انتخاب/میانگین‌گیری باید مستند و قابل ممیزی باشد.
+- مجموع ریزمغذی وعده فقط از مقادیر استانداردشده و تأییدشده محاسبه شود.
+- مقدار نامعلوم در هر ماده اولیه باعث نامعلوم ماندن مجموع همان nutrient در وعده شود.
+
+## قواعد ویژه تبدیل
+
+- mg/kg به mg/100g از نظر ریاضی ضریب 0.1 دارد، اما این تبدیل به‌تنهایی مشکل تفاوت dry matter و edible portion را حل نمی‌کند.
+- µg/g به mg/100g از نظر ریاضی ضریب 0.1 دارد؛ اما تنها در صورتی می‌توان آن را استفاده کرد که مخرج و مبنای رطوبت با هدف سازگار باشد.
+- per 100 mL برای نوشیدنی‌هایی مانند دوغ، بدون چگالی معتبر نباید به per 100 g تبدیل شود.
+- نمک معادل سدیم نیست؛ تبدیل فقط با تعریف و روش مشخص مجاز است.
+- انرژی از یک منبع جایگزین نباید کورکورانه کپی شود؛ در صورت نیاز باید با تعریف اجزا و عوامل تبدیل سازگار محاسبه و مستند شود.
+- تعریف اجزای غذایی نیز مهم است؛ برای مثال روش سنجش فیبر و تعریف معادل ویتامین A می‌تواند مقدار گزارش‌شده را تغییر دهد.
+
+## تست‌های لازم پیش از فعال‌سازی
+
+- مقدار null به صفر تبدیل نشود.
+- داده dry-weight به‌عنوان edible-portion پذیرفته نشود.
+- رکورد خام و پخته به‌جای یکدیگر انتخاب نشوند.
+- مقدار بدون منبع یا بدون واحد رد شود.
+- مقدار research-only و needs-review وارد مجموع وعده نشود.
+- اجرای مجدد enrichment، شواهد دستی و منبع‌های غیر USDA را حذف نکند.
+- اگر یک ماده اولیه مقدار یک nutrient را ندارد، مجموع آن nutrient برای وعده null شود.
+- صفحه تغذیه منبع و وضعیت پوشش را دقیقاً مطابق داده واقعی نمایش دهد.
+
+## منابع راهنما
+
+- FAO/INFOODS, Guidelines for Food Matching, Version 1.2 (2012): https://www.fao.org/fileadmin/templates/food_composition/documents/upload/INFOODSGuidelinesforFoodMatching_version_1_2.pdf
+- FAO/INFOODS, Guidelines for Checking Food Composition Data: https://www.fao.org/fileadmin/templates/food_composition/documents/pdf/Guidelines_data_checking2012.pdf
+- FAO, Food Composition Data — conventions and modes of expression: https://www.fao.org/4/y4705e/y4705E14.htm
+- FAO/INFOODS Standards & Guidelines: https://www.fao.org/infoods/infoods/standards-guidelines/en/
+
+این راهنماها بر تطبیق دقیق هویت غذا، تعریف nutrient، روش، واحد و مخرج و نیز مستندسازی منبع در سطح مقدار تأکید دارند.
+
+## وضعیت این طرح
+
+- فقط سند طراحی در پوشه tools است.
+- بانک غذایی تغییر نکرده است.
+- enrichment script تغییر نکرده است.
+- صفحه تغذیه تغییر نکرده است.
+- هیچ مقدار پژوهشی به محاسبات وعده‌ها وارد نشده است.
