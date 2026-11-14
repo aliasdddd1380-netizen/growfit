@@ -3960,11 +3960,44 @@
       "fatPer100g": 0.5,
       "portionGrams": 0,
       "portionUnit": "",
-      "micronutrientsPer100g": null,
-      "micronutrientStatus": "needs-review",
+      "micronutrientsPer100g": {
+        "fiber": 4.704,
+        "calcium": 36.85,
+        "iron": 3.185,
+        "potassium": 971.6,
+        "magnesium": 49.61,
+        "zinc": 0.5113,
+        "sodium": 61.15,
+        "vitaminA": null,
+        "vitaminC": 18.4,
+        "vitaminD": null,
+        "vitaminB12": null,
+        "folate": null
+      },
+      "micronutrientStatus": "matched",
       "fdcMatch": {
-        "status": "review",
-        "source": "USDA FoodData Central"
+        "status": "accepted",
+        "fdcId": 2685580,
+        "description": "Tomato, paste, canned, without salt added",
+        "dataType": "Foundation",
+        "confidence": 1.0,
+        "source": "USDA FoodData Central",
+        "mappingMethod": "manual-reviewed",
+        "reviewNote": "رکورد USDA صراحتاً رب گوجه‌فرنگی کنسروی است؛ نزدیک‌ترین مرجع مشخص و قابل‌دفاع برای رب گوجه‌فرنگی ساده."
+      },
+      "micronutrientUnits": {
+        "fiber": "g",
+        "calcium": "mg",
+        "iron": "mg",
+        "potassium": "mg",
+        "magnesium": "mg",
+        "zinc": "mg",
+        "sodium": "mg",
+        "vitaminA": "µg RAE",
+        "vitaminC": "mg",
+        "vitaminD": "µg",
+        "vitaminB12": "µg",
+        "folate": "µg"
       }
     },
     {
@@ -15606,24 +15639,24 @@
       "carbs": 87,
       "fat": 21,
       "micronutrients": {
-        "fiber": null,
-        "calcium": null,
-        "iron": null,
-        "potassium": null,
-        "magnesium": null,
-        "zinc": null,
-        "sodium": null,
+        "fiber": 6.146,
+        "calcium": 61.727,
+        "iron": 7.863,
+        "potassium": 817.94,
+        "magnesium": 77.942,
+        "zinc": 6.147,
+        "sodium": 74.972,
         "vitaminA": null,
-        "vitaminC": null,
+        "vitaminC": 3.48,
         "vitaminD": null,
         "vitaminB12": null,
         "folate": null
       },
       "micronutrientStatus": "pending-reference-mapping",
       "micronutrientCoverage": {
-        "matchedIngredients": 4,
+        "matchedIngredients": 5,
         "totalIngredients": 5,
-        "status": "pending"
+        "status": "partial"
       }
     },
     {
@@ -15758,24 +15791,24 @@
       "carbs": 82,
       "fat": 20,
       "micronutrients": {
-        "fiber": null,
-        "calcium": null,
-        "iron": null,
-        "potassium": null,
-        "magnesium": null,
-        "zinc": null,
-        "sodium": null,
+        "fiber": 5.101,
+        "calcium": 52.77,
+        "iron": 7.299,
+        "potassium": 734.22,
+        "magnesium": 66.322,
+        "zinc": 5.571,
+        "sodium": 70.73,
         "vitaminA": null,
-        "vitaminC": null,
+        "vitaminC": 4.28,
         "vitaminD": null,
         "vitaminB12": null,
         "folate": null
       },
       "micronutrientStatus": "pending-reference-mapping",
       "micronutrientCoverage": {
-        "matchedIngredients": 4,
+        "matchedIngredients": 5,
         "totalIngredients": 5,
-        "status": "pending"
+        "status": "partial"
       }
     },
     {
@@ -15962,24 +15995,24 @@
       "carbs": 78,
       "fat": 20,
       "micronutrients": {
-        "fiber": null,
-        "calcium": null,
-        "iron": null,
-        "potassium": null,
-        "magnesium": null,
-        "zinc": null,
-        "sodium": null,
+        "fiber": 3.206,
+        "calcium": 67.328,
+        "iron": 6.363,
+        "potassium": 929.54,
+        "magnesium": 76.442,
+        "zinc": 5.518,
+        "sodium": 78.873,
         "vitaminA": null,
-        "vitaminC": null,
+        "vitaminC": 29.61,
         "vitaminD": null,
         "vitaminB12": null,
         "folate": null
       },
       "micronutrientStatus": "pending-reference-mapping",
       "micronutrientCoverage": {
-        "matchedIngredients": 4,
+        "matchedIngredients": 5,
         "totalIngredients": 5,
-        "status": "pending"
+        "status": "partial"
       }
     },
     {
@@ -16562,24 +16595,24 @@
       "carbs": 81,
       "fat": 24,
       "micronutrients": {
-        "fiber": null,
-        "calcium": null,
-        "iron": null,
-        "potassium": null,
-        "magnesium": null,
-        "zinc": null,
-        "sodium": null,
+        "fiber": 5.441,
+        "calcium": 40.87,
+        "iron": 6.919,
+        "potassium": 737.32,
+        "magnesium": 81.922,
+        "zinc": 8.217,
+        "sodium": 101.73,
         "vitaminA": null,
-        "vitaminC": null,
+        "vitaminC": 3.68,
         "vitaminD": null,
         "vitaminB12": null,
         "folate": null
       },
       "micronutrientStatus": "pending-reference-mapping",
       "micronutrientCoverage": {
-        "matchedIngredients": 3,
+        "matchedIngredients": 4,
         "totalIngredients": 4,
-        "status": "pending"
+        "status": "partial"
       }
     },
     {
@@ -16925,7 +16958,7 @@
       },
       "micronutrientStatus": "pending-reference-mapping",
       "micronutrientCoverage": {
-        "matchedIngredients": 3,
+        "matchedIngredients": 4,
         "totalIngredients": 5,
         "status": "pending"
       }
@@ -17114,24 +17147,24 @@
       "carbs": 65,
       "fat": 19,
       "micronutrients": {
-        "fiber": null,
-        "calcium": null,
-        "iron": null,
-        "potassium": null,
-        "magnesium": null,
-        "zinc": null,
-        "sodium": null,
+        "fiber": 4.56,
+        "calcium": 46.485,
+        "iron": 5.961,
+        "potassium": 611.71,
+        "magnesium": 58.511,
+        "zinc": 4.733,
+        "sodium": 57.215,
         "vitaminA": null,
-        "vitaminC": null,
+        "vitaminC": 2.38,
         "vitaminD": null,
         "vitaminB12": null,
         "folate": null
       },
       "micronutrientStatus": "pending-reference-mapping",
       "micronutrientCoverage": {
-        "matchedIngredients": 4,
+        "matchedIngredients": 5,
         "totalIngredients": 5,
-        "status": "pending"
+        "status": "partial"
       }
     },
     {
@@ -17266,24 +17299,24 @@
       "carbs": 62,
       "fat": 17,
       "micronutrients": {
-        "fiber": null,
-        "calcium": null,
-        "iron": null,
-        "potassium": null,
-        "magnesium": null,
-        "zinc": null,
-        "sodium": null,
+        "fiber": 3.836,
+        "calcium": 39.828,
+        "iron": 5.505,
+        "potassium": 551.54,
+        "magnesium": 50.041,
+        "zinc": 4.191,
+        "sodium": 53.072,
         "vitaminA": null,
-        "vitaminC": null,
+        "vitaminC": 3.21,
         "vitaminD": null,
         "vitaminB12": null,
         "folate": null
       },
       "micronutrientStatus": "pending-reference-mapping",
       "micronutrientCoverage": {
-        "matchedIngredients": 4,
+        "matchedIngredients": 5,
         "totalIngredients": 5,
-        "status": "pending"
+        "status": "partial"
       }
     },
     {
@@ -17470,24 +17503,24 @@
       "carbs": 59,
       "fat": 18,
       "micronutrients": {
-        "fiber": null,
-        "calcium": null,
-        "iron": null,
-        "potassium": null,
-        "magnesium": null,
-        "zinc": null,
-        "sodium": null,
+        "fiber": 2.33,
+        "calcium": 49.885,
+        "iron": 4.753,
+        "potassium": 679.36,
+        "magnesium": 56.561,
+        "zinc": 4.136,
+        "sodium": 58.215,
         "vitaminA": null,
-        "vitaminC": null,
+        "vitaminC": 21.53,
         "vitaminD": null,
         "vitaminB12": null,
         "folate": null
       },
       "micronutrientStatus": "pending-reference-mapping",
       "micronutrientCoverage": {
-        "matchedIngredients": 4,
+        "matchedIngredients": 5,
         "totalIngredients": 5,
-        "status": "pending"
+        "status": "partial"
       }
     },
     {
@@ -18070,24 +18103,24 @@
       "carbs": 62,
       "fat": 16,
       "micronutrients": {
-        "fiber": null,
-        "calcium": null,
-        "iron": null,
-        "potassium": null,
-        "magnesium": null,
-        "zinc": null,
-        "sodium": null,
+        "fiber": 4.126,
+        "calcium": 30.828,
+        "iron": 5.221,
+        "potassium": 554.09,
+        "magnesium": 61.892,
+        "zinc": 6.176,
+        "sodium": 76.323,
         "vitaminA": null,
-        "vitaminC": null,
+        "vitaminC": 2.76,
         "vitaminD": null,
         "vitaminB12": null,
         "folate": null
       },
       "micronutrientStatus": "pending-reference-mapping",
       "micronutrientCoverage": {
-        "matchedIngredients": 3,
+        "matchedIngredients": 4,
         "totalIngredients": 4,
-        "status": "pending"
+        "status": "partial"
       }
     },
     {
@@ -21902,24 +21935,24 @@
       "carbs": 17,
       "fat": 10,
       "micronutrients": {
-        "fiber": null,
-        "calcium": null,
-        "iron": null,
-        "potassium": null,
-        "magnesium": null,
-        "zinc": null,
-        "sodium": null,
+        "fiber": 7.106,
+        "calcium": 111.528,
+        "iron": 3.027,
+        "potassium": 744.94,
+        "magnesium": 78.242,
+        "zinc": 1.777,
+        "sodium": 99.972,
         "vitaminA": null,
-        "vitaminC": null,
+        "vitaminC": 22.16,
         "vitaminD": null,
         "vitaminB12": null,
         "folate": null
       },
       "micronutrientStatus": "pending-reference-mapping",
       "micronutrientCoverage": {
-        "matchedIngredients": 3,
+        "matchedIngredients": 4,
         "totalIngredients": 4,
-        "status": "pending"
+        "status": "partial"
       }
     },
     {
@@ -21950,24 +21983,24 @@
       "carbs": 23,
       "fat": 16,
       "micronutrients": {
-        "fiber": null,
-        "calcium": null,
-        "iron": null,
-        "potassium": null,
-        "magnesium": null,
-        "zinc": null,
-        "sodium": null,
+        "fiber": 9.581,
+        "calcium": 150.17,
+        "iron": 4.058,
+        "potassium": 998.12,
+        "magnesium": 104.922,
+        "zinc": 2.377,
+        "sodium": 133.33,
         "vitaminA": null,
-        "vitaminC": null,
+        "vitaminC": 29.87,
         "vitaminD": null,
         "vitaminB12": null,
         "folate": null
       },
       "micronutrientStatus": "pending-reference-mapping",
       "micronutrientCoverage": {
-        "matchedIngredients": 3,
+        "matchedIngredients": 4,
         "totalIngredients": 4,
-        "status": "pending"
+        "status": "partial"
       }
     },
     {
@@ -39977,7 +40010,7 @@
       }
     },
     "matchingPolicy": "Only high-confidence matches are auto-accepted; ambiguous matches require review.",
-    "acceptedFoodCount": 102,
-    "reviewFoodCount": 11
+    "acceptedFoodCount": 103,
+    "reviewFoodCount": 10
   }
 }
