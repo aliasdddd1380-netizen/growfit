@@ -173,7 +173,7 @@ class ApprovedEvidencePublisherTests(unittest.TestCase):
         bank = bank_fixture()
         plan, _, _ = publisher.build_plan(package_with_approved_value(), bank)
         publisher.apply_plan(bank, plan)
-        food = bank["foods"][0]
+        food = bank["foods"][27]
         before = copy.deepcopy(food["micronutrientProvenance"])
         empty_micro = {key: None for key in publisher.enrichment.NUTRIENTS}
         publisher.enrichment.apply_usda_fields(food, {"status": "accepted", "fdcId": 123}, empty_micro)
