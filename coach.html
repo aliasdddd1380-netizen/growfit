@@ -3032,7 +3032,13 @@ function mbFilter(o){
  if(q)L=L.filter(x=>x.n.indexOf(q)>=0||x.d.indexOf(q)>=0);
  const N=v=>(v===''||v==null)?null:num(v),a=N(o.kmin),b=N(o.kmax),p=N(o.pmin),c=N(o.cmax),f=N(o.fmax);
  if(a!=null)L=L.filter(x=>x.k>=a);if(b!=null)L=L.filter(x=>x.k<=b);if(p!=null)L=L.filter(x=>x.p>=p);if(c!=null)L=L.filter(x=>x.c<=c);if(f!=null)L=L.filter(x=>x.f<=f);
- L.sort((x,y)=>o.sort==='p'?y.p-x.p:o.sort==='kd'?y.k-x.k:x.k-y.k);
+ const targets=[['k',N(o.tk)],['p',N(o.tp)],['c',N(o.tc)],['f',N(o.tf)]].filter(x=>x[1]!=null);
+ if(targets.length){
+  const tol=Math.max(0,Math.min(100,N(o.tol)==null?20:N(o.tol)))/100;
+  L=L.map(x=>{const score=targets.reduce((sum,[key,value])=>sum+Math.abs(x[key]-value)/Math.max(value,1),0)/targets.length;return Object.assign({},x,{match:score})})
+   .filter(x=>targets.every(([key,value])=>Math.abs(x[key]-value)/Math.max(value,1)<=tol))
+   .sort((x,y)=>x.match-y.match);
+ }else L.sort((x,y)=>o.sort==='p'?y.p-x.p:o.sort==='kd'?y.k-x.k:x.k-y.k);
  return L;
 }
 function mbSheet(){
@@ -3041,11 +3047,17 @@ function mbSheet(){
  return `<div class="sheet" onclick="if(event.target===this)A.mbClose()"><div><div class="rowb"><h3 style="margin:0">بانک غذایی</h3><button class="btn sm" onclick="A.mbClose()">بستن</button></div>
  <div class="strip" style="padding:10px 0 6px">${MT.map(([k,l])=>`<button class="tb ${o.t===k?'on':''}" onclick="A.mbType('${k}')">${l}</button>`).join('')}</div>
  <div class="g2">${fi('kmin','کالری از')}${fi('kmax','کالری تا')}</div>
- <div class="g3" style="margin-top:8px">${fi('pmin','پروتئین حداقل')}${fi('cmax','کربو حداکثر')}${fi('fmax','چربی حداکثر')}</div>
+ <div class="g3" style="margin-top:8px">
+ ${fi('pmin','پروتئین حداقل')}${fi('cmax','کربو حداکثر')}${fi('fmax','چربی حداکثر')}</div>
+ <div class="card" style="margin-top:10px;padding:10px">
+  <b>ماکروهای هدف این وعده</b><p class="mut sm">مقادیر هدف را وارد کن تا وعده‌های نزدیک به آن‌ها در بالای فهرست نمایش داده شوند.</p>
+  <div class="g2" style="margin-top:8px">${fi('tk','کالری هدف')}${fi('tp','پروتئین هدف (g)')}${fi('tc','کربوهیدرات هدف (g)')}${fi('tf','چربی هدف (g)')}</div>
+  <div class="g2" style="margin-top:8px"><div><label>اختلاف مجاز</label><select onchange="A.mbSet('tol',this.value)"><option value="10"${String(o.tol)==='10'?' selected':''}>۱۰٪</option><option value="15"${String(o.tol)==='15'?' selected':''}>۱۵٪</option><option value="20"${String(o.tol)==='20'?' selected':''}>۲۰٪</option><option value="30"${String(o.tol)==='30'?' selected':''}>۳۰٪</option><option value="50"${String(o.tol)==='50'?' selected':''}>۵۰٪</option></select></div><div style="display:flex;align-items:end"><small class="mut">با وارد کردن حتی یک ماکرو، نتایج بر اساس نزدیک‌ترین تطابق مرتب می‌شوند.</small></div></div>
+ </div>
  <div class="g2" style="margin-top:8px"><div><label>جستجو</label><input value="${esc(o.q)}" placeholder="مثلاً مرغ" onchange="A.mbSet('q',this.value)"></div><div><label>مرتب‌سازی</label><select onchange="A.mbSet('sort',this.value)"><option value="k"${o.sort==='k'?' selected':''}>کالری کم به زیاد</option><option value="kd"${o.sort==='kd'?' selected':''}>کالری زیاد به کم</option><option value="p"${o.sort==='p'?' selected':''}>پروتئین زیاد به کم</option></select></div></div>
- <div class="g2" style="margin:10px 0"><button class="btn sm" style="width:100%" onclick="A.mbAuto()">بازه پیشنهادی از هدف</button><button class="btn sm" style="width:100%" onclick="A.mbClear()">پاک کردن فیلترها</button></div>
+ <div class="g2" style="margin:10px 0"><button class="btn sm" style="width:100%" onclick="A.mbAuto()">پر کردن ماکروها از هدف شاگرد</button><button class="btn sm" style="width:100%" onclick="A.mbClear()">پاک کردن فیلترها</button></div>
  ${sysBar(o)}<p class="mut sm">${fa(L.length)} مورد از ${fa(tot)} وعده «${MTN[o.t]}»</p>
- ${show.map(x=>`<div class="mbi"><div class="rowb"><b>${esc(x.n)}</b><button class="btn pri sm" onclick="A.mbAdd(${x.i})">افزودن</button></div><div class="wrap" style="margin:4px 0"><span class="chip or">${fa(x.k)} kcal</span><span class="chip">P ${fa(x.p)}</span><span class="chip">C ${fa(x.c)}</span><span class="chip">F ${fa(x.f)}</span></div><p class="mut sm">${esc(x.d)}</p></div>`).join('')||'<div class="empty sm">با این فیلترها موردی پیدا نشد.</div>'}
+ ${show.map(x=>`<div class="mbi"><div class="rowb"><b>${esc(x.n)}</b><button class="btn pri sm" onclick="A.mbAdd(${x.i})">افزودن</button></div><div class="wrap" style="margin:4px 0"><span class="chip or">${fa(x.k)} kcal</span><span class="chip">P ${fa(x.p)}</span><span class="chip">C ${fa(x.c)}</span><span class="chip">F ${fa(x.f)}</span>${x.match!=null?`<span class="chip or">تطابق ${fa(Math.max(0,Math.round((1-x.match)*100)))}٪</span>`:''}</div><p class="mut sm">${esc(x.d)}</p></div>`).join('')||'<div class="empty sm">با این فیلترها موردی پیدا نشد.</div>'}
  ${L.length>o.n?`<button class="btn" style="margin-top:10px" onclick="A.mbMore()">نمایش بیشتر</button>`:''}</div></div>`;
 }
 function corrTab(c){
@@ -5359,13 +5371,13 @@ A.addMeal=()=>{C().diet.meals.push({id:uid(),name:'',tp:'sn',opts:[emptyOpt()]})
 A.presetMeals=()=>{[['صبحانه','bf'],['میان‌وعده صبح','sn'],['ناهار','ln'],['میان‌وعده عصر','sn'],['شام','dn']].forEach(([n,t])=>C().diet.meals.push({id:uid(),name:n,tp:t,opts:[emptyOpt()]}));save();render()};
 A.addOpt=i=>{const o=C().diet.meals[i].opts;o.push(emptyOpt('گزینه '+fa(o.length+1)));save();render()};
 A.delOpt=(i,j)=>{const o=C().diet.meals[i].opts;if(o.length>1&&confirm('این گزینه حذف شود؟')){o.splice(j,1);save();render()}};
-A.mbOpen=i=>{UI.mb={slot:i,t:C().diet.meals[i].tp||'sn',q:'',kmin:'',kmax:'',pmin:'',cmax:'',fmax:'',sort:'k',n:30};render()};
+A.mbOpen=i=>{UI.mb={slot:i,t:C().diet.meals[i].tp||'sn',q:'',kmin:'',kmax:'',pmin:'',cmax:'',fmax:'',tk:'',tp:'',tc:'',tf:'',tol:20,sort:'k',n:30};render()};
 A.mbClose=()=>{UI.mb=null;render()};
 A.mbType=t=>{UI.mb.t=t;UI.mb.n=30;render()};
 A.mbSet=(k,v)=>{UI.mb[k]=v;UI.mb.n=30;render()};
 A.mbMore=()=>{UI.mb.n+=30;render()};
-A.mbClear=()=>{Object.assign(UI.mb,{q:'',kmin:'',kmax:'',pmin:'',cmax:'',fmax:'',n:30});render()};
-A.mbAuto=()=>{const m=metrics(C());if(!m)return toast('برای بازه پیشنهادی، سن و قد و وزن شاگرد را وارد کن');const mid=m.kcal*(MSHARE[UI.mb.t]||.15);UI.mb.kmin=Math.round(mid*.85/10)*10;UI.mb.kmax=Math.round(mid*1.15/10)*10;UI.mb.n=30;render()};
+A.mbClear=()=>{Object.assign(UI.mb,{q:'',kmin:'',kmax:'',pmin:'',cmax:'',fmax:'',tk:'',tp:'',tc:'',tf:'',tol:20,n:30});render()};
+A.mbAuto=()=>{const m=metrics(C());if(!m)return toast('برای پر کردن ماکروهای هدف، اطلاعات پروفایل شاگرد را کامل کن');const share=MSHARE[UI.mb.t]||.15;UI.mb.kmin='';UI.mb.kmax='';UI.mb.tk=Math.round(m.kcal*share);UI.mb.tp=Math.round(m.p*share);UI.mb.tc=Math.round(m.c*share);UI.mb.tf=Math.round(m.f*share);UI.mb.tol=20;UI.mb.n=30;render()};
 A.mbAdd=bi=>{
  const x=mealBank()[bi],slot=C().diet.meals[UI.mb.slot];if(!x||!slot)return;
  const o={id:uid(),name:x.n,desc:x.d,kcal:x.k,p:x.p,c:x.c,f:x.f,bid:x.i};
