@@ -31,3 +31,20 @@ This tool enriches the extracted GrowFit food bank with fiber, vitamins, and min
 - Output: `../inbox/growfit-food-bank.json` and `../inbox/growfit-food-bank-review.json`.
 
 Source: USDA FoodData Central. Cite USDA FoodData Central in the application when displaying nutrient information.
+
+## Nutrient evidence prototype (inactive)
+
+The nutrient-level provenance prototype is deliberately isolated from the live food bank and nutrition UI.
+
+Files:
+- `nutrient-evidence.schema.json`: JSON Schema (Draft 2020-12) for source catalogues, foods, and per-nutrient evidence.
+- `nutrient-evidence.sample.json`: one research-only Sangak iron example; the reported value is preserved but its normalized value remains null because the moisture/portion basis is unresolved.
+- `validate-nutrient-evidence.py`: dependency-free Python validator for IDs, source references, nutrient names, review states, and approval requirements.
+
+Run locally from this directory:
+
+```bash
+python validate-nutrient-evidence.py
+```
+
+This is phase 1 only: it validates the separate sample package. It does not modify `growfit-food-bank.json`, `enrich-food-bank.py`, meal totals, or any user-facing page. Do not copy research-only values into production nutrition fields.
