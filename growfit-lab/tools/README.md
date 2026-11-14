@@ -106,3 +106,14 @@ The GitHub workflow runs tests and dry-run only. It never passes `--apply` autom
 - `food-alternative-research-round3.md`: primary-table verification for Doogh and Iranian breads, including a correction to a secondary-review citation.
 - `food-alternative-sources-round3.json`: structured research-only observations with sample counts, methods, units, caveats, and explicit non-publication status.
 - These files are isolated from enrichment and meal aggregation. No food-bank values were changed.
+
+## Alternative-source research archive
+
+These research files are deliberately separate from the food bank and cannot be consumed by the enrichment or publication pipeline:
+
+- [Round 1 alternative-source findings](food-alternative-sources.json)
+- [Round 2 research report](food-alternative-research-round2.md)
+- [Round 3 research report](food-alternative-research-round3.md) and [structured evidence](food-alternative-sources-round3.json)
+- [Round 4 lamb research report](food-alternative-research-round4.md) and [structured evidence](food-alternative-sources-round4.json)
+
+All alternative-source observations remain research-only unless independently reviewed, normalized to an explicit edible-portion basis, and separately approved. No round 4 values were published to the food bank.
