@@ -93,3 +93,9 @@ python publish-approved-nutrient-evidence.py --apply
 ```
 
 The GitHub workflow runs tests and dry-run only. It never passes `--apply` automatically.
+
+
+## Alternative-source research — round 2
+
+- `food-alternative-research-round2.md`: additional source review for cooked lean lamb, Doogh, Sangak, Barbari, and Lavash.
+- Research-only: not consumed by enrichment, publication, meal aggregation, or the nutrition UI. No food-bank values were changed.
