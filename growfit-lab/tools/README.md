@@ -60,7 +60,7 @@ python test-nutrient-evidence-validator.py
 python test-enrichment-evidence-preservation.py
 ```
 
-The validator suite covers valid research-only data, unresolved source IDs, duplicate evidence IDs, incomplete approvals, and missing dry-matter conversion evidence. The enrichment regression suite covers preservation across USDA updates, repeated updates, foods without evidence, and the rule that research-only values do not enter meal aggregation. Both suites use in-memory fixtures and do not write to the food bank.
+The validator suite covers valid research-only data, unresolved source IDs, duplicate evidence IDs, incomplete approvals, and missing dry-matter conversion evidence. The enrichment regression suite covers preservation across USDA updates, repeated updates, foods without evidence, and the rule that research-only and needs-review values do not enter meal aggregation. Both suites use in-memory fixtures and do not write to the food bank.
 
 The GitHub Pages workflow runs these checks. It also detects whether a push changed files under `growfit-lab/inbox/`; USDA enrichment and the bot commit are skipped for tools-only changes. This prevents editing documentation, schemas, or tests from unexpectedly rewriting the food bank. A manual workflow dispatch still explicitly runs the enrichment step.
 
