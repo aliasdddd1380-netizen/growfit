@@ -44,6 +44,26 @@ textarea{width:100%;background:#0d100c;border:1px solid var(--line);border-radiu
 .macro-grid small{display:block;color:var(--muted);font-size:10px;margin-top:2px}
 .ingredients{margin-top:10px;padding:10px;background:#111711;border-radius:10px}
 .day-field{max-width:230px;margin-top:14px}
+.macro-finder{border:1px solid #43552c;background:linear-gradient(145deg,#182116,#111611);border-radius:19px;padding:18px;margin-bottom:16px}
+.macro-finder-head{display:flex;justify-content:space-between;align-items:center;gap:10px;margin-bottom:8px}
+.macro-finder-head h3{font-size:15px;margin:0}.macro-finder-head small{font-size:10px;color:var(--lime)}
+.macro-finder>p{font-size:11px;line-height:1.9;color:var(--muted);margin:6px 0 14px}
+.macro-inputs{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:9px}
+.macro-inputs label{display:grid;gap:6px;color:#c7d0c0;font-size:10px}
+.macro-inputs input,.macro-inputs select{width:100%;min-width:0;background:#0d100c;border:1px solid #35402f;border-radius:9px;padding:10px;color:var(--text);font:inherit;font-size:11px}
+.macro-controls{display:flex;align-items:end;gap:9px;margin-top:12px;flex-wrap:wrap}
+.macro-controls label{display:grid;gap:6px;color:#c7d0c0;font-size:10px;min-width:125px}
+.macro-controls select{background:#0d100c;border:1px solid #35402f;border-radius:9px;padding:9px;color:var(--text);font:inherit;font-size:11px}
+.macro-results{margin-top:16px}.macro-results-head{display:flex;justify-content:space-between;align-items:center;gap:8px;margin-bottom:10px}
+.macro-results-head b{font-size:12px}.macro-results-head span{font-size:10px;color:var(--muted)}
+.match-list{display:grid;gap:9px}
+.match-card{background:#101610;border:1px solid #303b2a;border-radius:12px;padding:12px}
+.match-card h4{font-size:12px;margin:0 0 7px}
+.match-meta{font-size:10px;color:var(--muted);margin-bottom:8px}
+.match-card .macro-grid{margin-top:7px}
+.match-card .ingredients{margin-top:8px}
+@media(max-width:700px){.macro-inputs{grid-template-columns:repeat(2,minmax(0,1fr))}.macro-finder{padding:14px}}
+
 .empty-state{padding:28px 18px;text-align:center;border:1px dashed var(--line);border-radius:16px;color:var(--muted)}
 .empty-state b{display:block;color:var(--text);margin-bottom:8px}
 .empty-state p{font-size:13px;line-height:1.9;margin:0}
@@ -70,7 +90,31 @@ textarea{width:100%;background:#0d100c;border:1px solid var(--line);border-radiu
 <section class="hero"><div><span class="eyebrow">برنامه غذایی · نمای کاربر</span><h2>انتخاب از گزینه‌های برنامه مربی</h2><p>برای هر وعده، یکی از گزینه‌هایی را که در برنامه قرار گرفته انتخاب کن و جزئیات همان گزینه را ببین.</p></div><div class="hero-mark">🥗</div></section>
 <div class="notice"><b>اتصال به ساختار واقعی برنامه</b><span>وعده‌ها و گزینه‌ها از برنامه شاگرد در حافظه همین مرورگر خوانده می‌شوند؛ انتخاب روزانه نیز در ساختار dietLog ذخیره می‌شود. گزینه‌های دستی و گزینه‌های بانک غذایی هر دو پشتیبانی می‌شوند. اطلاعات ریزمغذی تا زمان تکمیل تطبیق با منبع معتبر، حدس زده یا صفر فرض نمی‌شود.</span></div>
 <div class="layout">
-<section class="panel">
+<section>
+  <section class="macro-finder" aria-labelledby="macroFinderTitle">
+    <div class="macro-finder-head"><h3 id="macroFinderTitle">🔎 پیدا کردن وعده بر اساس ماکرو</h3><small>بانک ۷۴۱ وعده GrowFit</small></div>
+    <p>مقدار هدف هر ماکرو را وارد کن؛ فقط فیلدهایی که پر می‌کنی در جست‌وجو اثر دارند. نتایج بر اساس نزدیک‌ترین ترکیب به هدف مرتب می‌شوند.</p>
+    <div class="macro-inputs">
+      <label>کالری هدف (kcal)<input id="targetKcal" type="number" min="0" step="1" placeholder="مثلاً ۴۵۰"></label>
+      <label>پروتئین (g)<input id="targetProtein" type="number" min="0" step="1" placeholder="مثلاً ۳۰"></label>
+      <label>کربوهیدرات (g)<input id="targetCarbs" type="number" min="0" step="1" placeholder="مثلاً ۵۰"></label>
+      <label>چربی (g)<input id="targetFat" type="number" min="0" step="1" placeholder="مثلاً ۱۵"></label>
+    </div>
+    <div class="macro-controls">
+      <label>نوع وعده
+        <select id="macroMealType">
+          <option value="all">همه وعده‌ها</option><option value="bf">صبحانه</option><option value="sn">میان‌وعده</option><option value="ln">ناهار</option><option value="dn">شام</option><option value="pre">قبل تمرین</option><option value="post">بعد تمرین</option><option value="bed">قبل خواب</option>
+        </select>
+      </label>
+      <label>میزان اختلاف مجاز
+        <select id="macroTolerance"><option value="10">۱۰٪</option><option value="15">۱۵٪</option><option value="20" selected>۲۰٪</option><option value="30">۳۰٪</option><option value="50">۵۰٪</option></select>
+      </label>
+      <button class="btn primary" id="searchMacroMeals" type="button">جست‌وجوی وعده‌ها</button>
+      <button class="btn" id="clearMacroSearch" type="button">پاک کردن</button>
+    </div>
+    <div class="macro-results" id="macroResults" aria-live="polite"><div class="empty-state"><b>ماکروهای مدنظرت را وارد کن</b><p>برای نمونه فقط پروتئین ۳۰ گرم و کالری ۴۵۰ را وارد کن تا وعده‌های نزدیک به این مقادیر پیدا شوند.</p></div></div>
+  </section>
+  <section class="panel">
   <div class="panel-head"><h3>🍽️ وعده‌های برنامه</h3><span class="tag">گزینه‌های ثبت‌شده توسط مربی</span></div>
   <div id="mealList"></div>
   <div class="progress"><i id="mealProgress"></i></div>
@@ -200,6 +244,42 @@ function renderMeals(){
  });
  updateProgress();
 }
+
+function macroSearch(){
+ const results=document.getElementById('macroResults');
+ if(!bank||!Array.isArray(bank.meals)){
+  results.innerHTML='<div class="empty-state"><b>بانک غذایی بارگذاری نشده است</b><p>فایل بانک وعده‌ها در دسترس نیست؛ اتصال فایل را بررسی کن.</p></div>';return;
+ }
+ const fields=[['kcal','targetKcal'],['protein','targetProtein'],['carbs','targetCarbs'],['fat','targetFat']];
+ const targets=fields.map(([key,id])=>({key,value:document.getElementById(id).value.trim()})).filter(x=>x.value!=='').map(x=>({...x,value:Number(x.value)}));
+ if(!targets.length){
+  results.innerHTML='<div class="empty-state"><b>حداقل یک ماکرو وارد کن</b><p>می‌توانی فقط کالری یا فقط پروتئین را تعیین کنی؛ لازم نیست همه فیلدها پر شوند.</p></div>';return;
+ }
+ if(targets.some(x=>!Number.isFinite(x.value)||x.value<0)){
+  results.innerHTML='<div class="empty-state"><b>مقدار واردشده معتبر نیست</b><p>برای ماکروها عدد صفر یا بزرگ‌تر وارد کن.</p></div>';return;
+ }
+ const type=document.getElementById('macroMealType').value;
+ const tolerance=Number(document.getElementById('macroTolerance').value)/100;
+ const typeLabels={bf:'صبحانه',sn:'میان‌وعده',ln:'ناهار',dn:'شام',pre:'قبل تمرین',post:'بعد تمرین',bed:'قبل خواب'};
+ const matches=bank.meals.map(meal=>{
+  if(type!=='all'&&meal.type!==type)return null;
+  const values={kcal:Number(meal.kcal),protein:Number(meal.protein),carbs:Number(meal.carbs),fat:Number(meal.fat)};
+  if(targets.some(t=>!Number.isFinite(values[t.key])))return null;
+  const deviations=targets.map(t=>Math.abs(values[t.key]-t.value)/Math.max(t.value,1));
+  if(deviations.some(d=>d>tolerance))return null;
+  return {meal,values,score:deviations.reduce((a,b)=>a+b,0)/deviations.length};
+ }).filter(Boolean).sort((a,b)=>a.score-b.score);
+ if(!matches.length){
+  results.innerHTML='<div class="empty-state"><b>وعده‌ای در این محدوده پیدا نشد</b><p>اختلاف مجاز را بیشتر کن یا یکی از ماکروها را تغییر بده تا گزینه‌های بیشتری بررسی شوند.</p></div>';return;
+ }
+ const shown=matches.slice(0,18);
+ results.innerHTML='<div class="macro-results-head"><b>'+fa(matches.length)+' وعده پیدا شد</b><span>نمایش '+fa(shown.length)+' گزینه نزدیک‌تر</span></div><div class="match-list">'+shown.map(({meal,values,score})=>{
+  const ingredients=(meal.ingredients||[]).map(x=>{const f=bank.foods&&bank.foods[x.foodId];return f?esc(f.name)+' · '+fa(x.grams)+' گرم':''}).filter(Boolean);
+  return '<article class="match-card"><h4>'+esc(meal.name||'وعده غذایی')+'</h4><div class="match-meta">'+esc(typeLabels[meal.type]||'وعده')+' · '+fa(Math.round(score*100))+'٪ اختلاف میانگین با هدف</div>'+
+   '<div class="macro-grid"><span><b>'+fa(Math.round(values.kcal))+'</b><small>کیلوکالری</small></span><span><b>'+fa(Math.round(values.protein))+' g</b><small>پروتئین</small></span><span><b>'+fa(Math.round(values.carbs))+' g</b><small>کربوهیدرات</small></span><span><b>'+fa(Math.round(values.fat))+' g</b><small>چربی</small></span></div>'+
+   (ingredients.length?'<div class="ingredients"><b>ترکیبات</b><p>'+ingredients.join('، ')+'</p></div>':'')+'</article>';
+ }).join('')+'</div>';
+}
 function updateProgress(){
  const rec=dayRecord(),meals=diet&&diet.meals||[];
  const count=meals.filter((m,i)=>!!rec.m[i]).length;
@@ -222,6 +302,13 @@ document.getElementById('daySelect').value=currentDate;
 dateInput.addEventListener('change',()=>changeDate(dateInput.value));
 document.getElementById('dailyNote').addEventListener('input',()=>{note=document.getElementById('dailyNote').value;});
 document.getElementById('saveAll').addEventListener('click',()=>saveState(true));
+document.getElementById('searchMacroMeals').addEventListener('click',macroSearch);
+document.getElementById('clearMacroSearch').addEventListener('click',()=>{
+ ['targetKcal','targetProtein','targetCarbs','targetFat'].forEach(id=>document.getElementById(id).value='');
+ document.getElementById('macroMealType').value='all';
+ document.getElementById('macroTolerance').value='20';
+ document.getElementById('macroResults').innerHTML='<div class="empty-state"><b>ماکروهای مدنظرت را وارد کن</b><p>برای شروع حداقل یک ماکرو وارد کن و جست‌وجو را بزن.</p></div>';
+});
 document.getElementById('waterPlus').addEventListener('click',()=>{water=Math.min(99,water+1);renderWater();saveState(false)});
 document.getElementById('waterMinus').addEventListener('click',()=>{water=Math.max(0,water-1);renderWater();saveState(false)});
 document.getElementById('waterReset').addEventListener('click',()=>{water=0;renderWater();saveState(false)});
