@@ -112,20 +112,6 @@
       ]
     },
     {
-      "foodId": 27,
-      "foodName": "نان سنگک",
-      "sourceId": "JAHED-KHANIKI-BREAD-ZN-2005",
-      "status": "research-only",
-      "basis": "reported mg/kg; moisture basis unresolved",
-      "values": {
-        "zincMgPerKg": 14.25,
-        "sdMgPerKg": 3.56
-      },
-      "reviewNotes": [
-        "Sangak value from same pooled 36-sample study; exact n not stated."
-      ]
-    },
-    {
       "foodId": 28,
       "foodName": "نان بربری",
       "sourceId": "KHODAEI-ISFAHAN-BREAD-ELEMENTS-2023",
