@@ -55,12 +55,14 @@ class EnrichmentEvidencePreservationTests(unittest.TestCase):
         )
         self.assertNotIn("nutrientEvidence", food)
 
-    def test_research_only_value_never_enters_meal_aggregation(self):
+    def assert_unapproved_evidence_stays_out_of_meal_totals(self, status):
+        evidence = copy.deepcopy(EVIDENCE)
+        evidence["iron"][0]["reviewStatus"] = status
         food = {
             "id": 27,
             "fdcMatch": {"status": "accepted", "fdcId": 123},
             "micronutrientsPer100g": {key: None for key in enrichment.NUTRIENTS},
-            "nutrientEvidence": copy.deepcopy(EVIDENCE),
+            "nutrientEvidence": evidence,
         }
         bank = {
             "foods": [food],
@@ -71,7 +73,13 @@ class EnrichmentEvidencePreservationTests(unittest.TestCase):
         enrichment.aggregate_meals(bank)
         self.assertIsNone(bank["meals"][0]["micronutrients"]["iron"])
         self.assertEqual(bank["meals"][0]["micronutrientCoverage"]["status"], "pending")
-        self.assertEqual(food["nutrientEvidence"], self.evidence_before)
+        self.assertEqual(food["nutrientEvidence"], evidence)
+
+    def test_research_only_value_never_enters_meal_aggregation(self):
+        self.assert_unapproved_evidence_stays_out_of_meal_totals("research-only")
+
+    def test_needs_review_value_never_enters_meal_aggregation(self):
+        self.assert_unapproved_evidence_stays_out_of_meal_totals("needs-review")
 
 if __name__ == "__main__":
     unittest.main(verbosity=2)
