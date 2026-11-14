@@ -88,7 +88,18 @@ def has_any_data(micro):
 
 def approved_provenance(food, key):
     provenance = (food.get("micronutrientProvenance") or {}).get(key) or {}
-    return provenance.get("reviewStatus") == "approved" and bool(provenance.get("sourceId"))
+    value = (food.get("micronutrientsPer100g") or {}).get(key)
+    standard_value = provenance.get("standardValue")
+    return (
+        provenance.get("reviewStatus") == "approved"
+        and bool(provenance.get("sourceId"))
+        and bool(provenance.get("evidenceId"))
+        and str(provenance.get("sourceUrl") or "").startswith("https://")
+        and provenance.get("standardBasis") in {"per 100g edible portion", "per 100 g edible portion", "edible portion per 100g"}
+        and isinstance(value, (int, float))
+        and isinstance(standard_value, (int, float))
+        and float(value) == float(standard_value)
+    )
 
 def apply_usda_fields(food, match, micro):
     """Update USDA-owned values while preserving approved independent nutrient values."""
