@@ -5,11 +5,12 @@ on:
     branches: [main]
     paths:
       - "growfit-lab/inbox/**"
+      - "growfit-lab/tools/**"
       - ".github/workflows/growfit-lab-pages.yml"
   workflow_dispatch:
 
 permissions:
-  contents: read
+  contents: write
   pages: write
   id-token: write
 
@@ -30,6 +31,19 @@ jobs:
         uses: actions/configure-pages@v5
         with:
           enablement: true
+      - name: Enrich food bank with USDA micronutrients
+        env:
+          USDA_API_KEY: ${{ secrets.USDA_API_KEY }}
+        run: python growfit-lab/tools/enrich-food-bank.py
+      - name: Commit enriched food bank
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add -A growfit-lab/inbox
+          if ! git diff --cached --quiet; then
+            git commit -m "Enrich GrowFit food bank with USDA nutrients"
+            git push
+          fi
       - name: Upload lab preview
         uses: actions/upload-pages-artifact@v3
         with:
