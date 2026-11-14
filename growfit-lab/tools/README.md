@@ -72,7 +72,7 @@ The GitHub Pages workflow runs these checks. It also detects whether a push chan
 
 - No evidence has been copied into `micronutrientsPer100g`.
 - No meal total is calculated from `nutrientEvidence`.
-- No food-bank record, nutrition page, or source project file was changed as part of this provenance implementation.
+- No food-bank nutrient value has been published from research evidence; the nutrition page was updated only to show source attribution if approved alternative values are present.
 - Phase 2 now has a gated publisher and tests. The default command is dry-run; writing requires an explicit `--apply`, and the tool refuses unresolved records, multiple approvals, and overwriting an existing nutrient value. No current sample value is approved, so the dry-run should publish zero values.
 
 
