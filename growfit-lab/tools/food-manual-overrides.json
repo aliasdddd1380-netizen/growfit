@@ -1,0 +1,157 @@
+{
+  "schemaVersion": 1,
+  "source": "USDA FoodData Central",
+  "policy": "Only manually reviewed records with a matching USDA description are accepted. Items without a defensible match remain pending.",
+  "foods": [
+    {
+      "foodId": 4,
+      "fdcId": 171770,
+      "expectedDescription": "Beef, round, top round roast, boneless, separable lean only, trimmed to 0\" fat, choice, cooked, roasted",
+      "reason": "گزینه گوشت گاو از گزینه گوساله به نوع ماده غذایی نزدیک‌تر است؛ برش top round و حالت پخته/تنوری منطبق است."
+    },
+    {
+      "foodId": 12,
+      "fdcId": 173180,
+      "expectedDescription": "Beverages, Protein powder whey based",
+      "reason": "رکورد USDA به‌طور مشخص پودر پروتئین بر پایه وی است."
+    },
+    {
+      "foodId": 16,
+      "fdcId": 170903,
+      "expectedDescription": "Yogurt, Greek, plain, lowfat",
+      "reason": "نوع یونانی ساده و کم‌چرب، مطابق نام ماده غذایی است."
+    },
+    {
+      "foodId": 22,
+      "fdcId": 2346385,
+      "expectedDescription": "Cream cheese, full fat, block",
+      "reason": "رکورد مشخص پنیر خامه‌ای ساده است؛ چربی کامل به‌عنوان نزدیک‌ترین مرجع عمومی انتخاب شده."
+    },
+    {
+      "foodId": 25,
+      "fdcId": 168878,
+      "expectedDescription": "Rice, white, long-grain, regular, enriched, cooked",
+      "reason": "برنج سفید دانه‌بلند پخته؛ رکورد enriched انتخاب شده و این تفاوت در منبع حفظ می‌شود."
+    },
+    {
+      "foodId": 34,
+      "fdcId": 170440,
+      "expectedDescription": "Potatoes, boiled, cooked without skin, flesh, without salt",
+      "reason": "سیب‌زمینی پخته بدون پوست و بدون نمک."
+    },
+    {
+      "foodId": 35,
+      "fdcId": 168483,
+      "expectedDescription": "Sweet potato, cooked, baked in skin, flesh, without salt",
+      "reason": "سیب‌زمینی شیرین پخته، بخش خوراکی، بدون نمک."
+    },
+    {
+      "foodId": 38,
+      "fdcId": 169999,
+      "expectedDescription": "Corn, sweet, yellow, cooked, boiled, drained, without salt",
+      "reason": "ذرت شیرین زرد پخته و آبکش‌شده بدون نمک."
+    },
+    {
+      "foodId": 40,
+      "fdcId": 171646,
+      "expectedDescription": "Cereals ready-to-eat, granola, homemade",
+      "reason": "رکورد USDA صراحتاً گرانولای خانگی است."
+    },
+    {
+      "foodId": 41,
+      "fdcId": 170250,
+      "expectedDescription": "Snacks, rice cakes, brown rice, plain, unsalted",
+      "reason": "کیک برنجی قهوه‌ای ساده و بدون نمک."
+    },
+    {
+      "foodId": 42,
+      "fdcId": 172421,
+      "expectedDescription": "Lentils, mature seeds, cooked, boiled, without salt",
+      "reason": "عدس پخته بدون نمک."
+    },
+    {
+      "foodId": 43,
+      "fdcId": 175194,
+      "expectedDescription": "Beans, kidney, red, mature seeds, cooked, boiled, without salt",
+      "reason": "لوبیای قرمز پخته بدون نمک؛ با عبارت جست‌وجوی فعلی kidney bean منطبق است."
+    },
+    {
+      "foodId": 45,
+      "fdcId": 173753,
+      "expectedDescription": "Broadbeans (fava beans), mature seeds, cooked, boiled, without salt",
+      "reason": "باقلای پخته بدون نمک."
+    },
+    {
+      "foodId": 46,
+      "fdcId": 174257,
+      "expectedDescription": "Mung beans, mature seeds, cooked, boiled, without salt",
+      "reason": "ماش پخته بدون نمک."
+    },
+    {
+      "foodId": 51,
+      "fdcId": 174683,
+      "expectedDescription": "Grapes, red or green (European type, such as Thompson seedless), raw",
+      "reason": "رکورد عمومی انگور قرمز یا سبز خام؛ نزدیک‌تر از انتخاب یک رنگ خاص."
+    },
+    {
+      "foodId": 61,
+      "fdcId": 2758980,
+      "expectedDescription": "Raisins, dark, seedless",
+      "reason": "کشمش تیره بدون هسته؛ نوع دقیق‌تر عمومی در نتایج موجود نبود."
+    },
+    {
+      "foodId": 63,
+      "fdcId": 170457,
+      "expectedDescription": "Tomatoes, red, ripe, raw, year round average",
+      "reason": "گوجه‌فرنگی قرمز رسیده خام."
+    },
+    {
+      "foodId": 72,
+      "fdcId": 169967,
+      "expectedDescription": "Broccoli, cooked, boiled, drained, without salt",
+      "reason": "بروکلی پخته و آبکش‌شده بدون نمک."
+    },
+    {
+      "foodId": 75,
+      "fdcId": 169141,
+      "expectedDescription": "Beans, snap, green, cooked, boiled, drained, without salt",
+      "reason": "لوبیاسبز پخته و آبکش‌شده بدون نمک."
+    },
+    {
+      "foodId": 80,
+      "fdcId": 170184,
+      "expectedDescription": "Nuts, pistachio nuts, raw",
+      "reason": "پسته خام."
+    },
+    {
+      "foodId": 83,
+      "fdcId": 170189,
+      "expectedDescription": "Seeds, sesame butter, tahini, from roasted and toasted kernels (most common type)",
+      "reason": "ارده تهیه‌شده از کنجد برشته؛ مطابق روش آماده‌سازی ثبت‌شده."
+    },
+    {
+      "foodId": 100,
+      "fdcId": 169094,
+      "expectedDescription": "Olives, ripe, canned (small-extra large)",
+      "reason": "زیتون رسیده کنسروی."
+    },
+    {
+      "foodId": 101,
+      "fdcId": 172429,
+      "expectedDescription": "Peas, split, mature seeds, cooked, boiled, without salt",
+      "reason": "لپه پخته بدون نمک."
+    },
+    {
+      "foodId": 109,
+      "fdcId": 170397,
+      "expectedDescription": "Cauliflower, cooked, boiled, drained, without salt",
+      "reason": "گل‌کلم پخته و آبکش‌شده بدون نمک."
+    },
+    {
+      "foodId": 111,
+      "fdcId": 170173,
+      "expectedDescription": "Nuts, coconut milk, canned (liquid expressed from grated meat and water)",
+      "reason": "شیر نارگیل کنسروی استخراج‌شده از گوشت نارگیل و آب."
+    }
+  ]
+}
