@@ -86,12 +86,32 @@ def fetch_food_details(fdc_id):
 def has_any_data(micro):
     return any(v is not None for v in micro.values())
 
+def approved_provenance(food, key):
+    provenance = (food.get("micronutrientProvenance") or {}).get(key) or {}
+    return provenance.get("reviewStatus") == "approved" and bool(provenance.get("sourceId"))
+
 def apply_usda_fields(food, match, micro):
-    """Update USDA-owned fields without touching independent nutrient evidence."""
+    """Update USDA-owned values while preserving approved independent nutrient values."""
     evidence_before = json.dumps(food.get("nutrientEvidence"), ensure_ascii=False, sort_keys=True)
+    provenance = dict(food.get("micronutrientProvenance") or {})
+    current = dict(food.get("micronutrientsPer100g") or {})
+    merged = {}
+    for key in NUTRIENTS:
+        incoming = micro.get(key)
+        if incoming is not None:
+            merged[key] = incoming
+            provenance.pop(key, None)
+        elif current.get(key) is not None and approved_provenance(food, key):
+            merged[key] = current[key]
+        else:
+            merged[key] = incoming
     food["fdcMatch"] = match
-    food["micronutrientsPer100g"] = micro
+    food["micronutrientsPer100g"] = merged
     food["micronutrientUnits"] = {k: v[2] for k, v in NUTRIENTS.items()}
+    if provenance:
+        food["micronutrientProvenance"] = provenance
+    else:
+        food.pop("micronutrientProvenance", None)
     evidence_after = json.dumps(food.get("nutrientEvidence"), ensure_ascii=False, sort_keys=True)
     if evidence_before != evidence_after:
         raise RuntimeError("USDA enrichment must not modify nutrientEvidence")
@@ -101,6 +121,7 @@ def aggregate_meals(bank):
         sums = {k: 0.0 for k in NUTRIENTS}
         valid = {k: True for k in NUTRIENTS}
         matched_count = 0
+        ingredient_sources = []
         for ingredient in meal.get("ingredients", []):
             food_id = ingredient.get("foodId")
             if not isinstance(food_id, int) or food_id < 0 or food_id >= len(bank["foods"]):
@@ -109,17 +130,28 @@ def aggregate_meals(bank):
             food = bank["foods"][food_id]
             micro = food.get("micronutrientsPer100g") or {}
             grams = float(ingredient.get("grams") or 0)
-            if food.get("fdcMatch", {}).get("status") == "accepted":
+            fdc_accepted = food.get("fdcMatch", {}).get("status") == "accepted"
+            provenance = food.get("micronutrientProvenance") or {}
+            if fdc_accepted or any(approved_provenance(food, key) for key in NUTRIENTS):
                 matched_count += 1
-            else:
-                for k in valid: valid[k] = False
             for key in NUTRIENTS:
                 value = micro.get(key)
-                if value is None:
+                source_ok = fdc_accepted or approved_provenance(food, key)
+                if value is None or not source_ok:
                     valid[key] = False
                 else:
                     sums[key] += float(value) * grams / 100.0
+                    if not fdc_accepted:
+                        entry = provenance.get(key) or {}
+                        ingredient_sources.append({
+                            "nutrient": key, "foodId": food.get("id"),
+                            "foodName": food.get("name"), "sourceId": entry.get("sourceId"),
+                            "evidenceId": entry.get("evidenceId"), "title": entry.get("sourceTitle"),
+                            "url": entry.get("sourceUrl"), "value": value,
+                            "unit": (food.get("micronutrientUnits") or {}).get(key)
+                        })
         meal["micronutrients"] = {k: round(sums[k], 3) if valid[k] else None for k in NUTRIENTS}
+        meal["micronutrientSources"] = ingredient_sources
         meal["micronutrientCoverage"] = {
             "matchedIngredients": matched_count,
             "totalIngredients": len(meal.get("ingredients", [])),
