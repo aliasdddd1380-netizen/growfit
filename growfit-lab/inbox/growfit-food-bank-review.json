@@ -1,0 +1,1671 @@
+{
+  "schemaVersion": 1,
+  "source": "USDA FoodData Central",
+  "items": [
+    {
+      "foodId": 4,
+      "foodName": "گوشت گوساله لخم (پخته)",
+      "query": "Beef, round, top round, separable lean only, cooked, roasted",
+      "bestCandidate": {
+        "fdcId": 173822,
+        "description": "Veal, leg (top round), separable lean only, cooked, roasted",
+        "dataType": "SR Legacy",
+        "score": 0.765,
+        "micronutrientsPer100g": {
+          "fiber": 0.0,
+          "calcium": 6.0,
+          "iron": 0.9,
+          "potassium": 393.0,
+          "magnesium": 28.0,
+          "zinc": 3.08,
+          "sodium": 68.0,
+          "vitaminA": 0.0,
+          "vitaminC": 0.0,
+          "vitaminD": null,
+          "vitaminB12": 1.18,
+          "folate": 16.0
+        }
+      },
+      "otherCandidates": [
+        {
+          "fdcId": 175270,
+          "description": "Veal, leg (top round), separable lean only, cooked, braised",
+          "dataType": "SR Legacy",
+          "score": 0.655
+        },
+        {
+          "fdcId": 171770,
+          "description": "Beef, round, top round roast, boneless, separable lean only, trimmed to 0\" fat, choice, cooked, roasted",
+          "dataType": "SR Legacy",
+          "score": 0.611
+        },
+        {
+          "fdcId": 171771,
+          "description": "Beef, round, top round roast, boneless, separable lean only, trimmed to 0\" fat, select, cooked, roasted",
+          "dataType": "SR Legacy",
+          "score": 0.611
+        }
+      ]
+    },
+    {
+      "foodId": 5,
+      "foodName": "گوشت چرخ‌کرده لخم (پخته)",
+      "query": "Beef, ground, cooked, pan-browned",
+      "bestCandidate": {
+        "fdcId": 171117,
+        "description": "Chicken, ground, crumbles, cooked, pan-browned",
+        "dataType": "SR Legacy",
+        "score": 0.639,
+        "micronutrientsPer100g": {
+          "fiber": 0.0,
+          "calcium": 8.0,
+          "iron": 0.93,
+          "potassium": 677.0,
+          "magnesium": 28.0,
+          "zinc": 1.92,
+          "sodium": 75.0,
+          "vitaminA": 0.0,
+          "vitaminC": 0.0,
+          "vitaminD": null,
+          "vitaminB12": 0.51,
+          "folate": 2.0
+        }
+      },
+      "otherCandidates": [
+        {
+          "fdcId": 172833,
+          "description": "Emu, ground, cooked, pan-broiled",
+          "dataType": "SR Legacy",
+          "score": 0.588
+        },
+        {
+          "fdcId": 174879,
+          "description": "Veal, ground, cooked, pan-fried",
+          "dataType": "SR Legacy",
+          "score": 0.567
+        },
+        {
+          "fdcId": 174482,
+          "description": "Ostrich, ground, cooked, pan-broiled",
+          "dataType": "SR Legacy",
+          "score": 0.555
+        }
+      ]
+    },
+    {
+      "foodId": 6,
+      "foodName": "گوشت گوسفندی لخم (پخته)",
+      "query": "Lamb, domestic, composite of trimmed retail cuts, cooked, roasted",
+      "bestCandidate": {
+        "fdcId": 175267,
+        "description": "Veal, composite of trimmed retail cuts, separable fat, cooked",
+        "dataType": "SR Legacy",
+        "score": 0.572,
+        "micronutrientsPer100g": {
+          "fiber": 0.0,
+          "calcium": 4.0,
+          "iron": 1.0,
+          "potassium": 173.0,
+          "magnesium": 10.0,
+          "zinc": 0.87,
+          "sodium": 57.0,
+          "vitaminA": 0.0,
+          "vitaminC": 0.0,
+          "vitaminD": null,
+          "vitaminB12": 0.55,
+          "folate": 5.0
+        }
+      },
+      "otherCandidates": [
+        {
+          "fdcId": 172512,
+          "description": "Lamb, New Zealand, imported, frozen, composite of trimmed retail cuts, separable fat, cooked",
+          "dataType": "SR Legacy",
+          "score": 0.537
+        },
+        {
+          "fdcId": 175265,
+          "description": "Veal, composite of trimmed retail cuts, separable lean only, cooked",
+          "dataType": "SR Legacy",
+          "score": 0.535
+        },
+        {
+          "fdcId": 174310,
+          "description": "Lamb, composite of trimmed retail cuts, separable fat, trimmed to 1/4\" fat, choice, cooked",
+          "dataType": "SR Legacy",
+          "score": 0.52
+        }
+      ]
+    },
+    {
+      "foodId": 12,
+      "foodName": "پودر پروتئین وی",
+      "query": "Protein powder, whey based",
+      "bestCandidate": {
+        "fdcId": 173180,
+        "description": "Beverages, Protein powder whey based",
+        "dataType": "SR Legacy",
+        "score": 0.813,
+        "micronutrientsPer100g": {
+          "fiber": 3.1,
+          "calcium": 469.0,
+          "iron": 1.13,
+          "potassium": 500.0,
+          "magnesium": 195.0,
+          "zinc": 6.18,
+          "sodium": 156.0,
+          "vitaminA": 0.0,
+          "vitaminC": 0.0,
+          "vitaminD": 0.0,
+          "vitaminB12": 2.45,
+          "folate": 33.0
+        }
+      },
+      "otherCandidates": [
+        {
+          "fdcId": 173181,
+          "description": "Beverages, Protein powder soy based",
+          "dataType": "SR Legacy",
+          "score": 0.593
+        },
+        {
+          "fdcId": 173177,
+          "description": "Beverages, Whey protein powder isolate",
+          "dataType": "SR Legacy",
+          "score": 0.506
+        },
+        {
+          "fdcId": 173167,
+          "description": "Beverages, ABBOTT, EAS whey protein powder",
+          "dataType": "SR Legacy",
+          "score": 0.429
+        }
+      ]
+    },
+    {
+      "foodId": 16,
+      "foodName": "ماست یونانی کم‌چرب",
+      "query": "Yogurt, Greek, plain, low fat",
+      "bestCandidate": {
+        "fdcId": 170886,
+        "description": "Yogurt, plain, low fat",
+        "dataType": "SR Legacy",
+        "score": 0.826,
+        "micronutrientsPer100g": {
+          "fiber": 0.0,
+          "calcium": 183.0,
+          "iron": 0.08,
+          "potassium": 234.0,
+          "magnesium": 17.0,
+          "zinc": 0.89,
+          "sodium": 70.0,
+          "vitaminA": 14.0,
+          "vitaminC": 0.8,
+          "vitaminD": 0.0,
+          "vitaminB12": 0.56,
+          "folate": 11.0
+        }
+      },
+      "otherCandidates": [
+        {
+          "fdcId": 170903,
+          "description": "Yogurt, Greek, plain, lowfat",
+          "dataType": "SR Legacy",
+          "score": 0.683
+        },
+        {
+          "fdcId": 330137,
+          "description": "Yogurt, Greek, plain, nonfat",
+          "dataType": "Foundation",
+          "score": 0.653
+        },
+        {
+          "fdcId": 170888,
+          "description": "Yogurt, vanilla, low fat.",
+          "dataType": "SR Legacy",
+          "score": 0.579
+        }
+      ]
+    },
+    {
+      "foodId": 22,
+      "foodName": "پنیر خامه‌ای",
+      "query": "Cream cheese",
+      "bestCandidate": {
+        "fdcId": 173418,
+        "description": "Cheese, cream",
+        "dataType": "SR Legacy",
+        "score": 0.81,
+        "micronutrientsPer100g": {
+          "fiber": 0.0,
+          "calcium": 97.0,
+          "iron": 0.11,
+          "potassium": 132.0,
+          "magnesium": 9.0,
+          "zinc": 0.5,
+          "sodium": 314.0,
+          "vitaminA": 308.0,
+          "vitaminC": 0.0,
+          "vitaminD": 0.0,
+          "vitaminB12": 0.22,
+          "folate": 9.0
+        }
+      },
+      "otherCandidates": [
+        {
+          "fdcId": 169081,
+          "description": "Cheese spread, cream cheese base",
+          "dataType": "SR Legacy",
+          "score": 0.522
+        },
+        {
+          "fdcId": 172207,
+          "description": "Cheese, cream, fat free",
+          "dataType": "SR Legacy",
+          "score": 0.494
+        },
+        {
+          "fdcId": 2346385,
+          "description": "Cream cheese, full fat, block",
+          "dataType": "Foundation",
+          "score": 0.482
+        }
+      ]
+    },
+    {
+      "foodId": 24,
+      "foodName": "دوغ",
+      "query": "Yogurt drink, plain, fermented milk beverage",
+      "bestCandidate": {
+        "fdcId": 170887,
+        "description": "Yogurt, plain, skim milk",
+        "dataType": "SR Legacy",
+        "score": 0.491,
+        "micronutrientsPer100g": {
+          "fiber": 0.0,
+          "calcium": 199.0,
+          "iron": 0.09,
+          "potassium": 255.0,
+          "magnesium": 19.0,
+          "zinc": 0.97,
+          "sodium": 77.0,
+          "vitaminA": 2.0,
+          "vitaminC": 0.9,
+          "vitaminD": 0.0,
+          "vitaminB12": 0.61,
+          "folate": 12.0
+        }
+      },
+      "otherCandidates": [
+        {
+          "fdcId": 2259793,
+          "description": "Yogurt, plain, whole milk",
+          "dataType": "Foundation",
+          "score": 0.488
+        },
+        {
+          "fdcId": 171284,
+          "description": "Yogurt, plain, whole milk",
+          "dataType": "SR Legacy",
+          "score": 0.488
+        },
+        {
+          "fdcId": 2259794,
+          "description": "Yogurt, Greek, plain, whole milk",
+          "dataType": "Foundation",
+          "score": 0.468
+        }
+      ]
+    },
+    {
+      "foodId": 25,
+      "foodName": "برنج سفید (پخته)",
+      "query": "Rice, white, long-grain, cooked",
+      "bestCandidate": {
+        "fdcId": 168878,
+        "description": "Rice, white, long-grain, regular, enriched, cooked",
+        "dataType": "SR Legacy",
+        "score": 0.734,
+        "micronutrientsPer100g": {
+          "fiber": 0.4,
+          "calcium": 10.0,
+          "iron": 1.2,
+          "potassium": 35.0,
+          "magnesium": 12.0,
+          "zinc": 0.49,
+          "sodium": 1.0,
+          "vitaminA": 0.0,
+          "vitaminC": 0.0,
+          "vitaminD": 0.0,
+          "vitaminB12": 0.0,
+          "folate": 58.0
+        }
+      },
+      "otherCandidates": [
+        {
+          "fdcId": 169708,
+          "description": "Rice, white, long-grain, parboiled, enriched, cooked",
+          "dataType": "SR Legacy",
+          "score": 0.727
+        },
+        {
+          "fdcId": 169759,
+          "description": "Rice, white, long-grain, parboiled, unenriched, cooked",
+          "dataType": "SR Legacy",
+          "score": 0.719
+        },
+        {
+          "fdcId": 168882,
+          "description": "Rice, white, short-grain, enriched, cooked",
+          "dataType": "SR Legacy",
+          "score": 0.642
+        }
+      ]
+    },
+    {
+      "foodId": 26,
+      "foodName": "برنج قهوه‌ای (پخته)",
+      "query": "Rice, brown, long-grain, cooked",
+      "bestCandidate": {
+        "fdcId": 168878,
+        "description": "Rice, white, long-grain, regular, enriched, cooked",
+        "dataType": "SR Legacy",
+        "score": 0.56,
+        "micronutrientsPer100g": {
+          "fiber": 0.4,
+          "calcium": 10.0,
+          "iron": 1.2,
+          "potassium": 35.0,
+          "magnesium": 12.0,
+          "zinc": 0.49,
+          "sodium": 1.0,
+          "vitaminA": 0.0,
+          "vitaminC": 0.0,
+          "vitaminD": 0.0,
+          "vitaminB12": 0.0,
+          "folate": 58.0
+        }
+      },
+      "otherCandidates": [
+        {
+          "fdcId": 169708,
+          "description": "Rice, white, long-grain, parboiled, enriched, cooked",
+          "dataType": "SR Legacy",
+          "score": 0.553
+        },
+        {
+          "fdcId": 169759,
+          "description": "Rice, white, long-grain, parboiled, unenriched, cooked",
+          "dataType": "SR Legacy",
+          "score": 0.547
+        },
+        {
+          "fdcId": 169753,
+          "description": "Rice, white, long-grain, regular, cooked, enriched, with salt",
+          "dataType": "SR Legacy",
+          "score": 0.468
+        }
+      ]
+    },
+    {
+      "foodId": 27,
+      "foodName": "نان سنگک",
+      "query": "Persian sangak bread",
+      "bestCandidate": {
+        "fdcId": 172673,
+        "description": "Bread, egg",
+        "dataType": "SR Legacy",
+        "score": 0.286,
+        "micronutrientsPer100g": {
+          "fiber": 2.3,
+          "calcium": 93.0,
+          "iron": 3.04,
+          "potassium": 115.0,
+          "magnesium": 19.0,
+          "zinc": 0.79,
+          "sodium": 380.0,
+          "vitaminA": 63.0,
+          "vitaminC": 0.0,
+          "vitaminD": 0.4,
+          "vitaminB12": 0.1,
+          "folate": 105.0
+        }
+      },
+      "otherCandidates": [
+        {
+          "fdcId": 172684,
+          "description": "Bread, rye",
+          "dataType": "SR Legacy",
+          "score": 0.286
+        },
+        {
+          "fdcId": 172686,
+          "description": "Bread, wheat",
+          "dataType": "SR Legacy",
+          "score": 0.278
+        },
+        {
+          "fdcId": 167944,
+          "description": "Bread, cheese",
+          "dataType": "SR Legacy",
+          "score": 0.274
+        }
+      ]
+    },
+    {
+      "foodId": 28,
+      "foodName": "نان بربری",
+      "query": "Persian barbari bread",
+      "bestCandidate": {
+        "fdcId": 172673,
+        "description": "Bread, egg",
+        "dataType": "SR Legacy",
+        "score": 0.282,
+        "micronutrientsPer100g": {
+          "fiber": 2.3,
+          "calcium": 93.0,
+          "iron": 3.04,
+          "potassium": 115.0,
+          "magnesium": 19.0,
+          "zinc": 0.79,
+          "sodium": 380.0,
+          "vitaminA": 63.0,
+          "vitaminC": 0.0,
+          "vitaminD": 0.4,
+          "vitaminB12": 0.1,
+          "folate": 105.0
+        }
+      },
+      "otherCandidates": [
+        {
+          "fdcId": 172684,
+          "description": "Bread, rye",
+          "dataType": "SR Legacy",
+          "score": 0.282
+        },
+        {
+          "fdcId": 172686,
+          "description": "Bread, wheat",
+          "dataType": "SR Legacy",
+          "score": 0.274
+        },
+        {
+          "fdcId": 167944,
+          "description": "Bread, cheese",
+          "dataType": "SR Legacy",
+          "score": 0.27
+        }
+      ]
+    },
+    {
+      "foodId": 29,
+      "foodName": "نان لواش",
+      "query": "Lavash bread",
+      "bestCandidate": {
+        "fdcId": 172673,
+        "description": "Bread, egg",
+        "dataType": "SR Legacy",
+        "score": 0.388,
+        "micronutrientsPer100g": {
+          "fiber": 2.3,
+          "calcium": 93.0,
+          "iron": 3.04,
+          "potassium": 115.0,
+          "magnesium": 19.0,
+          "zinc": 0.79,
+          "sodium": 380.0,
+          "vitaminA": 63.0,
+          "vitaminC": 0.0,
+          "vitaminD": 0.4,
+          "vitaminB12": 0.1,
+          "folate": 105.0
+        }
+      },
+      "otherCandidates": [
+        {
+          "fdcId": 172684,
+          "description": "Bread, rye",
+          "dataType": "SR Legacy",
+          "score": 0.388
+        },
+        {
+          "fdcId": 172686,
+          "description": "Bread, wheat",
+          "dataType": "SR Legacy",
+          "score": 0.372
+        },
+        {
+          "fdcId": 167944,
+          "description": "Bread, cheese",
+          "dataType": "SR Legacy",
+          "score": 0.365
+        }
+      ]
+    },
+    {
+      "foodId": 34,
+      "foodName": "سیب‌زمینی (پخته)",
+      "query": "Potatoes, boiled, cooked, flesh, without skin",
+      "bestCandidate": {
+        "fdcId": 170440,
+        "description": "Potatoes, boiled, cooked without skin, flesh, without salt",
+        "dataType": "SR Legacy",
+        "score": 0.835,
+        "micronutrientsPer100g": {
+          "fiber": 1.8,
+          "calcium": 8.0,
+          "iron": 0.31,
+          "potassium": 328.0,
+          "magnesium": 20.0,
+          "zinc": 0.27,
+          "sodium": 5.0,
+          "vitaminA": 0.0,
+          "vitaminC": 7.4,
+          "vitaminD": 0.0,
+          "vitaminB12": 0.0,
+          "folate": 9.0
+        }
+      },
+      "otherCandidates": [
+        {
+          "fdcId": 170438,
+          "description": "Potatoes, boiled, cooked in skin, flesh, without salt",
+          "dataType": "SR Legacy",
+          "score": 0.786
+        },
+        {
+          "fdcId": 170520,
+          "description": "Potatoes, boiled, cooked without skin, flesh, with salt",
+          "dataType": "SR Legacy",
+          "score": 0.754
+        },
+        {
+          "fdcId": 170439,
+          "description": "Potatoes, boiled, cooked in skin, skin, without salt",
+          "dataType": "SR Legacy",
+          "score": 0.678
+        }
+      ]
+    },
+    {
+      "foodId": 35,
+      "foodName": "سیب‌زمینی شیرین (پخته)",
+      "query": "Sweet potato, cooked, baked, flesh",
+      "bestCandidate": {
+        "fdcId": 170134,
+        "description": "Sweet potato, cooked, baked in skin, flesh, with salt",
+        "dataType": "SR Legacy",
+        "score": 0.639,
+        "micronutrientsPer100g": {
+          "fiber": 3.3,
+          "calcium": 38.0,
+          "iron": 0.69,
+          "potassium": 475.0,
+          "magnesium": 27.0,
+          "zinc": 0.32,
+          "sodium": 246.0,
+          "vitaminA": null,
+          "vitaminC": 19.6,
+          "vitaminD": 0.0,
+          "vitaminB12": 0.0,
+          "folate": 6.0
+        }
+      },
+      "otherCandidates": [
+        {
+          "fdcId": 168483,
+          "description": "Sweet potato, cooked, baked in skin, flesh, without salt",
+          "dataType": "SR Legacy",
+          "score": 0.628
+        },
+        {
+          "fdcId": 170542,
+          "description": "Sweet potato, frozen, cooked, baked, with salt",
+          "dataType": "SR Legacy",
+          "score": 0.591
+        },
+        {
+          "fdcId": 170112,
+          "description": "Potatoes, baked, flesh, with salt",
+          "dataType": "SR Legacy",
+          "score": 0.392
+        }
+      ]
+    },
+    {
+      "foodId": 38,
+      "foodName": "ذرت (پخته)",
+      "query": "Corn, sweet, yellow, cooked, boiled, drained",
+      "bestCandidate": {
+        "fdcId": 168525,
+        "description": "Corn, sweet, yellow, cooked, boiled, drained, with salt",
+        "dataType": "SR Legacy",
+        "score": 0.802,
+        "micronutrientsPer100g": {
+          "fiber": 2.4,
+          "calcium": 3.0,
+          "iron": 0.45,
+          "potassium": 218.0,
+          "magnesium": 26.0,
+          "zinc": 0.62,
+          "sodium": 253.0,
+          "vitaminA": 13.0,
+          "vitaminC": 5.5,
+          "vitaminD": 0.0,
+          "vitaminB12": 0.0,
+          "folate": 23.0
+        }
+      },
+      "otherCandidates": [
+        {
+          "fdcId": 169999,
+          "description": "Corn, sweet, yellow, cooked, boiled, drained, without salt",
+          "dataType": "SR Legacy",
+          "score": 0.791
+        },
+        {
+          "fdcId": 168540,
+          "description": "Corn, sweet, white, cooked, boiled, drained, with salt",
+          "dataType": "SR Legacy",
+          "score": 0.641
+        },
+        {
+          "fdcId": 168539,
+          "description": "Corn, sweet, white, cooked, boiled, drained, without salt",
+          "dataType": "SR Legacy",
+          "score": 0.632
+        }
+      ]
+    },
+    {
+      "foodId": 39,
+      "foodName": "کورن‌فلکس",
+      "query": "Cereals ready-to-eat, corn flakes, fortified",
+      "bestCandidate": {
+        "fdcId": 174648,
+        "description": "Cereals ready-to-eat, RALSTON Corn Flakes",
+        "dataType": "SR Legacy",
+        "score": 0.762,
+        "micronutrientsPer100g": {
+          "fiber": 2.7,
+          "calcium": 2.0,
+          "iron": 19.4,
+          "potassium": 107.0,
+          "magnesium": 7.0,
+          "zinc": 0.2,
+          "sodium": 571.0,
+          "vitaminA": 981.0,
+          "vitaminC": 65.0,
+          "vitaminD": 7.1,
+          "vitaminB12": 5.36,
+          "folate": 714.0
+        }
+      },
+      "otherCandidates": [
+        {
+          "fdcId": 173912,
+          "description": "Cereals ready-to-eat, rice, puffed, fortified",
+          "dataType": "SR Legacy",
+          "score": 0.661
+        },
+        {
+          "fdcId": 173913,
+          "description": "Cereals ready-to-eat, wheat, puffed, fortified",
+          "dataType": "SR Legacy",
+          "score": 0.648
+        },
+        {
+          "fdcId": 173888,
+          "description": "Cereals ready-to-eat, POST Bran Flakes",
+          "dataType": "SR Legacy",
+          "score": 0.643
+        }
+      ]
+    },
+    {
+      "foodId": 40,
+      "foodName": "گرانولا",
+      "query": "Granola, homemade",
+      "bestCandidate": {
+        "fdcId": 171646,
+        "description": "Cereals ready-to-eat, granola, homemade",
+        "dataType": "SR Legacy",
+        "score": 0.436,
+        "micronutrientsPer100g": {
+          "fiber": 8.9,
+          "calcium": 76.0,
+          "iron": 3.95,
+          "potassium": 539.0,
+          "magnesium": 168.0,
+          "zinc": 4.17,
+          "sodium": 26.0,
+          "vitaminA": 1.0,
+          "vitaminC": 1.2,
+          "vitaminD": 0.0,
+          "vitaminB12": 0.0,
+          "folate": 84.0
+        }
+      },
+      "otherCandidates": [
+        {
+          "fdcId": 174526,
+          "description": "Sauce, homemade, white, thick",
+          "dataType": "SR Legacy",
+          "score": 0.305
+        },
+        {
+          "fdcId": 174525,
+          "description": "Sauce, homemade, white, medium",
+          "dataType": "SR Legacy",
+          "score": 0.301
+        },
+        {
+          "fdcId": 167542,
+          "description": "Snacks, granola bars, hard, plain",
+          "dataType": "SR Legacy",
+          "score": 0.285
+        }
+      ]
+    },
+    {
+      "foodId": 41,
+      "foodName": "کیک برنجی",
+      "query": "Rice cakes, brown rice, plain",
+      "bestCandidate": {
+        "fdcId": 170250,
+        "description": "Snacks, rice cakes, brown rice, plain, unsalted",
+        "dataType": "SR Legacy",
+        "score": 0.706,
+        "micronutrientsPer100g": {
+          "fiber": 4.2,
+          "calcium": 11.0,
+          "iron": 1.49,
+          "potassium": 290.0,
+          "magnesium": 131.0,
+          "zinc": 3.0,
+          "sodium": 26.0,
+          "vitaminA": 0.0,
+          "vitaminC": 0.0,
+          "vitaminD": 0.0,
+          "vitaminB12": 0.0,
+          "folate": 21.0
+        }
+      },
+      "otherCandidates": [
+        {
+          "fdcId": 167966,
+          "description": "Snacks, rice cracker brown rice, plain",
+          "dataType": "SR Legacy",
+          "score": 0.624
+        },
+        {
+          "fdcId": 169680,
+          "description": "Snacks, rice cakes, brown rice, multigrain",
+          "dataType": "SR Legacy",
+          "score": 0.609
+        },
+        {
+          "fdcId": 169679,
+          "description": "Snacks, rice cakes, brown rice, corn",
+          "dataType": "SR Legacy",
+          "score": 0.601
+        }
+      ]
+    },
+    {
+      "foodId": 42,
+      "foodName": "عدس (پخته)",
+      "query": "Lentils, mature seeds, cooked, boiled",
+      "bestCandidate": {
+        "fdcId": 175254,
+        "description": "Lentils, mature seeds, cooked, boiled, with salt",
+        "dataType": "SR Legacy",
+        "score": 0.774,
+        "micronutrientsPer100g": {
+          "fiber": 7.9,
+          "calcium": 19.0,
+          "iron": 3.33,
+          "potassium": 369.0,
+          "magnesium": 36.0,
+          "zinc": 1.27,
+          "sodium": 238.0,
+          "vitaminA": 0.0,
+          "vitaminC": 1.5,
+          "vitaminD": 0.0,
+          "vitaminB12": 0.0,
+          "folate": 181.0
+        }
+      },
+      "otherCandidates": [
+        {
+          "fdcId": 172421,
+          "description": "Lentils, mature seeds, cooked, boiled, without salt",
+          "dataType": "SR Legacy",
+          "score": 0.762
+        },
+        {
+          "fdcId": 173804,
+          "description": "Lupins, mature seeds, cooked, boiled, with salt",
+          "dataType": "SR Legacy",
+          "score": 0.606
+        },
+        {
+          "fdcId": 174299,
+          "description": "Soybeans, mature seeds, cooked, boiled, with salt",
+          "dataType": "SR Legacy",
+          "score": 0.599
+        }
+      ]
+    },
+    {
+      "foodId": 43,
+      "foodName": "لوبیا (پخته)",
+      "query": "Beans, kidney, mature seeds, cooked, boiled",
+      "bestCandidate": {
+        "fdcId": 175242,
+        "description": "Beans, kidney, red, mature seeds, cooked, boiled, with salt",
+        "dataType": "SR Legacy",
+        "score": 0.736,
+        "micronutrientsPer100g": {
+          "fiber": 7.4,
+          "calcium": 28.0,
+          "iron": 2.94,
+          "potassium": 403.0,
+          "magnesium": 45.0,
+          "zinc": 1.07,
+          "sodium": 238.0,
+          "vitaminA": 0.0,
+          "vitaminC": 1.2,
+          "vitaminD": 0.0,
+          "vitaminB12": 0.0,
+          "folate": 130.0
+        }
+      },
+      "otherCandidates": [
+        {
+          "fdcId": 175194,
+          "description": "Beans, kidney, red, mature seeds, cooked, boiled, without salt",
+          "dataType": "SR Legacy",
+          "score": 0.725
+        },
+        {
+          "fdcId": 173792,
+          "description": "Beans, kidney, all types, mature seeds, cooked, boiled, with salt",
+          "dataType": "SR Legacy",
+          "score": 0.674
+        },
+        {
+          "fdcId": 175244,
+          "description": "Beans, kidney, royal red, mature seeds, cooked, boiled with salt",
+          "dataType": "SR Legacy",
+          "score": 0.674
+        }
+      ]
+    },
+    {
+      "foodId": 44,
+      "foodName": "نخود (پخته)",
+      "query": "Chickpeas, mature seeds, cooked, boiled",
+      "bestCandidate": {
+        "fdcId": 173805,
+        "description": "Mothbeans, mature seeds, cooked, boiled, with salt",
+        "dataType": "SR Legacy",
+        "score": 0.597,
+        "micronutrientsPer100g": {
+          "fiber": null,
+          "calcium": 3.0,
+          "iron": 3.14,
+          "potassium": 304.0,
+          "magnesium": 104.0,
+          "zinc": 0.59,
+          "sodium": 246.0,
+          "vitaminA": 1.0,
+          "vitaminC": 1.0,
+          "vitaminD": 0.0,
+          "vitaminB12": 0.0,
+          "folate": 143.0
+        }
+      },
+      "otherCandidates": [
+        {
+          "fdcId": 174299,
+          "description": "Soybeans, mature seeds, cooked, boiled, with salt",
+          "dataType": "SR Legacy",
+          "score": 0.591
+        },
+        {
+          "fdcId": 173804,
+          "description": "Lupins, mature seeds, cooked, boiled, with salt",
+          "dataType": "SR Legacy",
+          "score": 0.589
+        },
+        {
+          "fdcId": 175254,
+          "description": "Lentils, mature seeds, cooked, boiled, with salt",
+          "dataType": "SR Legacy",
+          "score": 0.585
+        }
+      ]
+    },
+    {
+      "foodId": 45,
+      "foodName": "باقلا (پخته)",
+      "query": "Broadbeans, mature seeds, cooked, boiled",
+      "bestCandidate": {
+        "fdcId": 173798,
+        "description": "Broadbeans (fava beans), mature seeds, cooked, boiled, with salt",
+        "dataType": "SR Legacy",
+        "score": 0.64,
+        "micronutrientsPer100g": {
+          "fiber": 5.4,
+          "calcium": 36.0,
+          "iron": 1.5,
+          "potassium": 268.0,
+          "magnesium": 43.0,
+          "zinc": 1.01,
+          "sodium": 241.0,
+          "vitaminA": 1.0,
+          "vitaminC": 0.3,
+          "vitaminD": 0.0,
+          "vitaminB12": 0.0,
+          "folate": 104.0
+        }
+      },
+      "otherCandidates": [
+        {
+          "fdcId": 173753,
+          "description": "Broadbeans (fava beans), mature seeds, cooked, boiled, without salt",
+          "dataType": "SR Legacy",
+          "score": 0.631
+        },
+        {
+          "fdcId": 174299,
+          "description": "Soybeans, mature seeds, cooked, boiled, with salt",
+          "dataType": "SR Legacy",
+          "score": 0.616
+        },
+        {
+          "fdcId": 173805,
+          "description": "Mothbeans, mature seeds, cooked, boiled, with salt",
+          "dataType": "SR Legacy",
+          "score": 0.612
+        }
+      ]
+    },
+    {
+      "foodId": 46,
+      "foodName": "ماش (پخته)",
+      "query": "Mung beans, mature seeds, cooked, boiled",
+      "bestCandidate": {
+        "fdcId": 175255,
+        "description": "Mung beans, mature seeds, cooked, boiled, with salt",
+        "dataType": "SR Legacy",
+        "score": 0.8,
+        "micronutrientsPer100g": {
+          "fiber": 7.6,
+          "calcium": 27.0,
+          "iron": 1.4,
+          "potassium": 266.0,
+          "magnesium": 48.0,
+          "zinc": 0.84,
+          "sodium": 238.0,
+          "vitaminA": 1.0,
+          "vitaminC": 1.0,
+          "vitaminD": 0.0,
+          "vitaminB12": 0.0,
+          "folate": 159.0
+        }
+      },
+      "otherCandidates": [
+        {
+          "fdcId": 174257,
+          "description": "Mung beans, mature seeds, cooked, boiled, without salt",
+          "dataType": "SR Legacy",
+          "score": 0.788
+        },
+        {
+          "fdcId": 168499,
+          "description": "Mung beans, mature seeds, sprouted, cooked, boiled, drained, with salt",
+          "dataType": "SR Legacy",
+          "score": 0.65
+        },
+        {
+          "fdcId": 169137,
+          "description": "Mung beans, mature seeds, sprouted, cooked, boiled, drained, without salt",
+          "dataType": "SR Legacy",
+          "score": 0.642
+        }
+      ]
+    },
+    {
+      "foodId": 47,
+      "foodName": "سیب",
+      "query": "Apples, raw, with skin",
+      "bestCandidate": {
+        "fdcId": 1750341,
+        "description": "Apples, gala, with skin, raw",
+        "dataType": "Foundation",
+        "score": 0.8,
+        "micronutrientsPer100g": {
+          "fiber": 2.109,
+          "calcium": 6.639,
+          "iron": 0.0601,
+          "potassium": 105.9,
+          "magnesium": 4.947,
+          "zinc": 0.0235,
+          "sodium": 0.2788,
+          "vitaminA": null,
+          "vitaminC": null,
+          "vitaminD": null,
+          "vitaminB12": null,
+          "folate": 0.8125
+        }
+      },
+      "otherCandidates": [
+        {
+          "fdcId": 1750340,
+          "description": "Apples, fuji, with skin, raw",
+          "dataType": "Foundation",
+          "score": 0.783
+        },
+        {
+          "fdcId": 1750343,
+          "description": "Apples, honeycrisp, with skin, raw",
+          "dataType": "Foundation",
+          "score": 0.764
+        },
+        {
+          "fdcId": 171689,
+          "description": "Apples, raw, without skin",
+          "dataType": "SR Legacy",
+          "score": 0.725
+        }
+      ]
+    },
+    {
+      "foodId": 51,
+      "foodName": "انگور",
+      "query": "Grapes, red or green, raw",
+      "bestCandidate": {
+        "fdcId": 2346412,
+        "description": "Grapes, red, seedless, raw",
+        "dataType": "Foundation",
+        "score": 0.591,
+        "micronutrientsPer100g": {
+          "fiber": null,
+          "calcium": 10.17,
+          "iron": 0.1615,
+          "potassium": 229.4,
+          "magnesium": 8.556,
+          "zinc": 0.036,
+          "sodium": 6.999,
+          "vitaminA": null,
+          "vitaminC": 3.308,
+          "vitaminD": null,
+          "vitaminB12": null,
+          "folate": null
+        }
+      },
+      "otherCandidates": [
+        {
+          "fdcId": 2346413,
+          "description": "Grapes, green, seedless, raw",
+          "dataType": "Foundation",
+          "score": 0.563
+        },
+        {
+          "fdcId": 174683,
+          "description": "Grapes, red or green (European type, such as Thompson seedless), raw",
+          "dataType": "SR Legacy",
+          "score": 0.485
+        },
+        {
+          "fdcId": 2710823,
+          "description": "Asparagus, green, raw",
+          "dataType": "Foundation",
+          "score": 0.442
+        }
+      ]
+    },
+    {
+      "foodId": 61,
+      "foodName": "کشمش",
+      "query": "Raisins, seedless",
+      "bestCandidate": {
+        "fdcId": 2758980,
+        "description": "Raisins, dark, seedless",
+        "dataType": "Foundation",
+        "score": 0.742,
+        "micronutrientsPer100g": {
+          "fiber": 3.679,
+          "calcium": 51.49,
+          "iron": 1.844,
+          "potassium": 936.0,
+          "magnesium": 35.54,
+          "zinc": 0.176,
+          "sodium": 13.17,
+          "vitaminA": null,
+          "vitaminC": 0.0,
+          "vitaminD": null,
+          "vitaminB12": null,
+          "folate": 3.0
+        }
+      },
+      "otherCandidates": [
+        {
+          "fdcId": 2758979,
+          "description": "Raisins, golden, seedless",
+          "dataType": "Foundation",
+          "score": 0.725
+        },
+        {
+          "fdcId": 168164,
+          "description": "Raisins, golden, seedless",
+          "dataType": "SR Legacy",
+          "score": 0.725
+        },
+        {
+          "fdcId": 168166,
+          "description": "Raisins, seeded",
+          "dataType": "SR Legacy",
+          "score": 0.536
+        }
+      ]
+    },
+    {
+      "foodId": 63,
+      "foodName": "گوجه‌فرنگی",
+      "query": "Tomatoes, red, ripe, raw",
+      "bestCandidate": {
+        "fdcId": 170457,
+        "description": "Tomatoes, red, ripe, raw, year round average",
+        "dataType": "SR Legacy",
+        "score": 0.616,
+        "micronutrientsPer100g": {
+          "fiber": 1.2,
+          "calcium": 10.0,
+          "iron": 0.27,
+          "potassium": 237.0,
+          "magnesium": 11.0,
+          "zinc": 0.17,
+          "sodium": 5.0,
+          "vitaminA": 42.0,
+          "vitaminC": 13.7,
+          "vitaminD": 0.0,
+          "vitaminB12": 0.0,
+          "folate": 15.0
+        }
+      },
+      "otherCandidates": [
+        {
+          "fdcId": 790577,
+          "description": "Onions, red, raw",
+          "dataType": "Foundation",
+          "score": 0.487
+        },
+        {
+          "fdcId": 2710817,
+          "description": "Plantains, ripe, raw",
+          "dataType": "Foundation",
+          "score": 0.482
+        },
+        {
+          "fdcId": 2747665,
+          "description": "Radishes, red, raw",
+          "dataType": "Foundation",
+          "score": 0.474
+        }
+      ]
+    },
+    {
+      "foodId": 72,
+      "foodName": "بروکلی (پخته)",
+      "query": "Broccoli, cooked, boiled, drained",
+      "bestCandidate": {
+        "fdcId": 168510,
+        "description": "Broccoli, cooked, boiled, drained, with salt",
+        "dataType": "SR Legacy",
+        "score": 0.739,
+        "micronutrientsPer100g": {
+          "fiber": 3.3,
+          "calcium": 40.0,
+          "iron": 0.67,
+          "potassium": 293.0,
+          "magnesium": 21.0,
+          "zinc": 0.45,
+          "sodium": 262.0,
+          "vitaminA": 77.0,
+          "vitaminC": 64.9,
+          "vitaminD": 0.0,
+          "vitaminB12": 0.0,
+          "folate": 108.0
+        }
+      },
+      "otherCandidates": [
+        {
+          "fdcId": 169967,
+          "description": "Broccoli, cooked, boiled, drained, without salt",
+          "dataType": "SR Legacy",
+          "score": 0.726
+        },
+        {
+          "fdcId": 169146,
+          "description": "Beets, cooked, boiled, drained",
+          "dataType": "SR Legacy",
+          "score": 0.679
+        },
+        {
+          "fdcId": 168390,
+          "description": "Asparagus, cooked, boiled, drained",
+          "dataType": "SR Legacy",
+          "score": 0.659
+        }
+      ]
+    },
+    {
+      "foodId": 75,
+      "foodName": "لوبیا سبز (پخته)",
+      "query": "Beans, snap, green, cooked, boiled, drained",
+      "bestCandidate": {
+        "fdcId": 169321,
+        "description": "Beans, snap, green, cooked, boiled, drained, with salt",
+        "dataType": "SR Legacy",
+        "score": 0.801,
+        "micronutrientsPer100g": {
+          "fiber": 3.2,
+          "calcium": 44.0,
+          "iron": 0.65,
+          "potassium": 146.0,
+          "magnesium": 18.0,
+          "zinc": 0.25,
+          "sodium": 239.0,
+          "vitaminA": 35.0,
+          "vitaminC": 9.7,
+          "vitaminD": 0.0,
+          "vitaminB12": 0.0,
+          "folate": 33.0
+        }
+      },
+      "otherCandidates": [
+        {
+          "fdcId": 169141,
+          "description": "Beans, snap, green, cooked, boiled, drained, without salt",
+          "dataType": "SR Legacy",
+          "score": 0.789
+        },
+        {
+          "fdcId": 169325,
+          "description": "Beans, snap, green, frozen, cooked, boiled, drained, with salt",
+          "dataType": "SR Legacy",
+          "score": 0.724
+        },
+        {
+          "fdcId": 169963,
+          "description": "Beans, snap, green, frozen, cooked, boiled, drained without salt",
+          "dataType": "SR Legacy",
+          "score": 0.714
+        }
+      ]
+    },
+    {
+      "foodId": 80,
+      "foodName": "پسته",
+      "query": "Nuts, pistachios, raw",
+      "bestCandidate": {
+        "fdcId": 2515379,
+        "description": "Nuts, pistachio nuts, raw",
+        "dataType": "Foundation",
+        "score": 0.654,
+        "micronutrientsPer100g": {
+          "fiber": 6.969,
+          "calcium": 117.4,
+          "iron": 3.456,
+          "potassium": 947.0,
+          "magnesium": 109.7,
+          "zinc": 2.176,
+          "sodium": 0.0,
+          "vitaminA": null,
+          "vitaminC": null,
+          "vitaminD": null,
+          "vitaminB12": null,
+          "folate": null
+        }
+      },
+      "otherCandidates": [
+        {
+          "fdcId": 170184,
+          "description": "Nuts, pistachio nuts, raw",
+          "dataType": "SR Legacy",
+          "score": 0.654
+        },
+        {
+          "fdcId": 170157,
+          "description": "Nuts, acorns, raw",
+          "dataType": "SR Legacy",
+          "score": 0.601
+        },
+        {
+          "fdcId": 2346392,
+          "description": "Nuts, pine nuts, raw",
+          "dataType": "Foundation",
+          "score": 0.577
+        }
+      ]
+    },
+    {
+      "foodId": 83,
+      "foodName": "ارده",
+      "query": "Seeds, sesame butter, tahini, from roasted kernels",
+      "bestCandidate": {
+        "fdcId": 170189,
+        "description": "Seeds, sesame butter, tahini, from roasted and toasted kernels (most common type)",
+        "dataType": "SR Legacy",
+        "score": 0.652,
+        "micronutrientsPer100g": {
+          "fiber": 9.3,
+          "calcium": 426.0,
+          "iron": 8.95,
+          "potassium": 414.0,
+          "magnesium": 95.0,
+          "zinc": 4.62,
+          "sodium": 115.0,
+          "vitaminA": 3.0,
+          "vitaminC": 0.0,
+          "vitaminD": 0.0,
+          "vitaminB12": 0.0,
+          "folate": 98.0
+        }
+      },
+      "otherCandidates": [
+        {
+          "fdcId": 168604,
+          "description": "Seeds, sesame butter, tahini, type of kernels unspecified",
+          "dataType": "SR Legacy",
+          "score": 0.581
+        },
+        {
+          "fdcId": 169406,
+          "description": "Seeds, sesame butter, tahini, from unroasted kernels (non-chemically removed seed coat)",
+          "dataType": "SR Legacy",
+          "score": 0.563
+        },
+        {
+          "fdcId": 170191,
+          "description": "Seeds, sesame butter, paste",
+          "dataType": "SR Legacy",
+          "score": 0.486
+        }
+      ]
+    },
+    {
+      "foodId": 86,
+      "foodName": "مربا",
+      "query": "Jams and preserves, strawberry",
+      "bestCandidate": {
+        "fdcId": 169641,
+        "description": "Jams and preserves",
+        "dataType": "SR Legacy",
+        "score": 0.756,
+        "micronutrientsPer100g": {
+          "fiber": 1.1,
+          "calcium": 20.0,
+          "iron": 0.49,
+          "potassium": 77.0,
+          "magnesium": 4.0,
+          "zinc": 0.06,
+          "sodium": 32.0,
+          "vitaminA": 0.0,
+          "vitaminC": 8.8,
+          "vitaminD": 0.0,
+          "vitaminB12": 0.0,
+          "folate": 11.0
+        }
+      },
+      "otherCandidates": [
+        {
+          "fdcId": 170645,
+          "description": "Jams and preserves, apricot",
+          "dataType": "SR Legacy",
+          "score": 0.648
+        },
+        {
+          "fdcId": 169058,
+          "description": "Jams and preserves, no sugar (with sodium saccharin), any flavor",
+          "dataType": "SR Legacy",
+          "score": 0.374
+        },
+        {
+          "fdcId": 167706,
+          "description": "Jams, preserves, marmalade, reduced sugar",
+          "dataType": "SR Legacy",
+          "score": 0.37
+        }
+      ]
+    },
+    {
+      "foodId": 89,
+      "foodName": "رب گوجه‌فرنگی",
+      "query": "Tomato products, canned, paste",
+      "bestCandidate": {
+        "fdcId": 170054,
+        "description": "Tomato products, canned, sauce",
+        "dataType": "SR Legacy",
+        "score": 0.711,
+        "micronutrientsPer100g": {
+          "fiber": 1.5,
+          "calcium": 14.0,
+          "iron": 0.96,
+          "potassium": 297.0,
+          "magnesium": 15.0,
+          "zinc": 0.22,
+          "sodium": 474.0,
+          "vitaminA": 22.0,
+          "vitaminC": 7.0,
+          "vitaminD": 0.0,
+          "vitaminB12": 0.0,
+          "folate": 9.0
+        }
+      },
+      "otherCandidates": [
+        {
+          "fdcId": 170085,
+          "description": "Tomato products, canned, sauce, spanish style",
+          "dataType": "SR Legacy",
+          "score": 0.57
+        },
+        {
+          "fdcId": 170056,
+          "description": "Tomato products, canned, sauce, with onions",
+          "dataType": "SR Legacy",
+          "score": 0.545
+        },
+        {
+          "fdcId": 170055,
+          "description": "Tomato products, canned, sauce, with mushrooms",
+          "dataType": "SR Legacy",
+          "score": 0.533
+        }
+      ]
+    },
+    {
+      "foodId": 100,
+      "foodName": "زیتون",
+      "query": "Olives, ripe, canned",
+      "bestCandidate": {
+        "fdcId": 169094,
+        "description": "Olives, ripe, canned (small-extra large)",
+        "dataType": "SR Legacy",
+        "score": 0.563,
+        "micronutrientsPer100g": {
+          "fiber": 1.6,
+          "calcium": 88.0,
+          "iron": 6.28,
+          "potassium": 8.0,
+          "magnesium": 4.0,
+          "zinc": 0.22,
+          "sodium": 735.0,
+          "vitaminA": 17.0,
+          "vitaminC": 0.9,
+          "vitaminD": 0.0,
+          "vitaminB12": 0.0,
+          "folate": 0.0
+        }
+      },
+      "otherCandidates": [
+        {
+          "fdcId": 169095,
+          "description": "Olives, ripe, canned (jumbo-super colossal)",
+          "dataType": "SR Legacy",
+          "score": 0.55
+        },
+        {
+          "fdcId": 170052,
+          "description": "Tomatoes, red, ripe, canned, stewed",
+          "dataType": "SR Legacy",
+          "score": 0.439
+        },
+        {
+          "fdcId": 169096,
+          "description": "Olives, pickled, canned or bottled, green",
+          "dataType": "SR Legacy",
+          "score": 0.394
+        }
+      ]
+    },
+    {
+      "foodId": 101,
+      "foodName": "لپه (پخته)",
+      "query": "Peas, split, mature seeds, cooked, boiled",
+      "bestCandidate": {
+        "fdcId": 175257,
+        "description": "Peas, split, mature seeds, cooked, boiled, with salt",
+        "dataType": "SR Legacy",
+        "score": 0.8,
+        "micronutrientsPer100g": {
+          "fiber": 8.3,
+          "calcium": 14.0,
+          "iron": 1.29,
+          "potassium": 362.0,
+          "magnesium": 36.0,
+          "zinc": 1.0,
+          "sodium": 238.0,
+          "vitaminA": 0.0,
+          "vitaminC": 0.4,
+          "vitaminD": 0.0,
+          "vitaminB12": 0.0,
+          "folate": 65.0
+        }
+      },
+      "otherCandidates": [
+        {
+          "fdcId": 172429,
+          "description": "Peas, split, mature seeds, cooked, boiled, without salt",
+          "dataType": "SR Legacy",
+          "score": 0.788
+        },
+        {
+          "fdcId": 170511,
+          "description": "Peas, mature seeds, sprouted, cooked, boiled, drained, with salt",
+          "dataType": "SR Legacy",
+          "score": 0.558
+        },
+        {
+          "fdcId": 174299,
+          "description": "Soybeans, mature seeds, cooked, boiled, with salt",
+          "dataType": "SR Legacy",
+          "score": 0.554
+        }
+      ]
+    },
+    {
+      "foodId": 109,
+      "foodName": "گل‌کلم (پخته)",
+      "query": "Cauliflower, cooked, boiled, drained",
+      "bestCandidate": {
+        "fdcId": 168520,
+        "description": "Cauliflower, cooked, boiled, drained, with salt",
+        "dataType": "SR Legacy",
+        "score": 0.743,
+        "micronutrientsPer100g": {
+          "fiber": 2.3,
+          "calcium": 16.0,
+          "iron": 0.32,
+          "potassium": 142.0,
+          "magnesium": 9.0,
+          "zinc": 0.17,
+          "sodium": 242.0,
+          "vitaminA": 1.0,
+          "vitaminC": 44.3,
+          "vitaminD": 0.0,
+          "vitaminB12": 0.0,
+          "folate": 44.0
+        }
+      },
+      "otherCandidates": [
+        {
+          "fdcId": 170397,
+          "description": "Cauliflower, cooked, boiled, drained, without salt",
+          "dataType": "SR Legacy",
+          "score": 0.731
+        },
+        {
+          "fdcId": 169146,
+          "description": "Beets, cooked, boiled, drained",
+          "dataType": "SR Legacy",
+          "score": 0.663
+        },
+        {
+          "fdcId": 168390,
+          "description": "Asparagus, cooked, boiled, drained",
+          "dataType": "SR Legacy",
+          "score": 0.657
+        }
+      ]
+    },
+    {
+      "foodId": 111,
+      "foodName": "شیر نارگیل",
+      "query": "Coconut milk, canned, with water",
+      "bestCandidate": {
+        "fdcId": 170173,
+        "description": "Nuts, coconut milk, canned (liquid expressed from grated meat and water)",
+        "dataType": "SR Legacy",
+        "score": 0.424,
+        "micronutrientsPer100g": {
+          "fiber": null,
+          "calcium": 18.0,
+          "iron": 3.3,
+          "potassium": 220.0,
+          "magnesium": 46.0,
+          "zinc": 0.56,
+          "sodium": 13.0,
+          "vitaminA": 0.0,
+          "vitaminC": 1.0,
+          "vitaminD": 0.0,
+          "vitaminB12": 0.0,
+          "folate": 14.0
+        }
+      },
+      "otherCandidates": [
+        {
+          "fdcId": 172194,
+          "description": "Milk, canned, evaporated, with added vitamin A",
+          "dataType": "SR Legacy",
+          "score": 0.404
+        },
+        {
+          "fdcId": 170171,
+          "description": "Nuts, coconut cream, canned, sweetened",
+          "dataType": "SR Legacy",
+          "score": 0.389
+        },
+        {
+          "fdcId": 171275,
+          "description": "Milk, canned, condensed, sweetened",
+          "dataType": "SR Legacy",
+          "score": 0.364
+        }
+      ]
+    }
+  ]
+}
