@@ -44,6 +44,9 @@ textarea{width:100%;background:#0d100c;border:1px solid var(--line);border-radiu
 .macro-grid small{display:block;color:var(--muted);font-size:10px;margin-top:2px}
 .ingredients{margin-top:10px;padding:10px;background:#111711;border-radius:10px}
 .day-field{max-width:230px;margin-top:14px}
+
+.history-bars{display:flex;gap:7px;align-items:end;margin-top:12px}
+@media(max-width:700px){.macro-grid{grid-template-columns:repeat(2,minmax(0,1fr))}.micro-grid{grid-template-columns:repeat(2,minmax(0,1fr))}}
 </style>
 </head>
 <body>
@@ -64,12 +67,12 @@ textarea{width:100%;background:#0d100c;border:1px solid var(--line);border-radiu
 </aside>
 <main>
 <header class="topbar"><div><small>پنل کاربر GrowFit</small><h1>تغذیه من</h1></div><a class="home-link" href="growfit-user-dashboard.html">⌂ بازگشت به داشبورد</a></header>
-<section class="hero"><div><span class="eyebrow">برنامه غذایی · نمای کاربر</span><h2>انتخاب از گزینه‌های برنامه مربی</h2><p>برای هر وعده، یکی از گزینه‌هایی را که در برنامه قرار گرفته انتخاب کن و جزئیات همان گزینه را ببین.</p></div><div class="hero-mark">🥗</div></section>
-<div class="notice"><b>اتصال به ساختار واقعی برنامه</b><span>وعده‌ها و گزینه‌ها از برنامه شاگرد در حافظه همین مرورگر خوانده می‌شوند؛ انتخاب روزانه نیز در ساختار dietLog ذخیره می‌شود. گزینه‌های دستی و گزینه‌های بانک غذایی هر دو پشتیبانی می‌شوند. اطلاعات ریزمغذی تا زمان تکمیل تطبیق با منبع معتبر، حدس زده یا صفر فرض نمی‌شود.</span></div>
+<section class="hero"><div><span class="eyebrow">برنامه غذایی تأییدشده مربی</span><h2>وعده‌هایت را ببین و مصرف را ثبت کن</h2><p>محتوا و گزینه‌های برنامه فقط توسط مربی مدیریت می‌شوند. اینجا می‌توانی گزینه‌ای را که از پیشنهادهای مربی مصرف کرده‌ای ثبت کنی.</p></div><div class="hero-mark">🥗</div></section>
+<div class="notice"><b>برنامه فقط در اختیار مربی</b><span>شاگرد نمی‌تواند وعده، نام، ترکیبات یا گزینه‌های برنامه را بسازد، ویرایش یا حذف کند. انتخاب گزینه فقط برای ثبت چیزی است که از میان پیشنهادهای مربی مصرف شده؛ این انتخاب، برنامه مربی را تغییر نمی‌دهد. داده‌های تغذیه‌ای ناموجود حدس زده یا صفر فرض نمی‌شوند.</span></div>
 <div class="layout">
 <section>
   <section class="panel">
-  <div class="panel-head"><h3>🍽️ وعده‌های برنامه</h3><span class="tag">گزینه‌های ثبت‌شده توسط مربی</span></div>
+  <div class="panel-head"><h3>🍽️ وعده‌های برنامه</h3><span class="tag">فقط خواندنی · ثبت مصرف فعال</span></div>
   <div id="mealList"></div>
   <div class="progress"><i id="mealProgress"></i></div>
   <div class="field day-field"><label for="daySelect">روز برنامه</label><input type="date" id="daySelect"></div><small class="muted" id="mealStatus">در حال بارگذاری برنامه...</small>
@@ -84,7 +87,9 @@ textarea{width:100%;background:#0d100c;border:1px solid var(--line);border-radiu
     <div class="water-box"><div class="water-number"><span id="waterNum">۰</span><small>لیوان ثبت‌شده</small></div><div class="water-actions"><button class="btn" id="waterMinus" aria-label="کم کردن یک لیوان">−</button><button class="btn primary" id="waterPlus">+ افزودن لیوان</button><button class="btn" id="waterReset">شروع دوباره شمارش</button></div></div>
     <div class="tip"><b>یادآوری</b><p>نیاز به آب در افراد مختلف و با توجه به فعالیت، آب‌وهوا و شرایط بدنی متفاوت است. به تشنگی و توصیه متخصص توجه کن؛ این شمارنده هدف اجباری تعیین نمی‌کند.</p></div>
   </section>
-  <section class="panel"><h3>راهنمای انتخاب وعده</h3><p class="muted">اگر مربی برای یک وعده چند پیشنهاد ثبت کرده باشد، همه گزینه‌ها در فهرست همان وعده نمایش داده می‌شوند. انتخاب یک گزینه، فقط انتخاب ثبت‌شده همان روز را تغییر می‌دهد.</p></section>
+  <section class="panel"><h3>📊 جمع تغذیه ثبت‌شده امروز</h3><p class="muted">جمع زیر فقط از وعده‌هایی محاسبه می‌شود که مصرفشان را ثبت کرده‌ای. مقادیر تقریبی‌اند و جایگزین ارزیابی متخصص نیستند.</p><div id="dailyTotals"></div></section>
+  <section class="panel"><h3>📅 سوابق هفتگی و ماهانه</h3><div id="historySummary"></div></section>
+  <section class="panel"><h3>🔒 مدیریت برنامه</h3><p class="muted">تغییر وعده‌ها، گزینه‌ها، مواد تشکیل‌دهنده و مقادیر غذایی فقط از پنل مربی انجام می‌شود. این صفحه امکان ویرایش برنامه را در اختیار شاگرد قرار نمی‌دهد.</p></section>
 </aside>
 </div>
 <div class="footer-note">© ۲۰۲۶ GrowFit · محیط آزمایشگاهی متصل به ساختار برنامه شاگرد</div>
@@ -93,22 +98,29 @@ textarea{width:100%;background:#0d100c;border:1px solid var(--line);border-radiu
 <nav class="mobile-nav"><a href="growfit-user-dashboard.html"><span>⌂</span>داشبورد</a><a href="growfit-workout.html"><span>▤</span>تمرین</a><a class="active" href="growfit-nutrition.html"><span>◉</span>تغذیه</a><a href="growfit-analysis.html"><span>↗</span>آنالیز</a><a href="growfit-reports.html"><span>▥</span>گزارش‌ها</a></nav>
 <div class="toast" id="toast" role="status" aria-live="polite"></div>
 <script>
-const STUDENT_KEY='growfit_student_v2';
+const STUDENT_KEY='growfit_lab_coach_preview_v1';
 const NOTE_PREFIX='gf_lab_nutrition_note_';
 const WATER_PREFIX='gf_lab_nutrition_water_';
 const dateInput=document.getElementById('daySelect');
 const list=document.getElementById('mealList');
 const toast=document.getElementById('toast');
-let bank=null,db=null,student=null,diet=null,currentDate=localDate();
-let note='',water=0;
+let bank=null,db=null,student=null,diet=null,currentDate=localDate(),note='',water=0;
+const nutrientMeta=[
+ ['calcium','کلسیم','mg'],['iron','آهن','mg'],['magnesium','منیزیم','mg'],
+ ['potassium','پتاسیم','mg'],['sodium','سدیم','mg'],['zinc','روی','mg'],
+ ['phosphorus','فسفر','mg'],['selenium','سلنیوم','µg'],['copper','مس','mg']
+];
 function localDate(){const d=new Date();d.setMinutes(d.getMinutes()-d.getTimezoneOffset());return d.toISOString().slice(0,10)}
 function fa(v){return String(v??'—').replace(/\d/g,d=>'۰۱۲۳۴۵۶۷۸۹'[d])}
 function esc(v){return String(v??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]))}
 function num(v){const n=Number(String(v??'').replace(/,/g,''));return Number.isFinite(n)?n:0}
+function hasVal(v){return v!==null&&v!==undefined&&v!==''&&Number.isFinite(Number(v))}
+function fmt(v,d=0){return hasVal(v)?fa(Number(v).toFixed(d)):'—'}
 function notify(msg){toast.textContent=msg;toast.classList.add('show');clearTimeout(notify.t);notify.t=setTimeout(()=>toast.classList.remove('show'),2200)}
 function loadStudentData(){
  try{db=JSON.parse(localStorage.getItem(STUDENT_KEY)||'null')}catch(e){db=null}
  student=db&&db.student&&typeof db.student==='object'?db.student:null;
+ if(db&&db.role&&db.role!=='student'){student=null}
  diet=student&&student.diet&&Array.isArray(student.diet.meals)?student.diet:null;
 }
 function dayRecord(){
@@ -124,101 +136,144 @@ function saveStudentData(){
  try{localStorage.setItem(STUDENT_KEY,JSON.stringify(db));return true}catch(e){return false}
 }
 function loadDayExtras(){
- try{note=localStorage.getItem(NOTE_PREFIX+currentDate)||'';water=Math.max(0,Number(localStorage.getItem(WATER_PREFIX+currentDate)||0))}catch(e){note='';water=0}
- document.getElementById('dailyNote').value=note;
- renderWater();
+ try{
+  note=student&&student.dietNotes&&student.dietNotes[currentDate]!==undefined?student.dietNotes[currentDate]:(localStorage.getItem(NOTE_PREFIX+currentDate)||'');
+  water=student&&student.waterLog&&student.waterLog[currentDate]!==undefined?Math.max(0,Number(student.waterLog[currentDate])||0):Math.max(0,Number(localStorage.getItem(WATER_PREFIX+currentDate)||0));
+ }catch(e){note='';water=0}
+ document.getElementById('dailyNote').value=note;renderWater();
+}
+function saveExtras(){
+ if(student){
+  student.dietNotes=student.dietNotes&&typeof student.dietNotes==='object'?student.dietNotes:{};
+  student.waterLog=student.waterLog&&typeof student.waterLog==='object'?student.waterLog:{};
+  student.dietNotes[currentDate]=note;student.waterLog[currentDate]=water;
+ }
+ try{localStorage.setItem(NOTE_PREFIX+currentDate,note);localStorage.setItem(WATER_PREFIX+currentDate,String(water))}catch(e){}
 }
 function selectedOption(meal,index,record){
- const opts=Array.isArray(meal.opts)?meal.opts:[];
- if(!opts.length)return null;
- const raw=Number(record.o[index]||0);
- return {opts,index:raw>=0&&raw<opts.length?raw:0,option:opts[raw>=0&&raw<opts.length?raw:0]};
+ const opts=Array.isArray(meal.opts)?meal.opts:[];if(!opts.length)return null;
+ const raw=Number(record.o[index]??0),ix=raw>=0&&raw<opts.length?raw:0;
+ return {opts,index:ix,option:opts[ix]};
 }
-const nutrientMeta=[
- ['fiber','فیبر','g'],['calcium','کلسیم','mg'],['iron','آهن','mg'],['potassium','پتاسیم','mg'],
- ['magnesium','منیزیم','mg'],['zinc','روی','mg'],['sodium','سدیم','mg'],
- ['vitaminA','ویتامین A','µg'],['vitaminC','ویتامین C','mg'],['vitaminD','ویتامین D','µg'],
- ['vitaminB12','ویتامین B12','µg'],['folate','فولات','µg']
-];
-function micronutrientMarkup(option){
- const hasBankRef=option&&Number.isInteger(Number(option.bid))&&bank&&bank.meals[Number(option.bid)];
- const bankMeal=hasBankRef?bank.meals[Number(option.bid)]:null;
- let micro=option&&(option.micronutrients||option.micros);
- if(!micro&&bankMeal)micro=bankMeal.micronutrients;
- if(!micro||typeof micro!=='object')return '<div class="micro-box"><b>فیبر، ویتامین‌ها و مواد معدنی</b><p>داده مرجع ریزمغذی این گزینه هنوز تکمیل نشده است؛ برای جلوگیری از نمایش عدد حدسی، مقدار نامشخص نمایش داده نمی‌شود.</p></div>';
- const rows=nutrientMeta.filter(([k])=>micro[k]!==null&&micro[k]!==undefined).map(([k,label,unit])=>'<span>'+label+' <b>'+esc(micro[k])+' '+unit+'</b></span>');
- const coverage=bankMeal&&bankMeal.micronutrientCoverage;
- const coverageText=coverage&&coverage.status==='complete'?'مقادیر از ترکیبات و وزن مواد اولیه محاسبه شده‌اند.':coverage&&coverage.status==='partial'?'بعضی از مواد اولیه هنوز داده مرجع کامل ندارند؛ فقط مقادیر قابل محاسبه نمایش داده شده‌اند.':'برای برخی مواد اولیه هنوز داده معتبر کافی وجود ندارد.';
- const altSources=bankMeal&&Array.isArray(bankMeal.micronutrientSources)?bankMeal.micronutrientSources:[];
- const uniqueSources=[...new Map(altSources.filter(x=>x&&x.sourceId).map(x=>[x.sourceId,x])).values()];
- const sourceMarkup=uniqueSources.length?'<p class="micro-source">منابع جایگزین تأییدشده: '+uniqueSources.map(x=>{
-  const title=esc(x.title||x.sourceId),url=String(x.url||'');
-  return url.startsWith('https://')?'<a href="'+esc(url)+'" target="_blank" rel="noopener noreferrer">'+title+'</a>':title;
- }).join('؛ ')+' . سایر مقادیر مرجع از USDA FoodData Central هستند.</p>':'<p class="micro-source">منبع داده: USDA FoodData Central.</p>';
- return '<div class="micro-box"><b>فیبر، ویتامین‌ها و مواد معدنی</b><div class="micro-grid">'+(rows.join('')||'<p>مقدار معتبری برای نمایش ثبت نشده است.</p>')+'</div><p class="micro-source">'+coverageText+'</p>'+sourceMarkup+'</div>';
+function mealMicros(option){
+ const empty={values:{},coverage:'unknown',matched:0,total:0,sources:[]};
+ if(!option||!Number.isInteger(Number(option.bid))||!bank||!bank.meals||!bank.meals[Number(option.bid)])return empty;
+ const m=bank.meals[Number(option.bid)],vals={},foods=bank.foods||[];
+ const ingredients=Array.isArray(m.ingredients)?m.ingredients:[];
+ let matched=0;
+ ingredients.forEach(it=>{
+  const f=foods.find(x=>Number(x.id)===Number(it.foodId));
+  if(!f||f.micronutrientStatus!=='matched'||!f.micronutrientsPer100g)return;
+  matched++;
+  nutrientMeta.forEach(([k])=>{
+   const v=f.micronutrientsPer100g[k];
+   if(v!==null&&v!==undefined&&Number.isFinite(Number(v)))vals[k]=(vals[k]||0)+Number(v)*Number(it.grams||0)/100;
+  });
+ });
+ const coverage=matched===ingredients.length?'complete':matched>0?'partial':'unknown';
+ return {values,coverage,matched,total:ingredients.length,sources:[(bank.micronutrientSource&&bank.micronutrientSource.name)||'USDA FoodData Central']};
+}
+function optionMacros(o){
+ if(o&&Number.isInteger(Number(o.bid))&&bank&&bank.meals&&bank.meals[Number(o.bid)]){
+  const m=bank.meals[Number(o.bid)];return {kcal:m.kcal,p:m.protein,c:m.carbs,f:m.fat};
+ }
+ return {kcal:o&&o.kcal,p:o&&o.p,c:o&&o.c,f:o&&o.f};
 }
 function macroMarkup(o){
+ const m=optionMacros(o);
  return '<div class="macro-grid">'+
- '<span><b>'+fa(Math.round(num(o.kcal)))+'</b><small>کیلوکالری</small></span>'+
- '<span><b>'+fa(Math.round(num(o.p)))+' g</b><small>پروتئین</small></span>'+
- '<span><b>'+fa(Math.round(num(o.c)))+' g</b><small>کربوهیدرات</small></span>'+
- '<span><b>'+fa(Math.round(num(o.f)))+' g</b><small>چربی</small></span></div>';
+ '<span><b>'+fmt(m.kcal)+'</b><small>کیلوکالری</small></span>'+
+ '<span><b>'+fmt(m.p)+'</b><small>پروتئین (g)</small></span>'+
+ '<span><b>'+fmt(m.c)+'</b><small>کربوهیدرات (g)</small></span>'+
+ '<span><b>'+fmt(m.f)+'</b><small>چربی (g)</small></span></div>';
+}
+function micronutrientMarkup(option){
+ const info=mealMicros(option),rows=nutrientMeta.filter(([k])=>hasVal(info.values[k])).map(([k,label,unit])=>'<span>'+label+' <b>~'+fmt(info.values[k],1)+' '+unit+'</b></span>');
+ const coverageText=info.coverage==='complete'?'ترکیبات این وعده با داده‌های مرجع تطبیق کامل دارند.':info.coverage==='partial'?'این برآورد فقط بخش‌های دارای داده معتبر را پوشش می‌دهد؛ ممکن است مقدار واقعی بیشتر باشد.':'برای ترکیبات این گزینه داده مرجع کافی وجود ندارد؛ عددی حدس زده نمی‌شود.';
+ const source=(bank&&bank.micronutrientSource&&bank.micronutrientSource.name)||'USDA FoodData Central';
+ return '<div class="micro-box"><b>مواد معدنی (مقدار تقریبی)</b><div class="micro-grid">'+(rows.join('')||'<p>مقدار معتبر قابل نمایش نیست.</p>')+'</div><p class="micro-source">'+coverageText+'</p><p class="micro-source">منبع ترکیبات غذایی: '+esc(source)+'.</p></div>';
 }
 function bankIngredients(o){
- if(!o||!Number.isInteger(Number(o.bid))||!bank||!bank.meals[Number(o.bid)])return '';
- const m=bank.meals[Number(o.bid)];
- const lines=(m.ingredients||[]).map(x=>{
-  const f=bank.foods[x.foodId];return f?esc(f.name)+' · '+fa(x.grams)+' گرم':'';
- }).filter(Boolean);
+ if(!o||!Number.isInteger(Number(o.bid))||!bank||!bank.meals||!bank.meals[Number(o.bid)])return '';
+ const m=bank.meals[Number(o.bid)],foods=bank.foods||[];
+ const lines=(m.ingredients||[]).map(x=>{const f=foods.find(y=>Number(y.id)===Number(x.foodId));return f?esc(f.name)+' · '+fa(x.grams)+' گرم':''}).filter(Boolean);
  return lines.length?'<div class="ingredients"><b>ترکیبات ثبت‌شده در بانک</b><p>'+lines.join('، ')+'</p></div>':'';
 }
 function renderMeals(){
+ if(!student){list.innerHTML='<div class="empty-state"><b>داده شاگرد در این مرورگر پیدا نشد.</b><p>ابتدا از پیش‌نمایش مربی وارد حالت شاگرد شو؛ این صفحه به همان داده محلی متصل است.</p></div>';document.getElementById('mealProgress').style.width='0%';document.getElementById('mealStatus').textContent='حساب شاگرد متصل نیست';renderDailyTotals();renderHistory();return}
  if(!diet||!diet.meals.length){
-  list.innerHTML='<div class="empty-state"><b>هنوز برنامه غذایی‌ای به این حساب متصل نشده است.</b><p>وقتی برنامه شاگرد در نسخه فعلی ثبت و روی همین دستگاه/حساب در دسترس باشد، وعده‌ها و گزینه‌های مربی اینجا نمایش داده می‌شوند.</p></div>';
-  document.getElementById('mealProgress').style.width='0%';
-  document.getElementById('mealStatus').textContent='برنامه‌ای برای نمایش وجود ندارد';
-  return;
+  list.innerHTML='<div class="empty-state"><b>هنوز برنامه غذایی تأییدشده‌ای به این حساب اختصاص داده نشده است.</b><p>پس از ثبت برنامه توسط مربی، وعده‌ها در همین صفحه نمایش داده می‌شوند.</p></div>';
+  document.getElementById('mealProgress').style.width='0%';document.getElementById('mealStatus').textContent='برنامه‌ای برای نمایش وجود ندارد';renderDailyTotals();renderHistory();return;
  }
  const rec=dayRecord();
  list.innerHTML=diet.meals.map((meal,i)=>{
-  const opts=Array.isArray(meal.opts)?meal.opts:[];
-  if(!opts.length)return '';
-  const picked=selectedOption(meal,i,rec),o=picked.option;
-  const typeLabels={bf:'صبحانه',sn:'میان‌وعده',ln:'ناهار',dn:'شام',pre:'قبل تمرین',post:'بعد تمرین',bed:'قبل خواب'};
-  return '<article class="meal-card" data-index="'+i+'">'+
-   '<div class="meal-top"><div class="meal-icon">🥗</div><div class="meal-title"><b>'+esc(meal.name||'وعده')+'</b><small>'+esc(typeLabels[meal.tp]||'وعده غذایی')+'</small></div>'+
-   '<label class="done-label"><input type="checkbox" class="done-check" '+(rec.m[i]?'checked':'')+'> ثبت وعده</label></div>'+
-   (opts.length>1?'<div class="field"><label>انتخاب یکی از '+fa(opts.length)+' گزینه مربی</label><select class="meal-choice">'+opts.map((x,j)=>'<option value="'+j+'" '+(j===picked.index?'selected':'')+'>'+esc(x.name||('گزینه '+fa(j+1)))+'</option>').join('')+'</select></div>':'')+
-   '<div class="option-detail"><b>'+esc(o.name||'گزینه غذایی')+'</b><p>'+esc(o.desc||'')+'</p>'+macroMarkup(o)+bankIngredients(o)+micronutrientMarkup(o)+'</div>'+
-  '</article>';
+  const opts=Array.isArray(meal.opts)?meal.opts:[];if(!opts.length)return '';
+  const picked=selectedOption(meal,i,rec),o=picked.option,typeLabels={bf:'صبحانه',sn:'میان‌وعده',ln:'ناهار',dn:'شام',pre:'قبل تمرین',post:'بعد تمرین',bed:'قبل خواب'};
+  return '<article class="meal-card" data-index="'+i+'"><div class="meal-top"><div class="meal-icon">🥗</div><div class="meal-title"><b>'+esc(meal.name||'وعده')+'</b><small>'+esc(typeLabels[meal.tp]||'وعده غذایی')+'</small></div><label class="done-label"><input type="checkbox" class="done-check" '+(rec.m[i]?'checked':'')+'> ثبت مصرف</label></div>'+
+   (opts.length>1?'<div class="field"><label>کدام پیشنهاد مربی را مصرف کردی؟</label><select class="meal-choice">'+opts.map((x,j)=>'<option value="'+j+'" '+(j===picked.index?'selected':'')+'>'+esc(x.name||('گزینه '+fa(j+1)))+'</option>').join('')+'</select></div>':'')+
+   '<div class="option-detail"><b>'+esc(o.name||'گزینه غذایی')+'</b><p>'+esc(o.desc||'')+'</p>'+macroMarkup(o)+bankIngredients(o)+micronutrientMarkup(o)+'</div></article>';
  }).join('');
  list.querySelectorAll('.meal-card').forEach(card=>{
   const i=Number(card.dataset.index),rec=dayRecord(),select=card.querySelector('.meal-choice'),check=card.querySelector('.done-check');
-  if(select)select.addEventListener('change',()=>{rec.o[i]=Number(select.value);saveStudentData();renderMeals();updateProgress();});
-  if(check)check.addEventListener('change',()=>{rec.m[i]=check.checked;saveStudentData();updateProgress();});
+  if(select)select.addEventListener('change',()=>{rec.o[i]=Number(select.value);saveStudentData();renderMeals();});
+  if(check)check.addEventListener('change',()=>{rec.m[i]=check.checked;saveStudentData();updateProgress();renderDailyTotals();renderHistory();});
  });
- updateProgress();
+ updateProgress();renderDailyTotals();renderHistory();
 }
-
 function updateProgress(){
- const rec=dayRecord(),meals=diet&&diet.meals||[];
- const count=meals.filter((m,i)=>!!rec.m[i]).length;
- const total=meals.length;
+ const rec=dayRecord(),meals=diet&&diet.meals||[],count=meals.filter((m,i)=>!!rec.m[i]).length,total=meals.length;
  document.getElementById('mealProgress').style.width=(total?count/total*100:0)+'%';
- document.getElementById('mealStatus').textContent=fa(count)+' از '+fa(total)+' وعده ثبت شده';
+ document.getElementById('mealStatus').textContent=fa(count)+' از '+fa(total)+' وعده ثبت مصرف شده';
+}
+function sumNutrientsForRecord(date){
+ const rec=(student&&student.dietLog&&student.dietLog[date])||{m:{},o:{}},tot={kcal:0,p:0,c:0,f:0},known={kcal:0,p:0,c:0,f:0},micro={},microCoverage={complete:0,partial:0,unknown:0};
+ if(!diet||!Array.isArray(diet.meals))return {tot,known,micro,microCoverage,count:0,total:0};
+ diet.meals.forEach((meal,i)=>{
+  if(!rec.m||!rec.m[i])return;
+  const picked=selectedOption(meal,i,rec);if(!picked)return;
+  const o=picked.option,mac=optionMacros(o);
+  Object.keys(tot).forEach(k=>{if(hasVal(mac[k])){tot[k]+=Number(mac[k]);known[k]++}});
+  const mi=mealMicros(o);microCoverage[mi.coverage]=(microCoverage[mi.coverage]||0)+1;
+  Object.keys(mi.values).forEach(k=>micro[k]=(micro[k]||0)+mi.values[k]);
+ });
+ const count=Object.values(rec.m||{}).filter(Boolean).length;
+ return {tot,known,micro,microCoverage,count,total:diet.meals.length};
+}
+function renderDailyTotals(){
+ const el=document.getElementById('dailyTotals');if(!el)return;
+ const x=sumNutrientsForRecord(currentDate);
+ const macros=[['kcal','کالری','kcal'],['p','پروتئین','g'],['c','کربوهیدرات','g'],['f','چربی','g']];
+ el.innerHTML='<div class="macro-grid">'+macros.map(([k,l,u])=>'<span><b>'+ (x.known[k]?fmt(x.tot[k],0):'—')+'</b><small>'+l+(u==='g'?' (g)':'')+'</small></span>').join('')+'</div>'+
+  '<div class="micro-box"><b>جمع مواد معدنی وعده‌های ثبت‌شده</b><div class="micro-grid">'+nutrientMeta.map(([k,l,u])=>'<span>'+l+' <b>'+(hasVal(x.micro[k])?'~'+fmt(x.micro[k],1)+' '+u:'—')+'</b></span>').join('')+'</div><p class="micro-source">فقط وعده‌های علامت‌خورده محاسبه شده‌اند. مقادیر تقریبی‌اند؛ بخش‌هایی که داده مرجع ندارند در جمع وارد نشده‌اند.</p></div>'+
+  '<p class="muted">وعده‌های ثبت‌شده: '+fa(x.count)+' از '+fa(x.total)+'</p>';
+}
+function adherenceForDate(date){
+ const rec=student&&student.dietLog&&student.dietLog[date],total=diet&&diet.meals?diet.meals.length:0;
+ if(!rec||!total)return null;
+ const done=diet.meals.filter((m,i)=>!!(rec.m&&rec.m[i])).length;
+ return {done,total,pct:Math.round(done/total*100)};
+}
+function shiftDate(date,delta){const d=new Date(date+'T12:00:00');d.setDate(d.getDate()+delta);return d.toISOString().slice(0,10)}
+function renderHistory(){
+ const el=document.getElementById('historySummary');if(!el)return;
+ const today=localDate(),week=Array.from({length:7},(_,i)=>shiftDate(today,i-6)),monthStart=today.slice(0,7)+'-01';
+ const daysInMonth=new Date(Number(today.slice(0,4)),Number(today.slice(5,7)),0).getDate();
+ const month=Array.from({length:daysInMonth},(_,i)=>monthStart.slice(0,8)+String(i+1).padStart(2,'0')).filter(d=>d<=today);
+ const w=week.map(d=>({date:d,rec:adherenceForDate(d)})),valid=w.filter(x=>x.rec),avg=valid.length?Math.round(valid.reduce((a,x)=>a+x.rec.pct,0)/valid.length):0;
+ const bars=w.map(x=>'<div style="flex:1;min-width:0;text-align:center"><div style="height:78px;display:flex;align-items:end;background:#20271d;border-radius:7px;overflow:hidden"><i style="display:block;width:100%;height:'+(x.rec?x.rec.pct:0)+'%;background:var(--lime)"></i></div><small style="display:block;color:var(--muted);font-size:9px;margin-top:5px">'+fa(x.date.slice(8,10))+'</small></div>').join('');
+ const m=month.map(d=>adherenceForDate(d)).filter(Boolean),mavg=m.length?Math.round(m.reduce((a,x)=>a+x.pct,0)/m.length):0;
+ el.innerHTML='<div class="row" style="display:flex;gap:12px;flex-wrap:wrap"><span class="tag">میانگین هفتگی: '+fa(avg)+'٪</span><span class="tag">میانگین ماه: '+fa(mavg)+'٪</span></div><div style="display:flex;gap:7px;align-items:end;margin-top:12px">'+bars+'</div><p class="muted" style="margin-top:9px">روزهای دارای سابقه: هفته '+fa(valid.length)+' روز · ماه '+fa(m.length)+' روز. درصدها بر اساس وعده‌های علامت‌خورده محاسبه شده‌اند.</p>';
 }
 function saveState(show=true){
- note=document.getElementById('dailyNote').value;
- try{localStorage.setItem(NOTE_PREFIX+currentDate,note);localStorage.setItem(WATER_PREFIX+currentDate,String(water))}catch(e){}
- const ok=saveStudentData();
- if(show){document.getElementById('saveStatus').textContent=ok?'انتخاب‌ها در برنامه شاگرد و یادداشت در همین مرورگر ذخیره شدند.':'یادداشت ذخیره شد؛ برای ذخیره انتخاب‌ها ابتدا برنامه شاگرد را در همین مرورگر باز کن.';notify(ok?'اطلاعات امروز ذخیره شد':'ذخیره انتخاب‌ها در دسترس نبود');}
+ note=document.getElementById('dailyNote').value;saveExtras();const ok=saveStudentData();
+ if(show){document.getElementById('saveStatus').textContent=ok?'ثبت‌ها و یادداشت در داده محلی شاگرد ذخیره شدند.':'ذخیره انتخاب‌ها در دسترس نبود؛ ابتدا حالت شاگرد را فعال کن.';notify(ok?'اطلاعات امروز ذخیره شد':'ذخیره‌سازی در دسترس نبود');}
 }
 function renderWater(){document.getElementById('waterNum').textContent=fa(water)}
 function changeDate(value){
- if(!/^\d{4}-\d{2}-\d{2}$/.test(value))return;
+ if(!/^\d{4}-\d{2}-\d{2}$/.test(value)||value>localDate()){dateInput.value=currentDate;return notify('امکان انتخاب تاریخ آینده وجود ندارد')}
  currentDate=value;loadDayExtras();renderMeals();
 }
-document.getElementById('daySelect').value=currentDate;
+dateInput.max=localDate();dateInput.value=currentDate;
 dateInput.addEventListener('change',()=>changeDate(dateInput.value));
 document.getElementById('dailyNote').addEventListener('input',()=>{note=document.getElementById('dailyNote').value;});
 document.getElementById('saveAll').addEventListener('click',()=>saveState(true));
@@ -228,8 +283,7 @@ document.getElementById('waterReset').addEventListener('click',()=>{water=0;rend
 async function init(){
  loadStudentData();
  try{const res=await fetch('growfit-food-bank.json',{cache:'no-store'});if(res.ok)bank=await res.json()}catch(e){bank=null}
- loadDayExtras();
- renderMeals();
+ loadDayExtras();renderMeals();
 }
 init();
 </script>
