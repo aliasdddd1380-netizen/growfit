@@ -176,6 +176,18 @@
       "fdcId": 171688,
       "expectedDescription": "Apples, raw, with skin (Includes foods for USDA's Food Distribution Program)",
       "reason": "رکورد SR Legacy میانگین عمومی سیب خام با پوست است و به‌جای انتخاب یک رقم خاص مانند گالا یا فوجی استفاده می‌شود."
+    },
+    {
+      "foodId": 39,
+      "fdcId": 2708453,
+      "expectedDescription": "Cereal, corn flakes, plain",
+      "reason": "رکورد FNDDS عمومی USDA برای کورن‌فلکس ساده است و نام برند خاصی ندارد؛ به‌عنوان مرجع ریزمغذی برای ماده عمومی کورن‌فلکس انتخاب شده است."
+    },
+    {
+      "foodId": 86,
+      "fdcId": 169641,
+      "expectedDescription": "Jams and preserves",
+      "reason": "نام ماده در بانک GrowFit به‌صورت عمومی «مربا» است؛ رکورد عمومی USDA برای مرباها و فرآورده‌های میوه‌ای، بدون فرض طعم یا برند مشخص، انتخاب شده است."
     }
   ]
 }
