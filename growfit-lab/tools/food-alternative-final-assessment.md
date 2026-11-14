@@ -28,7 +28,7 @@ The current verified bank contains 113 foods and 741 prepared meals. There are 1
 | Food | Best candidate evidence | Why it is not publishable yet | Final state |
 |---|---|---|---|
 | Cooked lamb (6) | UK CoFID whole roasted leg lean: 203 kcal, P29.7, F9.4; lean+fat: 240 kcal, P28.1, F14.2. South African cut-specific study gives further comparison. | GrowFit's 250 kcal/P26/F16 is closer to a fattier cut than the lean-only entry, but cut, trimming, animal class and preparation are unknown. Do not infer a food match from macro similarity. Some alternative lamb mineral methods are cautioned by their authors. | needs-review |
-| Doogh (24) | 2023 Iranian paper cites the 2018 Iranian Food Composition Table and reports Doogh water 93.8 g and sodium 421 mg/100g. 2025 industrial survey: n=6, salt 1.04±0.04 g/100g, moisture 82.71±4.92 g/100g. | The 2023 paper does not identify the exact original food code or whether the Doogh values came from the Iranian table or USDA. Industrial samples vary; the 2021 paper has an unresolved salt-unit inconsistency. | needs-review |
+| Doogh (24) | 2023 Iranian paper cites the Iranian Food Composition Table (the 2023 paper says 2018; FAO/EuroFIR catalogs the dataset as 2017) and reports Doogh water 93.8 g and sodium 421 mg/100g. 2025 industrial survey: n=6, salt 1.04±0.04 g/100g, moisture 82.71±4.92 g/100g. | The 2023 paper does not identify the exact original food code or whether the Doogh values came from the Iranian table or USDA. Industrial samples vary; the 2021 paper has an unresolved salt-unit inconsistency. | needs-review |
 | Sangak (27) | Iranian FCT-derived proximate table: water 33%, energy 258 kcal, P7.7, F0.7, carbohydrate 57.4, fibre 4.1 per 100g. Other studies report Fe/Zn and Na/K. | The FCT row's exact product definition needs checking; the regional Na/K table basis is unclear; salt and several mineral results are dry-weight or have unresolved moisture basis. | needs-review |
 | Barbari (28) | Iranian FCT-derived proximate table: water 29%, energy 272 kcal, P8.4, F0.6, carbohydrate 59.5, fibre 2.2 per 100g. Other studies report Fe/Zn, Na/K and salt. | Product/flour definition may differ from GrowFit; dry-weight studies and regional surveys cannot be converted to edible-portion values without matched moisture. | needs-review |
 | Lavash (29) | Iranian FCT-derived proximate table: water 24%, energy 291 kcal, P8.8, F0.8, carbohydrate 63.4, fibre 2.4 per 100g. Other studies report Zn, Na/K and salt. | Product/flour definition may differ from GrowFit; moisture and analytical basis vary between studies; no complete validated edible-portion micronutrient profile is available. | needs-review |
@@ -41,7 +41,7 @@ The current verified bank contains 113 foods and 741 prepared meals. There are 1
 - The UK cooked leg reference is useful for comparison only, not a generic cooked-lamb substitution.
 
 ### Doogh
-- The 2023 paper's sodium value of 421 mg/100g is a strong research lead because it explicitly cites the 2018 Iranian FCT among its nutrition sources, but the exact FCT record is not exposed. Keep it research-only.
+- The 2023 paper's sodium value of 421 mg/100g is a strong research lead because it explicitly cites the Iranian FCT (the 2023 paper says 2018; FAO/EuroFIR catalogs the dataset as 2017) among its nutrition sources, but the exact FCT record is not exposed. Keep it research-only.
 - Do not turn reported salt values into sodium values automatically.
 - Do not use the 2021 salt result until its mg/L versus g/100mL unit inconsistency is resolved.
 - Do not use the 2016 calcium/phosphorus table values; their units and internal consistency are not reliable.
@@ -88,3 +88,13 @@ No claim is made here that the GitHub Actions test suite has passed; a successfu
 - [Round 6 report](food-alternative-research-round6.md) and [structured data](food-alternative-sources-round6.json)
 - [Round 7 report](food-alternative-research-round7.md) and [structured data](food-alternative-sources-round7.json)
 
+
+
+## Round 8 source-catalog verification correction
+
+The national database date is not settled by the secondary paper alone. Zakerian et al. (2023) state that the Iranian Food Composition Table was published by NNFTRI in 2018 and that nutritional facts were extracted from both that table and USDA. FAO and EuroFIR, however, catalog the NNFTRI database as **Iranian Food Composition Table 2017**, and mark access as restricted. The 2023 paper's Doogh sodium value (421 mg/100g) is presented in a ranked summary of foods with high sodium, not as a complete reproducible food record. The original food code and whether the value came from the Iranian table or USDA are not disclosed. This strengthens the decision to leave Doogh unresolved; do not publish 421 mg/100g as an approved GrowFit value.
+
+Authoritative catalog references:
+- FAO: https://www.fao.org/food-composition/tables-and-databases/detail/%28iran--2017%29-iranian-food-composition-table/en
+- EuroFIR: https://www.eurofir.org/food-information/food-composition-databases/
+- Primary article text: https://pmc.ncbi.nlm.nih.gov/articles/PMC10811537/
