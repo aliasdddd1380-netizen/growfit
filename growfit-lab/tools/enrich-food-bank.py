@@ -48,10 +48,11 @@ def score_match(query, description, prep):
     return max(0.0, min(1.0, score))
 
 def fetch_candidates(query):
-    params = [("api_key", API_KEY), ("query", query), ("pageSize", "15"), ("pageNumber", "1")]
-    params += [("dataType", x) for x in DATA_TYPES]
-    url = API + "?" + urllib.parse.urlencode(params)
-    req = urllib.request.Request(url, headers={"User-Agent": "GrowFit-Lab/1.0"})
+    url = API + "?" + urllib.parse.urlencode({"api_key": API_KEY})
+    body = json.dumps({"query": query, "dataType": DATA_TYPES, "pageSize": 15, "pageNumber": 1}).encode("utf-8")
+    req = urllib.request.Request(url, data=body, headers={
+        "User-Agent": "GrowFit-Lab/1.0", "Content-Type": "application/json"
+    }, method="POST")
     with urllib.request.urlopen(req, timeout=35) as response:
         payload = json.loads(response.read().decode("utf-8"))
     return payload.get("foods", [])
