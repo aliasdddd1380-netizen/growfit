@@ -177,6 +177,18 @@ def main():
             review["items"].append({"foodId": food["id"], "foodName": food["name"],
                 "query": term["query"], "error": str(exc)})
         time.sleep(0.12)
+    # Keep per-food status fields in sync with the actual reference-matching result.
+    for food in bank["foods"]:
+        match = food.get("fdcMatch") or {}
+        if match.get("status") == "accepted":
+            food["micronutrientStatus"] = "matched" if has_any_data(food.get("micronutrientsPer100g") or {}) else "matched-no-micronutrient-data"
+        elif match.get("status") == "review":
+            food["micronutrientStatus"] = "needs-review"
+        elif match.get("status") == "not-found":
+            food["micronutrientStatus"] = "not-found"
+        else:
+            food["micronutrientStatus"] = "pending-reference-mapping"
+
     bank["micronutrientSource"] = {
         "name": "USDA FoodData Central", "accessedBy": "GrowFit enrichment script",
         "nutrientsPer100g": {k: {"unit": v[2]} for k, v in NUTRIENTS.items()},
