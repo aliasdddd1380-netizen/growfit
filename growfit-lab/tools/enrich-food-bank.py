@@ -11,6 +11,7 @@ ROOT = Path(__file__).resolve().parents[2]
 BANK_PATH = ROOT / "growfit-lab/inbox/growfit-food-bank.json"
 TERMS_PATH = ROOT / "growfit-lab/tools/food-search-terms.json"
 REVIEW_PATH = ROOT / "growfit-lab/inbox/growfit-food-bank-review.json"
+OVERRIDES_PATH = ROOT / "growfit-lab/tools/food-manual-overrides.json"
 API = "https://api.nal.usda.gov/fdc/v1/foods/search"
 API_KEY = os.environ.get("USDA_API_KEY", "").strip()
 NUTRIENTS = {
@@ -122,11 +123,44 @@ def main():
     bank = json.loads(BANK_PATH.read_text(encoding="utf-8"))
     terms_doc = json.loads(TERMS_PATH.read_text(encoding="utf-8"))
     terms = {x["foodId"]: x for x in terms_doc["foods"]}
+    overrides_doc = json.loads(OVERRIDES_PATH.read_text(encoding="utf-8")) if OVERRIDES_PATH.exists() else {"foods": []}
+    overrides = {int(x["foodId"]): x for x in overrides_doc.get("foods", [])}
     review = {"schemaVersion": 1, "source": "USDA FoodData Central", "items": []}
     accepted = 0
     for food in bank["foods"]:
         term = terms.get(food["id"])
         if not term:
+            continue
+        manual = overrides.get(food["id"])
+        if manual:
+            try:
+                detail = fetch_food_details(manual["fdcId"])
+                actual_description = detail.get("description", "")
+                if norm(actual_description) != norm(manual["expectedDescription"]):
+                    raise ValueError("USDA description did not match the reviewed override")
+                micro = extract_micro(detail)
+                if not has_any_data(micro):
+                    raise ValueError("USDA record contains no usable micronutrient values")
+                food["fdcMatch"] = {
+                    "status": "accepted",
+                    "fdcId": manual["fdcId"],
+                    "description": actual_description,
+                    "dataType": detail.get("dataType"),
+                    "confidence": 1.0,
+                    "source": "USDA FoodData Central",
+                    "mappingMethod": "manual-reviewed",
+                    "reviewNote": manual["reason"]
+                }
+                food["micronutrientsPer100g"] = micro
+                food["micronutrientUnits"] = {k: v[2] for k, v in NUTRIENTS.items()}
+                accepted += 1
+            except (urllib.error.URLError, TimeoutError, json.JSONDecodeError, ValueError, KeyError) as exc:
+                review["items"].append({
+                    "foodId": food["id"], "foodName": food["name"],
+                    "query": term["query"], "manualOverride": manual,
+                    "error": str(exc)
+                })
+            time.sleep(0.12)
             continue
         current = food.get("fdcMatch") or {}
         if current.get("status") == "accepted" and current.get("fdcId"):
