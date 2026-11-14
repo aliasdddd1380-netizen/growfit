@@ -99,3 +99,10 @@ The GitHub workflow runs tests and dry-run only. It never passes `--apply` autom
 
 - `food-alternative-research-round2.md`: additional source review for cooked lean lamb, Doogh, Sangak, Barbari, and Lavash.
 - Research-only: not consumed by enrichment, publication, meal aggregation, or the nutrition UI. No food-bank values were changed.
+
+
+## Alternative-source research — round 3
+
+- `food-alternative-research-round3.md`: primary-table verification for Doogh and Iranian breads, including a correction to a secondary-review citation.
+- `food-alternative-sources-round3.json`: structured research-only observations with sample counts, methods, units, caveats, and explicit non-publication status.
+- These files are isolated from enrichment and meal aggregation. No food-bank values were changed.
