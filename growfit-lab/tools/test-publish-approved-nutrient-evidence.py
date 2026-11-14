@@ -68,7 +68,7 @@ class ApprovedEvidencePublisherTests(unittest.TestCase):
         self.assertEqual(rejected, [])
         self.assertEqual(conflicts, [])
         publisher.apply_plan(bank, plan)
-        food = bank["foods"][0]
+        food = bank["foods"][27]
         self.assertEqual(food["micronutrientsPer100g"]["iron"], 2.5)
         self.assertEqual(food["micronutrientProvenance"]["iron"]["evidenceId"], "SANGAK-IRON-2012-A")
         self.assertEqual(bank["meals"][0]["micronutrients"]["iron"], 2.5)
