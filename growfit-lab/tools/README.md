@@ -48,3 +48,14 @@ python validate-nutrient-evidence.py
 ```
 
 This is phase 1 only: it validates the separate sample package. It does not modify `growfit-food-bank.json`, `enrich-food-bank.py`, meal totals, or any user-facing page. Do not copy research-only values into production nutrition fields.
+
+### Validator tests
+
+Run the positive sample check and the negative test suite:
+
+```bash
+python validate-nutrient-evidence.py
+python -m unittest -v test-nutrient-evidence-validator.py
+```
+
+The test suite checks unresolved source IDs, duplicate evidence IDs, approval without a normalized value/unit, and dry-matter to edible-portion approval without a documented conversion. It uses in-memory copies only and does not edit the sample or food bank.
