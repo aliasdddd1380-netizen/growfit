@@ -13,7 +13,7 @@ This tool enriches the extracted GrowFit food bank with fiber, vitamins, and min
 1. Obtain a FoodData Central API key from the official USDA FoodData Central developer/API documentation.
 2. In the GrowFit GitHub repository, open **Settings → Secrets and variables → Actions**.
 3. Create a repository secret named exactly `USDA_API_KEY` and paste the key into its secret value.
-4. Open **Actions → Publish GrowFit Lab Preview → Run workflow** (or make a lab-only commit) to run enrichment.
+4. Open **Actions → Publish GrowFit Lab Preview → Run workflow**. If manual dispatch is unavailable, a lab-only commit under `growfit-lab/tools/` or `growfit-lab/inbox/` also starts the workflow. The workflow never requires the key to be committed.
 
 ## Matching and data quality
 
