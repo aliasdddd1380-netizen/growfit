@@ -86,6 +86,16 @@ def fetch_food_details(fdc_id):
 def has_any_data(micro):
     return any(v is not None for v in micro.values())
 
+def apply_usda_fields(food, match, micro):
+    """Update USDA-owned fields without touching independent nutrient evidence."""
+    evidence_before = json.dumps(food.get("nutrientEvidence"), ensure_ascii=False, sort_keys=True)
+    food["fdcMatch"] = match
+    food["micronutrientsPer100g"] = micro
+    food["micronutrientUnits"] = {k: v[2] for k, v in NUTRIENTS.items()}
+    evidence_after = json.dumps(food.get("nutrientEvidence"), ensure_ascii=False, sort_keys=True)
+    if evidence_before != evidence_after:
+        raise RuntimeError("USDA enrichment must not modify nutrientEvidence")
+
 def aggregate_meals(bank):
     for meal in bank.get("meals", []):
         sums = {k: 0.0 for k in NUTRIENTS}
@@ -141,7 +151,7 @@ def main():
                 micro = extract_micro(detail)
                 if not has_any_data(micro):
                     raise ValueError("USDA record contains no usable micronutrient values")
-                food["fdcMatch"] = {
+                apply_usda_fields(food, {
                     "status": "accepted",
                     "fdcId": manual["fdcId"],
                     "description": actual_description,
@@ -150,9 +160,7 @@ def main():
                     "source": "USDA FoodData Central",
                     "mappingMethod": "manual-reviewed",
                     "reviewNote": manual["reason"]
-                }
-                food["micronutrientsPer100g"] = micro
-                food["micronutrientUnits"] = {k: v[2] for k, v in NUTRIENTS.items()}
+                }, micro)
                 accepted += 1
             except (urllib.error.URLError, TimeoutError, json.JSONDecodeError, ValueError, KeyError) as exc:
                 review["items"].append({
@@ -190,11 +198,9 @@ def main():
                     "micronutrientsPer100g": micro
                 }
                 if auto:
-                    food["fdcMatch"] = {"status": "accepted", "fdcId": candidate_info["fdcId"],
+                    apply_usda_fields(food, {"status": "accepted", "fdcId": candidate_info["fdcId"],
                         "description": candidate_info["description"], "dataType": candidate_info["dataType"],
-                        "confidence": candidate_info["score"], "source": "USDA FoodData Central"}
-                    food["micronutrientsPer100g"] = micro
-                    food["micronutrientUnits"] = {k: v[2] for k, v in NUTRIENTS.items()}
+                        "confidence": candidate_info["score"], "source": "USDA FoodData Central"}, micro)
                     accepted += 1
                 else:
                     food["fdcMatch"] = {"status": "review", "source": "USDA FoodData Central"}
