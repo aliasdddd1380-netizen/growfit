@@ -128,3 +128,10 @@ These research files are deliberately separate from the food bank and cannot be 
 
 
 All alternative-source observations remain research-only unless independently reviewed, normalized to an explicit edible-portion basis, and separately approved. No round 4 values were published to the food bank.
+
+
+## Approximate estimates for unresolved foods
+- `food-approximate-estimates.json` records rough per-100 g reference estimates for the five unresolved foods (lamb, Doogh, Sangak, Barbari, Lavash).
+- Estimates are isolated, explicitly low-confidence where appropriate, and are not copied into the food bank, nutrient evidence package, approved publisher, meal aggregation, or nutrition UI.
+- Only values with a traceable reference are included; unsupported micronutrients remain `null`. Doogh sodium is a secondary-table lead, not a verified universal value. Bread sodium varies substantially by region and bakery.
+- These estimates are for orientation only and must not be represented as laboratory/USDA-confirmed data. A separate review is required before any activation.
