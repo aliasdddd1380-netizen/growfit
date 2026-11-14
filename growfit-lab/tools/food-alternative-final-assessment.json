@@ -107,5 +107,15 @@
       "foodId": 29,
       "required": "Original Iranian FCT row or validated edible-portion lab profile with moisture and flour extraction."
     }
-  ]
+  ],
+  "evidenceCatalogCorrection": {
+    "date": "2026-11-14",
+    "finding": "The 2023 paper says Iranian FCT published 2018; FAO and EuroFIR catalog the NNFTRI Iranian Food Composition Table as 2017 and mark access restricted.",
+    "doogh421mgPer100g": "secondary ranked-table lead only; source dataset and exact food code unknown; not approved",
+    "sources": [
+      "https://www.fao.org/food-composition/tables-and-databases/detail/%28iran--2017%29-iranian-food-composition-table/en",
+      "https://www.eurofir.org/food-information/food-composition-databases/",
+      "https://pmc.ncbi.nlm.nih.gov/articles/PMC10811537/"
+    ]
+  }
 }
