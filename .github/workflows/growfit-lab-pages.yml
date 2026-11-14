@@ -33,11 +33,30 @@ jobs:
           enablement: true
       - name: Validate nutrient enrichment script
         run: python -m py_compile growfit-lab/tools/enrich-food-bank.py
+      - name: Validate inactive nutrient evidence package
+        run: python growfit-lab/tools/validate-nutrient-evidence.py
+      - name: Test nutrient evidence validator
+        run: python growfit-lab/tools/test-nutrient-evidence-validator.py
+      - name: Test USDA evidence preservation
+        run: python growfit-lab/tools/test-enrichment-evidence-preservation.py
+      - name: Detect food-bank input changes
+        id: bank_changes
+        shell: bash
+        run: |
+          if [[ "${{ github.event_name }}" == "workflow_dispatch" ]]; then
+            echo "changed=true" >> "$GITHUB_OUTPUT"
+          elif git diff --name-only "${{ github.event.before }}" "${{ github.sha }}" -- growfit-lab/inbox/ | grep -q .; then
+            echo "changed=true" >> "$GITHUB_OUTPUT"
+          else
+            echo "changed=false" >> "$GITHUB_OUTPUT"
+          fi
       - name: Enrich food bank with USDA micronutrients
+        if: steps.bank_changes.outputs.changed == 'true'
         env:
           USDA_API_KEY: ${{ secrets.USDA_API_KEY }}
         run: python growfit-lab/tools/enrich-food-bank.py
       - name: Commit enriched food bank
+        if: steps.bank_changes.outputs.changed == 'true'
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
