@@ -59,8 +59,9 @@ def fetch_candidates(query):
 def nutrient_value(food, key):
     nutrient_id, names, _unit = NUTRIENTS[key]
     for item in food.get("foodNutrients", []):
-        nid = item.get("nutrientId")
-        nname = norm(item.get("nutrientName") or item.get("nutrient", {}).get("name") or "")
+        nutrient = item.get("nutrient") or {}
+        nid = item.get("nutrientId", nutrient.get("id"))
+        nname = norm(item.get("nutrientName") or nutrient.get("name") or "")
         value = item.get("value", item.get("amount"))
         if value is None:
             continue
@@ -74,6 +75,12 @@ def nutrient_value(food, key):
 def extract_micro(food):
     return {key: nutrient_value(food, key) for key in NUTRIENTS}
 
+def fetch_food_details(fdc_id):
+    url = "https://api.nal.usda.gov/fdc/v1/food/" + str(fdc_id) + "?" + urllib.parse.urlencode({"api_key": API_KEY})
+    req = urllib.request.Request(url, headers={"User-Agent": "GrowFit-Lab/1.0"})
+    with urllib.request.urlopen(req, timeout=35) as response:
+        return json.loads(response.read().decode("utf-8"))
+
 def has_any_data(micro):
     return any(v is not None for v in micro.values())
 
@@ -81,18 +88,19 @@ def aggregate_meals(bank):
     for meal in bank.get("meals", []):
         sums = {k: 0.0 for k in NUTRIENTS}
         valid = {k: True for k in NUTRIENTS}
-        unknown = []
+        matched_count = 0
         for ingredient in meal.get("ingredients", []):
             food_id = ingredient.get("foodId")
             if not isinstance(food_id, int) or food_id < 0 or food_id >= len(bank["foods"]):
-                unknown.append(food_id)
                 for k in valid: valid[k] = False
                 continue
             food = bank["foods"][food_id]
             micro = food.get("micronutrientsPer100g") or {}
             grams = float(ingredient.get("grams") or 0)
-            if not food.get("fdcMatch", {}).get("status") == "accepted":
-                unknown.append(food_id)
+            if food.get("fdcMatch", {}).get("status") == "accepted":
+                matched_count += 1
+            else:
+                for k in valid: valid[k] = False
             for key in NUTRIENTS:
                 value = micro.get(key)
                 if value is None:
@@ -101,7 +109,7 @@ def aggregate_meals(bank):
                     sums[key] += float(value) * grams / 100.0
         meal["micronutrients"] = {k: round(sums[k], 3) if valid[k] else None for k in NUTRIENTS}
         meal["micronutrientCoverage"] = {
-            "matchedIngredients": len(meal.get("ingredients", [])) - len(set(unknown)),
+            "matchedIngredients": matched_count,
             "totalIngredients": len(meal.get("ingredients", [])),
             "status": "complete" if all(valid.values()) else ("partial" if any(valid.values()) else "pending")
         }
@@ -135,7 +143,8 @@ def main():
             best = ranked[0] if ranked else None
             if best:
                 sc, _tr, candidate = best
-                micro = extract_micro(candidate)
+                detail = fetch_food_details(candidate.get("fdcId")) if candidate.get("fdcId") else candidate
+                micro = extract_micro(detail)
                 # Automatic acceptance requires a strong name/preparation match and usable micronutrient data.
                 auto = sc >= 0.84 and has_any_data(micro)
                 candidate_info = {
