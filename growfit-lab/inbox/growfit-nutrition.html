@@ -150,7 +150,13 @@ function micronutrientMarkup(option){
  const rows=nutrientMeta.filter(([k])=>micro[k]!==null&&micro[k]!==undefined).map(([k,label,unit])=>'<span>'+label+' <b>'+esc(micro[k])+' '+unit+'</b></span>');
  const coverage=bankMeal&&bankMeal.micronutrientCoverage;
  const coverageText=coverage&&coverage.status==='complete'?'مقادیر از ترکیبات و وزن مواد اولیه محاسبه شده‌اند.':coverage&&coverage.status==='partial'?'بعضی از مواد اولیه هنوز داده مرجع کامل ندارند؛ فقط مقادیر قابل محاسبه نمایش داده شده‌اند.':'برای برخی مواد اولیه هنوز داده معتبر کافی وجود ندارد.';
- return '<div class="micro-box"><b>فیبر، ویتامین‌ها و مواد معدنی</b><div class="micro-grid">'+(rows.join('')||'<p>مقدار معتبری برای نمایش ثبت نشده است.</p>')+'</div><p class="micro-source">'+coverageText+' منبع داده: USDA FoodData Central.</p></div>';
+ const altSources=bankMeal&&Array.isArray(bankMeal.micronutrientSources)?bankMeal.micronutrientSources:[];
+ const uniqueSources=[...new Map(altSources.filter(x=>x&&x.sourceId).map(x=>[x.sourceId,x])).values()];
+ const sourceMarkup=uniqueSources.length?'<p class="micro-source">منابع جایگزین تأییدشده: '+uniqueSources.map(x=>{
+  const title=esc(x.title||x.sourceId),url=String(x.url||'');
+  return url.startsWith('https://')?'<a href="'+esc(url)+'" target="_blank" rel="noopener noreferrer">'+title+'</a>':title;
+ }).join('؛ ')+' . سایر مقادیر مرجع از USDA FoodData Central هستند.</p>':'<p class="micro-source">منبع داده: USDA FoodData Central.</p>';
+ return '<div class="micro-box"><b>فیبر، ویتامین‌ها و مواد معدنی</b><div class="micro-grid">'+(rows.join('')||'<p>مقدار معتبری برای نمایش ثبت نشده است.</p>')+'</div><p class="micro-source">'+coverageText+'</p>'+sourceMarkup+'</div>';
 }
 function macroMarkup(o){
  return '<div class="macro-grid">'+
