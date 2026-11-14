@@ -34,12 +34,12 @@
     },
     {
       "foodId": 5,
-      "query": "Beef, ground, cooked, pan-browned",
+      "query": "Beef, ground, 90% lean meat 10% fat, cooked, pan-browned",
       "prep": "cooked"
     },
     {
       "foodId": 6,
-      "query": "Lamb, domestic, composite of trimmed retail cuts, cooked, roasted",
+      "query": "Lamb, domestic, leg, separable lean only, cooked, roasted",
       "prep": "cooked"
     },
     {
@@ -129,7 +129,7 @@
     },
     {
       "foodId": 24,
-      "query": "Yogurt drink, plain, fermented milk beverage",
+      "query": "Doogh, fermented yogurt drink, salted",
       "prep": "liquid"
     },
     {
@@ -144,17 +144,17 @@
     },
     {
       "foodId": 27,
-      "query": "Persian sangak bread",
+      "query": "Persian sangak wheat flatbread",
       "prep": "bread"
     },
     {
       "foodId": 28,
-      "query": "Persian barbari bread",
+      "query": "Persian barbari wheat flatbread",
       "prep": "bread"
     },
     {
       "foodId": 29,
-      "query": "Lavash bread",
+      "query": "Lavash flatbread",
       "prep": "bread"
     },
     {
@@ -204,7 +204,7 @@
     },
     {
       "foodId": 39,
-      "query": "Cereals ready-to-eat, corn flakes, fortified",
+      "query": "Corn flakes cereal, ready-to-eat, fortified",
       "prep": "ready"
     },
     {
@@ -229,7 +229,7 @@
     },
     {
       "foodId": 44,
-      "query": "Chickpeas, mature seeds, cooked, boiled",
+      "query": "Chickpeas, mature seeds, cooked, boiled, without salt",
       "prep": "cooked"
     },
     {
@@ -244,7 +244,7 @@
     },
     {
       "foodId": 47,
-      "query": "Apples, raw, with skin",
+      "query": "Apples, raw, with skin, unspecified variety",
       "prep": "raw"
     },
     {
@@ -439,7 +439,7 @@
     },
     {
       "foodId": 86,
-      "query": "Jams and preserves, strawberry",
+      "query": "Strawberry jam, preserves",
       "prep": "sweetener"
     },
     {
@@ -454,7 +454,7 @@
     },
     {
       "foodId": 89,
-      "query": "Tomato products, canned, paste",
+      "query": "Tomato paste, canned, concentrated",
       "prep": "canned"
     },
     {
