@@ -1,0 +1,745 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="theme-color" content="#0D0D0D">
+<meta name="color-scheme" content="dark">
+<meta name="referrer" content="no-referrer">
+<meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'unsafe-inline'; style-src 'unsafe-inline'; img-src data: blob:; connect-src 'self'; font-src 'self'; form-action 'none'; base-uri 'none'">
+<title>تست انتخاب رشتهٔ ورزشی | گروفیت</title>
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%2308051a'/%3E%3Cpath d='M32 10l22 12v20L32 54 10 42V22z' fill='none' stroke='%23a855f7' stroke-width='5'/%3E%3C/svg%3E">
+<style>
+@font-face{font-family:"Vazirmatn";font-weight:400;font-display:swap;src:local("Vazirmatn"),local("Vazirmatn Regular"),url("fonts/Vazirmatn-Regular.woff2") format("woff2")}
+@font-face{font-family:"Vazirmatn";font-weight:700;font-display:swap;src:local("Vazirmatn Bold"),url("fonts/Vazirmatn-Bold.woff2") format("woff2")}
+:root{--bg:#0D0D0D;--s1:#141414;--s2:#1A1A1A;--s3:#222222;--line:rgba(255,255,255,.07);--tx:#FFFFFF;--mut:#8A8A8A;--or:#C6F432;--or2:#D7FA5E;--ice:#38BDF8;--amb:#FFB020;--ok:#22C55E;--err:#FF5C5C;--vio:#C6F432;--pink:#C6F432;--grad:#C6F432;--grad2:#C6F432;--glass:#141414;--glow:none;--font:Vazirmatn,"IRANSansX","IRANSans","Shabnam","Noto Sans Arabic","Segoe UI",Tahoma,system-ui,sans-serif}
+
+*{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+html,body{margin:0;color:var(--tx);font:16px/1.8 var(--font);background:radial-gradient(1100px 560px at 90% -8%,rgba(198,244,50,.38),transparent 62%),radial-gradient(900px 520px at -10% 105%,rgba(198,244,50,.28),transparent 60%),var(--bg);background-attachment:fixed;min-height:100vh}
+body{padding:env(safe-area-inset-top) 0 0}
+main{max-width:760px;margin:0 auto;padding:0 16px calc(120px + env(safe-area-inset-bottom))}
+h1,h2,h3,p{margin:0}
+header{display:flex;align-items:center;gap:12px;padding:18px 0 6px}
+header h1{font-size:21px;font-weight:800;line-height:1.4}
+header p{color:var(--mut);font-size:13px}
+.prog{display:flex;gap:6px;margin:14px 0 4px}
+.prog i{flex:1;height:5px;border-radius:9px;background:var(--s3);transition:background .25s}
+.prog i.on{background:var(--grad)}
+.stepname{color:var(--mut);font-size:13px;margin:6px 0 14px}
+.card{background:var(--glass);border:1px solid var(--line);border-radius:22px;padding:18px;margin-bottom:14px;backdrop-filter:blur(8px)}
+.card h2{font-size:18px;margin-bottom:6px}
+.f{margin-bottom:18px}.f:last-child{margin-bottom:0}
+label.l{display:block;font-weight:700;margin-bottom:8px;font-size:15px}
+label.l small{color:var(--mut);font-weight:400;font-size:12.5px;display:block;margin-top:2px}
+input[type=text],input[type=number],input[type=tel]{width:100%;background:var(--s2);color:var(--tx);border:1.5px solid var(--line);border-radius:13px;padding:12px 14px;font:inherit;font-size:16px;outline:none;min-height:50px;direction:ltr;text-align:right}
+input:focus{border-color:var(--or)}
+.opts{display:flex;flex-wrap:wrap;gap:9px}
+.opt{position:relative;flex:1 1 auto}
+.opt input{position:absolute;opacity:0;inset:0;width:100%;height:100%;margin:0;cursor:pointer}
+.opt span{display:flex;align-items:center;justify-content:center;gap:6px;text-align:center;background:var(--s2);border:1.5px solid var(--line);border-radius:13px;padding:11px 14px;font-size:14.5px;transition:.15s;min-height:46px;height:100%}
+.opt input:checked+span{border-color:var(--or);background:rgba(198,244,50,.2);font-weight:700;box-shadow:0 0 0 3px rgba(198,244,50,.12)}
+.opt input:focus-visible+span{outline:2px solid var(--or);outline-offset:2px}
+.opts.col .opt{flex:1 1 100%}
+.opts.col .opt span{justify-content:flex-start;text-align:right}
+.scale{display:grid;grid-template-columns:repeat(5,1fr);gap:8px}
+.scale .opt span{padding:10px 0;font-weight:700}
+.ends{display:flex;justify-content:space-between;color:var(--mut);font-size:12.5px;margin-top:6px}
+.err{color:var(--err);font-size:13px;margin-top:6px}
+.f.bad input[type=number],.f.bad .opt span{border-color:var(--err)}
+.note{background:rgba(251,191,36,.1);border:1px solid rgba(251,191,36,.38);color:#fde68a;border-radius:14px;padding:11px 14px;font-size:13.5px;margin-bottom:14px}
+.info{background:var(--s2);border-radius:14px;padding:11px 14px;font-size:13.5px;color:var(--mut);margin-bottom:14px}
+.nav{position:fixed;inset-inline:0;bottom:0;background:linear-gradient(to top,var(--bg) 70%,transparent);padding:18px 16px calc(14px + env(safe-area-inset-bottom));z-index:5}
+.nav div{max-width:760px;margin:0 auto;display:flex;gap:10px}
+.btn{flex:1;border:0;border-radius:15px;padding:14px 16px;font:inherit;font-size:16px;font-weight:800;color:#fff;background:var(--s3);cursor:pointer;min-height:52px;text-align:center;text-decoration:none;display:flex;align-items:center;justify-content:center}
+.btn.pri{background:var(--grad);box-shadow:var(--glow)}
+.btn.ghost{background:transparent;border:1.5px solid var(--line)}
+.btn.sm{padding:9px 14px;font-size:14px;min-height:42px;font-weight:700;flex:none}
+.btn.back{flex:0 0 34%}
+.hide{display:none!important}
+.chips{display:flex;flex-wrap:wrap;gap:7px;margin-top:6px}
+.chip{display:inline-block;padding:2px 11px;border-radius:99px;background:var(--s3);font-size:12.5px;color:var(--or2)}
+.grp{margin-bottom:12px}
+.grp b{display:block;font-size:13px;color:var(--mut);margin-bottom:6px}
+.pill .opt{flex:none}
+.pill .opt span{padding:7px 12px;font-size:13.5px;min-height:38px;border-radius:99px}
+/* result */
+.hero{text-align:center;padding:10px 0 4px}
+.hero h2{font-size:22px}
+.hero p{color:var(--mut);font-size:14px;margin-top:4px}
+.rc{position:relative;overflow:hidden}
+.rc.top{border-color:rgba(198,244,50,.55);box-shadow:var(--glow)}
+.rc .hd{display:flex;gap:14px;align-items:center}
+.rc .rk{flex:none;width:34px;height:34px;border-radius:50%;background:var(--grad);display:flex;align-items:center;justify-content:center;font-weight:800;font-size:15px}
+.rc .ic{font-size:34px;line-height:1}
+.rc .ti{flex:1;min-width:0}
+.rc .ti b{display:block;font-size:18px;line-height:1.4}
+.rc .ti span{color:var(--mut);font-size:12.5px}
+.ring{flex:none;width:68px;height:68px;position:relative}
+.ring svg{width:100%;height:100%;transform:rotate(-90deg)}
+.ring div{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;font-weight:800;font-size:17px}
+.lab{display:inline-block;margin-top:8px;font-size:12.5px;font-weight:700;color:#121212;background:var(--grad2);border-radius:99px;padding:1px 12px}
+ul.why{margin:10px 0 0;padding:0;list-style:none;font-size:14px}
+ul.why li{padding-inline-start:22px;position:relative;margin:4px 0}
+ul.why li:before{content:"✓";position:absolute;inset-inline-start:0;color:var(--ok);font-weight:800}
+ul.why.w li:before{content:"!";color:var(--amb)}
+.sch{background:rgba(34,211,238,.09);border:1px solid rgba(34,211,238,.35);border-radius:14px;padding:10px 12px;margin-top:10px;font-size:13.5px}
+.sch b{color:var(--ice)}
+.more{font-size:13.5px;color:var(--mut);margin-top:8px}
+.more b{color:var(--tx)}
+.row{display:flex;align-items:center;gap:12px;padding:11px 0;border-bottom:1px solid var(--line)}
+.row:last-child{border:0}
+.row .ic{font-size:24px}
+.row .ti{flex:1;min-width:0;font-size:14.5px}
+.row .ti small{display:block;color:var(--mut);font-size:12px}
+.bar{height:6px;background:var(--s3);border-radius:9px;overflow:hidden;margin-top:4px}
+.bar i{display:block;height:100%;background:var(--grad);border-radius:9px}
+.pct{flex:none;width:44px;text-align:center;font-weight:800}
+.sel{flex:none}
+details{margin-top:12px}
+details summary{cursor:pointer;color:var(--or2);font-weight:700;font-size:14px;padding:6px 0}
+details p,details li{font-size:13.5px;color:var(--mut)}
+details a{color:var(--ice)}
+#toast{position:fixed;left:50%;top:calc(14px + env(safe-area-inset-top));transform:translate(-50%,-90px);background:var(--tx);color:#121212;border-radius:12px;padding:9px 18px;font-weight:700;font-size:14px;transition:transform .25s;z-index:9;max-width:90%;text-align:center}
+#toast.show{transform:translate(-50%,0)}
+@media(min-width:900px){main{max-width:880px}.opt span{font-size:15px}.rc.top .grid{display:grid;grid-template-columns:1fr 1fr;gap:16px}}
+@media(prefers-reduced-motion:reduce){*{transition:none!important;animation:none!important}}
+/* ===== GrowFit "PowerFit Lime" (v8) =====
+   Flat, opaque, matte. One neon-lime accent (#C6F432) on near-black. Text on lime is always #0D0D0D.
+   Only appearance changes: no feature, data, key or function was touched.
+   HERO IMAGE SLOT: put a real athlete photo in the dashboard hero by setting  --hero-img:url("hero.jpg")  on :root below
+   (any dark photo works; the bottom fade keeps the text readable). */
+:root{--hero-img:none;--lime-t:rgba(198,244,50,.12);--lime-b:rgba(198,244,50,.35);--ink:#0D0D0D;--dim:#6B6B6B;color-scheme:dark}
+html,body{background:var(--bg);color:var(--tx)}
+body{font-size:15px;line-height:1.7;-webkit-tap-highlight-color:transparent}
+h1,h2,h3{font-weight:800;line-height:1.3;letter-spacing:0}
+.acc{color:var(--or)}
+.num,.d-ring .c b,.dt b,.ps b,.mac b{direction:ltr;unicode-bidi:isolate;font-variant-numeric:tabular-nums}
+/* ---------- surfaces: flat cards ---------- */
+.card,.dcard,.tile,.wk,.ringcard,.rc,.opt,.sg,.sprow{background:var(--s2);border:1px solid var(--line);border-radius:20px;box-shadow:none}
+.card{padding:16px;margin-bottom:12px}
+.opt{border-radius:16px}
+.fx,.macros div,.tipbox{background:var(--s3);border:1px solid var(--line);box-shadow:none}
+.card.tap,.dt,.rw,.qa,.btn,.tb,.ic,.ck{transition:transform .2s ease,background .2s ease,border-color .2s ease,color .2s ease}
+.card.tap:active,.dt:active,.rw:active,.qa:active,.btn:active,.tb:active,.ic:active{transform:scale(.97)}
+.card.tap:hover,.dt:hover,.qa:hover{border-color:var(--lime-b)}
+.card.sk,.card.grp{border-inline-start:3px solid var(--sp,var(--or));border-right-width:1px}
+.card.sk,.card.grp{border-right:1px solid var(--line);border-left-width:1px;border-inline-start:3px solid var(--sp,var(--or))}
+.kv{border-bottom:1px solid var(--line)}
+.empty{color:var(--mut)}
+/* ---------- buttons ---------- */
+.btn{border-radius:999px;background:var(--s3);border:1px solid var(--line);color:var(--tx);font-weight:700;box-shadow:none;min-height:48px}
+.btn.sm{border-radius:999px;min-height:44px;min-width:44px}
+.btn.danger{color:var(--err);border-color:rgba(255,92,92,.4);background:transparent}
+.btn.pri,.d-cta,.banner,.tb.on,.ck.on,.rpe button.on,.d-ban .go2,#side .upg button,.fab{background:var(--or);color:var(--ink);border-color:var(--or);font-weight:800;box-shadow:none}
+.btn.pri:hover,.d-cta:hover{background:var(--or2);border-color:var(--or2)}
+.btn.pri{box-shadow:0 6px 20px rgba(198,244,50,.18)}
+.banner{border-radius:20px}
+.banner span,.banner small,.banner p{color:rgba(13,13,13,.8)}
+.banner .go{background:var(--ink);color:var(--or);border-radius:999px;min-height:44px}
+.tb{border-radius:999px;background:var(--s2);border:1px solid var(--line);color:var(--tx);min-height:44px}
+.rpe button{border-radius:14px;background:var(--s3);border-color:var(--line);min-height:48px}
+.ic{width:44px;height:44px;border-radius:14px;background:var(--s2);border:1px solid var(--line);color:var(--tx)}
+.ck{border:2px solid #555;background:transparent;color:transparent}
+.ck.on{color:var(--ink);border-color:var(--or)}
+.dlink{background:transparent;border:0;color:var(--or);padding:6px 0;font-size:13px;font-weight:700;border-radius:0;text-decoration:none}
+.dlink:hover{background:transparent;color:var(--or2)}
+.lnk,.sec button{color:var(--or)}
+/* ---------- inputs ---------- */
+input,select,textarea{background:var(--s3);border:1px solid var(--line);border-radius:14px;min-height:46px;color:var(--tx);font-size:16px}
+input:focus,select:focus,textarea:focus{outline:none;border-color:var(--or);box-shadow:0 0 0 3px rgba(198,244,50,.22)}
+input:focus-visible,select:focus-visible,textarea:focus-visible,button:focus-visible,a:focus-visible,summary:focus-visible{outline:3px solid var(--or);outline-offset:2px}
+input::placeholder,textarea::placeholder{color:#7A7A7A}
+input[type=checkbox],input[type=radio],.sw2 input{accent-color:var(--or)}
+label{color:var(--mut)}
+/* ---------- chips, bars, notes ---------- */
+.chip{background:rgba(255,255,255,.06);color:#BDBDBD;border-radius:12px;border:0}
+.chip.or,.lvl{background:var(--lime-t);color:var(--or);box-shadow:none}
+.chip.sys{background:transparent;border:1px solid var(--sp,var(--or));color:var(--sp,var(--or))}
+.bar,.prog i{background:rgba(255,255,255,.08);box-shadow:none}
+.bar i,.prog i.on{background:var(--or)}
+.note,.info{background:var(--s2);border:1px solid var(--line);border-inline-start:3px solid var(--or);border-radius:14px;color:var(--tx);box-shadow:none}
+.note{border-inline-start-color:var(--amb);color:#FFD27A}
+.note.warn,.card .note{background:rgba(255,176,32,.08)}
+.sw i{background:#2A2A2A;border:1px solid var(--line)}
+.sw i:after{background:#9A9A9A}
+.sw input:checked+i{background:var(--or);border-color:var(--or)}
+.sw input:checked+i:after{background:var(--ink)}
+.avatar{background:var(--s3);color:var(--or);border:1px solid var(--line)}
+.heatleg i{background:linear-gradient(270deg,#F5FFD0,#C6F432 55%,#262626)}
+.chart text{fill:#8A8A8A}
+.chart line,.chart .grid{stroke:rgba(255,255,255,.06)}
+/* ---------- bars, rings (dashboard) ---------- */
+.dsh{gap:12px;padding:6px 16px 10px}
+.dcard{border-radius:20px;padding:16px;box-shadow:none}
+.dh h3{font-size:17px;font-weight:800;color:var(--tx)}
+.d-hero{position:relative;overflow:hidden;border-radius:24px;border:1px solid var(--line);background:#141414 var(--hero-img) center/cover no-repeat;min-height:260px;padding:20px;align-items:flex-end;box-shadow:none}
+.d-hero:before{content:'';position:absolute;inset:0;background:linear-gradient(to top,#0D0D0D 8%,transparent 70%);z-index:1;pointer-events:none}
+.d-hero .tx{position:relative;z-index:2;max-width:100%;width:100%}
+.d-hero h2{font-size:clamp(28px,7vw,40px);font-weight:800;line-height:1.25;margin:0 0 8px;color:#fff}
+.d-hero h2 .acc{display:block;color:var(--or)}
+.d-hero p{font-size:14px;color:var(--mut);margin:0 0 14px}
+.d-hero small{display:block;margin-top:10px;font-size:12.5px;color:var(--mut)}
+.d-art{inset-inline-end:0;width:55%;opacity:.5;filter:grayscale(.55);-webkit-mask-image:linear-gradient(to left,transparent 0,#000 40%);mask-image:linear-gradient(to left,transparent 0,#000 40%)}
+.d-cta{display:flex;align-items:center;justify-content:space-between;gap:12px;width:100%;max-width:360px;height:56px;padding:0 8px;border:0;border-radius:999px;font-size:16px;cursor:pointer}
+.d-cta i{display:grid;place-items:center;width:40px;height:40px;border-radius:50%;background:var(--ink);color:var(--or);flex:none}
+.d-cta i svg{width:18px;height:18px;fill:none;stroke:currentColor;stroke-width:2.2;stroke-linecap:round;stroke-linejoin:round}
+.d-cta span{flex:1;text-align:center}
+.d-cta>svg{width:18px;height:18px;flex:none;margin-inline-end:10px;fill:none;stroke:currentColor;stroke-width:2.2;stroke-linecap:round;stroke-linejoin:round}
+.d-ring svg{filter:none}
+.d-ring circle:nth-of-type(1){stroke:rgba(255,255,255,.08)}
+.d-ring circle:nth-of-type(2){stroke:var(--or)}
+.d-ring .c b{font-size:30px;font-weight:800;color:#fff}
+.d-ring .c small{font-size:11.5px;color:var(--mut)}
+.d-ring .lvlb{color:var(--or)}
+.pstats{border-inline-start:1px solid var(--line)}
+.ps .pi,.ps .pi.fl,.ps .pi.tr{background:var(--lime-t);color:var(--or);width:36px;height:36px;border-radius:12px}
+.ps .pi svg{width:20px;height:20px;stroke-width:1.75}
+.ps b{font-size:19px;font-weight:800;color:#fff}.ps span{color:var(--mut);font-size:12.5px}
+.dt{background:var(--s2);border:1px solid var(--line);border-radius:18px;box-shadow:none}
+.dt .ti,.dt.t2 .ti,.dt.t3 .ti,.dt.t4 .ti{background:var(--lime-t);color:var(--or);border-radius:12px}
+.dt span{color:var(--mut)}
+.dt b{font-size:26px;font-weight:800;color:#fff}
+.dt em{color:var(--ok)}.dt em.dn{color:var(--err)}
+.d-rec{gap:10px}
+.rw{position:relative;flex-direction:row;align-items:center;border-radius:18px;background:var(--s2);border:1px solid var(--line);overflow:hidden;min-height:76px}
+.rw .th{order:-1;width:84px;height:auto;min-height:76px;align-self:stretch;flex:none;background:var(--s3)!important;color:#555}
+.rw .th:after{background:repeating-linear-gradient(115deg,rgba(255,255,255,.045) 0 2px,transparent 2px 14px)}
+.rw .th svg{color:#6B6B6B;opacity:1}
+.rw .in{flex:1;padding:10px 12px;padding-inline-end:64px}
+.rw b{color:#fff}.rw small{color:var(--mut)}
+.rw .pl{position:absolute;inset-inline-end:12px;top:50%;margin-top:-20px;width:40px;height:40px;border-radius:50%;background:var(--or);z-index:3}
+.rw .pl svg{width:14px;height:14px;fill:var(--ink);stroke:none;opacity:1;color:var(--ink);transform:none}
+.rw .ok{position:absolute;inset-inline-end:12px;top:50%;margin-top:-14px;width:28px;height:28px;border-radius:50%;background:var(--or);color:var(--ink);border:0}
+.rw .ok.off{background:transparent;border:1.5px solid #555;color:transparent;display:none}
+.rw.dn .pl{display:none}
+.rw .ok svg{width:16px;height:16px;stroke-width:2.6}
+.d-nut-c .mac i{border-radius:50%}
+.mac div{border-bottom:1px solid var(--line)}
+.mac b{color:#fff}
+.tipbox{background:var(--s3);border:1px solid var(--line);border-inline-start:3px solid var(--or);border-radius:14px;color:#D0D0D0}
+.d-week .bc i{background:var(--or);box-shadow:none;border-radius:8px}
+.d-week .bc.z i{background:#2A2A2A}
+.d-week .bc.td i{background:var(--or2)}
+.d-week .bc span{color:var(--mut)}
+.d-leg:before{background:var(--or)}
+.d-ban{background:var(--s2);border:1px solid var(--line);border-inline-start:3px solid var(--or);border-radius:20px;box-shadow:none}
+.d-ban .bi,.d-ban .bi svg{color:var(--or);fill:var(--or);filter:none}
+.d-ban p{color:var(--mut)}
+.d-ban .go2{border-radius:999px;padding:10px 20px;min-height:44px}
+.d-sub{background:var(--s2);border:1px solid var(--line);border-radius:20px}
+.qa{background:var(--s2);border:1px solid var(--line);border-radius:18px;color:#fff;aspect-ratio:1/.95;justify-content:center}
+.qa svg{color:var(--or);stroke-width:1.75}
+/* ---------- bottom navigation ---------- */
+.bn{background:var(--s1);border:0;border-top:1px solid var(--line);border-radius:24px 24px 0 0;box-shadow:none;padding:10px 6px calc(18px + env(safe-area-inset-bottom));max-width:560px}
+.bn:after{content:'';position:absolute;left:50%;bottom:calc(6px + env(safe-area-inset-bottom));width:120px;height:4px;margin-left:-60px;border-radius:4px;background:#2A2A2A}
+.bn>button{color:var(--dim);font-size:10.5px;min-height:52px}
+.bn>button svg{stroke-width:1.75}
+.bn>button.on{color:var(--or);font-weight:700}
+.bn .fab{width:56px;height:56px;margin:-24px 0 0;border:0;border-radius:50%;background:var(--or);color:var(--ink);box-shadow:0 0 0 6px var(--bg)}
+.bn .fab svg{stroke:var(--ink);stroke-width:2}
+.bn .fab.on{outline:0;box-shadow:0 0 0 6px var(--bg),0 0 0 8px rgba(198,244,50,.4)}
+.bn .fl{color:var(--dim);font-size:10.5px}
+#app{padding-bottom:calc(112px + env(safe-area-inset-bottom))}
+/* ---------- overlays ---------- */
+.sheet>div,#side,#tbar .res,#tbar .bp,#timerpill{background:var(--s1);border:1px solid var(--line);box-shadow:none}
+.sheet>div{border-radius:24px 24px 0 0}
+.sheet{background:rgba(0,0,0,.7)}
+#toast{background:#FFFFFF;color:var(--ink);border-radius:14px;box-shadow:0 8px 24px rgba(0,0,0,.45);font-weight:700}
+#timerpill{border-color:var(--or);color:#fff}
+#timerpill.go{background:var(--or);color:var(--ink)}
+/* ---------- welcome / lock screens ---------- */
+#app>.hero:first-child{display:flex;flex-direction:column;align-items:flex-start;text-align:start;min-height:calc(100dvh - 250px);padding:calc(28px + env(safe-area-inset-top)) 22px 8px}
+#app>.hero:first-child:before{display:none}
+#app>.hero:first-child>svg{width:44px;height:44px;margin-bottom:auto}
+#app>.hero:first-child>svg path{fill:var(--or)}
+#app>.hero:first-child h1{font-size:clamp(44px,14vw,68px);line-height:1.1;margin:24px 0 6px;font-weight:800;color:#fff}
+#app>.hero:first-child h1 b{color:var(--or)}
+#app>.hero:first-child p{color:var(--mut);font-size:14px;margin:0 0 18px}
+#app>.hero:first-child+.pad .btn.pri{height:56px;font-size:16px}
+.top .mk svg path{fill:var(--or)}
+.top{padding:16px 16px 8px}.tt h1{font-size:22px;font-weight:800}.top.big .tt h1{font-size:26px}
+.tt p{color:var(--mut)}
+.strip{scrollbar-width:none}
+/* ---------- tables ---------- */
+.cmp th{color:var(--mut);font-weight:600;border-bottom:1px solid var(--line)}
+.cmp td{border-bottom:1px solid var(--line)}
+.cmp .tot,.cmp tr.tot td{background:rgba(198,244,50,.06)}
+.cmp td:first-child,.cmp th:first-child{background:var(--s1)}
+/* ---------- desktop shell ---------- */
+@media (min-width:1024px){
+ #side{border-radius:24px;box-shadow:none}
+ #side nav button{color:#B5B5B5;border-radius:14px;border-inline-start:3px solid transparent}
+ #side nav button:hover{background:rgba(255,255,255,.04)}
+ #side nav button.on{background:rgba(198,244,50,.08);color:var(--or);box-shadow:none;border-inline-start-color:var(--or);font-weight:800}
+ #side .upg{background:var(--s2);border:1px solid var(--line);border-radius:18px}
+ #side .upg svg{color:var(--or);fill:var(--or)}#side .upg b{color:var(--or)}#side .upg small{color:var(--mut)}
+ #tbar .sr input{background:var(--s2);border:1px solid var(--line);border-radius:999px}
+ #tbar .sr svg{color:var(--mut)}
+ #tbar .bl i{background:var(--or);color:var(--ink)}
+ #tbar .res button:hover,#tbar .bp button:hover{background:rgba(255,255,255,.05)}
+}
+@media (min-width:1024px){.d-prog{grid-template-columns:1fr;justify-items:center}.pstats{border:0;padding:0;width:100%}}
+@media (max-width:420px){.d-hero{min-height:240px}.d-rec{grid-template-columns:1fr}.rw .th{width:84px}}
+/* ---------- public pages (form, sport test) ---------- */
+header h1{font-weight:800}
+.prog i{height:6px;border-radius:6px}
+.opt span{background:var(--s2);border:1px solid var(--line);border-radius:16px;min-height:48px;color:var(--tx)}
+.opt input:checked+span{background:var(--lime-t);border-color:var(--or);color:#fff}
+.opt input:focus-visible+span{outline:3px solid var(--or);outline-offset:2px}
+.chips .opt input:checked+span b{background:var(--or);color:var(--ink)}
+.nav{background:var(--s1);border-top:1px solid var(--line);border-radius:24px 24px 0 0}
+.nav .btn.pri{height:56px}
+.res .bar i,.pct i,.fit i{background:var(--or)}
+.done .ok{background:var(--or);color:var(--ink)}
+@media (prefers-contrast:more){:root{--line:rgba(255,255,255,.28);--mut:#B8B8B8}.btn,.tb,.ic,input,select,textarea,.card,.dcard{border-color:rgba(255,255,255,.4)}}
+@media (prefers-reduced-motion:reduce){*,*:before,*:after{animation-duration:.01ms!important;animation-iteration-count:1!important;transition-duration:.01ms!important}}
+@media print{.bn,#side,#tbar{display:none!important}}
+/* ===== GrowFit v8 final layer: "Liquid" at very low opacity =====
+   PowerFit Lime stays flat and matte; this layer only adds a faint liquid-glass feel:
+   a barely-there ambient glow, ~86% opaque surfaces with a soft sheen and a 1px highlight edge, and a light blur
+   on the few floating pieces (bottom bar, sidebar, sheets, toast, timer, search results).
+   Cards themselves are NOT blurred (keeps long lists fast on low-end phones). Delete this file from build.py to go fully flat. */
+:root{--lq-a:.86;--lq-edge:inset 0 1px 0 rgba(255,255,255,.08),inset 0 0 0 1px rgba(255,255,255,.035)}
+body{background:radial-gradient(58vmax 38vmax at 100% 0%,rgba(198,244,50,.05),transparent 62%),radial-gradient(50vmax 38vmax at 0% 100%,rgba(255,255,255,.03),transparent 64%),var(--bg);background-attachment:fixed}
+.card,.dcard,.tile,.wk,.ringcard,.rc,.dt,.d-sub,.d-ban,.qa,.rw,.opt,.sg,.sprow{
+ background-color:rgba(26,26,26,var(--lq-a));
+ background-image:linear-gradient(145deg,rgba(255,255,255,.055),rgba(255,255,255,0) 44%);
+ box-shadow:var(--lq-edge)}
+.d-hero{box-shadow:var(--lq-edge)}
+.fx,.macros div,.tipbox,.btn,.tb,.ic,input,select,textarea{box-shadow:inset 0 1px 0 rgba(255,255,255,.06)}
+.btn.pri,.d-cta,.tb.on,.banner,.d-ban .go2,.rpe button.on{box-shadow:inset 0 1px 0 rgba(255,255,255,.38),0 6px 20px rgba(198,244,50,.14)}
+.ck.on{box-shadow:inset 0 1px 0 rgba(255,255,255,.4)}
+/* floating pieces: light blur */
+.bn,#side,.sheet>div,#timerpill,.nav{
+ background-color:rgba(20,20,20,.84);
+ background-image:linear-gradient(160deg,rgba(255,255,255,.05),rgba(255,255,255,0) 50%);
+ -webkit-backdrop-filter:blur(14px) saturate(125%);backdrop-filter:blur(14px) saturate(125%);
+ box-shadow:var(--lq-edge)}
+#tbar .sr input,#tbar .res,#tbar .bp{background-color:rgba(26,26,26,.88);-webkit-backdrop-filter:blur(12px) saturate(120%);backdrop-filter:blur(12px) saturate(120%);box-shadow:var(--lq-edge)}
+#toast{background:rgba(255,255,255,.92);-webkit-backdrop-filter:blur(8px);backdrop-filter:blur(8px)}
+.sheet{background:rgba(0,0,0,.62);-webkit-backdrop-filter:blur(2px);backdrop-filter:blur(2px)}
+.bn .fab{box-shadow:0 0 0 6px var(--bg),inset 0 1px 0 rgba(255,255,255,.45)}
+@supports not ((-webkit-backdrop-filter:blur(1px)) or (backdrop-filter:blur(1px))){
+ .bn,#side,.sheet>div,#timerpill,.nav,#tbar .sr input,#tbar .res,#tbar .bp{background-color:#141414}
+}
+@media (prefers-reduced-transparency:reduce),(prefers-contrast:more){
+ :root{--lq-a:1}
+ body{background:var(--bg)}
+ .bn,#side,.sheet>div,#timerpill,.nav,#tbar .sr input,#tbar .res,#tbar .bp,#toast,.sheet{-webkit-backdrop-filter:none;backdrop-filter:none}
+ .bn,#side,.sheet>div,#timerpill,.nav{background-color:#141414}
+}
+@media print{*{-webkit-backdrop-filter:none!important;backdrop-filter:none!important}body{background:#fff}}
+</style>
+</head>
+<body>
+<main>
+<header><svg viewBox="140 515 790 915" width="40" height="46" aria-hidden="true"><defs><linearGradient id="lg" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#C6F432"/><stop offset="1" stop-color="#D7FA5E"/></linearGradient></defs><path fill="url(#lg)" fill-rule="evenodd" d="M535 523L925 742V1200L535 1421L146 1200V742Z M535 615L226 790V1155L535 1330L846 1155V790Z M788 815L535 668L277 805V1140L535 1273L748 1150V930L600 1005L670 1043V1105L535 1183L358 1085V862L535 762L708 858Z"/></svg><div><h1 id="ttl">تست انتخاب رشتهٔ ورزشی</h1><p id="sub">چند دقیقه وقت بگذار؛ بر اساس شرایط خودت پیشنهاد می‌گیری</p></div></header>
+<div id="view"></div>
+</main>
+<div class="nav hide" id="nav"><div><button class="btn back ghost" id="bBack">قبلی</button><button class="btn pri" id="bNext">بعدی</button></div></div>
+<div id="toast"></div>
+<script>
+/* ===== GrowFit sport catalog: shared by sport.html (the test) and the coach app (SPORTS registry) ===== */
+/* profile order (0..5 each): aer هوازی, str قدرت, pow توان انفجاری, spd سرعت و چابکی, mob انعطاف, bal تعادل و هماهنگی, mnd تمرکز و آرامش,
+   soc تیمی بودن, cmp رقابتی, con برخورد بدنی, imp فشار ضربه‌ای روی مفاصل, cst هزینه و تجهیزات, out فضای باز, wat آب, tec دشواری فنی, mus رشد عضله, cal مصرف انرژی */
+const SPD=['aer','str','pow','spd','mob','bal','mnd','soc','cmp','con','imp','cst','out','wat','tec','mus','cal'];
+const SP_CAT={gym:'باشگاهی و تناسب‌اندام',cardio:'استقامتی و فضای باز',water:'آبی',combat:'رزمی و مبارزه‌ای',team:'تیمی',racket:'راکتی و چابکی',mind:'ذهن و بدن',skill:'مهارتی و ماجراجویانه',prec:'دقت و تمرکز'};
+const SP_RISK={kn:'زانو',bk:'کمر',sh:'شانه',nk:'گردن',an:'مچ پا',hd:'ضربه به سر',ht:'قلب و فشار خون',wr:'مچ دست',el:'آرنج',rs:'تنفس و آسم'};
+const SP_PLACE={gym:'باشگاه بدنسازی',pool:'استخر',court:'سالن یا زمین ورزشی',mat:'سالن رزمی (تاتامی، رینگ)',studio:'استودیو کلاس گروهی',outdoor:'فضای باز، پارک، کوه',home:'خانه',special:'مکان یا تجهیزات ویژه (اسب، پیست، میدان تیر)'};
+/* k, name, category, icon, color, profile, risks, any-of places, training template, what it is, how to start, good complement */
+const SPORTS_CAT=[
+['body','بدنسازی','gym','🏋️','#ffb347',[2,5,2,1,2,2,2,1,2,0,1,2,0,0,2,5,3],'sh,bk',['gym','home'],'body','تمرین با وزنه و دستگاه برای رشد عضله، قدرت و فرم بدن.','با ۳ جلسه در هفته و حرکات پایه شروع کن؛ اول تکنیک، بعد وزنه.','هوازی سبک ۲ جلسه'],
+['fit','فیتنس و تناسب‌اندام','gym','🤸','#D2D2D2',[3,3,2,2,3,3,2,3,1,0,2,2,0,0,1,3,4],'',['gym','studio','home'],'fit','ترکیب وزنه سبک، سیرکوئیت و اینتروال برای سلامت و فرم عمومی.','سیرکوئیت‌های ۳۰ تا ۴۵ دقیقه‌ای با شدت متوسط خوب‌ترین شروع‌اند.','پیاده‌روی یا شنا'],
+['trx','TRX','gym','🎗','#4fd69c',[3,3,2,2,3,4,2,3,1,0,1,2,1,0,2,3,3],'sh',['gym','studio','home'],'trx','تمرین با وزن بدن روی تسمه معلق؛ قدرت، تعادل و ثبات مرکزی بدن.','با زاویهٔ ساده و سطح ۱ تا ۲ شروع کن و کم‌کم شیب را بیشتر کن.','کشش و تحرک‌پذیری'],
+['cf','کراس‌فیت و فانکشنال','gym','🔥','#ff5a5f',[4,4,4,3,3,4,2,4,4,0,3,3,0,0,4,4,5],'sh,bk,kn',['gym'],'cf','تمرین‌های متنوع و شدید (وزنه‌برداری، ژیمناستیک، هوازی) در قالب کلاس.','ابتدا کلاس مبتدی (On-ramp) را بگذران و شدت را کم‌کم بالا ببر.','ریکاوری و کشش'],
+['aero','ایروبیک و زومبا','gym','💃','#D7FA5E',[4,1,1,3,2,3,1,5,0,0,2,1,0,0,2,1,4],'kn',['studio'],'grp','کلاس گروهی با موسیقی؛ هوازی شاد و کم‌استرس.','کلاس سطح مبتدی را امتحان کن؛ لازم نیست همه حرکات را درست بزنی.','تمرین قدرتی سبک'],
+['dnc','رقص ورزشی','gym','🕺','#ff9a62',[3,1,1,3,4,5,2,4,2,0,2,1,0,0,4,1,3],'kn,an',['studio','home'],'grp','رقص با هدف تناسب و هماهنگی؛ از آرام تا رقابتی.','کلاس مقدماتی یک سبک (لاتین، هیپ‌هاپ، سالسا ...) انتخاب کن.','تمرین قدرتی پا'],
+['pwl','پاورلیفتینگ','gym','🏆','#e6b800',[1,5,4,0,1,2,3,1,3,0,2,2,0,0,3,5,2],'bk,kn,ht',['gym'],'pwr','سه حرکت اسکوات، پرس سینه و ددلیفت برای حداکثر قدرت.','با مربی فرم سه حرکت را یاد بگیر؛ ماه اول با وزنهٔ سبک.','هوازی سبک و تحرک‌پذیری'],
+['owl','وزنه‌برداری المپیک','gym','🥇','#ffcf40',[2,5,5,2,3,4,3,1,4,0,3,3,0,0,5,4,3],'bk,kn,sh,wr',['gym'],'pwr','اسنچ و کلین‌اندجرک؛ قدرت، سرعت و تکنیک همزمان.','حتماً با مربی و با هالتر خالی شروع کن؛ تکنیک مهم‌تر از وزنه است.','تحرک‌پذیری مچ و شانه'],
+['cal','کالیستنیکس','skill','🤸‍♂️','#4fd69c',[3,4,3,2,3,5,3,2,1,0,2,0,2,0,4,4,3],'sh,wr',['outdoor','home','gym'],'skill','تمرین با وزن بدن: بارفیکس، دیپ، شنا و حرکات تعادلی.','با پیشرفت‌های ساده (شنای شیب‌دار، بارفیکس کششی) شروع کن.','کشش مچ و شانه'],
+['yog','یوگا','mind','🧘','#9be7ff',[1,2,0,0,5,5,5,2,0,0,0,1,0,0,2,1,1],'',['home','studio'],'mind','حرکات کششی، تعادلی و تنفسی برای انعطاف، آرامش و تمرکز.','کلاس مقدماتی یا ویدیوی ۲۰ دقیقه‌ای؛ هرگز بیش از حد درد نکش.','پیاده‌روی یا تمرین قدرتی'],
+['pil','پیلاتس','mind','🌀','#a0e8d0',[1,2,0,0,4,4,4,2,0,0,0,2,0,0,2,2,1],'',['studio','home'],'mind','تقویت عضلات مرکزی بدن (کور)، پاسچر و کنترل حرکت.','کلاس مات مقدماتی؛ روی تنفس و کنترل تمرکز کن.','هوازی ملایم'],
+['tai','تای‌چی و چی‌گونگ','mind','☯️','#DBDBDB',[1,1,0,0,3,5,5,3,0,0,0,1,2,0,3,0,1],'',['outdoor','home','studio'],'mind','حرکات آهستهٔ پیوسته؛ تعادل، آرامش و تحرک مفاصل با فشار بسیار کم.','کلاس گروهی ملایم یا ویدیوی مقدماتی؛ شروع کم‌فشار برای همه سنین.','پیاده‌روی'],
+['run','دویدن و دو و میدانی','cardio','🏃','#4cc3ff',[5,1,2,3,1,2,3,1,3,0,4,1,4,0,1,1,5],'kn,an',['outdoor','gym'],'run','از دویدن تفریحی تا ۵ و ۱۰ کیلومتر و ماراتن.','با تناوب دویدن و راه رفتن (مثلاً ۱ و ۲ دقیقه) و کفش مناسب شروع کن.','تمرین قدرتی پا و میانتنه'],
+['wlk','پیاده‌روی تند و طبیعت‌گردی','cardio','🚶','#8be04e',[3,0,0,0,1,1,3,2,0,0,1,0,5,0,0,0,2],'',['outdoor','home','gym'],'cardio','کم‌فشارترین ورزش هوازی؛ مناسب برای شروع و بازگشت بعد از وقفه.','روزانه ۲۰ تا ۳۰ دقیقه با سرعت «قابل صحبت کردن» و کم‌کم بیشتر.','تمرین قدرتی ۲ جلسه'],
+['hik','کوهنوردی','cardio','⛰️','#6fcf97',[4,2,1,1,1,3,4,3,1,0,3,2,5,0,2,2,4],'kn,ht',['outdoor'],'cardio','پیمایش مسیرهای کوهستانی؛ استقامت پا، ریه و ذهن.','مسیرهای کوتاه و آسان با گروه باتجربه؛ آب و لباس مناسب.','تمرین پا و کور'],
+['cyc','دوچرخه‌سواری','cardio','🚴','#4cc3ff',[5,2,2,2,1,3,3,2,3,0,1,3,4,0,2,2,4],'kn',['outdoor','gym','special'],'cardio','جادهٔ شهری، کوهستان یا دوچرخهٔ ثابت؛ هوازی کم‌ضربه.','دوچرخهٔ سایز مناسب و ۳۰ تا ۴۵ دقیقه آرام؛ زین را درست تنظیم کن.','تمرین قدرتی و کشش'],
+['row','قایقرانی و روئینگ','cardio','🚣','#5fb7ff',[5,3,2,1,1,3,3,3,3,0,1,4,3,3,4,3,4],'bk,sh',['special','gym'],'cardio','تمرین هوازی و قدرتی تمام‌بدن (ارگ در باشگاه یا قایق روی آب).','با ارگومتر و یادگیری تکنیک شروع کن؛ فرم کمر مهم است.','تحرک‌پذیری و کور'],
+['swm','شنا','water','🏊','#3ab8ff',[5,2,2,2,3,3,3,1,3,0,0,2,0,5,4,3,4],'sh',['pool'],'swim','هوازی تمام‌بدن بدون ضربه روی مفاصل؛ مناسب تقریباً همه.','اگر شنا بلد نیستی کلاس آموزشی؛ بعد ۲۰ تا ۳۰ دقیقه پیوسته.','کشش شانه'],
+['aqu','ایروبیک آبی','water','🌊','#7fd6ff',[3,1,0,1,2,2,2,5,0,0,0,2,0,5,1,1,3],'',['pool'],'swim','حرکات هوازی و قدرتی در آب؛ مناسب مشکلات مفصلی، اضافه‌وزن و سالمندی.','کلاس گروهی در آب کم‌عمق؛ نیازی به شنا بلد بودن نیست.','پیاده‌روی'],
+['wpl','واترپلو','water','🤽','#4ac0ff',[5,3,4,3,2,3,3,5,5,4,1,3,0,5,4,3,5],'sh',['pool'],'team','ورزش تیمی در آب؛ شنا، توپ‌بازی و قدرت.','نیاز به شنای خوب دارد؛ ابتدا شنا را تقویت کن.','تمرین قدرتی شانه'],
+['box','بوکس','combat','🥊','#ff6b6b',[4,3,4,4,2,4,3,2,5,4,3,2,0,0,4,3,5],'hd,sh,wr',['mat','gym'],'cmb','ضربه با مشت، حرکت پا و دفاع؛ تمرین بدون برخورد (کیسه، پد) هم ممکن است.','فقط کلاس تمرین با کیسه و پد را شروع کن؛ بدون اسپارینگ در ماه‌های اول.','هوازی و قدرت پا'],
+['kbx','کیک‌بوکسینگ و مایتای','combat','🦵','#ff7a59',[4,3,4,4,3,4,3,2,5,4,3,2,0,0,4,3,5],'hd,kn,an',['mat'],'cmb','ترکیب مشت و ضربهٔ پا (و زانو و آرنج در مایتای)؛ شدت بالا.','کلاس کاردیو-کیک‌بوکسینگ بدون برخورد مناسب‌ترین شروع است.','تحرک‌پذیری مفصل ران'],
+['krt','کاراته','combat','🥋','#f0f0f0',[3,2,3,4,4,4,4,2,4,3,3,1,0,0,5,2,3],'kn',['mat'],'cmb','رزمی سنتی با کاتا و کومیته؛ انضباط، سرعت و تکنیک.','از رده‌های مبتدی و زیر نظر مربی دارای مدرک شروع کن.','تمرین قدرتی پا'],
+['tkd','تکواندو','combat','🥋','#7aa2ff',[3,2,4,4,5,4,3,2,4,3,3,2,0,0,4,2,3],'kn,an',['mat'],'cmb','رزمی کره‌ای با تمرکز بر ضربات پا؛ انعطاف، سرعت و انفجار.','گرم‌کردن و کشش کافی؛ در ماه اول فقط تکنیک و کشش.','تقویت زانو و مچ پا'],
+['jdo','جودو','combat','🤼','#6c8cff',[3,4,4,3,2,4,3,2,5,5,4,2,0,0,5,3,4],'sh,bk,kn',['mat'],'cmb','کشتی با لباس؛ پرتاب، کنترل و زمین‌گیری.','یاد گرفتن افتادن صحیح (اوکمی) اولین و مهم‌ترین مرحله است.','قدرت گرفتن و کور'],
+['wrs','کشتی','combat','🤼‍♂️','#c97c4a',[4,4,4,3,3,4,3,2,5,5,4,1,0,0,5,4,5],'nk,sh,kn',['mat'],'cmb','ورزش ملی ایران؛ قدرت، استقامت و تکنیک در تماس نزدیک.','باشگاه مجاز و مربی رسمی؛ با تمرین فنی و بدنی آغاز کن.','تحرک‌پذیری گردن و شانه'],
+['mma','ام‌ام‌ای (MMA)','combat','🥷','#d94f4f',[5,4,4,4,3,4,3,2,5,5,4,3,0,0,5,4,5],'hd,kn,sh',['mat'],'cmb','ترکیب ضربه، کشتی و زمین؛ سخت‌ترین ورزش رزمی از نظر آمادگی.','اول یکی از پایه‌ها (بوکس یا کشتی یا جیوجیتسو) را یاد بگیر.','هوازی و قدرت'],
+['bjj','جیوجیتسو برزیلی','combat','🥋','#4d7cff',[4,4,3,2,4,4,5,2,4,5,3,2,0,0,5,3,4],'kn,sh',['mat'],'cmb','مبارزه در زمین با قفل و خفه؛ به‌شدت فکری و کم‌ضربه نسبت به رزمی‌های ضربه‌ای.','کلاس مقدماتی و تمرین با هم‌وزن؛ از قفل زدن با فشار پرهیز کن.','تحرک‌پذیری ران'],
+['wsh','ووشو','combat','🐉','#e84a5f',[3,2,3,4,5,5,4,2,3,2,2,1,0,0,5,2,3],'kn',['mat','studio'],'cmb','رزمی چینی با فرم‌های هنری (تالو) و رقابتی (ساندا).','تالو (فرم) بدون برخورد گزینهٔ خوب برای شروع است.','قدرت پا'],
+['fen','شمشیربازی','combat','🤺','#c0c8d8',[2,1,2,5,3,5,5,2,5,1,2,4,0,0,5,1,2],'kn,an',['special','court'],'rkt','مبارزهٔ سریع و تاکتیکی؛ چابکی و تمرکز بالا.','باشگاه دارای مربی و تجهیزات؛ فقط تکنیک پایه در ابتدا.','قدرت پا'],
+['foot','فوتبال','team','⚽','#8be04e',[4,2,3,4,1,3,2,5,5,3,3,1,4,0,3,2,5],'kn,an,hd',['court','outdoor'],'foot','ورزش تیمی پرطرفدار؛ استقامت، سرعت و کار گروهی.','تیم تفریحی و با گرم‌کردن کامل؛ فشار را کم‌کم بالا ببر.','تمرین قدرتی پا و پیشگیری از آسیب'],
+['fsal','فوتسال','team','🥅','#ffb020',[4,2,3,5,1,4,2,5,5,3,3,1,0,0,3,2,5],'kn,an',['court'],'fsal','فوتسال در سالن؛ سرعت، چابکی و تصمیم‌گیری سریع.','سالن‌های بازی دوستانه؛ کفش مناسب سالن حتماً.','قدرت پا و پیشگیری از آسیب'],
+['bsk','بسکتبال','team','🏀','#ff8a3d',[4,2,5,4,1,4,2,5,5,2,4,1,0,0,3,2,5],'kn,an',['court'],'team','پرش، پرتاب و جابه‌جایی سریع؛ قد بلند مزیت است.','بازی دوستانه و تمرین پرتاب و دریبل؛ تقویت مچ و زانو.','پلایومتریک و پیشگیری'],
+['vol','والیبال','team','🏐','#ffd34d',[3,2,5,3,2,4,2,5,5,0,3,1,0,0,3,2,4],'sh,kn',['court','outdoor'],'team','پرش، ضربه و هماهنگی تیمی بدون برخورد؛ قد بلند مزیت است.','تیم تفریحی؛ پاس و سرویس را بیاموز.','تقویت شانه و پرش'],
+['hbl','هندبال','team','🤾','#4fd69c',[4,3,5,4,1,4,2,5,5,4,4,1,0,0,3,3,5],'sh,kn',['court'],'team','سرعت، پرتاب و تماس بدنی در سالن.','تمرین پایه و پرتاب؛ گرم‌کردن شانه.','تقویت شانه و پا'],
+['rgb','راگبی','team','🏉','#D7FA5E',[4,4,5,4,1,3,2,5,5,5,5,1,3,0,3,4,5],'nk,sh,kn,hd',['outdoor','court'],'team','برخورد کامل بدنی با قدرت و استقامت بالا.','فقط با باشگاه رسمی؛ ابتدا نسخهٔ تگ یا لمسی.','قدرت کلی و گردن'],
+['ten','تنیس','racket','🎾','#c6f24e',[4,2,3,4,2,4,4,2,5,0,3,3,3,0,5,2,4],'sh,kn,el',['outdoor','court','special'],'rkt','راکتی با تحرک پیاپی؛ هماهنگی و استقامت.','چند جلسه با مربی برای ضربات پایه؛ خیلی زود تفریحی بازی کن.','قدرت شانه و پا'],
+['ttn','تنیس روی میز','racket','🏓','#D7FA5E',[2,1,2,4,1,5,5,3,5,0,0,2,0,0,5,0,2],'',['court','home'],'rkt','سرعت واکنش و هماهنگی دست و چشم با فشار تقریباً صفر روی مفاصل.','تمرین ضربات پایه و بازی تفریحی؛ مناسب همهٔ سنین.','هوازی سبک'],
+['bdm','بدمینتون','racket','🏸','#6ee7a8',[4,1,4,5,2,4,4,3,5,0,3,2,0,0,4,1,4],'sh,kn',['court'],'rkt','سرعت و چابکی بالا در سالن؛ شادابی و کالری‌سوزی خوب.','بازی دوستانه و تمرین حرکت پا؛ زانو را گرم کن.','قدرت پا'],
+['sqs','اسکواش','racket','🟡','#ffe36e',[5,2,4,5,2,4,4,2,5,1,4,3,0,0,4,2,5],'kn,an',['special','court'],'rkt','ورزش بسیار شدید داخل سالن بسته؛ استقامت و چابکی.','با شدت کم شروع کن؛ سطح آمادگی هوازی را اول بالا ببر.','تقویت زانو و مچ'],
+['clm','سنگ‌نوردی','skill','🧗','#ffaf5f',[3,4,3,2,4,5,5,2,2,0,2,3,3,0,4,3,4],'sh,wr',['special','gym'],'clm','قدرت انگشت و بالاتنه، تعادل و حل مسئله؛ سالن یا طبیعت.','سالن بولدرینگ با مسیرهای آسان و آموزش افتادن.','کشش شانه و آرنج'],
+['gms','ژیمناستیک','skill','🤸‍♀️','#D7FA5E',[3,4,5,3,5,5,4,2,4,0,5,3,0,0,5,3,3],'wr,bk,sh',['special','gym'],'skill','قدرت، انعطاف و کنترل در حرکات هنری و آکروباتیک.','در کودکی ایدئال‌تر است؛ بزرگسالان کلاس تناسب ژیمناستیک را امتحان کنند.','تحرک‌پذیری'],
+['prk','پارکور','skill','🏙','#ff8a4c',[3,3,5,4,3,5,4,3,2,0,5,0,5,0,5,3,4],'kn,an,wr',['outdoor'],'skill','حرکت خلاق در محیط؛ پرش، تعادل و ترس‌زدایی.','کلاس پارکور با مربی و سطح زمین نرم؛ افتادن را یاد بگیر.','قدرت پا و مچ'],
+['arc','تیراندازی با کمان','prec','🏹','#e0a96d',[0,2,0,0,1,3,5,1,4,0,0,4,3,0,5,0,0],'sh',['special','outdoor'],'prec','تمرکز، کنترل تنفس و ثبات؛ تقریباً بدون فشار مفصلی.','کلاس مقدماتی با مربی و تجهیزات استاندارد.','تقویت شانه و کمر'],
+['sht','تیراندازی ورزشی','prec','🎯','#9aa4b2',[0,0,0,0,0,2,5,1,4,0,0,5,2,0,5,0,0],'',['special'],'prec','تمرکز و کنترل ذهن بالا، فشار فیزیکی کم؛ نیازمند مجوز و میدان.','فقط در میدان‌های مجاز و با مربی رسمی.','هوازی و قدرت پایه'],
+['rid','سوارکاری','prec','🐎','#c08f5a',[2,2,1,1,2,5,4,1,3,1,2,5,5,0,5,2,2],'bk',['special'],'prec','تعادل، ارتباط با حیوان و قدرت پایین‌تنه و کور.','باشگاه سوارکاری معتبر و جلسهٔ آموزشی مقدماتی.','کور و تحرک ران'],
+['ska','اسکیت (رولر و یخ)','cardio','⛸️','#7ad7ff',[4,2,2,3,2,5,3,3,2,0,3,3,4,0,3,2,4],'kn,wr',['outdoor','special'],'cardio','تعادل و استقامت پا؛ هوازی با لذت و سرعت.','وسایل ایمنی (کلاه، مچ‌بند) و یادگیری ترمز و افتادن.','قدرت پا'],
+['ski','اسکی','cardio','⛷️','#aee3ff',[3,3,3,3,2,5,3,3,3,1,4,5,5,0,4,2,4],'kn,hd',['special'],'cardio','فصلی و پرهزینه؛ پا، تعادل و آمادگی هوازی.','کلاس مبتدی؛ قبل از فصل قدرت پا را آماده کن.','تمرین قدرتی پا']
+];
+/* index by key */
+const SPORT_BY=Object.fromEntries(SPORTS_CAT.map(r=>[r[0],{k:r[0],n:r[1],cat:r[2],ic:r[3],c:r[4],p:r[5],rk:r[6]?r[6].split(','):[],nd:r[7],tpl:r[8],d:r[9],s:r[10],m:r[11]}]));
+
+/* ===== GrowFit sport suggestion engine (suggestion only, never a prescription) ===== */
+const SP_GOALS={
+ fat:['کاهش چربی و وزن',{aer:1,cal:1.2,mus:.4,pow:.2}],
+ muscle:['رشد عضله و فرم بدن',{mus:1.2,str:1,cal:.15}],
+ strong:['قدرت و توان بیشتر',{str:1.2,pow:1,mus:.5}],
+ health:['سلامت عمومی و طول عمر',{aer:.8,str:.5,mob:.6,bal:.5,mnd:.3,imp:-.5}],
+ endur:['استقامت و آمادگی قلبی',{aer:1.2,cal:.5}],
+ skill:['یادگیری مهارت و تفریح',{tec:.8,bal:.7,spd:.6,soc:.3}],
+ comp:['رقابت و مسابقه',{cmp:1.2,tec:.5,spd:.5,pow:.5}],
+ stress:['کاهش استرس و آرامش',{mnd:1.2,out:.5,imp:-.4,cmp:-.4}],
+ flex:['انعطاف، پاسچر و تعادل',{mob:1.2,bal:.8,mnd:.5,imp:-.3}],
+ social:['دوستی و فضای گروهی',{soc:1.2,cmp:.2}]
+};
+const SP_MOT=[['fit','سالم و آماده بودن بدن'],['app','ظاهر و فرم بدن'],['cmp','چالش و بهتر شدن در یک مهارت'],['soc','بودن با دیگران'],['fun','لذت و شادی همان لحظه']];
+const SP_DIMTXT={aer:'تقویت استقامت قلبی و تنفسی',str:'افزایش قدرت',pow:'توان انفجاری و پرش',spd:'سرعت و چابکی',mob:'افزایش انعطاف و دامنهٔ حرکتی',bal:'بهبود تعادل و هماهنگی',mnd:'آرامش و تمرکز ذهنی',mus:'ساخت و حفظ عضله',cal:'مصرف انرژی بالا',tec:'یادگیری مهارت جدید',soc:'فضای گروهی و دوستانه',cmp:'امکان رقابت و مسابقه'};
+const spClamp=(x,a,b)=>Math.max(a,Math.min(b,x));
+const spVal=(p,d)=>p[SPD.indexOf(d)];
+function spMetrics(a){
+ const h=+a.h||0,w=+a.w||0,bmi=h&&w?w/Math.pow(h/100,2):0;
+ const puI=spClamp(+a.pu||0,0,4),jogI=spClamp(+a.jog||0,0,4),rch=spClamp(+a.reach||0,0,2),bal=spClamp(+a.bal||0,0,2),act=spClamp((+a.act||2)-1,0,3);
+ const exp=a.exp==='reg'?5:a.exp==='past'?2.5:0;
+ const fit=(puI/4*5+jogI/4*5+act/3*5+exp)/4;
+ return{bmi,fit,flex:(rch+bal)/4*5,act,exp:a.exp||'none'};
+}
+function spRank(a,cfg){
+ cfg=cfg||{};a=a||{};
+ const M=spMetrics(a),age=+a.age||30,offered=cfg.offered||{},list=(cfg.list&&cfg.list.length)?cfg.list:Object.keys(SPORT_BY).map(k=>SPORT_BY[k]);
+ const goals=[a.g1||'health'].concat(a.g2&&a.g2!==a.g1&&a.g2!=='none'?[a.g2]:[]);
+ const gW=goals.length>1?[.65,.35]:[1];
+ const mot=Object.assign({fit:3,app:3,cmp:3,soc:3,fun:3},a.mot||{});
+ const mSum=SP_MOT.reduce((s,m)=>s+(+mot[m[0]]||3),0)||15;
+ const like=a.like||[],never=a.never||[],pains=a.pain||[],cond=a.cond||[],places=(a.places&&a.places.length?a.places:['home']).concat(['home']);
+ const t5=v=>((+v||3)-1)/4*5; /* 1..5 -> 0..5 */
+ const likeCats=new Set(like.map(k=>(SPORT_BY[k]||{}).cat).filter(Boolean));
+ const parqYes=(a.parq||[]).filter(x=>x==='y').length;
+ const res=[];
+ list.forEach(S=>{
+  const P=S.p,ex=[],warn=[],why=[];
+  if(never.indexOf(S.k)>=0)return;
+  const conTol=[0,1.5,3,4,5][spClamp((+a.con||3)-1,0,4)];
+  if((+a.con||3)===1&&spVal(P,'con')>=3)return;
+  if(cond.indexOf('preg')>=0&&(spVal(P,'con')>=2||S.rk.indexOf('hd')>=0||(spVal(P,'bal')>=5&&spVal(P,'imp')>=2)||spVal(P,'pow')>=4||spVal(P,'str')>=5))return;
+  /* goal fit */
+  let gf=0;
+  goals.forEach((g,gi)=>{
+   const w=(SP_GOALS[g]||SP_GOALS.health)[1];let pos=0,ps=0,ng=0;
+   Object.keys(w).forEach(d=>{const v=spVal(P,d)/5;if(w[d]>0){pos+=w[d];ps+=w[d]*v}else ng+=-w[d]*v});
+   let s=pos?ps/pos:0;s=s-ng*.5;
+   if(g==='fat'&&M.bmi>=30)s-=spVal(P,'imp')/5*.35;
+   gf+=gW[gi]*spClamp(s,0,1);
+  });
+  /* preference fit */
+  const cl=(v,t)=>1-Math.abs(v-t)/5;
+  const items=[[1,cl(spVal(P,'soc'),t5(a.soc))],[1,cl(spVal(P,'cmp'),t5(a.cmp))],[.6,cl(spVal(P,'out'),t5(a.out))],[.9,cl(spVal(P,'tec'),t5(a.tec))]];
+  const cv=spVal(P,'con');items.push([1.2,cv>conTol?spClamp(1-(cv-conTol)/3,0,1):1-(conTol-cv)*.04]);
+  const iv=(spVal(P,'cal')+Math.max(spVal(P,'aer'),spVal(P,'pow'),spVal(P,'str')))/2;items.push([1,cl(iv,t5(a.int))]);
+  let wsum=0,pf=0;items.forEach(x=>{wsum+=x[0];pf+=x[0]*x[1]});pf/=wsum;
+  if(spVal(P,'wat')>=3&&a.swim==='no'){pf*=.55;warn.push('برای این رشته باید اول شنا یاد بگیری')}
+  else if(spVal(P,'wat')>=3&&a.swim==='basic'){pf*=.85}
+  /* motive fit */
+  const mv={fit:(spVal(P,'aer')+spVal(P,'str')+spVal(P,'cal'))/15,app:(spVal(P,'mus')*1.5+spVal(P,'cal')+spVal(P,'str')*.5)/15,cmp:(spVal(P,'tec')+spVal(P,'cmp')+spVal(P,'pow'))/15,soc:spVal(P,'soc')/5,fun:(spVal(P,'spd')+spVal(P,'bal')+spVal(P,'out')*.5+spVal(P,'soc')*.5)/12};
+  let mf=0;SP_MOT.forEach(m=>{mf+=(+mot[m[0]]||3)*mv[m[0]]});mf=spClamp(mf/mSum,0,1);
+  /* practical fit */
+  const okPlace=S.nd.some(p=>places.indexOf(p)>=0);
+  let prac=okPlace?1:.3;
+  if(!okPlace)warn.push('دسترسی به محل برگزاری: '+S.nd.map(p=>SP_PLACE[p]).filter(Boolean)[0]);
+  const cst=spVal(P,'cst');
+  if(a.budget==='low'&&cst>=3){prac*=.55;warn.push('هزینه و تجهیزات این رشته بالاست')}else if(a.budget==='low'&&cst===2)prac*=.85;else if(a.budget==='mid'&&cst>=4)prac*=.8;
+  /* safety */
+  let sf=1;
+  S.rk.forEach(r=>{if(pains.indexOf(r)>=0){sf*=.78;warn.push('با توجه به مشکل '+SP_RISK[r]+'، قبل از شروع با پزشک یا فیزیوتراپ مشورت کن')}});
+  if(cond.indexOf('asthma')>=0&&(spVal(P,'aer')>=4)){sf*=.88;warn.push('آسم: شدت را آرام بالا ببر و داروی تنفسی همراهت باشد')}
+  if(cond.indexOf('bp')>=0&&(S.rk.indexOf('ht')>=0||spVal(P,'str')>=5)){sf*=.7;warn.push('فشار خون یا مشکل قلبی: حتماً با پزشک هماهنگ کن')}
+  if(cond.indexOf('diab')>=0&&spVal(P,'cal')>=5){sf*=.95}
+  if(cond.indexOf('osteo')>=0&&(spVal(P,'con')>=3||spVal(P,'imp')>=4)){sf*=.7;warn.push('پوکی استخوان: ورزش‌های پرضربه یا برخوردی خطر شکستگی دارند')}
+  if(cond.indexOf('preg')>=0){sf*=1-.08*spVal(P,'imp');warn.push('بارداری: حتماً برنامه را با پزشک زنان هماهنگ کن')}
+  if(M.bmi>=30){sf*=1-.06*spVal(P,'imp');if(spVal(P,'imp')>=4)warn.push('شاخص توده بدنی بالا: ورزش‌های پرضربه را با احتیاط و تدریجی شروع کن')}
+  if(M.bmi>=35)sf*=1-.05*spVal(P,'imp');
+  if(age>=50){sf*=1-.04*spVal(P,'con')-.03*spVal(P,'imp');if(spVal(P,'con')>=4)warn.push('در سن بالاتر، ورزش‌های برخوردی ریسک بیشتری دارند')}
+  if(age>=60)sf*=1-.03*spVal(P,'pow');
+  if(age<16&&spVal(P,'str')>=5)sf*=.8;
+  sf=spClamp(sf,.15,1);
+  /* entry difficulty for beginners */
+  let ef=1;
+  if(M.fit<2.2&&M.exp==='none'){ef=1-.25*Math.max(0,(spVal(P,'tec')-3)/2)-.2*Math.max(0,Math.max(spVal(P,'aer'),spVal(P,'pow'),spVal(P,'str'))-4);if(ef<.9)warn.push('برای شروع سخت است؛ با مربی و مرحله‌ای پیش برو')}
+  let score=100*(.38*gf+.28*pf+.16*mf+.18*prac)*sf*ef;
+  if(like.indexOf(S.k)>=0){score+=8;why.push('قبلاً از این ورزش لذت برده‌ای')}else if(likeCats.has(S.cat)){score+=3;why.push('شبیه ورزش‌هایی است که دوست داشته‌ای')}
+  const off=offered[S.k];if(off){score+=3;why.push('در باشگاه برگزار می‌شود')}
+  score=spClamp(score,0,99);
+  /* reasons from goal dims */
+  const w0=(SP_GOALS[goals[0]]||SP_GOALS.health)[1],cands=Object.keys(w0).filter(d=>w0[d]>0&&SP_DIMTXT[d]).map(d=>[d,w0[d]*spVal(P,d)]).sort((x,y)=>y[1]-x[1]).filter(x=>spVal(P,x[0])>=4).slice(0,2);
+  cands.forEach(c=>why.unshift(SP_DIMTXT[c[0]]+' (هم‌راستا با هدف «'+SP_GOALS[goals[0]][0]+'»)'));
+  if((+a.soc||3)>=4&&spVal(P,'soc')>=4)why.push('فضای گروهی یا تیمی دارد؛ مطابق سلیقه‌ات');
+  if((+a.soc||3)<=2&&spVal(P,'soc')<=2)why.push('بدون وابستگی به هم‌تیمی و با برنامهٔ خودت قابل انجام است');
+  if((+a.out||3)>=4&&spVal(P,'out')>=4)why.push('در فضای باز انجام می‌شود');
+  if(spVal(P,'imp')<=1&&(M.bmi>=28||age>=45||pains.indexOf('kn')>=0))why.push('فشار کمی روی مفاصل دارد');
+  if(spVal(P,'con')>=4&&conTol>=4)why.push('برخورد بدنی را دوست داری');
+  res.push({k:S.k,s:S,score:Math.round(score),why:why.slice(0,3),warn:warn.slice(0,3),off:off||null,parts:{g:gf,p:pf,m:mf,pr:prac,sf,ef}});
+ });
+ res.sort((x,y)=>y.score-x.score);
+ if(cfg.only){const o=res.filter(r=>r.off);if(o.length)return{list:o,metrics:M,parqYes,all:res}}
+ return{list:res,metrics:M,parqYes,all:res};
+}
+const spLabel=s=>s>=80?'تناسب عالی':s>=70?'تناسب خیلی خوب':s>=60?'تناسب خوب':s>=48?'قابل‌قبول':'تناسب کم';
+
+(()=>{
+'use strict';
+const $=(s,e=document)=>e.querySelector(s);
+const FA='۰۱۲۳۴۵۶۷۸۹',fa=s=>String(s).replace(/\d/g,d=>FA[d]);
+const en=s=>String(s==null?'':s).replace(/[۰-۹]/g,d=>FA.indexOf(d)).replace(/[٠-٩]/g,d=>d.charCodeAt(0)-1632).replace(/[٫,،]/g,'.');
+const esc=s=>String(s==null?'':s).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+const LS={get(k){try{return localStorage.getItem(k)}catch(e){return null}},set(k,v){try{localStorage.setItem(k,v)}catch(e){}},del(k){try{localStorage.removeItem(k)}catch(e){}}};
+const toast=m=>{const t=$('#toast');t.textContent=m;t.className='show';clearTimeout(toast.h);toast.h=setTimeout(()=>t.className='',2600)};
+const str=(v,n)=>String(v==null?'':v).replace(/[\u0000-\u001F\u007F‎‏‪-‮]/g,'').replace(/\s+/g,' ').trim().slice(0,n);
+/* ---------- gym configuration: link hash first, then optional sports-config.json ---------- */
+const HP=new URLSearchParams(location.hash.replace(/^#/,''));
+const Q=new URLSearchParams(location.search);
+let CFG={gym:'',offered:{},custom:[],only:false};
+function parseCfg(o){
+ try{
+  if(!o||typeof o!=='object')return;
+  const c={gym:str(o.g,60),offered:{},custom:[],only:!!o.f};
+  (Array.isArray(o.x)?o.x:[]).slice(0,12).forEach(r=>{
+   if(!Array.isArray(r))return;const k=String(r[0]||'').replace(/[^a-z0-9]/g,'').slice(0,6),b=SPORT_BY[r[2]],n=str(r[1],40);
+   if(k&&/^x\d+$/.test(k)&&b&&n&&!SPORT_BY[k])c.custom.push({k,n,b:r[2]});
+  });
+  (Array.isArray(o.o)?o.o:[]).slice(0,60).forEach(r=>{
+   if(!Array.isArray(r))return;const k=String(r[0]||'');
+   if(!SPORT_BY[k]&&!c.custom.some(x=>x.k===k))return;
+   c.offered[k]={coach:str(r[1],40),days:str(r[2],60),time:str(r[3],30),note:str(r[4],120)};
+  });
+  CFG=c;
+ }catch(e){}
+}
+function b64json(s){try{let b=String(s).replace(/-/g,'+').replace(/_/g,'/');while(b.length%4)b+='=';const bin=atob(b),u=new Uint8Array(bin.length);for(let i=0;i<bin.length;i++)u[i]=bin.charCodeAt(i);return JSON.parse(new TextDecoder().decode(u))}catch(e){return null}}
+const sc=HP.get('sc');if(sc)parseCfg(b64json(sc));
+function applyCustom(){CFG.custom.forEach(x=>{const b=SPORT_BY[x.b];if(b&&!SPORT_BY[x.k])SPORT_BY[x.k]=Object.assign({},b,{k:x.k,n:x.n,custom:1})})}
+applyCustom();
+const GYM=CFG.gym;
+if(GYM){$('#ttl').textContent='تست انتخاب رشتهٔ ورزشی';$('#sub').textContent=GYM+' · پیشنهاد رشته بر اساس شرایط تو'}
+/* ---------- questions ---------- */
+const O=(a)=>a.map(x=>Array.isArray(x)?x:[x,x]);
+const STEPS=[
+ {t:'دربارهٔ تو',q:[
+  {id:'sex',type:'seg',l:'جنسیت',o:[['m','مرد'],['f','زن']],req:1},
+  {id:'age',type:'num',l:'سن',min:10,max:90,ph:'مثلاً ۲۸',req:1},
+  {id:'h',type:'num',l:'قد (سانتی‌متر)',min:100,max:230,ph:'مثلاً ۱۷۵',req:1},
+  {id:'w',type:'num',l:'وزن (کیلوگرم)',min:25,max:250,ph:'مثلاً ۷۵',req:1},
+  {id:'act',type:'seg',col:1,l:'فعالیت روزمرهٔ تو',o:[[1,'کم‌تحرک (بیشتر نشسته: پشت میز، رانندگی)'],[2,'سبک (کمی راه رفتن)'],[3,'متوسط (بیشتر ایستاده یا در حال حرکت)'],[4,'زیاد (کار فیزیکی سنگین)']],req:1},
+  {id:'exp',type:'seg',col:1,l:'سابقهٔ ورزش منظم',o:[['none','تقریباً هیچ'],['past','قبلاً داشته‌ام ولی الان نه'],['reg','الان منظم ورزش می‌کنم']],req:1}
+ ]},
+ {t:'هدف و انگیزه',q:[
+  {id:'g1',type:'seg',col:1,l:'مهم‌ترین هدف تو از ورزش',o:Object.keys(SP_GOALS).map(k=>[k,SP_GOALS[k][0]]),req:1},
+  {id:'g2',type:'seg',col:1,l:'هدف دوم (اختیاری)',o:[['none','ندارم']].concat(Object.keys(SP_GOALS).map(k=>[k,SP_GOALS[k][0]]))},
+  {id:'mot',type:'mot',l:'چقدر برایت مهم است که ورزش…',s:'از ۱ (اصلاً مهم نیست) تا ۵ (خیلی مهم). این پرسش‌ها از مقیاس انگیزهٔ ورزش (MPAM-R) الهام گرفته‌اند.'}
+ ]},
+ {t:'سلیقه و شخصیت ورزشی',q:[
+  {id:'soc',type:'scale',l:'ورزش را ترجیح می‌دهی',lo:'تنها و مستقل',hi:'تیمی و گروهی'},
+  {id:'cmp',type:'scale',l:'رقابت و مسابقه را',lo:'اصلاً دوست ندارم',hi:'خیلی دوست دارم'},
+  {id:'con',type:'seg',col:1,l:'تحمل برخورد بدنی',o:[[1,'هیچ برخوردی نمی‌خواهم'],[2,'برخورد تصادفی و کم'],[3,'برخورد متوسط'],[4,'برخورد جدی برایم مشکلی نیست'],[5,'دوست دارم مبارزه کنم']]},
+  {id:'out',type:'scale',l:'محیط ورزش',lo:'سالن و سرپوشیده',hi:'فضای باز و طبیعت'},
+  {id:'tec',type:'scale',l:'یادگیری مهارت و تکنیک',lo:'ساده و سرراست',hi:'عاشق یادگیری فنی'},
+  {id:'int',type:'scale',l:'شدت تمرین دلخواه',lo:'ملایم و آرام',hi:'خیلی سخت'},
+  {id:'swim',type:'seg',l:'شنا بلدی؟',o:[['no','نه'],['basic','کمی'],['good','بله، خوب']]},
+  {id:'like',type:'sports',l:'کدام ورزش‌ها را قبلاً امتحان کرده‌ای و دوست داشتی؟',s:'اختیاری؛ همین علاقه‌ها در پیشنهادها اثر مثبت دارد.'},
+  {id:'never',type:'sports',l:'کدام ورزش‌ها را به‌هیچ‌وجه نمی‌خواهی؟',s:'اختیاری؛ این ورزش‌ها از فهرست پیشنهاد حذف می‌شوند.'}
+ ]},
+ {t:'آمادگی بدنی (آزمون‌های ساده)',q:[
+  {id:'info1',type:'html',h:'<div class="info">این چهار آزمون ساده را فقط اگر مشکل پزشکی نداری و با احتیاط انجام بده. اگر مطمئن نیستی، گزینهٔ پایین‌ترِ منطقی را بزن؛ به‌جای دقت زیاد، صادق باش.</div>'},
+  {id:'pu',type:'seg',col:1,l:'شنای سوئدی پشت سر هم (در صورت نیاز با زانو)',o:[[0,'نمی‌توانم'],[1,'۱ تا ۵ تکرار'],[2,'۶ تا ۱۵ تکرار'],[3,'۱۶ تا ۳۰ تکرار'],[4,'بیش از ۳۰ تکرار']]},
+  {id:'jog',type:'seg',col:1,l:'چند دقیقه بدون توقف می‌توانی آهسته بدوی؟',o:[[0,'نمی‌توانم'],[1,'کمتر از ۳ دقیقه'],[2,'۳ تا ۱۰ دقیقه'],[3,'۱۰ تا ۳۰ دقیقه'],[4,'بیش از ۳۰ دقیقه']]},
+  {id:'reach',type:'seg',col:1,l:'ایستاده، با زانوی صاف، خم شو؛ تا کجا می‌رسی؟',o:[[0,'به زانو یا بالاتر'],[1,'تا ساق یا مچ پا'],[2,'کف دست به زمین می‌رسد']]},
+  {id:'bal',type:'seg',col:1,l:'روی یک پا با چشم باز چقدر می‌ایستی؟',o:[[0,'کمتر از ۱۰ ثانیه'],[1,'۱۰ تا ۳۰ ثانیه'],[2,'بیش از ۳۰ ثانیه']]}
+ ]},
+ {t:'سلامت و ایمنی',q:[
+  {id:'info2',type:'html',h:'<div class="note">پاسخ‌های این بخش فقط روی همین گوشی می‌ماند و جایی ارسال نمی‌شود. فقط رشتهٔ انتخابی تو به فرم منتقل می‌شود.</div>'},
+  {id:'parq',type:'parq',l:'پرسش‌های ایمنی (الهام‌گرفته از PAR-Q+)'},
+  {id:'pain',type:'multi',l:'کدام قسمت‌ها درد یا سابقهٔ آسیب دارند؟',o:[['kn','زانو'],['bk','کمر'],['sh','شانه'],['nk','گردن'],['an','مچ پا'],['wr','مچ دست'],['el','آرنج']]},
+  {id:'cond',type:'multi',l:'شرایط خاص',o:[['asthma','آسم یا مشکل تنفسی'],['bp','فشار خون یا مشکل قلبی'],['diab','دیابت'],['osteo','پوکی استخوان'],['preg','بارداری (فقط بانوان)']]}
+ ]},
+ {t:'شرایط عملی',q:[
+  {id:'days',type:'seg',l:'چند روز در هفته وقت داری؟',o:[['2','۱ تا ۲ روز'],['4','۳ تا ۴ روز'],['6','۵ روز یا بیشتر']]},
+  {id:'mins',type:'seg',l:'مدت هر جلسه',o:[['30','حدود ۳۰ دقیقه'],['45','۴۵ دقیقه'],['60','۶۰ دقیقه'],['90','۹۰ دقیقه یا بیشتر']]},
+  {id:'budget',type:'seg',l:'بودجهٔ ماهانهٔ ورزش',o:[['low','کم'],['mid','متوسط'],['high','مهم نیست']]},
+  {id:'places',type:'multi',l:'به کدام محل‌ها دسترسی داری؟',o:Object.keys(SP_PLACE).map(k=>[k,SP_PLACE[k]]),s:'می‌توانی چند مورد انتخاب کنی.'}
+ ]}
+];
+const PARQ=['پزشک گفته مشکل قلبی داری یا فقط با اجازهٔ او ورزش کنی؟','هنگام فعالیت بدنی یا در استراحت درد یا فشار در قفسهٔ سینه احساس می‌کنی؟','سرگیجه شدید داری یا تا حالا هنگام ورزش از حال رفته‌ای؟','مشکل استخوان یا مفصل داری که با ورزش بدتر شود؟','برای فشار خون یا قلب دارو مصرف می‌کنی؟','بیماری مزمن دیگری یا دلیل دیگری هست که نباید ورزش کنی؟'];
+/* ---------- state ---------- */
+const KEY='gf_sport_ans_v1';
+let A={},step=-1,RES=null;
+try{const o=JSON.parse(LS.get(KEY)||'null');if(o&&typeof o==='object'){A=o.a||{};step=-1}}catch(e){}
+const save=()=>LS.set(KEY,JSON.stringify({a:A}));
+const SPN=()=>Object.keys(SPORT_BY).map(k=>SPORT_BY[k]);
+/* ---------- render ---------- */
+function opt(name,v,label,type,checked){return `<label class="opt"><input type="${type}" name="${name}" value="${esc(v)}"${checked?' checked':''}><span>${esc(label)}</span></label>`}
+function renderQ(q){
+ const v=A[q.id];
+ let h='';
+ if(q.type==='html')return q.h;
+ if(q.type==='num'){h=`<input type="text" inputmode="decimal" id="q_${q.id}" placeholder="${esc(q.ph||'')}" value="${v==null?'':esc(fa(v))}" autocomplete="off">`}
+ else if(q.type==='seg'){h=`<div class="opts${q.col?' col':''}">${q.o.map(o=>opt(q.id,o[0],o[1],'radio',String(v)===String(o[0]))).join('')}</div>`}
+ else if(q.type==='scale'){h=`<div class="scale">${[1,2,3,4,5].map(n=>opt(q.id,n,fa(n),'radio',String(v)===String(n))).join('')}</div><div class="ends"><span>${esc(q.lo)}</span><span>${esc(q.hi)}</span></div>`}
+ else if(q.type==='multi'){const a=A[q.id]||[];h=`<div class="opts">${q.o.filter(o=>!(o[0]==='preg'&&A.sex!=='f')).map(o=>opt(q.id,o[0],o[1],'checkbox',a.indexOf(o[0])>=0)).join('')}</div>`}
+ else if(q.type==='mot'){const m=A.mot||{};h=SP_MOT.map(([k,t])=>`<div class="f" style="margin-bottom:14px"><label class="l" style="font-weight:600;font-size:14.5px">${esc(t)}</label><div class="scale">${[1,2,3,4,5].map(n=>opt('mot_'+k,n,fa(n),'radio',String(m[k])===String(n))).join('')}</div></div>`).join('')}
+ else if(q.type==='parq'){const a=A.parq||[];h=PARQ.map((t,i)=>`<div class="f" style="margin-bottom:14px"><label class="l" style="font-weight:600;font-size:14.5px">${fa(i+1)}. ${esc(t)}</label><div class="opts">${opt('pq'+i,'n','خیر','radio',a[i]==='n')}${opt('pq'+i,'y','بله','radio',a[i]==='y')}</div></div>`).join('')}
+ else if(q.type==='sports'){
+  const a=A[q.id]||[],by={};SPN().forEach(s=>{(by[s.cat]=by[s.cat]||[]).push(s)});
+  h=Object.keys(SP_CAT).filter(c=>by[c]).map(c=>`<div class="grp"><b>${esc(SP_CAT[c])}</b><div class="opts pill">${by[c].map(s=>opt(q.id,s.k,s.ic+' '+s.n,'checkbox',a.indexOf(s.k)>=0)).join('')}</div></div>`).join('');
+ }
+ return `<div class="f" data-q="${q.id}"><label class="l">${esc(q.l)}${q.s?`<small>${esc(q.s)}</small>`:''}</label>${h}<div class="err"></div></div>`;
+}
+function intro(){
+ const n=SPN().length;
+ return `<div class="card"><h2>رشتهٔ مناسب تو کدام است؟</h2><p style="color:var(--mut);font-size:14.5px;margin-top:6px">با چند پرسش دربارهٔ بدن، هدف، سلیقه، سلامت و شرایطت، از میان ${fa(n)} رشتهٔ ورزشی فهرستی مرتب‌شده پیشنهاد می‌گیری. بعد از انتخاب یکی از آن‌ها، فرم اطلاعات را پر می‌کنی و برای مربی می‌فرستی.</p>
+ <ul class="why" style="margin-top:12px"><li>حدود ${fa(5)} دقیقه طول می‌کشد</li><li>پیشنهاد است، نه تجویز؛ تصمیم نهایی با خودت و مربی است</li><li>پاسخ‌ها روی همین گوشی می‌ماند و جایی ارسال نمی‌شود</li></ul></div>
+ ${GYM?`<div class="info">این تست برای باشگاه <b style="color:var(--tx)">${esc(GYM)}</b> آماده شده است${Object.keys(CFG.offered).length?`؛ رشته‌هایی که در باشگاه برگزار می‌شوند با نام مربی، روز و ساعت نشان داده می‌شوند`:''}.</div>`:''}
+ ${Object.keys(A).length?`<div class="info">پاسخ‌های قبلی تو روی همین گوشی ذخیره است. می‌توانی ادامه بدهی یا از اول شروع کنی.</div>`:''}`;
+}
+function draw(){
+ const v=$('#view'),nav=$('#nav');
+ if(step<0){
+  v.innerHTML=intro();nav.classList.remove('hide');$('#bBack').classList.add('hide');
+  $('#bNext').textContent=Object.keys(A).length?'ادامهٔ تست':'شروع تست';
+  if(Object.keys(A).length)v.innerHTML+=`<button class="btn ghost sm" style="width:100%" id="bReset">شروع از اول و پاک کردن پاسخ‌ها</button>`;
+  const r=$('#bReset');if(r)r.onclick=()=>{A={};LS.del(KEY);draw()};
+  return;
+ }
+ if(step>=STEPS.length){return result()}
+ const S=STEPS[step];
+ v.innerHTML=`<div class="prog">${STEPS.map((_,i)=>`<i class="${i<=step?'on':''}"></i>`).join('')}</div><div class="stepname">مرحلهٔ ${fa(step+1)} از ${fa(STEPS.length)} · ${esc(S.t)}</div><div class="card">${S.q.map(renderQ).join('')}</div>`;
+ nav.classList.remove('hide');$('#bBack').classList.remove('hide');
+ $('#bNext').textContent=step===STEPS.length-1?'دیدن پیشنهادها':'بعدی';
+}
+/* ---------- collect and validate ---------- */
+function collect(S){
+ let ok=true;
+ S.q.forEach(q=>{
+  if(q.type==='html')return;
+  const box=$('[data-q="'+q.id+'"]'),err=box&&$('.err',box);let bad='';
+  if(q.type==='num'){
+   const raw=en(($('#q_'+q.id)||{}).value||'').trim(),n=parseFloat(raw);
+   if(raw===''||isNaN(n)){if(q.req)bad='این مورد را وارد کن'}else if(n<q.min||n>q.max)bad='عدد باید بین '+fa(q.min)+' تا '+fa(q.max)+' باشد';else A[q.id]=Math.round(n*10)/10;
+  }else if(q.type==='seg'||q.type==='scale'){
+   const r=document.querySelector('input[name="'+q.id+'"]:checked');
+   if(r)A[q.id]=/^-?\d+$/.test(r.value)?+r.value:r.value;else if(q.req)bad='یکی را انتخاب کن';
+  }else if(q.type==='multi'||q.type==='sports'){
+   A[q.id]=[...document.querySelectorAll('input[name="'+q.id+'"]:checked')].map(x=>x.value);
+  }else if(q.type==='mot'){
+   const m={};SP_MOT.forEach(([k])=>{const r=document.querySelector('input[name="mot_'+k+'"]:checked');m[k]=r?+r.value:3});A.mot=m;
+  }else if(q.type==='parq'){
+   const a=[];let miss=0;PARQ.forEach((_,i)=>{const r=document.querySelector('input[name="pq'+i+'"]:checked');a.push(r?r.value:'');if(!r)miss++});A.parq=a;
+   if(miss)bad='به همهٔ پرسش‌های ایمنی پاسخ بده';
+  }
+  if(box)box.classList.toggle('bad',!!bad);if(err)err.textContent=bad;if(bad)ok=false;
+ });
+ if(step===2){const l=A.like||[],n=A.never||[];if(l.some(k=>n.indexOf(k)>=0)){ok=false;toast('یک ورزش نمی‌تواند هم در «دوست دارم» باشد هم در «نمی‌خواهم»')}}
+ save();
+ return ok;
+}
+/* ---------- result ---------- */
+function ringSvg(p){const r=28,C=2*Math.PI*r;return `<div class="ring"><svg viewBox="0 0 68 68"><circle cx="34" cy="34" r="${r}" fill="none" stroke="#353535" stroke-width="7"/><circle cx="34" cy="34" r="${r}" fill="none" stroke="url(#rgr)" stroke-width="7" stroke-linecap="round" stroke-dasharray="${(C*p/100).toFixed(1)} ${C.toFixed(1)}"/><defs><linearGradient id="rgr" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#22d3ee"/><stop offset="1" stop-color="#C6F432"/></linearGradient></defs></svg><div>${fa(p)}</div></div>`}
+function sched(o){
+ if(!o)return '';
+ const bits=[o.coach&&'مربی: <b>'+esc(o.coach)+'</b>',o.days&&'روزها: <b>'+esc(o.days)+'</b>',o.time&&'ساعت: <b>'+esc(o.time)+'</b>'].filter(Boolean);
+ return `<div class="sch">📍 کلاس این رشته در باشگاه برگزار می‌شود${bits.length?'<br>'+bits.join(' · '):''}${o.note?'<br>'+esc(o.note):''}</div>`;
+}
+function topCard(r,i){
+ const s=r.s;
+ return `<div class="card rc top"><div class="hd"><div class="rk">${fa(i+1)}</div><div class="ic">${s.ic}</div><div class="ti"><b>${esc(s.n)}</b><span>${esc(SP_CAT[s.cat]||'')}</span></div>${ringSvg(r.score)}</div>
+ <span class="lab">${spLabel(r.score)}</span>
+ <p style="margin-top:10px;font-size:14.5px;color:var(--mut)">${esc(s.d)}</p>
+ ${r.why.length?`<ul class="why">${r.why.map(x=>`<li>${esc(x)}</li>`).join('')}</ul>`:''}
+ ${r.warn.length?`<ul class="why w">${r.warn.map(x=>`<li>${esc(x)}</li>`).join('')}</ul>`:''}
+ ${sched(r.off)}
+ <div class="more"><b>شروع پیشنهادی:</b> ${esc(s.s)}<br><b>مکمل خوب:</b> ${esc(s.m)}</div>
+ <button class="btn pri" style="width:100%;margin-top:14px" data-pick="${s.k}">انتخاب «${esc(s.n)}» و رفتن به فرم</button></div>`;
+}
+function rowOf(r){
+ const s=r.s;
+ return `<div class="row"><div class="ic">${s.ic}</div><div class="ti"><b>${esc(s.n)}</b>${r.off?` <span class="chip">در باشگاه</span>`:''}<small>${esc(SP_CAT[s.cat]||'')} · ${spLabel(r.score)}</small><div class="bar"><i style="width:${r.score}%"></i></div></div><div class="pct">${fa(r.score)}٪</div><button class="btn sm ghost sel" data-pick="${s.k}">انتخاب</button></div>`;
+}
+function result(){
+ const v=$('#view');
+ RES=spRank(A,{offered:CFG.offered,only:CFG.only});
+ const L=RES.list,M=RES.metrics;
+ $('#nav').classList.add('hide');
+ const bmi=M.bmi?M.bmi.toFixed(1):'';
+ const fl=M.fit>=3.4?'خوب':M.fit>=2.2?'متوسط':'پایین (شروع تدریجی)';
+ const warn=[];
+ if(RES.parqYes)warn.push('به '+fa(RES.parqYes)+' پرسش ایمنی «بله» گفته‌ای؛ قبل از شروع هر ورزشی با پزشک یا متخصص طب ورزشی مشورت کن.');
+ if((A.age||30)<18)warn.push('زیر ۱۸ سال هستی؛ انتخاب رشته و شدت تمرین را با والدین و مربی مشورت کن.');
+ if(!L.length){v.innerHTML='<div class="card"><h2>رشته‌ای پیدا نشد</h2><p style="color:var(--mut)">با پاسخ‌های فعلی هیچ رشته‌ای باقی نماند. «نمی‌خواهم»ها یا تحمل برخورد را بازبینی کن.</p></div><button class="btn pri" id="bEdit" style="width:100%">ویرایش پاسخ‌ها</button>';$('#bEdit').onclick=()=>{step=0;draw()};return}
+ v.innerHTML=`<div class="hero"><h2>پیشنهادهای تو</h2><p>${fa(L.length)} رشته مرتب‌شده بر اساس تناسب با پاسخ‌هایت</p></div>
+ ${warn.map(w=>`<div class="note">${esc(w)}</div>`).join('')}
+ <div class="info">آمادگی بدنی تو: <b style="color:var(--tx)">${fl}</b>${bmi?` · شاخص توده بدنی: <b style="color:var(--tx)">${fa(bmi.replace('.','٫'))}</b>`:''}. درصدها نشان‌دهندهٔ تناسب با پاسخ‌های توست، نه احتمال موفقیت. نتیجه پیشنهاد است و تجویز پزشکی یا مربیگری نیست.</div>
+ ${L.slice(0,3).map(topCard).join('')}
+ ${L.length>3?`<div class="card"><h2>سایر پیشنهادها</h2><div id="rest">${L.slice(3,10).map(rowOf).join('')}</div>${L.length>10?`<button class="btn ghost sm" id="bAll" style="width:100%;margin-top:10px">نمایش همهٔ رشته‌ها (${fa(L.length-10)} مورد دیگر)</button>`:''}</div>`:''}
+ <div class="stack" style="display:grid;gap:10px"><button class="btn ghost" id="bEdit">ویرایش پاسخ‌ها</button><button class="btn ghost" id="bSkip">بدون انتخاب رشته به فرم می‌روم</button></div>
+ <details><summary>این پیشنهادها چطور محاسبه می‌شوند؟</summary>
+  <p>هر رشته یک «پروفایل» ۱۷ بعدی دارد (استقامت، قدرت، توان، چابکی، انعطاف، تعادل، تمرکز، تیمی بودن، رقابت، برخورد، فشار روی مفاصل، هزینه، فضای باز، آب، دشواری فنی، رشد عضله و مصرف انرژی). پاسخ‌های تو با آن مقایسه می‌شود:</p>
+  <ul><li>هدف تو و انگیزه‌ها (۵۴٪): هم‌خوانی ویژگی‌های رشته با هدف و انگیزه‌ات.</li><li>سلیقه (۲۸٪): تنها یا گروهی، رقابت، برخورد، محیط، سختی فنی و شدت.</li><li>شرایط عملی (۱۸٪): دسترسی به محل، بودجه.</li><li>سپس برای مشکلات مفصلی، بیماری، سن، اضافه‌وزن، بارداری و مبتدی بودن، امتیاز کم می‌شود؛ ورزش‌های محبوب تو و کلاس‌های باشگاه کمی بیشتر امتیاز می‌گیرند.</li></ul>
+  <p>اصول علمی پشت این طراحی: ۱) تداوم ورزش بیشتر از «استعداد» به لذت، احساس توانمندی و ارتباط اجتماعی وابسته است
+  (<a href="https://ijbnpa.biomedcentral.com/articles/10.1186/1479-5868-9-78" rel="noopener noreferrer" target="_blank">مرور نظام‌مند نظریهٔ خودتعیین‌گری در ورزش</a>)؛
+  ۲) انگیزه‌های ورزش (تناسب، ظاهر، چالش، اجتماعی، لذت) با مقیاس MPAM-R سنجیده می‌شوند
+  (<a href="https://selfdeterminationtheory.org/motives-for-physical-activity-measure-revised/" rel="noopener noreferrer" target="_blank">معرفی مقیاس</a>)؛
+  ۳) در تشخیص استعداد ورزشی، ترکیب ویژگی‌های بدنی، فیزیولوژیک و روان‌شناختی بهتر از یک شاخص تنهاست و هیچ آزمونی آینده را قطعی پیش‌بینی نمی‌کند
+  (<a href="https://www.ncbi.nlm.nih.gov/pmc/articles/PMC10772031/" rel="noopener noreferrer" target="_blank">مرور نظام‌مند</a>)؛
+  ۴) غربالگری ایمنی با الهام از پرسشنامهٔ PAR-Q+ انجام می‌شود.</p></details>`;
+ v.querySelectorAll('[data-pick]').forEach(b=>b.onclick=()=>pick(b.dataset.pick));
+ const all=$('#bAll');if(all)all.onclick=()=>{$('#rest').innerHTML=L.slice(3).map(rowOf).join('');all.remove();v.querySelectorAll('#rest [data-pick]').forEach(b=>b.onclick=()=>pick(b.dataset.pick))};
+ $('#bEdit').onclick=()=>{step=0;draw();scrollTo(0,0)};
+ $('#bSkip').onclick=()=>go('');
+ scrollTo(0,0);
+}
+function go(k){
+ const rec=(RES&&RES.list||[]).slice(0,3).map(r=>r.k).join(',');
+ const u=new URL('form.html',location.href),p=new URLSearchParams(location.search);
+ if(k){p.set('sp',k);p.set('spn',(SPORT_BY[k]||{}).n||'');if(rec)p.set('sr',rec)}
+ u.search=p.toString();
+ const h=new URLSearchParams();['bp','bk','bc'].forEach(x=>{const v=HP.get(x);if(v)h.set(x,v)});
+ u.hash=h.toString();
+ if(k)LS.set('gf_sport_pick',JSON.stringify({k,t:Date.now()}));
+ location.href=u.toString();
+}
+function pick(k){
+ const s=SPORT_BY[k];if(!s)return;
+ if(!confirm('رشتهٔ «'+s.n+'» انتخاب شود و به فرم بروی؟'))return;
+ go(k);
+}
+$('#bNext').onclick=()=>{
+ if(step<0){step=0;draw();scrollTo(0,0);return}
+ if(!collect(STEPS[step])){const b=document.querySelector('.f.bad');if(b)b.scrollIntoView({block:'center',behavior:'smooth'});return}
+ step++;draw();scrollTo(0,0);
+};
+$('#bBack').onclick=()=>{if(step>=0){if(!(step<STEPS.length))return;collect(STEPS[step]);step--;draw();scrollTo(0,0)}};
+/* optional file config (uploaded next to this page) */
+if(!sc&&/^https?:/.test(location.protocol)){fetch('sports-config.json',{cache:'no-store'}).then(r=>r.ok?r.json():null).then(o=>{if(o){parseCfg(o);applyCustom();if(CFG.gym){$('#sub').textContent=CFG.gym+' · پیشنهاد رشته بر اساس شرایط تو'}}}).catch(()=>{})}
+draw();
+})();
+</script>
+</body>
+</html>
