@@ -152,6 +152,12 @@
       "fdcId": 170173,
       "expectedDescription": "Nuts, coconut milk, canned (liquid expressed from grated meat and water)",
       "reason": "شیر نارگیل کنسروی استخراج‌شده از گوشت نارگیل و آب."
+    },
+    {
+      "foodId": 89,
+      "fdcId": 2685580,
+      "expectedDescription": "Tomato, paste, canned, without salt added",
+      "reason": "رکورد USDA صراحتاً رب گوجه‌فرنگی کنسروی است؛ نزدیک‌ترین مرجع مشخص و قابل‌دفاع برای رب گوجه‌فرنگی ساده."
     }
   ]
 }
