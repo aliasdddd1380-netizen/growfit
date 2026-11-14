@@ -1,0 +1,111 @@
+{
+  "schemaVersion": 1,
+  "documentType": "final-research-assessment",
+  "reviewDate": "2026-11-14",
+  "researchRounds": 7,
+  "policy": {
+    "approvedAlternativeValues": 0,
+    "foodBankChanged": false,
+    "originalProjectChanged": false,
+    "mealAggregationChanged": false,
+    "nutritionUiChanged": false,
+    "unknownRemainsNull": true
+  },
+  "bankSnapshot": {
+    "foods": 113,
+    "meals": 741,
+    "acceptedUsdaMatches": 108,
+    "needsReview": 5,
+    "publishedAlternativeProvenance": 0,
+    "foodBankSha": "cfff490919466f7ba9e49bc4d3bf2382183b88b9"
+  },
+  "unresolvedFoods": [
+    {
+      "foodId": 6,
+      "name": "گوشت گوسفندی لخم (پخته)",
+      "status": "needs-review",
+      "macrosPer100g": {
+        "kcal": 250,
+        "proteinG": 26,
+        "carbsG": 0,
+        "fatG": 16
+      },
+      "micronutrientsPer100g": null,
+      "decision": "No alternative lamb mapping approved; exact cut and trim state unknown."
+    },
+    {
+      "foodId": 24,
+      "name": "دوغ",
+      "status": "needs-review",
+      "macrosPer100g": {
+        "kcal": 28,
+        "proteinG": 1.8,
+        "carbsG": 2.5,
+        "fatG": 1
+      },
+      "micronutrientsPer100g": null,
+      "decision": "Iran FCT 2018 secondary lead found; exact original food row and provenance needed."
+    },
+    {
+      "foodId": 27,
+      "name": "نان سنگک",
+      "status": "needs-review",
+      "macrosPer100g": {
+        "kcal": 260,
+        "proteinG": 9,
+        "carbsG": 52,
+        "fatG": 1.5
+      },
+      "micronutrientsPer100g": null,
+      "decision": "Iran FCT proximate lead; mineral and salt bases remain unresolved."
+    },
+    {
+      "foodId": 28,
+      "name": "نان بربری",
+      "status": "needs-review",
+      "macrosPer100g": {
+        "kcal": 270,
+        "proteinG": 9,
+        "carbsG": 52,
+        "fatG": 2.5
+      },
+      "micronutrientsPer100g": null,
+      "decision": "Iran FCT proximate lead; mineral and salt bases remain unresolved."
+    },
+    {
+      "foodId": 29,
+      "name": "نان لواش",
+      "status": "needs-review",
+      "macrosPer100g": {
+        "kcal": 275,
+        "proteinG": 9,
+        "carbsG": 57,
+        "fatG": 1.2
+      },
+      "micronutrientsPer100g": null,
+      "decision": "Iran FCT proximate lead; mineral and salt bases remain unresolved."
+    }
+  ],
+  "publicationBlockers": [
+    {
+      "foodId": 6,
+      "required": "Original GrowFit cut, trimming and cooking definition."
+    },
+    {
+      "foodId": 24,
+      "required": "Original 2018 Iranian FCT food code and full nutrient row with provenance."
+    },
+    {
+      "foodId": 27,
+      "required": "Original Iranian FCT row or validated edible-portion lab profile with moisture and flour extraction."
+    },
+    {
+      "foodId": 28,
+      "required": "Original Iranian FCT row or validated edible-portion lab profile with moisture and flour extraction."
+    },
+    {
+      "foodId": 29,
+      "required": "Original Iranian FCT row or validated edible-portion lab profile with moisture and flour extraction."
+    }
+  ]
+}
