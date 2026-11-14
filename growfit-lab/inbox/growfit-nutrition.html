@@ -117,7 +117,35 @@ function num(v){const n=Number(String(v??'').replace(/,/g,''));return Number.isF
 function hasVal(v){return v!==null&&v!==undefined&&v!==''&&Number.isFinite(Number(v))}
 function fmt(v,d=0){return hasVal(v)?fa(Number(v).toFixed(d)):'—'}
 function notify(msg){toast.textContent=msg;toast.classList.add('show');clearTimeout(notify.t);notify.t=setTimeout(()=>toast.classList.remove('show'),2200)}
+const DEMO_KEY='growfit_lab_nutrition_demo_v1';
+let demoMode=false;
+function makeDemoData(){
+ return {role:'student',student:{name:'کاربر تست',diet:{meals:[
+  {name:'صبحانه',tp:'bf',opts:[{name:'نان سبوس‌دار، تخم‌مرغ و سبزیجات',desc:'نان سبوس‌دار، تخم‌مرغ پخته، خیار و گوجه',kcal:390,p:22,c:42,f:14},{name:'ماست، جو دوسر و میوه',desc:'ماست ساده، جو دوسر و میوه فصل',kcal:350,p:16,c:52,f:9}]},
+  {name:'میان‌وعده',tp:'sn',opts:[{name:'سیب و مغزها',desc:'یک عدد سیب به همراه مقدار معمولی مغزهای بدون نمک',kcal:210,p:5,c:25,f:12}]},
+  {name:'ناهار',tp:'ln',opts:[{name:'مرغ، برنج و سالاد',desc:'مرغ پخته، برنج و سالاد سبزیجات',kcal:560,p:36,c:68,f:14},{name:'عدس‌پلو و ماست',desc:'عدس‌پلو خانگی همراه ماست ساده',kcal:530,p:20,c:78,f:14}]},
+  {name:'قبل تمرین',tp:'pre',opts:[{name:'موز و شیر',desc:'یک عدد موز و یک لیوان شیر',kcal:230,p:9,c:38,f:5}]},
+  {name:'بعد تمرین',tp:'post',opts:[{name:'نان و پنیر',desc:'نان، پنیر و گوجه‌فرنگی',kcal:280,p:13,c:34,f:10}]},
+  {name:'شام',tp:'dn',opts:[{name:'املت و نان',desc:'املت گوجه‌فرنگی با نان و سبزی خوردن',kcal:410,p:20,c:39,f:19},{name:'سیب‌زمینی و ماست',desc:'سیب‌زمینی پخته با ماست و سبزیجات',kcal:370,p:13,c:62,f:8}]}
+ ]},dietLog:{},dietNotes:{},waterLog:{}}};
+}
 function loadStudentData(){
+ let source=null;
+ try{source=JSON.parse(localStorage.getItem(STUDENT_KEY)||'null')}catch(e){source=null}
+ db=source;
+ student=db&&db.student&&typeof db.student==='object'?db.student:null;
+ if(db&&db.role&&db.role!=='student'){student=null}
+ diet=student&&student.diet&&Array.isArray(student.diet.meals)?student.diet:null;
+ demoMode=false;
+ if(!student||!diet||!diet.meals.length){
+  try{db=JSON.parse(localStorage.getItem(DEMO_KEY)||'null')}catch(e){db=null}
+  if(!db||!db.student||!db.student.diet||!Array.isArray(db.student.diet.meals)||!db.student.diet.meals.length)db=makeDemoData();
+  student=db.student;diet=student.diet;demoMode=true;
+ }
+ const notice=document.querySelector('.notice');
+ if(notice&&demoMode)notice.innerHTML='<b>حالت آزمایشی فعال</b><span>چون هنوز اطلاعاتی از پنل مربی به این صفحه متصل نیست، یک برنامه نمونه برای تست نمایش داده شده است. این داده‌ها فقط آزمایشی‌اند و با برنامه واقعی مربی تداخلی ندارند.</span>';
+ else if(notice)notice.innerHTML='<b>برنامه فقط در اختیار مربی</b><span>شاگرد نمی‌تواند وعده، نام، ترکیبات یا گزینه‌های برنامه را بسازد، ویرایش یا حذف کند. انتخاب گزینه فقط برای ثبت چیزی است که از میان پیشنهادهای مربی مصرف شده؛ این انتخاب، برنامه مربی را تغییر نمی‌دهد. داده‌های تغذیه‌ای ناموجود حدس زده یا صفر فرض نمی‌شوند.</span>';
+}
  try{db=JSON.parse(localStorage.getItem(STUDENT_KEY)||'null')}catch(e){db=null}
  student=db&&db.student&&typeof db.student==='object'?db.student:null;
  if(db&&db.role&&db.role!=='student'){student=null}
@@ -133,7 +161,7 @@ function dayRecord(){
 }
 function saveStudentData(){
  if(!db||!student)return false;
- try{localStorage.setItem(STUDENT_KEY,JSON.stringify(db));return true}catch(e){return false}
+ try{localStorage.setItem(demoMode?DEMO_KEY:STUDENT_KEY,JSON.stringify(db));return true}catch(e){return false}
 }
 function loadDayExtras(){
  try{
