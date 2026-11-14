@@ -119,5 +119,7 @@ These research files are deliberately separate from the food bank and cannot be 
 
 - [Round 6 Doogh evidence report](food-alternative-research-round6.md) and [structured evidence](food-alternative-sources-round6.json)
 
+- [Round 7 Iranian bread evidence report](food-alternative-research-round7.md) and [structured evidence](food-alternative-sources-round7.json)
+
 
 All alternative-source observations remain research-only unless independently reviewed, normalized to an explicit edible-portion basis, and separately approved. No round 4 values were published to the food bank.
