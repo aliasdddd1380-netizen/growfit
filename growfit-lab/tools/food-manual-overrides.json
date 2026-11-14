@@ -158,6 +158,24 @@
       "fdcId": 2685580,
       "expectedDescription": "Tomato, paste, canned, without salt added",
       "reason": "رکورد USDA صراحتاً رب گوجه‌فرنگی کنسروی است؛ نزدیک‌ترین مرجع مشخص و قابل‌دفاع برای رب گوجه‌فرنگی ساده."
+    },
+    {
+      "foodId": 26,
+      "fdcId": 169704,
+      "expectedDescription": "Rice, brown, long-grain, cooked (Includes foods for USDA's Food Distribution Program)",
+      "reason": "رکورد USDA دقیقاً برنج قهوه‌ای دانه‌بلند پخته را توصیف می‌کند؛ حالت پخت و نوع غله با ماده غذایی بانک منطبق است."
+    },
+    {
+      "foodId": 44,
+      "fdcId": 173757,
+      "expectedDescription": "Chickpeas (garbanzo beans, bengal gram), mature seeds, cooked, boiled, without salt",
+      "reason": "رکورد USDA دقیقاً نخود پخته و آب‌پز بدون نمک است؛ مقادیر انرژی و درشت‌مغذی آن نیز با رکورد پایه بانک GrowFit هم‌خوانی دارد."
+    },
+    {
+      "foodId": 47,
+      "fdcId": 171688,
+      "expectedDescription": "Apples, raw, with skin (Includes foods for USDA's Food Distribution Program)",
+      "reason": "رکورد SR Legacy میانگین عمومی سیب خام با پوست است و به‌جای انتخاب یک رقم خاص مانند گالا یا فوجی استفاده می‌شود."
     }
   ]
 }
