@@ -141,7 +141,7 @@ def aggregate_meals(bank):
                     valid[key] = False
                 else:
                     sums[key] += float(value) * grams / 100.0
-                    if not fdc_accepted:
+                    if approved_provenance(food, key):
                         entry = provenance.get(key) or {}
                         ingredient_sources.append({
                             "nutrient": key, "foodId": food.get("id"),
