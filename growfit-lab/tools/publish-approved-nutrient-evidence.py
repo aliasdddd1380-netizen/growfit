@@ -78,6 +78,10 @@ def build_plan(package, bank):
                     reason = "https-source-required"
                 elif not evidence.get("method"):
                     reason = "method-required-for-publication"
+                elif not evidence.get("reviewNote") or len(str(evidence.get("reviewNote")).strip()) < 12:
+                    reason = "substantive-review-note-required"
+                elif evidence.get("rawValue") is None or not math.isfinite(float(evidence["rawValue"])) or float(evidence["rawValue"]) < 0:
+                    reason = "invalid-raw-value"
                 elif evidence.get("standardUnit") != UNIT_BY_NUTRIENT[nutrient]:
                     reason = "noncanonical-standard-unit"
                 elif str(evidence.get("standardBasis") or "").strip().lower() not in ALLOWED_BASIS:
@@ -108,7 +112,12 @@ def build_plan(package, bank):
             continue
         evidence, source = rows[0]
         current = (target.get("micronutrientsPer100g") or {}).get(nutrient)
+        existing_provenance = (target.get("micronutrientProvenance") or {}).get(nutrient) or {}
         if current is not None:
+            if (existing_provenance.get("reviewStatus") == "approved"
+                    and existing_provenance.get("evidenceId") == evidence["evidenceId"]
+                    and float(current) == float(evidence["standardValue"])):
+                continue
             conflicts.append({"foodId": food_id, "nutrient": nutrient, "reason": "existing-value-not-overwritten", "existingValue": current})
             continue
         plan.append({
