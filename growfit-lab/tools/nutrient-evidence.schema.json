@@ -1,0 +1,299 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://aliasdddd1380-netizen.github.io/growfit/tools/nutrient-evidence.schema.json",
+  "title": "GrowFit nutrient evidence package",
+  "description": "Inactive research/provenance records. This schema does not authorize values for meal calculations.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schemaVersion",
+    "sources",
+    "foods"
+  ],
+  "properties": {
+    "schemaVersion": {
+      "const": 1
+    },
+    "sources": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/source"
+      }
+    },
+    "foods": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/food"
+      }
+    }
+  },
+  "$defs": {
+    "source": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "sourceId",
+        "title",
+        "year",
+        "url",
+        "sourceType",
+        "country"
+      ],
+      "properties": {
+        "sourceId": {
+          "type": "string",
+          "minLength": 3
+        },
+        "title": {
+          "type": "string",
+          "minLength": 5
+        },
+        "year": {
+          "type": [
+            "integer",
+            "null"
+          ],
+          "minimum": 1800,
+          "maximum": 2200
+        },
+        "url": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "format": "uri"
+        },
+        "sourceType": {
+          "enum": [
+            "peer-reviewed-article",
+            "government-database",
+            "food-composition-table",
+            "technical-report",
+            "other"
+          ]
+        },
+        "country": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "bibliographicNote": {
+          "type": [
+            "string",
+            "null"
+          ]
+        }
+      }
+    },
+    "food": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "foodId",
+        "foodName",
+        "nutrientEvidence"
+      ],
+      "properties": {
+        "foodId": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "foodName": {
+          "type": "string",
+          "minLength": 1
+        },
+        "nutrientEvidence": {
+          "type": "object",
+          "propertyNames": {
+            "enum": [
+              "fiber",
+              "calcium",
+              "iron",
+              "potassium",
+              "magnesium",
+              "zinc",
+              "sodium",
+              "vitaminA",
+              "vitaminC",
+              "vitaminD",
+              "vitaminB12",
+              "folate"
+            ]
+          },
+          "additionalProperties": {
+            "type": "array",
+            "items": {
+              "$ref": "#/$defs/evidence"
+            }
+          }
+        }
+      }
+    },
+    "evidence": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "evidenceId",
+        "sourceId",
+        "rawValue",
+        "rawUnit",
+        "rawBasis",
+        "standardValue",
+        "standardUnit",
+        "standardBasis",
+        "conversion",
+        "foodState",
+        "sampleCountry",
+        "sampleRegion",
+        "sampleYear",
+        "sampleCount",
+        "method",
+        "dataType",
+        "reviewStatus",
+        "reviewNote"
+      ],
+      "properties": {
+        "evidenceId": {
+          "type": "string",
+          "minLength": 3
+        },
+        "sourceId": {
+          "type": "string",
+          "minLength": 3
+        },
+        "rawValue": {
+          "type": [
+            "number",
+            "null"
+          ]
+        },
+        "rawUnit": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "rawBasis": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "standardValue": {
+          "type": [
+            "number",
+            "null"
+          ]
+        },
+        "standardUnit": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "standardBasis": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "conversion": {
+          "type": [
+            "object",
+            "null"
+          ],
+          "additionalProperties": false,
+          "required": [
+            "formula",
+            "factor",
+            "inputs",
+            "note"
+          ],
+          "properties": {
+            "formula": {
+              "type": "string",
+              "minLength": 1
+            },
+            "factor": {
+              "type": [
+                "number",
+                "null"
+              ]
+            },
+            "inputs": {
+              "type": "object"
+            },
+            "note": {
+              "type": [
+                "string",
+                "null"
+              ]
+            }
+          }
+        },
+        "foodState": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "sampleCountry": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "sampleRegion": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "sampleYear": {
+          "type": [
+            "integer",
+            "null"
+          ],
+          "minimum": 1800,
+          "maximum": 2200
+        },
+        "sampleCount": {
+          "type": [
+            "integer",
+            "null"
+          ],
+          "minimum": 1
+        },
+        "method": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "dataType": {
+          "enum": [
+            "analytical",
+            "calculated",
+            "borrowed",
+            "estimated"
+          ]
+        },
+        "reviewStatus": {
+          "enum": [
+            "research-only",
+            "needs-review",
+            "approved",
+            "rejected"
+          ]
+        },
+        "reviewNote": {
+          "type": [
+            "string",
+            "null"
+          ]
+        }
+      }
+    }
+  }
+}
