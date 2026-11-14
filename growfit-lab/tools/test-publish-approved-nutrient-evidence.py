@@ -112,6 +112,49 @@ class ApprovedEvidencePublisherTests(unittest.TestCase):
         self.assertEqual(plan, [])
         self.assertEqual(rejected[0]["reason"], "estimated-data-not-publishable")
 
+    def test_non_https_source_is_rejected(self):
+        package = package_with_approved_value()
+        package["sources"][0]["url"] = "http://example.org/paper"
+        plan, rejected, conflicts = publisher.build_plan(package, bank_fixture())
+        self.assertEqual(plan, [])
+        self.assertEqual(rejected[0]["reason"], "https-source-required")
+
+    def test_missing_method_is_rejected(self):
+        package = package_with_approved_value()
+        package["foods"][0]["nutrientEvidence"]["iron"][0]["method"] = None
+        plan, rejected, conflicts = publisher.build_plan(package, bank_fixture())
+        self.assertEqual(plan, [])
+        self.assertEqual(rejected[0]["reason"], "method-required-for-publication")
+
+    def test_insufficient_review_note_is_rejected(self):
+        package = package_with_approved_value()
+        package["foods"][0]["nutrientEvidence"]["iron"][0]["reviewNote"] = "ok"
+        plan, rejected, conflicts = publisher.build_plan(package, bank_fixture())
+        self.assertEqual(plan, [])
+        self.assertEqual(rejected[0]["reason"], "substantive-review-note-required")
+
+    def test_negative_raw_value_is_rejected(self):
+        package = package_with_approved_value()
+        package["foods"][0]["nutrientEvidence"]["iron"][0]["rawValue"] = -1
+        plan, rejected, conflicts = publisher.build_plan(package, bank_fixture())
+        self.assertEqual(plan, [])
+        self.assertEqual(rejected[0]["reason"], "invalid-raw-value")
+
+    def test_documented_dry_matter_conversion_can_pass(self):
+        package = package_with_approved_value()
+        e = package["foods"][0]["nutrientEvidence"]["iron"][0]
+        e["rawBasis"] = "per 100g dry matter"
+        e["conversion"] = {
+            "formula": "dry_matter_value * edible_dry_fraction",
+            "factor": 0.75,
+            "inputs": {"edible_dry_fraction": 0.75},
+            "note": "Measured moisture basis and documented conversion",
+        }
+        plan, rejected, conflicts = publisher.build_plan(package, bank_fixture())
+        self.assertEqual(len(plan), 1)
+        self.assertEqual(rejected, [])
+        self.assertEqual(conflicts, [])
+
     def test_food_name_mismatch_is_rejected(self):
         package = package_with_approved_value()
         package["foods"][0]["foodName"] = "نام نادرست"
