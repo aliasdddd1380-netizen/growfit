@@ -55,7 +55,7 @@ Run the positive sample check and the negative test suite:
 
 ```bash
 python validate-nutrient-evidence.py
-python -m unittest -v test-nutrient-evidence-validator.py
+python test-nutrient-evidence-validator.py
 ```
 
 The test suite checks unresolved source IDs, duplicate evidence IDs, approval without a normalized value/unit, and dry-matter to edible-portion approval without a documented conversion. It uses in-memory copies only and does not edit the sample or food bank.
