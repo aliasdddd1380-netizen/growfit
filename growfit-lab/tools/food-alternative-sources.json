@@ -1,0 +1,313 @@
+{
+  "schemaVersion": 1,
+  "documentType": "research-evidence-only",
+  "createdAt": "2026-11-14",
+  "purpose": "Alternative-source evidence for five GrowFit foods still awaiting micronutrient matching. This file is research documentation only; it is not consumed by the current enrichment script and does not modify the food bank.",
+  "policy": {
+    "databaseImport": false,
+    "foodBankChanged": false,
+    "originalProjectChanged": false,
+    "rules": [
+      "Do not treat a study value as a per-100g edible-portion value unless its basis is explicitly reported.",
+      "Keep dry-weight, wet-weight, cooked, raw, and unclear-basis observations distinct.",
+      "Record nutrient-specific provenance; never assign one source to nutrients it did not measure.",
+      "Do not map toxic contaminants such as lead, cadmium, arsenic, mercury, or aluminium into nutritional mineral fields.",
+      "Do not convert salt to sodium without a clearly documented method and matching product basis.",
+      "Missing or uncertain values remain null."
+    ]
+  },
+  "foods": [
+    {
+      "foodId": 6,
+      "foodName": "گوشت گوسفندی لخم (پخته)",
+      "growfitBasePer100g": {
+        "kcal": 250,
+        "protein_g": 26,
+        "carbohydrate_g": 0,
+        "fat_g": 16
+      },
+      "evidence": [
+        {
+          "sourceId": "SA-LAMB-2012-T36",
+          "title": "The Nutrient Content of South African Lamb & Mutton",
+          "year": 2012,
+          "url": "https://static1.squarespace.com/static/564312e0e4b02d0ff72509f3/t/5b112e56f950b7d96785f3f4/1527852681536/The%2BNutrient%2BContent%2Bof%2BSA%2BLamb%2B%26%2BMutton%2BMeat.pdf",
+          "table": "Table 3.6",
+          "country": "South Africa",
+          "foodIdentity": "Cooked lean edible portion; subcutaneous fat removed; shoulder, loin and leg reported separately",
+          "sampleAndMethod": "18 lamb carcasses per age group; Dorper and Merino from three production regions; cuts cooked at 160 C to 70 C internal temperature. Minerals by ICP-OES; vitamins by specified AOAC/Wilmalasiri methods.",
+          "basis": "per 100 g cooked lean edible portion",
+          "candidateValues": {
+            "lamb_leg": {
+              "energy_kJ": 715,
+              "protein_g": 25.4,
+              "fat_g": 7.67,
+              "iron_mg": 3.12,
+              "magnesium_mg": 22.9,
+              "potassium_mg": 303,
+              "sodium_mg": 61.9,
+              "zinc_mg": 3.38,
+              "vitaminB1_mg": 0.14
+            }
+          },
+          "qualityNotes": [
+            "The source is South African and the animal breeds and production regions differ from an unspecified Iranian lamb product.",
+            "The leg cut was cooked by dry heat; shoulder used moist heat.",
+            "The source warns that iron, zinc and B-vitamin analytical methods may have been inconsistent and says values require scrutiny.",
+            "The lamb-leg macro profile (about 171 kcal, 25.4 g protein, 7.67 g fat per 100 g) differs substantially from GrowFit's current base macros (250 kcal, 26 g protein, 16 g fat).",
+            "The food-bank label does not specify cut, visible-fat removal level, or cooking method."
+          ],
+          "decision": "candidate-only-not-accepted",
+          "reason": "Useful as a transparent comparison source, but not a defensible exact match for the current GrowFit food definition."
+        }
+      ],
+      "nextEvidenceNeeded": "Define the cut, whether intermuscular fat is included, and the cooking method; then search a national composition table or laboratory study matching that definition."
+    },
+    {
+      "foodId": 24,
+      "foodName": "دوغ",
+      "growfitBasePer100g": {
+        "kcal": 28,
+        "protein_g": 1.8,
+        "carbohydrate_g": 2.5,
+        "fat_g": 1
+      },
+      "evidence": [
+        {
+          "sourceId": "DOOGH-SALT-2025",
+          "title": "Salt Contents in Fermented Dairy Products: A Strategic Blueprint for Healthier Intake",
+          "year": 2025,
+          "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC11733677/",
+          "country": "Iranian fermented dairy products",
+          "foodIdentity": "Doogh; six samples reported",
+          "basis": "sample salt and moisture; not a complete micronutrient panel",
+          "reportedValues": {
+            "salt_g_per_100g_mean": 1.04,
+            "salt_g_per_100g_SE": 0.04,
+            "moisture_g_per_100g_mean": 82.71,
+            "moisture_g_per_100g_SE": 4.92
+          },
+          "qualityNotes": [
+            "The study reports salt and moisture, not calcium, phosphorus, magnesium, zinc or vitamins.",
+            "Salt is not interchangeable with sodium in the GrowFit schema; no sodium conversion is made here."
+          ],
+          "decision": "characterization-only-not-micronutrient-match"
+        },
+        {
+          "sourceId": "DOOGH-CHEM-2021",
+          "title": "Microbial and Chemical Characteristics of Doogh (Iranian Fermented Milk Drink)",
+          "year": 2021,
+          "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC8709770/",
+          "country": "Iran",
+          "foodIdentity": "Commercial and traditional yoghurt drink samples; 148 samples in the survey",
+          "basis": "safety and salt-focused survey",
+          "reportedValues": {},
+          "qualityNotes": [
+            "The article explains that recipes vary in yoghurt, water and salt proportions.",
+            "Its main survey measures salt, preservatives and microbiological indicators; it does not provide the complete per-100g micronutrient profile required by GrowFit."
+          ],
+          "decision": "background-only"
+        },
+        {
+          "sourceId": "IRAN-FOOD-COMP-2017",
+          "title": "Iranian Food Composition Table",
+          "year": 2017,
+          "url": "https://www.fao.org/food-composition/tables-and-databases/detail/%28iran--2017%29-iranian-food-composition-table/en",
+          "country": "Iran",
+          "qualityNotes": [
+            "FAO identifies the National Nutrition and Food Technology Research Institute's 2017 Iranian Food Composition Table and points to EuroFIR FoodEXplorer.",
+            "The database is listed as restricted access; item-level Doogh records could not be independently retrieved in this review."
+          ],
+          "decision": "high-priority-source-to-consult-if-access-becomes-available"
+        }
+      ],
+      "nextEvidenceNeeded": "Obtain a directly accessible Iranian Food Composition Table record or a laboratory study measuring the same style of doogh and reporting nutrient values per 100 g or 100 mL."
+    },
+    {
+      "foodId": 27,
+      "foodName": "نان سنگک",
+      "evidence": [
+        {
+          "sourceId": "SANGAK-BARBARI-MINERALS-2012",
+          "title": "Dephytinisation of Sangak and Barbari bread made from different extraction rate flours increases iron and zinc bioaccessibility in Caco-2 cells",
+          "year": 2012,
+          "url": "https://academic.oup.com/ijfst/article/47/11/2252/7865861",
+          "country": "Iranian breads",
+          "foodIdentity": "Sangak prepared with 93% extraction-rate flour",
+          "basis": "reported as micrograms per gram; moisture basis not confirmed in the accessible record",
+          "reportedValues": {
+            "iron_ug_per_g": 37.6,
+            "zinc_ug_per_g": 19.4,
+            "manganese_ug_per_g": 27.5,
+            "copper_ug_per_g": 3.7
+          },
+          "qualityNotes": [
+            "The paper compares Sangak and Barbari and reports mineral and phytate values.",
+            "The indexed table does not establish a compatible wet-weight edible-portion basis for direct insertion into GrowFit.",
+            "Only four minerals are reported in the accessible table; this is not a complete micronutrient profile."
+          ],
+          "decision": "partial-research-evidence-not-importable-yet"
+        },
+        {
+          "sourceId": "IRAN-FLATBREAD-ZN-2005",
+          "title": "Determination of Zinc Contents in Iranian Flat Breads",
+          "year": 2005,
+          "url": "https://pjnonline.org/pjn/article/view/261",
+          "country": "Tehran, Iran",
+          "foodIdentity": "Sangak bread sampled from bakeries",
+          "sampleAndMethod": "36 flat-bread samples overall, collected in Tehran in 2004; zinc measured by flame atomic absorption spectrophotometry.",
+          "basis": "mg/kg; moisture basis not specified in the accessible abstract",
+          "reportedValues": {
+            "zinc_mg_per_kg_mean": 14.25,
+            "zinc_mg_per_kg_SD": 3.56
+          },
+          "qualityNotes": [
+            "The study is older and reports zinc only.",
+            "It does not provide a full nutrient panel or an explicit moisture basis."
+          ],
+          "decision": "supporting-evidence-only"
+        }
+      ],
+      "nextEvidenceNeeded": "Find a direct Sangak food-composition analysis that states wet-weight basis, moisture, sample count, flour extraction rate and a broader set of minerals/vitamins."
+    },
+    {
+      "foodId": 28,
+      "foodName": "نان بربری",
+      "evidence": [
+        {
+          "sourceId": "SANGAK-BARBARI-MINERALS-2012",
+          "title": "Dephytinisation of Sangak and Barbari bread made from different extraction rate flours increases iron and zinc bioaccessibility in Caco-2 cells",
+          "year": 2012,
+          "url": "https://academic.oup.com/ijfst/article/47/11/2252/7865861",
+          "country": "Iranian breads",
+          "foodIdentity": "Barbari prepared with 82% extraction-rate flour",
+          "basis": "reported as micrograms per gram; moisture basis not confirmed in the accessible record",
+          "reportedValues": {
+            "iron_ug_per_g": 17.5,
+            "zinc_ug_per_g": 8.8,
+            "manganese_ug_per_g": 8.0,
+            "copper_ug_per_g": 2.7
+          },
+          "qualityNotes": [
+            "Only four minerals are reported in the accessible table.",
+            "The paper describes extraction-rate flour differences and bioaccessibility; the values are not a complete per-100g wet-weight profile."
+          ],
+          "decision": "partial-research-evidence-not-importable-yet"
+        },
+        {
+          "sourceId": "ISFAHAN-FLATBREAD-ELEMENTS-2023",
+          "title": "Determination of metal(oids) in different traditional flat breads distributed in Isfahan city, Iran",
+          "year": 2023,
+          "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC10027551/",
+          "country": "Isfahan, Iran",
+          "foodIdentity": "Barbari; 31 bakery samples",
+          "sampleAndMethod": "Fresh daily-baked samples collected from 31 separate bakeries. Samples oven-dried at 50 C for 48 hours; mineralized by acid digestion; elements measured by ICP-OES and selected contaminants by AAS.",
+          "basis": "mg/kg dry weight",
+          "reportedValues": {
+            "iron_mg_per_kg_dry_mean": 24.91,
+            "iron_mg_per_kg_dry_SD": 4.65,
+            "magnesium_mg_per_kg_dry_mean": 326.65,
+            "magnesium_mg_per_kg_dry_SD": 20.45,
+            "sodium_mg_per_kg_dry_mean": 3267.78,
+            "sodium_mg_per_kg_dry_SD": 361.67,
+            "zinc_mg_per_kg_dry_mean": 19.02,
+            "zinc_mg_per_kg_dry_SD": 4.67
+          },
+          "qualityNotes": [
+            "The published basis is dry weight because samples were oven-dried before analysis.",
+            "These values cannot be converted to per-100g as-eaten bread without a matching moisture value.",
+            "The study also measures toxic elements; those are not nutritional fields and are excluded from this record.",
+            "The study notes that flour type, bran extraction, salt and bakery processes can change element levels."
+          ],
+          "decision": "dry-weight-evidence-only-not-importable-to-wet-weight-bank"
+        },
+        {
+          "sourceId": "IRAN-FLATBREAD-ZN-2005",
+          "title": "Determination of Zinc Contents in Iranian Flat Breads",
+          "year": 2005,
+          "url": "https://pjnonline.org/pjn/article/view/261",
+          "country": "Tehran, Iran",
+          "foodIdentity": "Barbari bread sampled from bakeries",
+          "sampleAndMethod": "36 flat-bread samples overall, collected in Tehran in 2004; zinc measured by flame atomic absorption spectrophotometry.",
+          "basis": "mg/kg; moisture basis not specified in the accessible abstract",
+          "reportedValues": {
+            "zinc_mg_per_kg_mean": 10.75,
+            "zinc_mg_per_kg_SD": 2.64
+          },
+          "decision": "supporting-evidence-only"
+        }
+      ],
+      "nextEvidenceNeeded": "A wet-weight Barbari analysis with moisture reported, or a defensible dry-matter-to-edible-weight conversion using moisture from the same sampled bread."
+    },
+    {
+      "foodId": 29,
+      "foodName": "نان لواش",
+      "evidence": [
+        {
+          "sourceId": "ISFAHAN-FLATBREAD-ELEMENTS-2023",
+          "title": "Determination of metal(oids) in different traditional flat breads distributed in Isfahan city, Iran",
+          "year": 2023,
+          "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC10027551/",
+          "country": "Isfahan, Iran",
+          "foodIdentity": "Lavash; 31 bakery samples",
+          "sampleAndMethod": "Fresh daily-baked samples collected from 31 separate bakeries. Samples oven-dried at 50 C for 48 hours; mineralized by acid digestion; elements measured by ICP-OES and selected contaminants by AAS.",
+          "basis": "mg/kg dry weight",
+          "reportedValues": {
+            "iron_mg_per_kg_dry_mean": 34.13,
+            "iron_mg_per_kg_dry_SD": 4.87,
+            "magnesium_mg_per_kg_dry_mean": 389.54,
+            "magnesium_mg_per_kg_dry_SD": 19.86,
+            "sodium_mg_per_kg_dry_mean": 3437.19,
+            "sodium_mg_per_kg_dry_SD": 207.64,
+            "zinc_mg_per_kg_dry_mean": 17.34,
+            "zinc_mg_per_kg_dry_SD": 4.36
+          },
+          "qualityNotes": [
+            "The published basis is dry weight because samples were oven-dried before analysis.",
+            "These values cannot be converted to per-100g as-eaten bread without a matching moisture value.",
+            "The study also measures toxic elements; those are not nutritional fields and are excluded from this record."
+          ],
+          "decision": "dry-weight-evidence-only-not-importable-to-wet-weight-bank"
+        },
+        {
+          "sourceId": "IRAN-FLATBREAD-ZN-2005",
+          "title": "Determination of Zinc Contents in Iranian Flat Breads",
+          "year": 2005,
+          "url": "https://pjnonline.org/pjn/article/view/261",
+          "country": "Tehran, Iran",
+          "foodIdentity": "Lavash bread sampled from bakeries",
+          "sampleAndMethod": "36 flat-bread samples overall, collected in Tehran in 2004; zinc measured by flame atomic absorption spectrophotometry.",
+          "basis": "mg/kg; moisture basis not specified in the accessible abstract",
+          "reportedValues": {
+            "zinc_mg_per_kg_mean": 12.17,
+            "zinc_mg_per_kg_SD": 1.91
+          },
+          "decision": "supporting-evidence-only"
+        }
+      ],
+      "nextEvidenceNeeded": "A wet-weight Lavash analysis with moisture reported, or a defensible dry-matter-to-edible-weight conversion using moisture from the same sampled bread."
+    }
+  ],
+  "crossFoodSources": [
+    {
+      "sourceId": "IRAN-FCT-2017-FAO",
+      "title": "Iranian Food Composition Table",
+      "year": 2017,
+      "url": "https://www.fao.org/food-composition/tables-and-databases/detail/%28iran--2017%29-iranian-food-composition-table/en",
+      "note": "FAO lists the National Nutrition and Food Technology Research Institute's 2017 table, but access is restricted through EuroFIR FoodEXplorer."
+    },
+    {
+      "sourceId": "FAO-INFOODS-MATCHING",
+      "title": "FAO/INFOODS Guidelines for Food Matching",
+      "url": "https://www.fao.org/fileadmin/templates/food_composition/documents/upload/INFOODSGuidelinesforFoodMatching_version_1_2.pdf",
+      "note": "Use the closest food identity and preparation-state match available, document the selected match, and record limitations when an exact match is unavailable."
+    }
+  ],
+  "overallConclusion": {
+    "acceptedFoodMatches": 0,
+    "foodsWithUsefulPartialEvidence": [6, 24, 27, 28, 29],
+    "foodBankAction": "none",
+    "reason": "The alternative sources improve the evidence trail, but none currently supplies a complete, directly comparable micronutrient panel on the food bank's required per-100g edible-portion basis for the exact food definition.",
+    "recommendedNextStep": "Review the evidence with the food-bank schema owner, then design nutrient-level provenance support before any non-USDA values are considered for import."
+  }
+}
