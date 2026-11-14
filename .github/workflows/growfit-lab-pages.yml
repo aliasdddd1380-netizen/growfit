@@ -33,14 +33,18 @@ jobs:
         uses: actions/configure-pages@v5
         with:
           enablement: true
-      - name: Validate nutrient enrichment script
-        run: python -m py_compile growfit-lab/tools/enrich-food-bank.py
+      - name: Validate nutrient tools
+        run: python -m py_compile growfit-lab/tools/enrich-food-bank.py growfit-lab/tools/validate-nutrient-evidence.py growfit-lab/tools/publish-approved-nutrient-evidence.py growfit-lab/tools/test-nutrient-evidence-validator.py growfit-lab/tools/test-enrichment-evidence-preservation.py growfit-lab/tools/test-publish-approved-nutrient-evidence.py
       - name: Validate inactive nutrient evidence package
         run: python growfit-lab/tools/validate-nutrient-evidence.py
       - name: Test nutrient evidence validator
         run: python growfit-lab/tools/test-nutrient-evidence-validator.py
       - name: Test USDA evidence preservation
         run: python growfit-lab/tools/test-enrichment-evidence-preservation.py
+      - name: Test approved evidence publishing
+        run: python growfit-lab/tools/test-publish-approved-nutrient-evidence.py
+      - name: Dry-run approved evidence publisher
+        run: python growfit-lab/tools/publish-approved-nutrient-evidence.py
       - name: Detect food-bank input changes
         id: bank_changes
         shell: bash
