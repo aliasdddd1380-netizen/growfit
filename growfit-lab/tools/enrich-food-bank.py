@@ -22,6 +22,9 @@ NUTRIENTS = {
     "magnesium": (1090, ["magnesium, mg"], "mg"),
     "zinc": (1095, ["zinc, zn"], "mg"),
     "sodium": (1093, ["sodium, na"], "mg"),
+    "phosphorus": (1091, ["phosphorus, p"], "mg"),
+    "selenium": (1103, ["selenium, se"], "µg"),
+    "copper": (1098, ["copper, cu"], "mg"),
     "vitaminA": (1106, ["vitamin a, rae"], "µg RAE"),
     "vitaminC": (1162, ["vitamin c, total ascorbic acid"], "mg"),
     "vitaminD": (1114, ["vitamin d (d2 + d3)", "vitamin d, d2 + d3"], "µg"),
@@ -215,6 +218,28 @@ def main():
             continue
         current = food.get("fdcMatch") or {}
         if current.get("status") == "accepted" and current.get("fdcId"):
+            existing_micro = food.get("micronutrientsPer100g") or {}
+            # Re-fetch approved FDC matches once to add newly supported minerals.
+            if any(key not in existing_micro for key in ("phosphorus", "selenium", "copper")):
+                try:
+                    detail = fetch_food_details(current["fdcId"])
+                    micro = extract_micro(detail)
+                    apply_usda_fields(food, {
+                        "status": "accepted",
+                        "fdcId": current["fdcId"],
+                        "description": current.get("description", detail.get("description", "")),
+                        "dataType": current.get("dataType", detail.get("dataType")),
+                        "confidence": current.get("confidence", 1.0),
+                        "source": "USDA FoodData Central",
+                        "mappingMethod": current.get("mappingMethod", "existing-approved-match")
+                    }, micro)
+                except (urllib.error.URLError, TimeoutError, json.JSONDecodeError, ValueError, KeyError) as exc:
+                    review["items"].append({
+                        "foodId": food["id"], "foodName": food["name"],
+                        "query": term["query"], "existingFdcId": current["fdcId"],
+                        "error": str(exc)
+                    })
+                time.sleep(0.12)
             accepted += 1
             continue
         try:
@@ -272,6 +297,7 @@ def main():
         else:
             food["micronutrientStatus"] = "pending-reference-mapping"
 
+    bank["nutrientUnits"] = {k: v[2] for k, v in NUTRIENTS.items()}
     bank["micronutrientSource"] = {
         "name": "USDA FoodData Central", "accessedBy": "GrowFit enrichment script",
         "nutrientsPer100g": {k: {"unit": v[2]} for k, v in NUTRIENTS.items()},
