@@ -88,6 +88,16 @@ class ApprovedEvidencePublisherTests(unittest.TestCase):
         self.assertEqual(plan, [])
         self.assertEqual(conflicts[0]["reason"], "existing-value-not-overwritten")
 
+    def test_reapplying_same_approved_evidence_is_idempotent(self):
+        bank = bank_fixture()
+        package = package_with_approved_value()
+        plan, _, _ = publisher.build_plan(package, bank)
+        publisher.apply_plan(bank, plan)
+        second_plan, rejected, conflicts = publisher.build_plan(package, bank)
+        self.assertEqual(second_plan, [])
+        self.assertEqual(rejected, [])
+        self.assertEqual(conflicts, [])
+
     def test_wrong_unit_is_rejected(self):
         package = package_with_approved_value()
         package["foods"][0]["nutrientEvidence"]["iron"][0]["standardUnit"] = "µg/100g"
