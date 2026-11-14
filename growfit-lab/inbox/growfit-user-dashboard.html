@@ -87,7 +87,7 @@ const WORKOUT_KEY='gf_lab_workout_sets';
 const STUDENT_KEY='growfit_student_v2';
 let water=0,toastTimer;
 function localDate(){const d=new Date();d.setMinutes(d.getMinutes()-d.getTimezoneOffset());return d.toISOString().slice(0,10)}
-function fa(v){return String(v).replace(/\\d/g,d=>'۰۱۲۳۴۵۶۷۸۹'[Number(d)])}
+function fa(v){return String(v).replace(/\d/g,d=>'۰۱۲۳۴۵۶۷۸۹'[Number(d)])}
 function notify(message){const el=document.getElementById('toast');el.textContent=message;el.classList.add('show');clearTimeout(toastTimer);toastTimer=setTimeout(()=>el.classList.remove('show'),2500)}
 function renderDashboard(){
  const today=localDate();
