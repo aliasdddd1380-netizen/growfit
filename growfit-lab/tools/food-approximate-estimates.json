@@ -1,0 +1,139 @@
+{
+  "schemaVersion": "1.0",
+  "title": "Approximate reference estimates for five unresolved GrowFit foods",
+  "generatedOn": "2026-11-14",
+  "status": "display-only-estimates",
+  "basis": "Values are approximate per 100 g edible portion unless otherwise stated. Null means no sufficiently defensible estimate was selected.",
+  "activation": {
+    "activeInFoodBank": false,
+    "activeInMealAggregation": false,
+    "usableByApprovedEvidencePublisher": false,
+    "reason": "Estimates and proxy foods are not equivalent to direct, analytically verified food-composition records."
+  },
+  "foods": [
+    {
+      "foodId": 6,
+      "name": "گوشت گوسفندی لخم (پخته)",
+      "approximateMicronutrientsPer100g": {
+        "fiber_g": 0,
+        "calcium_mg": 7,
+        "iron_mg": 1.7,
+        "potassium_mg": 340,
+        "magnesium_mg": 25,
+        "zinc_mg": 4.3,
+        "sodium_mg": 64,
+        "vitaminA_ugRAE": null,
+        "vitaminC_mg": 0,
+        "vitaminD_ug": 0.6,
+        "vitaminB12_ug": 2,
+        "folate_ug": 2
+      },
+      "confidence": "low-to-moderate",
+      "proxy": "Roasted lamb leg, lean and fat, UK composition proxy; not a direct match for GrowFit's 250 kcal / 26 g protein / 16 g fat record.",
+      "note": "Use only as a rough orientation. Lamb cut, fat trimming, cooking method and animal origin can materially change values.",
+      "sources": [
+        "https://patient.info/nutrition/foods/lamb-leg-whole-roasted-lean-and-fat"
+      ]
+    },
+    {
+      "foodId": 24,
+      "name": "دوغ",
+      "approximateMicronutrientsPer100g": {
+        "fiber_g": 0,
+        "calcium_mg": null,
+        "iron_mg": null,
+        "potassium_mg": null,
+        "magnesium_mg": null,
+        "zinc_mg": null,
+        "sodium_mg": 421,
+        "vitaminA_ugRAE": null,
+        "vitaminC_mg": null,
+        "vitaminD_ug": null,
+        "vitaminB12_ug": null,
+        "folate_ug": null
+      },
+      "confidence": "low",
+      "proxy": "Sodium value is a secondary-table lead only; the underlying Iranian food-table record/code was not identified.",
+      "note": "421 mg/100 g is not a verified universal Doogh value. Brand, dilution and added salt cause substantial variation; all other micronutrients remain null.",
+      "sources": [
+        "https://pmc.ncbi.nlm.nih.gov/articles/PMC10811537/"
+      ]
+    },
+    {
+      "foodId": 27,
+      "name": "نان سنگک",
+      "approximateMicronutrientsPer100g": {
+        "fiber_g": 4.1,
+        "calcium_mg": null,
+        "iron_mg": null,
+        "potassium_mg": 110,
+        "magnesium_mg": null,
+        "zinc_mg": null,
+        "sodium_mg": 663,
+        "vitaminA_ugRAE": null,
+        "vitaminC_mg": null,
+        "vitaminD_ug": null,
+        "vitaminB12_ug": null,
+        "folate_ug": null
+      },
+      "confidence": "low-to-moderate",
+      "proxy": "Iranian bread composition table for fiber; regional bread survey for sodium and potassium.",
+      "note": "Sodium is highly variable (regional survey mean 663 mg/100 g, SD 338); do not treat as a fixed recipe value.",
+      "sources": [
+        "https://pmc.ncbi.nlm.nih.gov/articles/PMC7695225/",
+        "https://doi.org/10.15171/ijer.2019.11"
+      ]
+    },
+    {
+      "foodId": 28,
+      "name": "نان بربری",
+      "approximateMicronutrientsPer100g": {
+        "fiber_g": 2.2,
+        "calcium_mg": null,
+        "iron_mg": null,
+        "potassium_mg": 112,
+        "magnesium_mg": null,
+        "zinc_mg": null,
+        "sodium_mg": 550,
+        "vitaminA_ugRAE": null,
+        "vitaminC_mg": null,
+        "vitaminD_ug": null,
+        "vitaminB12_ug": null,
+        "folate_ug": null
+      },
+      "confidence": "low-to-moderate",
+      "proxy": "Iranian bread composition table for fiber; regional bread survey for sodium and potassium.",
+      "note": "Sodium is highly variable (regional survey mean 550 mg/100 g, SD 588); sesame topping and bakery recipe can change composition.",
+      "sources": [
+        "https://pmc.ncbi.nlm.nih.gov/articles/PMC7695225/",
+        "https://doi.org/10.15171/ijer.2019.11"
+      ]
+    },
+    {
+      "foodId": 29,
+      "name": "نان لواش",
+      "approximateMicronutrientsPer100g": {
+        "fiber_g": 2.4,
+        "calcium_mg": null,
+        "iron_mg": null,
+        "potassium_mg": 103,
+        "magnesium_mg": null,
+        "zinc_mg": null,
+        "sodium_mg": 608,
+        "vitaminA_ugRAE": null,
+        "vitaminC_mg": null,
+        "vitaminD_ug": null,
+        "vitaminB12_ug": null,
+        "folate_ug": null
+      },
+      "confidence": "low-to-moderate",
+      "proxy": "Iranian bread composition table for fiber; regional bread survey for sodium and potassium.",
+      "note": "Sodium is highly variable (regional survey mean 608 mg/100 g, SD 441); thickness, recipe and bakery salt vary.",
+      "sources": [
+        "https://pmc.ncbi.nlm.nih.gov/articles/PMC7695225/",
+        "https://doi.org/10.15171/ijer.2019.11"
+      ]
+    }
+  ],
+  "policy": "These are rough reference estimates, not approved nutrient evidence. Missing values are intentionally null. Do not copy this file into micronutrientsPer100g or meal totals without a separate review and approval."
+}
