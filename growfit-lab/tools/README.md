@@ -47,15 +47,26 @@ Run locally from this directory:
 python validate-nutrient-evidence.py
 ```
 
-This is phase 1 only: it validates the separate sample package. It does not modify `growfit-food-bank.json`, `enrich-food-bank.py`, meal totals, or any user-facing page. Do not copy research-only values into production nutrition fields.
+The provenance package remains **inactive**: it is not a source for meal totals and is not read by the nutrition page. The USDA enrichment pipeline has a narrow preservation guard: when it updates USDA-owned fields (`fdcMatch`, `micronutrientsPer100g`, and units), it verifies that any existing `nutrientEvidence` object remains byte-for-byte equivalent as parsed JSON. Meal aggregation continues to read only the approved legacy `micronutrientsPer100g` fields and never derives values from research evidence.
 
-### Validator tests
+### Validation and regression tests
 
-Run the positive sample check and the negative test suite:
+Run the full local check from this directory:
 
 ```bash
+python -m py_compile enrich-food-bank.py validate-nutrient-evidence.py test-nutrient-evidence-validator.py test-enrichment-evidence-preservation.py
 python validate-nutrient-evidence.py
 python test-nutrient-evidence-validator.py
+python test-enrichment-evidence-preservation.py
 ```
 
-The test suite checks unresolved source IDs, duplicate evidence IDs, approval without a normalized value/unit, and dry-matter to edible-portion approval without a documented conversion. It uses in-memory copies only and does not edit the sample or food bank.
+The validator suite covers valid research-only data, unresolved source IDs, duplicate evidence IDs, incomplete approvals, and missing dry-matter conversion evidence. The enrichment regression suite covers preservation across USDA updates, repeated updates, foods without evidence, and the rule that research-only values do not enter meal aggregation. Both suites use in-memory fixtures and do not write to the food bank.
+
+The GitHub Pages workflow runs these checks. It also detects whether a push changed files under `growfit-lab/inbox/`; USDA enrichment and the bot commit are skipped for tools-only changes. This prevents editing documentation, schemas, or tests from unexpectedly rewriting the food bank. A manual workflow dispatch still explicitly runs the enrichment step.
+
+### Activation boundary
+
+- No evidence has been copied into `micronutrientsPer100g`.
+- No meal total is calculated from `nutrientEvidence`.
+- No food-bank record, nutrition page, or source project file was changed as part of this provenance implementation.
+- Phase 2 (selecting approved evidence and publishing normalized values) requires a separate explicit approval and its own tests.
