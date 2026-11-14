@@ -30,7 +30,7 @@ https://pmc.ncbi.nlm.nih.gov/articles/PMC10811537/
 
 The GrowFit Doogh record's macro profile (per 100g) is protein 1.8g, carbohydrate 2.5g and fat 1.0g. The 2023 paper's water value (93.8g/100g) is broadly compatible with a diluted yogurt drink, and its sodium value is a plausible candidate for the original Iranian table record. But source attribution and exact food definition remain unresolved.
 
-Decision: retain as research-only. The next evidence needed is the original 2018 Iranian Food Composition Table row/code for Doogh, including full macro and micronutrient fields, and a confirmation of whether it is plain, salted, carbonated, or a specific commercial formulation.
+Decision: retain as research-only. The next evidence needed is the original Iranian Food Composition Table (edition/year discrepancy: the 2023 article says 2018; FAO/EuroFIR catalogs the national table as 2017) row/code for Doogh, including full macro and micronutrient fields, and a confirmation of whether it is plain, salted, carbonated, or a specific commercial formulation.
 
 ## 2. Commercial Doogh salt — 2025 laboratory survey
 
@@ -80,7 +80,7 @@ Decision: keep as a bibliographic lead only; do not store its numerical salt res
 ## 5. Updated five-food status
 
 - Lamb (foodId 6): UK CoFID cooked leg entries help explain the fat-label discrepancy, but exact cut/trim remains unknown.
-- Doogh (foodId 24): 2018 Iranian FCT lead found; exact row and source attribution still needed.
+- Doogh (foodId 24): Iranian FCT (the article says 2018; FAO/EuroFIR catalogs the national table as 2017) lead found; exact row and source attribution still needed.
 - Sangak (foodId 27): Iranian FCT-derived proximate values and Tehran salt surveys found; dry-weight salt not convertible without matched moisture.
 - Barbari (foodId 28): same evidence classes; dry-weight salt not convertible without matched moisture.
 - Lavash (foodId 29): same evidence classes; dry-weight salt not convertible without matched moisture.
@@ -92,3 +92,15 @@ Decision: keep as a bibliographic lead only; do not store its numerical salt res
 - All evidence remains research-only.
 - Do not infer sodium from salt or normalize ambiguous units.
 - Obtain the original 2018 Iranian FCT record before considering Doogh sodium or other nutrients for publication.
+
+
+## Round 8 verification correction — national table edition and access
+
+A later authoritative catalog check found that FAO and EuroFIR list the National Nutrition and Food Technology Research Institute dataset as **Iranian Food Composition Table 2017**, with access marked restricted. The 2023 Zakerian et al. paper itself describes the table as published in 2018 and says nutrient facts were extracted from both the Iranian FCT and USDA. The difference between the paper's stated publication year and the FAO/EuroFIR catalog year is unresolved; preserve both statements rather than silently choosing one.
+
+The paper's 421 mg sodium/100g Doogh figure appears in a ranked summary table of foods with the highest sodium contribution, not as a reproduced complete Doogh record. The paper does not identify whether this individual value came from the Iranian FCT or USDA, nor provide the original food code. Therefore this remains a secondary research lead and is **not suitable for publishing as a Doogh value**.
+
+Sources:
+- FAO catalog: https://www.fao.org/food-composition/tables-and-databases/detail/%28iran--2017%29-iranian-food-composition-table/en
+- EuroFIR catalog: https://www.eurofir.org/food-information/food-composition-databases/
+- Zakerian et al. 2023 full text: https://pmc.ncbi.nlm.nih.gov/articles/PMC10811537/
