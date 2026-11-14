@@ -68,11 +68,11 @@ main{min-width:0}.topbar{display:flex;align-items:center;justify-content:space-b
   <div class="content-grid">
     <div>
       <section class="panel" id="workout"><div class="panel-head"><h3>🏋️ تمرین امروز</h3><a href="growfit-workout.html">مشاهده برنامه</a></div><div class="workout"><div class="workout-art">🏃</div><div class="workout-info"><small>برنامه قدرتی · جلسه ۳</small><h4>تمرین بالاتنه</h4><p>۶ حرکت &nbsp;•&nbsp; حدود ۴۵ دقیقه</p></div><button onclick="window.location.href='growfit-workout.html'">شروع تمرین ←</button></div></section>
-      <section class="panel" id="progress"><div class="panel-head"><h3>📈 وضعیت پیشرفت</h3><a href="growfit-analysis.html">گزارش کامل</a></div><div class="progress-wrap"><div class="ring"><div><strong>۷۲٪</strong><small>پیشرفت ماهانه</small></div></div><div class="progress-list"><div class="progress-row"><div class="progress-label"><span>تکمیل برنامه تمرینی</span><b>۸۵٪</b></div><div class="bar"><i style="width:85%"></i></div></div><div class="progress-row"><div class="progress-label"><span>پایبندی به تغذیه</span><b>۶۸٪</b></div><div class="bar"><i style="width:68%"></i></div></div><div class="progress-row"><div class="progress-label"><span>استمرار هفتگی</span><b>۷۵٪</b></div><div class="bar"><i style="width:75%"></i></div></div></div></div></section>
+      <section class="panel" id="progress"><div class="panel-head"><h3>📈 وضعیت پیشرفت</h3><a href="growfit-analysis.html">گزارش کامل</a></div><div class="progress-wrap"><div class="ring" id="dailyRing"><div><strong id="dailyOverall">۰٪</strong><small>پیشرفت امروز</small></div></div><div class="progress-list"><div class="progress-row"><div class="progress-label"><span>تکمیل برنامه تمرینی</span><b id="workoutPct">۰٪</b></div><div class="bar"><i id="workoutBar" style="width:0%"></i></div></div><div class="progress-row"><div class="progress-label"><span>پایبندی به تغذیه</span><b id="nutritionPct">۰٪</b></div><div class="bar"><i id="nutritionBar" style="width:0%"></i></div></div><div class="progress-row"><div class="progress-label"><span>هدف آب امروز</span><b id="waterPct">۰٪</b></div><div class="bar"><i id="waterProgressBar" style="width:0%"></i></div></div></div></div></section>
     </div>
     <div>
       <section class="panel" id="nutrition"><div class="panel-head"><h3>🥗 برنامه غذایی امروز</h3><a href="growfit-nutrition.html">جزئیات</a></div><div class="meals"><div class="meal"><div class="meal-emoji">🥣</div><div class="meal-info"><strong>صبحانه</strong><small>وعده ثبت‌شده</small></div><div class="meal-kcal">۴۲۰ کالری</div></div><div class="meal"><div class="meal-emoji">🍲</div><div class="meal-info"><strong>ناهار</strong><small>وعده ثبت‌شده</small></div><div class="meal-kcal">۵۸۰ کالری</div></div><div class="meal"><div class="meal-emoji">🍎</div><div class="meal-info"><strong>میان‌وعده</strong><small>پیشنهاد امروز</small></div><div class="meal-kcal">۱۸۰ کالری</div></div></div></section>
-      <section class="panel"><div class="panel-head"><h3>💧 آب مصرفی</h3><span style="font-size:10px;color:var(--muted)">هدف نمونه: ۸ لیوان</span></div><div class="water"><div class="water-icon">💧</div><div class="water-data"><strong id="waterCount">۵ <small style="font-size:11px;color:var(--muted)">/ ۸ لیوان</small></strong><small>امروز نوشیدی</small><div class="water-track"><i id="waterBar"></i></div></div><button onclick="addWater()">+ افزودن</button></div></section>
+      <section class="panel"><div class="panel-head"><h3>💧 آب مصرفی</h3><span style="font-size:10px;color:var(--muted)">هدف نمونه: ۸ لیوان</span></div><div class="water"><div class="water-icon">💧</div><div class="water-data"><strong id="waterCount">۰ <small style="font-size:11px;color:var(--muted)">/ ۸ لیوان</small></strong><small>امروز نوشیدی</small><div class="water-track"><i id="waterBar"></i></div></div><button onclick="addWater()">+ افزودن</button></div></section>
       <section class="panel" id="coach"><div class="panel-head"><h3>💬 مربی من</h3><a href="growfit-coach.html">همه پیام‌ها</a></div><div class="coach"><div class="coach-avatar">م</div><div class="coach-info"><strong>مربی شما</strong><small>آخرین بازدید: امروز</small></div><button class="message" onclick="window.location.href='growfit-coach.html'">پیام دادن</button></div></section>
     </div>
   </div>
@@ -82,9 +82,47 @@ main{min-width:0}.topbar{display:flex;align-items:center;justify-content:space-b
 <nav class="mobile-nav"><a class="active" href="growfit-user-dashboard.html"><span>⌂</span>خانه</a><a href="growfit-workout.html"><span>▤</span>تمرین</a><a href="growfit-nutrition.html"><span>◉</span>تغذیه</a><a href="growfit-analysis.html"><span>↗</span>آنالیز</a><a href="growfit-settings.html"><span>⚙</span>تنظیمات</a></nav>
 <div class="toast" id="toast"></div>
 <script>
-let water=5,timer;
-function notify(message){const el=document.getElementById('toast');el.textContent=message;el.classList.add('show');clearTimeout(timer);timer=setTimeout(()=>el.classList.remove('show'),2500)}
-function addWater(){if(water<8)water++;document.getElementById('waterCount').innerHTML=water+' <small style="font-size:11px;color:var(--muted)">/ ۸ لیوان</small>';document.getElementById('waterBar').style.width=(water/8*100)+'%';notify(water===8?'آفرین! هدف نمونه آب امروز کامل شد.':'یک لیوان آب ثبت شد')}
+const WATER_PREFIX='gf_lab_nutrition_water_';
+const WORKOUT_KEY='gf_lab_workout_sets';
+const STUDENT_KEY='growfit_student_v2';
+let water=0,toastTimer;
+function localDate(){const d=new Date();d.setMinutes(d.getMinutes()-d.getTimezoneOffset());return d.toISOString().slice(0,10)}
+function fa(v){return String(v).replace(/\\d/g,d=>'۰۱۲۳۴۵۶۷۸۹'[Number(d)])}
+function notify(message){const el=document.getElementById('toast');el.textContent=message;el.classList.add('show');clearTimeout(toastTimer);toastTimer=setTimeout(()=>el.classList.remove('show'),2500)}
+function renderDashboard(){
+ const today=localDate();
+ try{water=Math.max(0,Number(localStorage.getItem(WATER_PREFIX+today)||0))||0}catch(e){water=0}
+ const waterPct=Math.min(100,Math.round(water/8*100));
+ const waterCount=document.getElementById('waterCount');
+ waterCount.innerHTML=fa(water)+' <small style="font-size:11px;color:var(--muted)">/ ۸ لیوان</small>';
+ document.getElementById('waterBar').style.width=waterPct+'%';
+ document.getElementById('waterPct').textContent=fa(waterPct)+'٪';
+ document.getElementById('waterProgressBar').style.width=waterPct+'%';
+ let sets=[];try{const raw=JSON.parse(localStorage.getItem(WORKOUT_KEY)||'[]');if(Array.isArray(raw))sets=raw}catch(e){}
+ const workoutPct=sets.length?Math.round(sets.filter(Boolean).length/sets.length*100):0;
+ document.getElementById('workoutPct').textContent=fa(workoutPct)+'٪';
+ document.getElementById('workoutBar').style.width=workoutPct+'%';
+ let nutritionPct=0;
+ try{
+  const db=JSON.parse(localStorage.getItem(STUDENT_KEY)||'null');
+  const student=db&&db.student;
+  const meals=student&&student.diet&&Array.isArray(student.diet.meals)?student.diet.meals:[];
+  const record=student&&student.dietLog&&student.dietLog[today];
+  if(meals.length){const done=record&&record.m&&typeof record.m==='object'?record.m:{};nutritionPct=Math.round(meals.filter((m,i)=>!!done[i]).length/meals.length*100)}
+ }catch(e){}
+ document.getElementById('nutritionPct').textContent=fa(nutritionPct)+'٪';
+ document.getElementById('nutritionBar').style.width=nutritionPct+'%';
+ const overall=Math.round((workoutPct+nutritionPct)/2);
+ document.getElementById('dailyOverall').textContent=fa(overall)+'٪';
+ document.getElementById('dailyRing').style.background='conic-gradient(var(--lime) 0 '+overall+'%,#2b3427 '+overall+'% 100%)';
+}
+function addWater(){
+ if(water<8)water++;
+ try{localStorage.setItem(WATER_PREFIX+localDate(),String(water))}catch(e){}
+ renderDashboard();
+ notify(water===8?'هدف نمونه آب امروز کامل شد.':'یک لیوان آب ثبت شد');
+}
+renderDashboard();
 </script>
 </body>
 </html>
