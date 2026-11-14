@@ -113,9 +113,8 @@ class ApprovedEvidencePublisherTests(unittest.TestCase):
         package = package_with_approved_value()
         e = package["foods"][0]["nutrientEvidence"]["iron"][0]
         e["rawBasis"] = "per 100g dry matter"
-        plan, rejected, conflicts = publisher.build_plan(package, bank_fixture())
-        self.assertEqual(plan, [])
-        self.assertEqual(rejected[0]["reason"], "dry-matter-conversion-incomplete")
+        with self.assertRaisesRegex(ValueError, "dry-matter to edible-portion approval requires documented conversion"):
+            publisher.build_plan(package, bank_fixture())
 
     def test_usda_refresh_preserves_approved_alternative_value_when_missing(self):
         bank = bank_fixture()
