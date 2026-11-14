@@ -40,6 +40,8 @@ Files:
 - `nutrient-evidence.schema.json`: JSON Schema (Draft 2020-12) for source catalogues, foods, and per-nutrient evidence.
 - `nutrient-evidence.sample.json`: one research-only Sangak iron example; the reported value is preserved but its normalized value remains null because the moisture/portion basis is unresolved.
 - `validate-nutrient-evidence.py`: dependency-free Python validator for IDs, source references, nutrient names, review states, and approval requirements.
+- `publish-approved-nutrient-evidence.py`: gated promotion tool; dry-run by default, requires `--apply` to write and refuses unresolved records/conflicts.
+- `test-publish-approved-nutrient-evidence.py`: promotion, provenance, aggregation, collision, and USDA precedence regression tests.
 
 Run locally from this directory:
 
@@ -54,13 +56,15 @@ The provenance package remains **inactive**: it is not a source for meal totals 
 Run the full local check from this directory:
 
 ```bash
-python -m py_compile enrich-food-bank.py validate-nutrient-evidence.py test-nutrient-evidence-validator.py test-enrichment-evidence-preservation.py
+python -m py_compile enrich-food-bank.py validate-nutrient-evidence.py publish-approved-nutrient-evidence.py test-nutrient-evidence-validator.py test-enrichment-evidence-preservation.py test-publish-approved-nutrient-evidence.py
 python validate-nutrient-evidence.py
 python test-nutrient-evidence-validator.py
 python test-enrichment-evidence-preservation.py
+python test-publish-approved-nutrient-evidence.py
+python publish-approved-nutrient-evidence.py
 ```
 
-The validator suite covers valid research-only data, unresolved source IDs, duplicate evidence IDs, incomplete approvals, and missing dry-matter conversion evidence. The enrichment regression suite covers preservation across USDA updates, repeated updates, foods without evidence, and the rule that research-only and needs-review values do not enter meal aggregation. Both suites use in-memory fixtures and do not write to the food bank.
+The validator suite covers valid research-only data, unresolved source IDs, duplicate evidence IDs, incomplete approvals, and missing dry-matter conversion evidence. The enrichment regression suite covers preservation across USDA updates, repeated updates, foods without evidence, and the rule that research-only and needs-review values do not enter meal aggregation. The promotion suite covers research-only exclusion, approved-value publication, source attribution, meal aggregation, duplicate approvals, existing-value conflicts, unit/basis restrictions, estimated-data rejection, food identity, dry-matter conversion, and USDA precedence. Tests use in-memory fixtures and do not write to the food bank.
 
 The GitHub Pages workflow runs these checks. It also detects whether a push changed files under `growfit-lab/inbox/`; USDA enrichment and the bot commit are skipped for tools-only changes. This prevents editing documentation, schemas, or tests from unexpectedly rewriting the food bank. A manual workflow dispatch still explicitly runs the enrichment step.
 
@@ -69,4 +73,23 @@ The GitHub Pages workflow runs these checks. It also detects whether a push chan
 - No evidence has been copied into `micronutrientsPer100g`.
 - No meal total is calculated from `nutrientEvidence`.
 - No food-bank record, nutrition page, or source project file was changed as part of this provenance implementation.
-- Phase 2 (selecting approved evidence and publishing normalized values) requires a separate explicit approval and its own tests.
+- Phase 2 now has a gated publisher and tests. The default command is dry-run; writing requires an explicit `--apply`, and the tool refuses unresolved records, multiple approvals, and overwriting an existing nutrient value. No current sample value is approved, so the dry-run should publish zero values.
+
+
+### Controlled publication
+
+The publisher accepts only approved, source-backed, non-estimated records with canonical units, a per-100g edible-portion basis, raw basis/unit, food state, and analytical method. It verifies the source URL, food ID/name, and dry-matter conversion metadata. It refuses to overwrite any existing nutrient value; conflicts must be reviewed outside the tool. Published values retain their source/evidence metadata in `micronutrientProvenance`, and meal totals include only values with an accepted USDA match or an approved provenance record.
+
+Run a dry-run first:
+
+```bash
+python publish-approved-nutrient-evidence.py
+```
+
+Only after a separate scientific review, explicitly publish:
+
+```bash
+python publish-approved-nutrient-evidence.py --apply
+```
+
+The GitHub workflow runs tests and dry-run only. It never passes `--apply` automatically.
