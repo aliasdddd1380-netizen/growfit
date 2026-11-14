@@ -123,5 +123,8 @@ These research files are deliberately separate from the food bank and cannot be 
 
 - [Final five-food assessment](food-alternative-final-assessment.md) and [structured final assessment](food-alternative-final-assessment.json)
 
+- [Round 8 source-catalog verification correction](food-alternative-research-round6.md#round-8-verification-correction--national-table-edition-and-access)
+- [Final five-food assessment](food-alternative-final-assessment.md) and [structured final assessment](food-alternative-final-assessment.json)
+
 
 All alternative-source observations remain research-only unless independently reviewed, normalized to an explicit edible-portion basis, and separately approved. No round 4 values were published to the food bank.
