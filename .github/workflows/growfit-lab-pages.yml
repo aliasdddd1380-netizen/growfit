@@ -31,6 +31,8 @@ jobs:
         uses: actions/configure-pages@v5
         with:
           enablement: true
+      - name: Validate nutrient enrichment script
+        run: python -m py_compile growfit-lab/tools/enrich-food-bank.py
       - name: Enrich food bank with USDA micronutrients
         env:
           USDA_API_KEY: ${{ secrets.USDA_API_KEY }}
