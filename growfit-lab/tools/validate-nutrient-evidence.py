@@ -9,6 +9,7 @@ SCHEMA_PATH = ROOT / "nutrient-evidence.schema.json"
 DATA_PATH = ROOT / "nutrient-evidence.sample.json"
 NUTRIENTS = {
     "fiber", "calcium", "iron", "potassium", "magnesium", "zinc", "sodium",
+    "phosphorus", "selenium", "copper",
     "vitaminA", "vitaminC", "vitaminD", "vitaminB12", "folate"
 }
 STATUSES = {"research-only", "needs-review", "approved", "rejected"}
