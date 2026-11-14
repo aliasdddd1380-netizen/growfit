@@ -32,14 +32,21 @@ def package_with_approved_value():
 def bank_fixture(existing_iron=None):
     micro = {key: None for key in publisher.enrichment.NUTRIENTS}
     micro["iron"] = existing_iron
+    foods = [{
+        "id": index,
+        "name": f"fixture-{index}",
+        "micronutrientsPer100g": {key: None for key in publisher.enrichment.NUTRIENTS},
+        "fdcMatch": {"status": "review"},
+    } for index in range(27)]
+    foods.append({
+        "id": 27,
+        "name": "نان سنگک",
+        "micronutrientsPer100g": micro,
+        "micronutrientUnits": {key: value[2] for key, value in publisher.enrichment.NUTRIENTS.items()},
+        "fdcMatch": {"status": "review"},
+    })
     return {
-        "foods": [{
-            "id": 27,
-            "name": "نان سنگک",
-            "micronutrientsPer100g": micro,
-            "micronutrientUnits": {key: value[2] for key, value in publisher.enrichment.NUTRIENTS.items()},
-            "fdcMatch": {"status": "review"},
-        }],
+        "foods": foods,
         "meals": [{
             "id": 1,
             "ingredients": [{"foodId": 27, "grams": 100}],
@@ -108,7 +115,7 @@ class ApprovedEvidencePublisherTests(unittest.TestCase):
         e["rawBasis"] = "per 100g dry matter"
         plan, rejected, conflicts = publisher.build_plan(package, bank_fixture())
         self.assertEqual(plan, [])
-        self.assertEqual(rejected[0]["reason"], "dry-matter-to-edible-portion approval requires documented conversion" if False else "dry-matter-conversion-incomplete")
+        self.assertEqual(rejected[0]["reason"], "dry-matter-conversion-incomplete")
 
     def test_usda_refresh_preserves_approved_alternative_value_when_missing(self):
         bank = bank_fixture()
